@@ -1,5 +1,5 @@
-for now our project name is:
-# Hadasa - Rehabilitation App
+
+# Let's Talk
 
 ### Our Vision
 <img align = "right" src = "images/Hadasa%20-%20Logo.jpg"/>
