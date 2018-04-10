@@ -24,6 +24,7 @@ Please visit our [wiki](https://github.com/daviddr90/Hadasa-Rehabilitation/wiki)
 ### [Team Page](../../wiki/team)
 ### [Inception](../../wiki/inception)
 ### [SRS](../../wiki/srs)
+### [SDS](../../wiki/Software-Design-Specification)
 
 
 <!--## Please visit our [live application](https://demo.reactstarterkit.com/)
