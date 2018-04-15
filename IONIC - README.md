@@ -8,9 +8,11 @@ Open CMD (global scope) and run the command: `npm install -g cordova@latest`
 ## Ionic installation
 Open CMD (global scope) and run the command: `npm install -g ionic@latest`
 
+<!--
 ## Download node_modules
 https://f2h.io/83sic4iele82<id>
 (this is the fastest way. instead, you can open ionic project and save node_modules folder.)
+-->
 
 ## Sync with VS Code
 
@@ -18,10 +20,10 @@ https://f2h.io/83sic4iele82<id>
 - Clone the main project
     - Go to Settings icon (bottom-left) and click 'Command-Pallete...'
     - Write 'Git: Clone' and press enter
-    - Insert the URL: https://github.com/ChananM/AgudaJce.git and press enter
+    - Insert the URL: https://github.com/DavidDr90/Lets-Talk.git and press enter
     - Choose the location that you want to save the local project
-    - Import 'node_modules' folder to the local project from here: https://f2h.io/83sic4iele82 (extract to AgudaApp folder)
-    - For further info, send msg in whatsup/gitter
+  <!--  - Import 'node_modules' folder to the local project from here: https://f2h.io/83sic4iele82 (extract to AgudaApp folder)
+    - For further info, send msg in whatsup/gitter -->
 
 ## Development server and Build
 
