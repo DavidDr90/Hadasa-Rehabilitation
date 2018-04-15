@@ -1,14 +1,50 @@
 <ion-header>
   <ion-navbar>
+    <!-- user_name holds the looged in user from the google account -->
     <ion-title>
-      Ionic Blank
+      בוא נדבר! שלום {{user_name}}
     </ion-title>
+
+    <!-- refresh button in the end of the nav-bar -->
+    <ion-buttons end>
+      <button ion-button icon-only>
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
+
+  <!-- The toolbar for the different main pages -->
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button value="home">
+        דף הבית
+      </ion-segment-button>
+      <ion-segment-button value="category">
+        כל הקטגוריות
+      </ion-segment-button>
+      <ion-segment-button value="Phress">
+        כל הביטויים
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
 </ion-header>
 
+
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <!-- fab is the button in the corner of the screen -->
+  <!-- this button flot over the contnet and stay in his place on scrolling -->
+  <ion-fab bottom left>
+    <button ion-fab color="light">
+      <ion-icon name="add"></ion-icon>
+    </button>
+    <!-- list opened when press the button -->
+    <ion-fab-list side="top">
+      <button ion-fab>
+        <ion-icon name="text"></ion-icon>
+      </button>
+      <button ion-fab>
+        <ion-icon name="information-circle"></ion-icon>
+      </button>
+    </ion-fab-list>
+  </ion-fab>
 </ion-content>

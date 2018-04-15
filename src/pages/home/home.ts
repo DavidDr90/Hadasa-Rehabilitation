@@ -11,4 +11,13 @@ export class HomePage {
 
   }
 
+  user_name = "אורח";
+
+
+  // Should get the user name from the login process
+  get userName(){
+    // TODO:
+    // get the user name from the Google account.
+    return this.user_name;
+  }
 }
