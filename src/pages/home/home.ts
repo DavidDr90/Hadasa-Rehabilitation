@@ -13,7 +13,6 @@ export class HomePage {
 
   user_name = "אורח";
 
-
   // Should get the user name from the login process
   get userName(){
     // TODO:
