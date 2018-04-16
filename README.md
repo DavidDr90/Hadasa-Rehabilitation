@@ -26,6 +26,7 @@ Please visit our [wiki](https://github.com/daviddr90/Hadasa-Rehabilitation/wiki)
 ### [SRS](../../wiki/srs)
 ### [SDS](../../wiki/Software-Design-Specification)
 
+### To see our project board, follow this [link](https://github.com/DavidDr90/Lets-Talk/projects/1)
 
 <!--## Please visit our [live application](https://demo.reactstarterkit.com/)
 - Alright, currently only a landing page...-->
