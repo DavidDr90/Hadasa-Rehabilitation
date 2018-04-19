@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -9,26 +8,39 @@
 
 
 <ion-content padding>
+  <form [formGroup]="_myForm" (ngSubmit)="onSubmit()">
 
-  <form >
-    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" />
-    <div class="profile-image-wrapper">
+    <div class="profile-image-wrapper" (click)="getPicture()">
+      <!-- check the ngIf section -->
+      <!-- <div class="profile-image-placeholder" *ngIf="!this._myForm.controls.profilePic.value"> -->
       <div class="profile-image-placeholder">
         <ion-icon name="add"></ion-icon>
         <div>
-          הוספת תמונה
+          {{ 'ITEM_CREATE_CHOOSE_IMAGE' }}
         </div>
       </div>
-      <div class="profile-image" [style.backgroundImage]="getProfileImageStyle()" *ngIf="this.form.controls.profilePic.value"></div>
     </div>
-    <ion-list>
-      <ion-item>
-        <ion-input type="text" placeholder="{{ 'ITEM_NAME_PLACEHOLDER' }}" ></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-input type="text" placeholder="{{ 'ITEM_ABOUT_PLACEHOLDER' }}" ></ion-input>
-      </ion-item>
-    </ion-list>
-  </form>
 
+    <ion-item>
+      <ion-label>ביטוי</ion-label>
+      <ion-textarea formControlName="text"></ion-textarea>
+    </ion-item>
+    <ion-item>
+      <ion-label>קטגוריה</ion-label>
+      <ion-input type="text" formControlName="categoryID"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Image</ion-label>
+      <ion-input type="text" formControlName="imagePath"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label floating>Audio</ion-label>
+      <ion-input type="text" formControlName="audioFile"></ion-input>
+    </ion-item>
+
+    <!-- show the object that create from the inputs -->
+    <p>Form value: {{ _myForm.value | json }}</p>
+
+    <button ion-button type="submit" [disabled]="!_myForm.valid">Submit</button>
+  </form>
 </ion-content>

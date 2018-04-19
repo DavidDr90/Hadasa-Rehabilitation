@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
 import { MockTestPage } from '../pages/mock-test/mock-test';
 import { NativeAudio } from '@ionic-native/native-audio';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { NativeAudio } from '@ionic-native/native-audio';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    NativeAudio
+    NativeAudio,
+    Camera
   ]
 })
 export class AppModule {}
