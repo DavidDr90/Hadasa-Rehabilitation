@@ -4,6 +4,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
+//look in this link for more info abuot images
+//https://blog.ionicframework.com/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
+
 @IonicPage()
 @Component({
   selector: 'page-add-phrase',
@@ -34,17 +37,17 @@ export class AddPhrasePage {
 
   //check all the next functions
   getPicture() {
-    if (Camera['installed']()) {
+    if (Camera['installed']()) {//if there is a camera install in this device
       this._camera.getPicture({
         destinationType: this._camera.DestinationType.DATA_URL,
         targetWidth: 96,
         targetHeight: 96
       }).then((data) => {
-        this._myForm.patchValue({ 'profilePic': 'data:image/jpg;base64,' + data });
+        this._myForm.patchValue({ 'imagePath': 'data:image/jpg;base64,' + data });//insert the capture image path to the form 
       }, (err) => {
         alert('Unable to take photo');
       })
-    } else {
+    } else {//if there is NOT camera on this device go to the file maneger to look for an image
       // this.fileInput.nativeElement.click();
     }
   }
@@ -54,14 +57,14 @@ export class AddPhrasePage {
     reader.onload = (readerEvent) => {
 
       let imageData = (readerEvent.target as any).result;
-      this._myForm.patchValue({ 'profilePic': imageData });
+      this._myForm.patchValue({ 'imagePath': imageData });
     };
 
     reader.readAsDataURL(event.target.files[0]);
   }
 
   getProfileImageStyle() {
-    return 'url(' + this._myForm.controls['profilePic'].value + ')'
+    return 'url(' + this._myForm.controls['imagePath'].value + ')'
   }
 
   
