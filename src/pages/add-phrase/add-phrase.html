@@ -8,8 +8,9 @@
 
 
 <ion-content padding>
+  <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
   <form [formGroup]="_myForm" (ngSubmit)="onSubmit()">
-    <div class="profile-image-wrapper" (click)="getPicture()">
+    <div class="profile-image-wrapper" (click)="presentActionSheet()">
       <div class="profile-image-placeholder" *ngIf="!this._myForm.controls.imagePath.value">
         <ion-icon name="add"></ion-icon>
         <div>
