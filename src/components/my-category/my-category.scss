@@ -1,0 +1,22 @@
+my-category {
+    #category{
+        height: 100px;
+        width: 100%;
+        padding: 10px 10px 10px 10px;
+        border: 2px;
+        border-color: rgb(0, 75, 238);
+        border-radius: 2px;
+        border-style: ridge;
+    }
+
+    h1{
+        float: right;
+    }
+
+    img{
+        width: 80px;
+        height: 80px;
+        float: left;
+    }
+
+}
