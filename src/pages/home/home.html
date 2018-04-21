@@ -15,14 +15,14 @@
 
   <!-- The toolbar for the different main pages -->
   <ion-toolbar>
-    <ion-segment>
+    <ion-segment ng-model="menu" full="true" assertive>
       <ion-segment-button value="home">
         דף הבית
       </ion-segment-button>
       <ion-segment-button value="category">
         כל הקטגוריות
       </ion-segment-button>
-      <ion-segment-button value="Phress">
+      <ion-segment-button value="phrases">
         כל הביטויים
       </ion-segment-button>
     </ion-segment>
@@ -47,4 +47,8 @@
       </button>
     </ion-fab-list>
   </ion-fab>
+</ion-content>
+
+<ion-content>
+  <page-phrases></page-phrases>
 </ion-content>
