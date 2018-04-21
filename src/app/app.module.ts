@@ -28,7 +28,7 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     CategoriesPage,
     NothingPage,
     MyCategoryComponent,
-    AboutMePage
+    AboutMePage,
     PhrasesPage,
     PhraseComponent
   ],

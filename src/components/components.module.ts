@@ -12,5 +12,6 @@ import { PhraseComponent } from './phrase/phrase';
     MyCategoryComponent,
     PhraseComponent
   ]
+})
 
 export class ComponentsModule {}
