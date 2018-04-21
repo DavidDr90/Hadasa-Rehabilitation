@@ -7,9 +7,10 @@ import { AboutMePage } from '../about-me/about-me';
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage {
+export class HomePage {  
   categoriesPage = CategoriesPage;
   aboutMePage = AboutMePage;
+
 
   constructor(public navCtrl: NavController) {
 

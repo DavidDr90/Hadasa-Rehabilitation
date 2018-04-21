@@ -16,7 +16,7 @@
   <!-- The toolbar for the different main pages -->
   <ion-toolbar>
     <ion-segment>
-      <ion-segment-button value="home">
+      <ion-segment-button [navPush]="homePage" value="home">
         דף הבית
       </ion-segment-button>
       <ion-segment-button [navPush]="categoriesPage" value="category">
