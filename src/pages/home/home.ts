@@ -10,8 +10,6 @@ import { AboutMePage } from '../about-me/about-me';
 export class HomePage {  
   categoriesPage = CategoriesPage;
   aboutMePage = AboutMePage;
-
-
   constructor(public navCtrl: NavController) {
 
   }
