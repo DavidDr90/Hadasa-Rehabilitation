@@ -5,9 +5,17 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+
+//import pages
 import { HomePage } from '../pages/home/home';
+import { CategoriesPage } from '../pages/categories/categories';
+import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
+
+//import component
 import { PhraseComponent } from '../components/phrase/phrase';
+
+//import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
 
 
@@ -15,6 +23,8 @@ import { PhrasesProvider } from '../providers/phrases/phrases';
   declarations: [
     MyApp,
     HomePage,
+    CategoriesPage,
+    AboutMePage
     PhrasesPage,
     PhraseComponent
   ],
@@ -25,7 +35,9 @@ import { PhrasesProvider } from '../providers/phrases/phrases';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    CategoriesPage,
+    AboutMePage
   ],
   providers: [
     StatusBar,
