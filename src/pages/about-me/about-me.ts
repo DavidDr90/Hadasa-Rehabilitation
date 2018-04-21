@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { HomePage } from '../home/home';
+import { CategoriesPage } from '../categories/categories';
 
 /**
  * Generated class for the AboutMePage page.
@@ -14,7 +16,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'about-me.html',
 })
 export class AboutMePage {
-
+  homePage = HomePage;
+  categoriesPage = CategoriesPage;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

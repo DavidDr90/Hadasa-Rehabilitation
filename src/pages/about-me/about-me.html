@@ -9,6 +9,20 @@
   <ion-navbar>
     <ion-title>על עצמי</ion-title>
   </ion-navbar>
+  <!-- The toolbar for the different main pages -->
+  <ion-toolbar>
+    <ion-segment>
+      <ion-segment-button [navPush]="homePage" value="home">
+        דף הבית
+      </ion-segment-button>
+      <ion-segment-button [navPush]="categoriesPage" value="categories">
+        כל הקטגוריות
+      </ion-segment-button>
+      <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
+        על עצמי
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar> 
 
 </ion-header>
 
