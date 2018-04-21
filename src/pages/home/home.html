@@ -16,14 +16,16 @@
   <!-- The toolbar for the different main pages -->
   <ion-toolbar>
     <ion-segment>
-      <ion-segment-button value="home">
+      <ion-segment-button [navPush]="homePage" value="home">
+<!-- Or can you explaine this line? -->
+<!--     <ion-segment ng-model="menu" full="true" assertive> -->
         דף הבית
       </ion-segment-button>
-      <ion-segment-button value="category">
+      <ion-segment-button [navPush]="categoriesPage" value="categories">
         כל הקטגוריות
       </ion-segment-button>
-      <ion-segment-button value="Phress">
-        כל הביטויים
+      <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
+        על עצמי
       </ion-segment-button>
     </ion-segment>
   </ion-toolbar>
@@ -51,3 +53,4 @@
 <ion-content padding class = "categories">
   <page-categories></page-categories>
 </ion-content>
+

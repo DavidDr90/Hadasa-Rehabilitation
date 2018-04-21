@@ -3,14 +3,23 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import { MyCategoryComponent } from '../components/my-category/my-category';
 
 import { MyApp } from './app.component';
+
+//import pages
 import { HomePage } from '../pages/home/home';
-import { CategoryServiceProvider } from '../providers/category-service/category-service';
 import { CategoriesPage } from '../pages/categories/categories';
 import { NothingPage } from '../pages/nothing/nothing';
+import { AboutMePage } from '../pages/about-me/about-me';
+import { PhrasesPage } from '../pages/phrases/phrases';
 
+//import component
+import { PhraseComponent } from '../components/phrase/phrase';
+import { MyCategoryComponent } from '../components/my-category/my-category';
+
+//import services
+import { PhrasesProvider } from '../providers/phrases/phrases';
+import { CategoryServiceProvider } from '../providers/category-service/category-service';
 
 @NgModule({
   declarations: [
@@ -19,6 +28,9 @@ import { NothingPage } from '../pages/nothing/nothing';
     CategoriesPage,
     NothingPage,
     MyCategoryComponent,
+    AboutMePage
+    PhrasesPage,
+    PhraseComponent
   ],
   imports: [
     BrowserModule,
@@ -27,14 +39,17 @@ import { NothingPage } from '../pages/nothing/nothing';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    CategoriesPage,
+    AboutMePage
   ],
   providers: [
     CategoryServiceProvider,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    CategoryServiceProvider
+    CategoryServiceProvider,
+    PhrasesProvider
   ]
 })
 export class AppModule {}

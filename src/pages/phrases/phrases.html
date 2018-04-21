@@ -1,0 +1,17 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>
+      <h1>{{ phraseName }}</h1>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div *ngFor="let item of phrases">
+      <phrase [phrase] = 'item'></phrase>
+  </div>
+</ion-content>
