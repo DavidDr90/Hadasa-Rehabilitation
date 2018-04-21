@@ -6,11 +6,16 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { PhrasesPage } from '../pages/phrases/phrases';
+import { PhraseComponent } from '../components/phrase/phrase';
+
 
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    PhrasesPage,
+    PhraseComponent
   ],
   imports: [
     BrowserModule,
