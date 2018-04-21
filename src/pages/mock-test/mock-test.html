@@ -1,0 +1,29 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>בדיקת דמה</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-list>
+    <ion-card *ngFor= "let item of phr">
+      <img src = {{item.imagePath}}/>
+      <ion-card-content>
+        <ion-card-title>
+          {{item.text}}
+        </ion-card-title>
+        <ion-label>
+          קטגוריה: {{item.categoryID}}
+        </ion-label>
+        <p>
+          <button ion-button *ngIf="item.audioFile" (click)="playAudio(item.audioFile)">
+            השמעה
+          </button>
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </ion-list>
+</ion-content>

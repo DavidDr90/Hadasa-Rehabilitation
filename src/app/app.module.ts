@@ -6,8 +6,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 
+//native services
+import { NativeAudio } from '@ionic-native/native-audio';
+import { Camera } from '@ionic-native/camera';
+
 //import pages
 import { HomePage } from '../pages/home/home';
+import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
+import { MockTestPage } from '../pages/mock-test/mock-test';
 import { CategoriesPage } from '../pages/categories/categories';
 import { NothingPage } from '../pages/nothing/nothing';
 import { AboutMePage } from '../pages/about-me/about-me';
@@ -25,6 +31,8 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
   declarations: [
     MyApp,
     HomePage,
+    AddPhrasePage,
+    MockTestPage,
     CategoriesPage,
     NothingPage,
     MyCategoryComponent,
@@ -40,6 +48,8 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
   entryComponents: [
     MyApp,
     HomePage,
+    AddPhrasePage,
+    MockTestPage,
     CategoriesPage,
     AboutMePage
   ],
@@ -48,6 +58,8 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    NativeAudio,
+    Camera,
     CategoryServiceProvider,
     PhrasesProvider
   ]
