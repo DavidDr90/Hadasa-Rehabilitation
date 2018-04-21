@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {Phrase} from "../../models/Phrase"
+import { PhrasesProvider } from '../../providers/phrases/phrases';
 
 @IonicPage()
 @Component({
@@ -8,17 +8,12 @@ import {Phrase} from "../../models/Phrase"
   templateUrl: 'phrases.html'
 })
 export class PhrasesPage {
-  
-  phrases = [
-    new Phrase("השם שלי","../assets/imgs/name.png"),
-    new Phrase("הכתובת שלי","../assets/imgs/home.png"),
-    
-]
-  constructor(public navCtrl: NavController, public navParams: NavParams) {}
-
-  ionViewDidLoad() 
+  phraseName: string;
+  phrases;
+  constructor(public navCtrl: NavController, public navParams: NavParams, provider: PhrasesProvider) 
   {
-    console.log('ionViewDidLoad PhrasesPage');
+    this.phrases = provider.GetPhrases();
+    this.phraseName = provider.GetPhraseName();
   }
 
 }

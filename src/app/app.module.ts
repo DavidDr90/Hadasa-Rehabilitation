@@ -8,6 +8,7 @@ import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { PhrasesPage } from '../pages/phrases/phrases';
 import { PhraseComponent } from '../components/phrase/phrase';
+import { PhrasesProvider } from '../providers/phrases/phrases';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { PhraseComponent } from '../components/phrase/phrase';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PhrasesProvider
   ]
 })
 export class AppModule {}

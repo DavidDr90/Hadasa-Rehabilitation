@@ -15,7 +15,7 @@
 
   <!-- The toolbar for the different main pages -->
   <ion-toolbar>
-    <ion-segment>
+    <ion-segment ng-model="menu" full="true" assertive>
       <ion-segment-button value="home">
         דף הבית
       </ion-segment-button>
@@ -50,5 +50,5 @@
 </ion-content>
 
 <ion-content>
-  <page-phrases></page-phrases>  
+  <page-phrases></page-phrases>
 </ion-content>
