@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CategoryServiceProvider } from '../../providers/category-service/category-service';
+import { Client } from '../../models/Client';
 import { HomePage } from '../home/home';
 import { AboutMePage } from '../about-me/about-me';
 
@@ -16,14 +18,23 @@ import { AboutMePage } from '../about-me/about-me';
   templateUrl: 'categories.html',
 })
 export class CategoriesPage {
+
   homePage =HomePage;
   aboutMePage = AboutMePage;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  private client: Client;
+
+  constructor(public categoryService: CategoryServiceProvider,public navCtrl: NavController, public navParams: NavParams) {
+    categoryService.importCategories(this.client);
   }
+
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad CategoriesPage');
   }
+
+  public getClient(): Client{
+      return this.client;
+    }
 
 }

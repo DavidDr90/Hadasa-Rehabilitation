@@ -1,8 +1,16 @@
 import { NgModule } from '@angular/core';
+import { MyCategoryComponent } from './my-category/my-category';
 import { PhraseComponent } from './phrase/phrase';
+
 @NgModule({
-	declarations: [PhraseComponent],
+	declarations: [
+    MyCategoryComponent,
+    PhraseComponent
+  ],
 	imports: [],
-	exports: [PhraseComponent]
-})
+	exports: [
+    MyCategoryComponent,
+    PhraseComponent
+  ]
+
 export class ComponentsModule {}

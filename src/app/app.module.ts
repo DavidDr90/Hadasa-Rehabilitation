@@ -9,21 +9,25 @@ import { MyApp } from './app.component';
 //import pages
 import { HomePage } from '../pages/home/home';
 import { CategoriesPage } from '../pages/categories/categories';
+import { NothingPage } from '../pages/nothing/nothing';
 import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
 
 //import component
 import { PhraseComponent } from '../components/phrase/phrase';
+import { MyCategoryComponent } from '../components/my-category/my-category';
 
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
-
+import { CategoryServiceProvider } from '../providers/category-service/category-service';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     CategoriesPage,
+    NothingPage,
+    MyCategoryComponent,
     AboutMePage
     PhrasesPage,
     PhraseComponent
@@ -40,9 +44,11 @@ import { PhrasesProvider } from '../providers/phrases/phrases';
     AboutMePage
   ],
   providers: [
+    CategoryServiceProvider,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
+    CategoryServiceProvider,
     PhrasesProvider
   ]
 })
