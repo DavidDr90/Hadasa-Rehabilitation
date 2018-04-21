@@ -149,7 +149,7 @@ export class AddPhrasePage {
       this._myForm.patchValue({ 'imagePath': 'data:image/jpg;base64,' + data });//insert the capture image path to the form 
     }, (err) => {
       console.log(err);
-      alert('Unable to take photo');
+      //alert('Unable to take photo');
     })
 
   }

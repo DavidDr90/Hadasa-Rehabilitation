@@ -4,10 +4,9 @@ import { CategoryServiceProvider } from '../../providers/category-service/catego
 import { Client } from '../../models/Client';
 import { CategoriesPage } from '../categories/categories';
 //import { Page } 'ionic-angular';
-
-import { CategoriesPage } from '../categories/categories';
 import { AboutMePage } from '../about-me/about-me';
 import { PhrasesPage } from '../phrases/phrases';
+import { AddPhrasePage } from '../add-phrase/add-phrase';
 
 
 @Component({
@@ -19,14 +18,12 @@ import { PhrasesPage } from '../phrases/phrases';
 //   templateUrl: 'categories.html'
 // })
 
-export class HomePage {  
+export class HomePage {
+  homePage = HomePage;
   categoriesPage = CategoriesPage;
   aboutMePage = AboutMePage;  
-  categoriesPage = CategoriesPage;
-
-
-//   pages = PhrasesPage
-
+  addPhrasePage = AddPhrasePage;
+  
   constructor(public navCtrl: NavController) {
 
   }
@@ -39,4 +36,5 @@ export class HomePage {
     // get the user name from the Google account.
     return this.user_name;
   }
+
 }
