@@ -7,6 +7,7 @@ import { CategoriesPage } from '../categories/categories';
 import { AboutMePage } from '../about-me/about-me';
 import { PhrasesPage } from '../phrases/phrases';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
+import { MockTestPage } from '../mock-test/mock-test';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class HomePage {
   categoriesPage = CategoriesPage;
   aboutMePage = AboutMePage;  
   addPhrasePage = AddPhrasePage;
+  mockTestPage = MockTestPage;
   
   constructor(public navCtrl: NavController) {
 
