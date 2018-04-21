@@ -5,9 +5,19 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
+
+//import pages
 import { HomePage } from '../pages/home/home';
 import { CategoriesPage } from '../pages/categories/categories';
 import { AboutMePage } from '../pages/about-me/about-me';
+import { PhrasesPage } from '../pages/phrases/phrases';
+
+//import component
+import { PhraseComponent } from '../components/phrase/phrase';
+
+//import services
+import { PhrasesProvider } from '../providers/phrases/phrases';
+
 
 @NgModule({
   declarations: [
@@ -15,6 +25,8 @@ import { AboutMePage } from '../pages/about-me/about-me';
     HomePage,
     CategoriesPage,
     AboutMePage
+    PhrasesPage,
+    PhraseComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +42,8 @@ import { AboutMePage } from '../pages/about-me/about-me';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    PhrasesProvider
   ]
 })
 export class AppModule {}

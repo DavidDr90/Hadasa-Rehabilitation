@@ -17,6 +17,8 @@
   <ion-toolbar>
     <ion-segment>
       <ion-segment-button [navPush]="homePage" value="home">
+<!-- Or can you explaine this line? -->
+<!--     <ion-segment ng-model="menu" full="true" assertive> -->
         דף הבית
       </ion-segment-button>
       <ion-segment-button [navPush]="categoriesPage" value="categories">
@@ -47,4 +49,8 @@
       </button>
     </ion-fab-list>
   </ion-fab>
+</ion-content>
+
+<ion-content>
+  <page-phrases></page-phrases>
 </ion-content>
