@@ -27,8 +27,8 @@ https://f2h.io/83sic4iele82<id>
 
 ## Development server and Build
 
-- Debug mode: Navigate to AgudaApp folder in CMD and run `ionic serve`, the browser will open automaticlly. The app will automatically reload if you change any of the source files.
-- Production: Navigate to AgudaApp folder in CMD and run `ionic build --prod` (we should do it before uploading to fire base, or build android/ios product).
+- Debug mode: Navigate to Lets-Talk folder in CMD and run `ionic serve`, the browser will open automaticlly. The app will automatically reload if you change any of the source files.
+- Production: Navigate to Lets-Talk folder in CMD and run `ionic build --prod` (we should do it before uploading to fire base, or build android/ios product).
 - Output folder will be: 'www'
 - We will discuss later about create android/ios apk/ipa.
 
