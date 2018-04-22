@@ -29,10 +29,6 @@
       <ion-input type="text" formControlName="categoryID"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label floating>Image</ion-label>
-      <ion-input type="text" formControlName="imagePath"></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-label floating>Audio</ion-label>
       <ion-input type="text" formControlName="audioFile"></ion-input>
     </ion-item>
@@ -40,6 +36,10 @@
     <!-- show the object that create from the inputs -->
     <p>Form value: {{ _myForm.value | json }}</p>
 
-    <button ion-button type="submit" [disabled]="!_myForm.valid">Submit</button>
+    <button ion-button large full type="submit" [disabled]="!_myForm.valid">
+      <ion-icon name = "home" large></ion-icon>
+      אישור
+    </button>
+
   </form>
 </ion-content>

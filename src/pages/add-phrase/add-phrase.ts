@@ -4,9 +4,6 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
 
-//look in this link for more info abuot images
-//https://blog.ionicframework.com/ionic-native-accessing-ios-photos-and-android-gallery-part-i/
-
 enum ImageOptions {
   CAMERA = 1,
   GALLERY,
@@ -22,10 +19,6 @@ export class AddPhrasePage {
 
   @ViewChild('fileInput') fileInput;
 
-
-
-
-
   private _myForm: FormGroup;
 
   constructor(private _formBuilder: FormBuilder,
@@ -33,9 +26,7 @@ export class AddPhrasePage {
     private _actionSheetCtrl: ActionSheetController,
     private _viewCtrl: ViewController) {
 
-
     this._myForm = this._formBuilder.group({
-      //this should be an object like the phrase object
       "text": ['', Validators.required],//the phrase
       "categoryID": ['', Validators.required],//the associated category
       "imagePath": ['', Validators.required],//the path to the pharse's image
@@ -47,19 +38,23 @@ export class AddPhrasePage {
 
   }
 
+  /**When press the 'אישור' button send the new form object to the phrase class
+   * and then save the new phrase on the serve
+   */
   onSubmit() {
-    console.log(this._myForm.value);
     // use the form object to create new phares object and add it to the server
     if (!this._myForm.valid) { return; }
     this._viewCtrl.dismiss(this._myForm.value);//return the nw object
   }
 
-  //present Action Sheet when press the add button
-  //let the user choose from where to get the image
-  //the user have three options:
-  //  1. from the build in camera
-  //  2. from the device picture gallery
-  //  3. from google with an online seaech
+
+  /**present Action Sheet when press the add button
+   * let the user choose from where to get the image
+   * the user have three options:
+   * 1. from the build in camera
+   * 2. from the device picture gallery
+   * 3. from google with an online seaech
+   */
   presentActionSheet() {
     let actionSheet = this._actionSheetCtrl.create({
       title: 'בחר מקור לתמונה',
@@ -110,6 +105,7 @@ export class AddPhrasePage {
     switch (from) {
       case ImageOptions.CAMERA:
         if (Camera['installed']()) {//if there is a camera install in this device
+          console.log("camera install!");
           cameraOptions = {
             sourceType: this._camera.PictureSourceType.CAMERA,
             destinationType: this._camera.DestinationType.DATA_URL,
@@ -120,7 +116,7 @@ export class AddPhrasePage {
           }
           break;
         }
-        //if there is NOT a camera on this device
+      //if there is NOT a camera on this device
       case ImageOptions.GALLERY:
 
         // cameraOptions = {
@@ -146,10 +142,12 @@ export class AddPhrasePage {
 
 
     this._camera.getPicture(cameraOptions).then((data) => {
+      /* TODO:
+        use the google URL shorter to make the image url short before saving
+        */
       this._myForm.patchValue({ 'imagePath': 'data:image/jpg;base64,' + data });//insert the capture image path to the form 
     }, (err) => {
       console.log(err);
-      //alert('Unable to take photo');
     })
 
   }
