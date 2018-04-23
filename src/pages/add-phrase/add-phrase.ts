@@ -3,7 +3,6 @@ import { IonicPage, ActionSheetController, ViewController } from 'ionic-angular'
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 
-
 enum ImageOptions {
   CAMERA = 1,
   GALLERY,
@@ -20,7 +19,7 @@ export class AddPhrasePage {
   @ViewChild('fileInput') fileInput;
 
   private _myForm: FormGroup;
-
+  
   constructor(private _formBuilder: FormBuilder,
     private _camera: Camera,
     private _actionSheetCtrl: ActionSheetController,
