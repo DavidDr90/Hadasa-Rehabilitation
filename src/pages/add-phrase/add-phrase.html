@@ -22,7 +22,7 @@
 
     <ion-item>
       <ion-label>ביטוי</ion-label>
-      <ion-textarea formControlName="text"></ion-textarea>
+      <ion-input #textInput (click) = "getCaretPos(textInput)" (keyup)="getCaretPos(textInput)" formControlName="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>קטגוריה</ion-label>
@@ -39,6 +39,12 @@
     <button ion-button large full type="submit" [disabled]="!_myForm.valid">
       <ion-icon name="home" large></ion-icon>
       אישור
+    </button>
+
+    <!-- TODO: use ngFor to create the nikud buttons -->
+    <!-- use the formbuilder to create the button dynamicly on user damend -->
+    <button ion-button large (click) = "addNikudToText(qamatz)" >
+      {{ qamatz }}
     </button>
 
   </form>

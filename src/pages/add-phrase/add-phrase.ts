@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, ActionSheetController, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import * as Enums from '../../consts/enums';
+import { HTTP } from '@ionic-native/http';
 
 enum ImageOptions {
   CAMERA = 1,
@@ -15,11 +17,12 @@ enum ImageOptions {
   templateUrl: 'add-phrase.html',
 })
 export class AddPhrasePage {
-
   @ViewChild('fileInput') fileInput;
 
   private _myForm: FormGroup;
-  
+
+  qamatz = "\u05B8";
+
   constructor(private _formBuilder: FormBuilder,
     private _camera: Camera,
     private _actionSheetCtrl: ActionSheetController,
@@ -174,4 +177,16 @@ export class AddPhrasePage {
   }
 
 
+
+  /**this function tack the input text from the 'text' input and add to it the proper 'nikud'
+   * TODO: for now the nikud add on the last char that was added
+        * we need to get the curser place and add the nikud where the curser is
+        * to do so we need to us the input text box selectionStart property
+   * @param nikud the nikud symbol on the clicked button 
+   */
+  addNikudToText(nikud: string) {
+    let temp = this._myForm.controls['text'].value;//get the input value
+    temp += nikud;//add the nikud symbol
+    this._myForm.controls['text'].setValue(temp);//insert the new value to the input box
+  }
 }

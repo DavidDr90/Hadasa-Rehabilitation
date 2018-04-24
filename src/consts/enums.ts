@@ -1,7 +1,7 @@
 /**
  * Enum class to hold all the API's keys for outside providers
  * to use this enums in any class use the following:
- * import * as Enums from './somedirectory/enums/enums';
+ * import * as Enums from '../../consts/enums';
     ...
     constructor() {
         console.log(Enums.APIURL.GOOGLE_URL_...);

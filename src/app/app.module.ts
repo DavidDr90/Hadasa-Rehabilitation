@@ -27,6 +27,8 @@ import { MyCategoryComponent } from '../components/my-category/my-category';
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 
+import { HTTP } from '@ionic-native/http';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -61,7 +63,8 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     NativeAudio,
     Camera,
     CategoryServiceProvider,
-    PhrasesProvider
+    PhrasesProvider,
+    HTTP
   ]
 })
 export class AppModule {}

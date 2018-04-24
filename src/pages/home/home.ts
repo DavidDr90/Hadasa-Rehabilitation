@@ -1,9 +1,7 @@
 import { Component, Input, Output } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Client } from '../../models/Client';
 import { CategoriesPage } from '../categories/categories';
-//import { Page } 'ionic-angular';
 import { AboutMePage } from '../about-me/about-me';
 import { PhrasesPage } from '../phrases/phrases';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
