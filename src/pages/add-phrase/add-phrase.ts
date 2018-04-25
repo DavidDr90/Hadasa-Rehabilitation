@@ -1,9 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, ActionSheetController, ViewController } from 'ionic-angular';
+import { IonicPage, ActionSheetController, ViewController, Platform } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
 import { HTTP } from '@ionic-native/http';
+import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
+import { AlertController } from 'ionic-angular';
+import { Media, MediaObject } from '@ionic-native/media';
 
 enum ImageOptions {
   CAMERA = 1,
@@ -21,12 +24,18 @@ export class AddPhrasePage {
 
   private _myForm: FormGroup;
 
-  qamatz = "\u05B8";
+  private _nikudArray = Enums.NIKUD;
+
+  private fileName: string;
+
 
   constructor(private _formBuilder: FormBuilder,
     private _camera: Camera,
     private _actionSheetCtrl: ActionSheetController,
-    private _viewCtrl: ViewController) {
+    private _viewCtrl: ViewController,
+    private _mediaCapture: MediaCapture,
+    private _alertCtrl: AlertController,
+    private _media: Media) {
 
     this._myForm = this._formBuilder.group({
       "text": ['', Validators.required],//the phrase
@@ -40,6 +49,10 @@ export class AddPhrasePage {
 
   }
 
+  public get getNikud() {
+    return this._nikudArray;
+  }
+
   /**When press the 'אישור' button send the new form object to the phrase class
    * and then save the new phrase on the serve
    */
@@ -50,6 +63,7 @@ export class AddPhrasePage {
   }
 
 
+  // The following is the image handler functions
   /**present Action Sheet when press the add button
    * let the user choose from where to get the image
    * the user have three options:
@@ -98,7 +112,6 @@ export class AddPhrasePage {
 
     actionSheet.present();
   }
-
 
   //check all the next functions
   getPicture(from: any) {
@@ -169,6 +182,32 @@ export class AddPhrasePage {
     return 'url(' + this._myForm.controls['imagePath'].value + ')'
   }
 
+  //Voice Recorder
+  startRecorder() {
+    console.log("record");
+
+    this._mediaCapture.captureAudio()
+      .then(
+        (data: MediaFile[]) =>
+          this._myForm.patchValue({ 'audioFile': 'data:audio/mp3;' + data })//insert the capture image path to the form 
+        ,
+    (err: CaptureError) =>
+    this.showAlert("לא הצלחנו להקליט...", err)
+      );
+
+
+  }
+
+  showAlert(fromWhere: string, message: any) {
+    let alert = this._alertCtrl.create({
+      title: fromWhere,
+      subTitle: message,
+      buttons: ['אישור']
+    });
+    alert.present();
+  }
+
+
   /**
    * The user cancelled, so we dismiss without sending data back.
    */
@@ -177,6 +216,7 @@ export class AddPhrasePage {
   }
 
 
+  private _curserPosition;
 
   /**this function tack the input text from the 'text' input and add to it the proper 'nikud'
    * TODO: for now the nikud add on the last char that was added
@@ -185,8 +225,18 @@ export class AddPhrasePage {
    * @param nikud the nikud symbol on the clicked button 
    */
   addNikudToText(nikud: string) {
-    let temp = this._myForm.controls['text'].value;//get the input value
-    temp += nikud;//add the nikud symbol
+    let temp:string;
+    temp = this._myForm.controls['text'].value;//get the input value
+    // temp.slice(this._curserPosition, 0, nikud);//add the nikud symbol
+
+    // temp = temp.insert(this._curserPosition, nikud);
+
     this._myForm.controls['text'].setValue(temp);//insert the new value to the input box
   }
+
+  //get the curser position
+  getCaretPos(e){
+    this._curserPosition = e.target.selectionStart;//save the curser place in the text
+  }
+
 }

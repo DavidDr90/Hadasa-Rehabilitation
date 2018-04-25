@@ -9,6 +9,9 @@ import { MyApp } from './app.component';
 //native services
 import { NativeAudio } from '@ionic-native/native-audio';
 import { Camera } from '@ionic-native/camera';
+import { MediaCapture } from '@ionic-native/media-capture';
+import { File } from '@ionic-native/file';
+
 
 //import pages
 import { HomePage } from '../pages/home/home';
@@ -28,6 +31,7 @@ import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 
 import { HTTP } from '@ionic-native/http';
+import { Media } from '@ionic-native/media';
 
 @NgModule({
   declarations: [
@@ -59,12 +63,14 @@ import { HTTP } from '@ionic-native/http';
     CategoryServiceProvider,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     NativeAudio,
     Camera,
     CategoryServiceProvider,
     PhrasesProvider,
-    HTTP
+    HTTP,
+    MediaCapture,
+    Media
   ]
 })
-export class AppModule {}
+export class AppModule { }

@@ -9,13 +9,13 @@
  */
 
 
-export const enum API_KEYS{
+export const enum API_KEYS {
     /** API key for google URL Shorter, can be use in the image and audio urls
         guide how to use this API:
         https://developers.google.com/url-shortener/v1/getting_started
     */
-    GOOGLE_URL_SHORTER_API_KEY = "AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng",
-    
+    // GOOGLE_URL_SHORTER_API_KEY = "AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng", //David's API
+    GOOGLE_URL_SHORTER_API_KEY = "AIzaSyA4mcNEnU-m9VPah1N9U7bH9Oki90FTHOE",
     /**
      * To enter the TTS system follow and sgin-in in this link:
      * https://ttsapi.almagu.com/Account/Login?ReturnUrl=%2F
@@ -42,6 +42,23 @@ export const enum API_KEYS{
  * and this pdf file:
  * https://www.unicode.org/charts/PDF/U0590.pdf
  */
+export const NIKUD = [
+    { "name": "QAMATZ", "uniCode": "\u05B8" },
+    { "name": "SHEVA", "uniCode": "\u05B0" },
+    { "name": "DAGESH", "uniCode": "\u05BC" },
+    { "name": "PATAH", "uniCode": "\u05B7" },
+    { "name": "SEGOL", "uniCode": "\u05B6" },
+    { "name": "HATAF_PATAH", "uniCode": "\u05B2" },
+    { "name": "SHIN", "uniCode": "\u05C1" },
+    { "name": "SIN", "uniCode": "\u05C2" },
+    { "name": "TSERE", "uniCode": "\u05B5" },
+    { "name": "HOLAM", "uniCode": "\u05B9" },
+    { "name": "HIRIQ", "uniCode": "\u05B4" },
+    { "name": "QUBUTS", "uniCode": "\u05BB" }
+];
+
+
+/* Enum Defintinon
 export const enum NIKUD{
     QAMATZ = "\u05B8",
     SHEVA = "\u05B0",
@@ -55,4 +72,4 @@ export const enum NIKUD{
     HOLAM = "\u05B9",
     HIRIQ = "\u05B4",
     QUBUTS = "\u05BB"
-}
+}*/

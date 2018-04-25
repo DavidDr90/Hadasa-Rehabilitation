@@ -22,7 +22,7 @@
 
     <ion-item>
       <ion-label>ביטוי</ion-label>
-      <ion-input #textInput (click) = "getCaretPos(textInput)" (keyup)="getCaretPos(textInput)" formControlName="text"></ion-input>
+      <ion-input #textInput (keyup) = "getCaretPos($event)" formControlName="text"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label>קטגוריה</ion-label>
@@ -41,10 +41,13 @@
       אישור
     </button>
 
-    <!-- TODO: use ngFor to create the nikud buttons -->
-    <!-- use the formbuilder to create the button dynamicly on user damend -->
-    <button ion-button large (click) = "addNikudToText(qamatz)" >
-      {{ qamatz }}
+    <!-- TODO: use the formbuilder to create the button dynamicly on user damend -->
+    <button ion-button (click)="addNikudToText(nikud.uniCode)" *ngFor="let nikud of getNikud">
+      {{ nikud.uniCode }}
+    </button>
+
+    <button ion-button (click)= "startRecorder()">
+      הקלטה
     </button>
 
   </form>
