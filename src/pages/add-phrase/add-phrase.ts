@@ -1,12 +1,17 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, ActionSheetController, ViewController, Platform } from 'ionic-angular';
+import { IonicPage, ActionSheetController, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
 import { HTTP } from '@ionic-native/http';
 import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
 import { AlertController } from 'ionic-angular';
+
+//for the recorder functions
+import { NavController, Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
+import { File } from '@ionic-native/file';
+
 
 enum ImageOptions {
   CAMERA = 1,
@@ -23,19 +28,27 @@ export class AddPhrasePage {
   @ViewChild('fileInput') fileInput;
 
   private _myForm: FormGroup;
-
+  private _curserPosition;
   private _nikudArray = Enums.NIKUD;
+  private _needNikud = false;
 
-  private fileName: string;
-
+  //varibales for the record
+  recording: boolean = false;
+  filePath: string;
+  fileName: string;
+  audio: MediaObject;
+  audioList: any[] = [];
 
   constructor(private _formBuilder: FormBuilder,
     private _camera: Camera,
     private _actionSheetCtrl: ActionSheetController,
     private _viewCtrl: ViewController,
-    private _mediaCapture: MediaCapture,
+    // private _mediaCapture: MediaCapture,
     private _alertCtrl: AlertController,
-    private _media: Media) {
+    // private _media: Media,
+    private media: Media,
+    private file: File,
+    public platform: Platform) {
 
     this._myForm = this._formBuilder.group({
       "text": ['', Validators.required],//the phrase
@@ -52,6 +65,16 @@ export class AddPhrasePage {
   public get getNikud() {
     return this._nikudArray;
   }
+
+  updateNeedNikud(){
+    alert(this._needNikud);
+    this._needNikud = !this._needNikud;
+  }
+  
+  public get getNeedNikud() : boolean {
+    return this._needNikud;
+  }
+  
 
   /**When press the 'אישור' button send the new form object to the phrase class
    * and then save the new phrase on the serve
@@ -182,25 +205,67 @@ export class AddPhrasePage {
     return 'url(' + this._myForm.controls['imagePath'].value + ')'
   }
 
-  //Voice Recorder
-  startRecorder() {
-    console.log("record");
-
-    this._mediaCapture.captureAudio()
-      .then(
-        (data: MediaFile[]) =>
-          this._myForm.patchValue({ 'audioFile': 'data:audio/mp3;' + data })//insert the capture image path to the form 
-        ,
-    (err: CaptureError) =>
-    this.showAlert("לא הצלחנו להקליט...", err)
-      );
-
-
+  ionViewWillEnter(){
+    this.getAudioList();//display the audio file list
   }
 
-  showAlert(fromWhere: string, message: any) {
+
+  /*  all the record function should be tested in on an android or iOS emulator or device */
+
+  //return the audio files list from the loacl storage
+  getAudioList() {
+    if(localStorage.getItem("audiolist")) {
+      this.audioList = JSON.parse(localStorage.getItem("audiolist"));
+      console.log(this.audioList);
+    }
+  }
+
+  //start the record
+  startRecord() {
+    if (this.platform.is('ios')) {
+      this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
+      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.audio = this.media.create(this.filePath);
+    } else if (this.platform.is('android')) {
+      this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
+      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.audio = this.media.create(this.filePath);
+    }
+    this.audio.startRecord();
+    this.recording = true;
+  }
+
+  //stop the record and save the audio file on local storage
+  stopRecord() {
+    this.audio.stopRecord();
+    let data = { filename: this.fileName };
+    this.audioList.push(data);
+    localStorage.setItem("audiolist", JSON.stringify(this.audioList));
+    this.recording = false;
+    this.getAudioList();
+  }
+
+  //play the input audio file
+  playAudio(file) {
+    if (this.platform.is('ios')) {
+      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.filePath);
+    } else if (this.platform.is('android')) {
+      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.filePath);
+    }
+    this.audio.play();
+    this.audio.setVolume(0.8);
+  }
+
+
+  /** display and alert on the screen with the input valuse
+   * @param headLine the head line for the alert display
+   * @param message the message that will display
+   */
+  showAlert(headLine: string, message: string) {
     let alert = this._alertCtrl.create({
-      title: fromWhere,
+      title: headLine,
       subTitle: message,
       buttons: ['אישור']
     });
@@ -216,26 +281,26 @@ export class AddPhrasePage {
   }
 
 
-  private _curserPosition;
-
   /**this function tack the input text from the 'text' input and add to it the proper 'nikud'
-   * TODO: for now the nikud add on the last char that was added
-        * we need to get the curser place and add the nikud where the curser is
-        * to do so we need to us the input text box selectionStart property
    * @param nikud the nikud symbol on the clicked button 
    */
   addNikudToText(nikud: string) {
-    let temp:string;
+    let temp: string;
+    let str = "";
     temp = this._myForm.controls['text'].value;//get the input value
-    // temp.slice(this._curserPosition, 0, nikud);//add the nikud symbol
+    
+    //insert the nikud in the right position
+    str += temp.substring(0, this._curserPosition);
+    str += nikud;
+    str += temp.substring(this._curserPosition, temp.length);
 
-    // temp = temp.insert(this._curserPosition, nikud);
-
-    this._myForm.controls['text'].setValue(temp);//insert the new value to the input box
+    this._myForm.controls['text'].setValue(str);//insert the new value to the input box
   }
 
-  //get the curser position
-  getCaretPos(e){
+  /**get the curser position
+   * @param e the event from the html DOM
+   */
+  getCaretPos(e) {
     this._curserPosition = e.target.selectionStart;//save the curser place in the text
   }
 

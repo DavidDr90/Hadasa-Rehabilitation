@@ -1,11 +1,8 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>הוספת ביטוי</ion-title>
   </ion-navbar>
-
 </ion-header>
-
 
 <ion-content padding>
   <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
@@ -14,7 +11,6 @@
       <div class="profile-image-placeholder" *ngIf="!this._myForm.controls.imagePath.value">
         <ion-icon name="add"></ion-icon>
         <div>
-          <!-- {{ 'ITEM_CREATE_CHOOSE_IMAGE' }} -->
           הוספת תמונה
         </div>
       </div>
@@ -22,8 +18,22 @@
 
     <ion-item>
       <ion-label>ביטוי</ion-label>
-      <ion-input #textInput (keyup) = "getCaretPos($event)" formControlName="text"></ion-input>
+      <ion-input #textInput (click)="getCaretPos($event)" (keyup)="getCaretPos($event)" formControlName="text"></ion-input>
     </ion-item>
+
+    <input type="checkbox" [checked]="needNikud" (change)="needNikud = !needNikud">Chekc me!
+
+    <!-- <ion-item>
+      <ion-label>הצג כפתורי ניקוד</ion-label>
+      <ion-checkbox [(ngModel)]="cucumber" (ionChange)="updateNeedNikud()"></ion-checkbox>
+    </ion-item> -->
+
+    <div *ngIf="needNikud">
+      <button ion-button (click)="addNikudToText(nikud.uniCode)" *ngFor="let nikud of getNikud">
+        {{ nikud.uniCode }}
+      </button>
+    </div>
+
     <ion-item>
       <ion-label>קטגוריה</ion-label>
       <ion-input type="text" formControlName="categoryID"></ion-input>
@@ -41,14 +51,36 @@
       אישור
     </button>
 
-    <!-- TODO: use the formbuilder to create the button dynamicly on user damend -->
-    <button ion-button (click)="addNikudToText(nikud.uniCode)" *ngFor="let nikud of getNikud">
-      {{ nikud.uniCode }}
-    </button>
 
-    <button ion-button (click)= "startRecorder()">
+
+    <button ion-button (click)="startRecorder()">
       הקלטה
     </button>
 
   </form>
 </ion-content>
+
+<!-- <ion-header>
+  <ion-navbar>
+    <ion-title>
+      Sound Recorder & Player
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+    <ion-card-content>
+      <ion-card-title>
+        <button ion-button primary (click)="stopRecord()" *ngIf="recording"><ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;Stop Record</button>
+        <button ion-button primary (click)="startRecord()" *ngIf="!recording"><ion-icon name="mic"></ion-icon>&nbsp;&nbsp;Start Record</button>
+      </ion-card-title>
+    </ion-card-content>
+  </ion-card>
+  <ion-list>
+    <ion-item *ngFor="let audio of audioList; index as i;">
+      <p>{{audio.filename}}</p>
+      <button ion-button clear item-end large (click)="playAudio(audio.filename, i)"><ion-icon name="play"></ion-icon></button>
+    </ion-item>
+  </ion-list>
+</ion-content> -->
