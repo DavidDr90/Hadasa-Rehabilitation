@@ -1,57 +1,58 @@
 <ion-header>
-  <ion-navbar>
-    <!-- user_name holds the looged in user from the google account -->
-    <ion-title>
-      בוא נדבר! שלום {{user_name}}
-    </ion-title>
+    <ion-navbar>
+        <!-- user_name holds the looged in user from the google account -->
+        <ion-title>
+            בוא נדבר! שלום {{user_name}}
+        </ion-title>
 
-    <!-- refresh button in the end of the nav-bar -->
-    <ion-buttons end>
-      <button ion-button icon-only [navPush] = "mockTestPage">
+        <!-- refresh button in the end of the nav-bar -->
+        <ion-buttons end>
+            <button ion-button icon-only [navPush]="mockTestPage">
         <ion-icon name="refresh"></ion-icon>
       </button>
-    </ion-buttons>
-  </ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 
-  <!-- The toolbar for the different main pages -->
-  <ion-toolbar>
-    <ion-segment>
-      <ion-segment-button [navPush]="homePage" value="home">
-        <!-- Or can you explaine this line? -->
-        <!--     <ion-segment ng-model="menu" full="true" assertive> -->
-        דף הבית
-      </ion-segment-button>
-      <ion-segment-button [navPush]="categoriesPage" value="categories">
-        כל הקטגוריות
-      </ion-segment-button>
-      <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
-        על עצמי
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
+    <!-- The toolbar for the different main pages -->
+    <ion-toolbar>
+        <ion-segment>
+            <ion-segment-button [navPush]="homePage" value="home">
+                <!-- Or can you explaine this line? -->
+                <!--     <ion-segment ng-model="menu" full="true" assertive> -->
+                דף הבית
+            </ion-segment-button>
+            <ion-segment-button [navPush]="categoriesPage" value="categories">
+                כל הקטגוריות
+            </ion-segment-button>
+            <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
+                על עצמי
+            </ion-segment-button>
+        </ion-segment>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-  <!-- fab is the button in the corner of the screen -->
-  <!-- this button flot over the contnet and stay in his place on scrolling -->
-  <ion-fab bottom right>
-    <button ion-fab color="light">
+    <!-- fab is the button in the corner of the screen -->
+    <!-- this button flot over the contnet and stay in his place on scrolling -->
+    <ion-fab bottom right>
+        <button ion-fab color="light">
       <ion-icon name="add"></ion-icon>
     </button>
-    <!-- list opened when press the button -->
-    <ion-fab-list side="top">
-      <button ion-fab [navPush] = "addPhrasePage">
+        <!-- list opened when press the button -->
+        <ion-fab-list side="top">
+            <button ion-fab [navPush]="addPhrasePage">
         <ion-icon name="text"></ion-icon>
         <ion-label>הוספת ביטוי</ion-label>
       </button>
-      <button ion-fab>
+            <button ion-fab>
         <ion-icon name="information-circle"></ion-icon>
         <ion-label>הוספת קטגוריה</ion-label>
       </button>
-    </ion-fab-list>
-  </ion-fab>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>
 
 <ion-content padding>
-  <h1> ברוכים הבאים! </h1>
+    <h1> ברוכים הבאים! </h1>
+    <test-http>aaa</test-http>
 </ion-content>

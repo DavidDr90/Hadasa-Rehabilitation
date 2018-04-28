@@ -26,6 +26,9 @@ import { MyCategoryComponent } from '../components/my-category/my-category';
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
+import {HTTP} from '@ionic-native/http';
+import { HttpProvider } from '../providers/http/http';
+import { TestHttpComponent } from '../components/test-http/test-http';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,9 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     MyCategoryComponent,
     AboutMePage,
     PhrasesPage,
-    PhraseComponent
+    PhraseComponent,
+    TestHttpComponent
+
   ],
   imports: [
     BrowserModule,
@@ -60,8 +65,9 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NativeAudio,
     Camera,
-    CategoryServiceProvider,
-    PhrasesProvider
+    HTTP,
+    PhrasesProvider,
+    HttpProvider
   ]
 })
 export class AppModule {}
