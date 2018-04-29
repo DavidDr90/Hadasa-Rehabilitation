@@ -5,34 +5,44 @@
 </ion-header>
 
 <ion-content padding>
-  <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
   <form [formGroup]="_myForm" (ngSubmit)="onSubmit()">
+
+    <!-- deal with the image choosing procces -->
+    <!-- connect the file choose to the html elemnt -->
+    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
     <div class="profile-image-wrapper" (click)="presentActionSheet()">
-      <div class="profile-image-placeholder" *ngIf="!this._myForm.controls.imagePath.value">
+      <!-- display circle with '+' symbol for adding an image -->
+      <div class="profile-image-placeholder" *ngIf="!this._myForm.controls.imagePath.value"[hidden]="lastImage !== null" >
         <ion-icon name="add"></ion-icon>
         <div>
           הוספת תמונה
         </div>
       </div>
+      <!-- display the choosen image -->
+      <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
     </div>
 
+    <!-- deal with the user input fileds -->
     <ion-item>
       <ion-label>ביטוי</ion-label>
       <ion-input #textInput (click)="getCaretPos($event)" (keyup)="getCaretPos($event)" formControlName="text"></ion-input>
     </ion-item>
 
-    <input type="checkbox" [checked]="needNikud" (change)="needNikud = !needNikud">Chekc me!
+    <ion-item>
+      <ion-label>הצג מקלדת ניקוד</ion-label>
+      <ion-checkbox checked="false" (click)="_needNikud = !_needNikud"></ion-checkbox>
+    </ion-item>
+    <!-- display the nikud buttons on demend -->
+    <ion-grid *ngIf="_needNikud">
+      <ion-row>
+        <ion-col col-auto *ngFor="let nikud of getNikud">
+          <button ion-button (click)="addNikudToText(nikud.uniCode)">
+            {{ nikud.uniCode }}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-    <!-- <ion-item>
-      <ion-label>הצג כפתורי ניקוד</ion-label>
-      <ion-checkbox [(ngModel)]="cucumber" (ionChange)="updateNeedNikud()"></ion-checkbox>
-    </ion-item> -->
-
-    <div *ngIf="needNikud">
-      <button ion-button (click)="addNikudToText(nikud.uniCode)" *ngFor="let nikud of getNikud">
-        {{ nikud.uniCode }}
-      </button>
-    </div>
 
     <ion-item>
       <ion-label>קטגוריה</ion-label>

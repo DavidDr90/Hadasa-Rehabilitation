@@ -8,10 +8,12 @@ import { MyApp } from './app.component';
 
 //native services
 import { NativeAudio } from '@ionic-native/native-audio';
-import { Camera } from '@ionic-native/camera';
-import { MediaCapture } from '@ionic-native/media-capture';
+import { Media } from '@ionic-native/media';
+//for handle the images
 import { File } from '@ionic-native/file';
-
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
 
 //import pages
 import { HomePage } from '../pages/home/home';
@@ -31,7 +33,6 @@ import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 
 import { HTTP } from '@ionic-native/http';
-import { Media } from '@ionic-native/media';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,11 @@ import { Media } from '@ionic-native/media';
     AddPhrasePage,
     MockTestPage,
     CategoriesPage,
-    NothingPage,
     MyCategoryComponent,
     AboutMePage,
     PhrasesPage,
-    PhraseComponent
+    PhraseComponent,
+    NothingPage
   ],
   imports: [
     BrowserModule,
@@ -57,7 +58,8 @@ import { Media } from '@ionic-native/media';
     AddPhrasePage,
     MockTestPage,
     CategoriesPage,
-    AboutMePage
+    AboutMePage,
+    NothingPage
   ],
   providers: [
     CategoryServiceProvider,
@@ -65,12 +67,14 @@ import { Media } from '@ionic-native/media';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     NativeAudio,
-    Camera,
     CategoryServiceProvider,
     PhrasesProvider,
     HTTP,
-    MediaCapture,
-    Media
+    Media,
+    File,
+    Transfer,
+    Camera,
+    FilePath,
   ]
 })
 export class AppModule { }

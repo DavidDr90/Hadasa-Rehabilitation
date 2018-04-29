@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, ActionSheetController, ViewController } from 'ionic-angular';
+import { IonicPage, ActionSheetController, ViewController, ToastController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
@@ -11,6 +11,7 @@ import { AlertController } from 'ionic-angular';
 import { NavController, Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
+import { FilePath } from '@ionic-native/file-path';
 
 
 enum ImageOptions {
@@ -18,6 +19,9 @@ enum ImageOptions {
   GALLERY,
   SEARCH
 }
+
+
+declare var cordova: any;
 
 @IonicPage()
 @Component({
@@ -32,9 +36,11 @@ export class AddPhrasePage {
   private _nikudArray = Enums.NIKUD;
   private _needNikud = false;
 
+  lastImage: string = null;
+
   //varibales for the record
   recording: boolean = false;
-  filePath: string;
+  audioFilePath: string;
   fileName: string;
   audio: MediaObject;
   audioList: any[] = [];
@@ -43,13 +49,18 @@ export class AddPhrasePage {
     private _camera: Camera,
     private _actionSheetCtrl: ActionSheetController,
     private _viewCtrl: ViewController,
-    // private _mediaCapture: MediaCapture,
     private _alertCtrl: AlertController,
+
+    /* media provider for the record methods */
+    // private _mediaCapture: MediaCapture,
     // private _media: Media,
     private media: Media,
+    private camera: Camera,
+    public platform: Platform,
     private file: File,
-    public platform: Platform) {
+    private filePath: FilePath) {
 
+    //create the form object with the required fileds
     this._myForm = this._formBuilder.group({
       "text": ['', Validators.required],//the phrase
       "categoryID": ['', Validators.required],//the associated category
@@ -58,23 +69,56 @@ export class AddPhrasePage {
     })
   }
 
-  ionViewDidLoad() {
+  ionViewDidLoad() { }
 
-  }
-
+  /** @returns the nikud array
+   */
   public get getNikud() {
     return this._nikudArray;
   }
 
-  updateNeedNikud(){
-    alert(this._needNikud);
-    this._needNikud = !this._needNikud;
+  /** display and alert on the screen with the input valuse
+   * @param headLine the head line for the alert display
+   * @param message the message that will display
+   */
+  showAlert(headLine: string, message: string) {
+    let alert = this._alertCtrl.create({
+      title: headLine,
+      subTitle: message,
+      buttons: ['אישור']
+    });
+    alert.present();
   }
-  
-  public get getNeedNikud() : boolean {
-    return this._needNikud;
+
+  /**this function tack the input text from the 'text' input and add to it the proper 'nikud'
+   * @param nikud the nikud symbol on the clicked button 
+   */
+  addNikudToText(nikud: string) {
+    let temp: string;
+    let str = "";
+    temp = this._myForm.controls['text'].value;//get the input value
+
+    //insert the nikud in the right position
+    str += temp.substring(0, this._curserPosition);
+    str += nikud;
+    str += temp.substring(this._curserPosition, temp.length);
+
+    this._myForm.controls['text'].setValue(str);//insert the new value to the input box
   }
-  
+
+  /**get the curser position
+   * @param e the event from the html DOM
+   */
+  private getCaretPos(e) {
+    this._curserPosition = e.target.selectionStart;//save the curser place in the text
+  }
+
+  /**
+  * The user cancelled, so we dismiss without sending data back.
+  */
+  cancel() {
+    this._viewCtrl.dismiss();
+  }
 
   /**When press the 'אישור' button send the new form object to the phrase class
    * and then save the new phrase on the serve
@@ -82,11 +126,9 @@ export class AddPhrasePage {
   onSubmit() {
     // use the form object to create new phares object and add it to the server
     if (!this._myForm.valid) { return; }
-    this._viewCtrl.dismiss(this._myForm.value);//return the nw object
+    this._viewCtrl.dismiss(this._myForm.value);//return the new object
   }
 
-
-  // The following is the image handler functions
   /**present Action Sheet when press the add button
    * let the user choose from where to get the image
    * the user have three options:
@@ -103,7 +145,8 @@ export class AddPhrasePage {
           icon: 'camera',
           handler: () => {
             console.log('camera');
-            this.getPicture(ImageOptions.CAMERA);
+            // this.getPicture(ImageOptions.CAMERA);
+            this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
@@ -111,7 +154,8 @@ export class AddPhrasePage {
           icon: 'images',
           handler: () => {
             console.log('gallery');
-            this.getPicture(ImageOptions.GALLERY);
+            // this.getPicture(ImageOptions.GALLERY);
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
@@ -119,7 +163,7 @@ export class AddPhrasePage {
           icon: 'logo-google',
           handler: () => {
             console.log('search on line');
-            this.getPicture(ImageOptions.SEARCH);
+          //  connect to alex's google custom image search with the input text
           }
         },
 
@@ -136,85 +180,85 @@ export class AddPhrasePage {
     actionSheet.present();
   }
 
-  //check all the next functions
-  getPicture(from: any) {
-    let cameraOptions;
 
-    switch (from) {
-      case ImageOptions.CAMERA:
-        if (Camera['installed']()) {//if there is a camera install in this device
-          console.log("camera install!");
-          cameraOptions = {
-            sourceType: this._camera.PictureSourceType.CAMERA,
-            destinationType: this._camera.DestinationType.DATA_URL,
-            targetWidth: 96,
-            targetHeight: 96,
-            encodingType: this._camera.EncodingType.JPEG,
-            correctOrientation: true
-          }
-          break;
-        }
-      //if there is NOT a camera on this device
-      case ImageOptions.GALLERY:
+  /********* The following are the image handler functions ************/
 
-        // cameraOptions = {
-        //   sourceType: this._camera.PictureSourceType.PHOTOLIBRARY,
-        //   destinationType: this._camera.DestinationType.DATA_URL,
-        //   quality: 100,
-        //   targetWidth: 1000,
-        //   targetHeight: 1000,
-        //   encodingType: this._camera.EncodingType.JPEG,
-        //   correctOrientation: true
-        // }
-
-        //if there is NOT camera on this device go to the file maneger to look for an image
-        this.fileInput.nativeElement.click();
-        break;
-
-      case ImageOptions.SEARCH:
-        //go to google search with the input text if there is...
-        break;
-      default:
-        break;
-    }
-
-
-    this._camera.getPicture(cameraOptions).then((data) => {
-      /* TODO:
-        use the google URL shorter to make the image url short before saving
-        */
-      this._myForm.patchValue({ 'imagePath': 'data:image/jpg;base64,' + data });//insert the capture image path to the form 
-    }, (err) => {
-      console.log(err);
-    })
-
-  }
-
-  processWebImage(event) {
-    let reader = new FileReader();
-    reader.onload = (readerEvent) => {
-
-      let imageData = (readerEvent.target as any).result;
-      this._myForm.patchValue({ 'imagePath': imageData });
+  /**define the native camera oprtion from the givven input
+   * then call the getPicture() method with the option
+   * @param sourceType - from where to get the image, the camera or the gallery
+   * dispaly an error window on fialure
+   */
+  public takePicture(sourceType) {
+    // Create options for the Camera Dialog
+    var options = {
+      quality: 100,
+      sourceType: sourceType,
+      saveToPhotoAlbum: false,
+      correctOrientation: true
     };
 
-    reader.readAsDataURL(event.target.files[0]);
+    // Get the data of an image
+    this.camera.getPicture(options).then((imagePath) => {
+      // Special handling for Android library
+      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
+        this.filePath.resolveNativePath(imagePath)
+          .then(filePath => {
+            let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
+            let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
+            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+          });
+      } else {
+        var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+        var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+      }
+    }, (err) => {
+      this.showAlert("לא הצלחנו לבחור תמונה....", err);
+    });
   }
 
-  getProfileImageStyle() {
-    return 'url(' + this._myForm.controls['imagePath'].value + ')'
+  // Create a new name for the image from the current time
+  private createFileName() {
+    var d = new Date(),
+      n = d.getTime(),
+      newFileName = n + ".jpg";
+    return newFileName;
   }
 
-  ionViewWillEnter(){
+  // Copy the image to a local folder
+  private copyFileToLocalDir(namePath, currentName, newFileName) {
+    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+      this.lastImage = newFileName;
+    }, error => {
+      this.showAlert("לא הצלחנו לשמור את התמונה....", error);
+    });
+  }
+
+  /** add the path to the form filed 
+   * @param img - the path to the image 
+   * @returns the path to the image to display on the screen
+   */
+  public pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      this._myForm.patchValue({ 'imagePath': cordova.file.dataDirectory + img });//insert the capture image path to the form 
+      return cordova.file.dataDirectory + img;
+    }
+  }
+
+  /********* The following are the voice record handler functions ************/
+
+
+  /*  all the record function should be tested on an android or iOS emulator or device */
+
+  ionViewWillEnter() {
     this.getAudioList();//display the audio file list
   }
 
-
-  /*  all the record function should be tested in on an android or iOS emulator or device */
-
   //return the audio files list from the loacl storage
   getAudioList() {
-    if(localStorage.getItem("audiolist")) {
+    if (localStorage.getItem("audiolist")) {
       this.audioList = JSON.parse(localStorage.getItem("audiolist"));
       console.log(this.audioList);
     }
@@ -223,14 +267,15 @@ export class AddPhrasePage {
   //start the record
   startRecord() {
     if (this.platform.is('ios')) {
-      this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
-      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
-      this.audio = this.media.create(this.filePath);
+      this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
+      this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.audio = this.media.create(this.audioFilePath);
     } else if (this.platform.is('android')) {
-      this.fileName = 'record'+new Date().getDate()+new Date().getMonth()+new Date().getFullYear()+new Date().getHours()+new Date().getMinutes()+new Date().getSeconds()+'.3gp';
-      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
-      this.audio = this.media.create(this.filePath);
+      this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
+      this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+      this.audio = this.media.create(this.audioFilePath);
     }
+    alert("start record");
     this.audio.startRecord();
     this.recording = true;
   }
@@ -248,60 +293,14 @@ export class AddPhrasePage {
   //play the input audio file
   playAudio(file) {
     if (this.platform.is('ios')) {
-      this.filePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-      this.audio = this.media.create(this.filePath);
+      this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.audioFilePath);
     } else if (this.platform.is('android')) {
-      this.filePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-      this.audio = this.media.create(this.filePath);
+      this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+      this.audio = this.media.create(this.audioFilePath);
     }
     this.audio.play();
     this.audio.setVolume(0.8);
-  }
-
-
-  /** display and alert on the screen with the input valuse
-   * @param headLine the head line for the alert display
-   * @param message the message that will display
-   */
-  showAlert(headLine: string, message: string) {
-    let alert = this._alertCtrl.create({
-      title: headLine,
-      subTitle: message,
-      buttons: ['אישור']
-    });
-    alert.present();
-  }
-
-
-  /**
-   * The user cancelled, so we dismiss without sending data back.
-   */
-  cancel() {
-    this._viewCtrl.dismiss();
-  }
-
-
-  /**this function tack the input text from the 'text' input and add to it the proper 'nikud'
-   * @param nikud the nikud symbol on the clicked button 
-   */
-  addNikudToText(nikud: string) {
-    let temp: string;
-    let str = "";
-    temp = this._myForm.controls['text'].value;//get the input value
-    
-    //insert the nikud in the right position
-    str += temp.substring(0, this._curserPosition);
-    str += nikud;
-    str += temp.substring(this._curserPosition, temp.length);
-
-    this._myForm.controls['text'].setValue(str);//insert the new value to the input box
-  }
-
-  /**get the curser position
-   * @param e the event from the html DOM
-   */
-  getCaretPos(e) {
-    this._curserPosition = e.target.selectionStart;//save the curser place in the text
   }
 
 }
