@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { API_KEYS } from '../../consts/enums';
 
-const GOOGLE_SHORTER_URL="https://www.googleapis.com/urlshortener/v1/url?key={AIzaSyDIvgXvW1g3LLVQlCHbza43IKIthfYG4SE}";
+const GOOGLE_SHORTER_URL="https://www.googleapis.com/urlshortener/v1/url?key={AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng}";
 const GOOGLE_API="AIzaSyDIvgXvW1g3LLVQlCHbza43IKIthfYG4SE";
 const TTS_URL="https://ttsapi.almagu.com/Api/Synth?key="
 
@@ -39,14 +39,20 @@ export class HttpProvider {
   /*return shorter url of a long url by sending post http request to Google URL Shortener.
     in case of error, returns -1.*/
   getShorterURL(longUrl){
-    var body='{\"longUrl\": \"}';
-    body+=longUrl+'\"';
+    var body='{\"longUrl\": \"';
+    body+=longUrl+'\"}';
     var headers="Content-Type: application/json";
+    console.log("body = " + body);
+    console.log("header = " + headers);
+
     console.log(this.sendGetRequest(GOOGLE_SHORTER_URL, body, headers)) 
   }
 
 
   textToSpeech(text, api, voice){
+    var re = / /gi; 
+    text = text.replace(re, "%20");
+    console.log("text="+text)
     let url=TTS_URL;
     url+=api;
     url +="&sampling=16000&encoding=mp3&rate=0&voice=";
@@ -56,4 +62,5 @@ export class HttpProvider {
     this.sendGetRequest(url,{},{})
 
   }
+
 }

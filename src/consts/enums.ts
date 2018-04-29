@@ -30,7 +30,7 @@ export const enum API_KEYS{
             encoding: WAV, mp3, u-law and a-law.
             text: utf-8, URL encoded.
      */
-    TTS_API_KEY = "998de9b6ffb24a0a95" //David's API
+    TTS_API_KEY = "998de9b6ffb24a0a95", //David's API
     TTS_ofek_API_KEY = "20199999a6ef42b8ba" //ofek's API
     
 }

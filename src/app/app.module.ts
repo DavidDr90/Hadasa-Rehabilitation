@@ -28,7 +28,6 @@ import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 import {HTTP} from '@ionic-native/http';
 import { HttpProvider } from '../providers/http/http';
-import { TestHttpComponent } from '../components/test-http/test-http';
 
 @NgModule({
   declarations: [
@@ -41,9 +40,7 @@ import { TestHttpComponent } from '../components/test-http/test-http';
     MyCategoryComponent,
     AboutMePage,
     PhrasesPage,
-    PhraseComponent,
-    TestHttpComponent
-
+    PhraseComponent
   ],
   imports: [
     BrowserModule,
