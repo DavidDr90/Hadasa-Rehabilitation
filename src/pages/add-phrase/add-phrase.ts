@@ -44,18 +44,16 @@ export class AddPhrasePage {
   fileName: string;
   audio: MediaObject;
   audioList: any[] = [];
+  audioFile: any;
 
   constructor(private _formBuilder: FormBuilder,
-    private _camera: Camera,
     private _actionSheetCtrl: ActionSheetController,
     private _viewCtrl: ViewController,
     private _alertCtrl: AlertController,
+    private camera: Camera,
 
     /* media provider for the record methods */
-    // private _mediaCapture: MediaCapture,
-    // private _media: Media,
     private media: Media,
-    private camera: Camera,
     public platform: Platform,
     private file: File,
     private filePath: FilePath) {
@@ -125,8 +123,8 @@ export class AddPhrasePage {
    */
   onSubmit() {
     // use the form object to create new phares object and add it to the server
-    if (!this._myForm.valid) { return; }
-    this._viewCtrl.dismiss(this._myForm.value);//return the new object
+    // if (!this._myForm.valid) { return; }
+    // this._viewCtrl.dismiss(this._myForm.value);//return the new object
   }
 
   /**present Action Sheet when press the add button
@@ -141,7 +139,7 @@ export class AddPhrasePage {
       title: 'בחר מקור לתמונה',
       buttons: [
         {
-          text: 'מצלמה',
+          text: '\xa0\xa0 מצלמה',
           icon: 'camera',
           handler: () => {
             console.log('camera');
@@ -150,7 +148,7 @@ export class AddPhrasePage {
           }
         },
         {
-          text: 'גלריה',
+          text: '\xa0\xa0גלריה',
           icon: 'images',
           handler: () => {
             console.log('gallery');
@@ -159,11 +157,11 @@ export class AddPhrasePage {
           }
         },
         {
-          text: 'חיפוש ברשת',
+          text: '\xa0\xa0חיפוש ברשת',
           icon: 'logo-google',
           handler: () => {
             console.log('search on line');
-          //  connect to alex's google custom image search with the input text
+            //  connect to alex's google custom image search with the input text
           }
         },
 
@@ -179,7 +177,6 @@ export class AddPhrasePage {
 
     actionSheet.present();
   }
-
 
   /********* The following are the image handler functions ************/
 
@@ -248,59 +245,53 @@ export class AddPhrasePage {
   }
 
   /********* The following are the voice record handler functions ************/
-
-
   /*  all the record function should be tested on an android or iOS emulator or device */
-
-  ionViewWillEnter() {
-    this.getAudioList();//display the audio file list
-  }
-
-  //return the audio files list from the loacl storage
-  getAudioList() {
-    if (localStorage.getItem("audiolist")) {
-      this.audioList = JSON.parse(localStorage.getItem("audiolist"));
-      console.log(this.audioList);
-    }
-  }
 
   //start the record
   startRecord() {
-    if (this.platform.is('ios')) {
-      this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
-      this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
-      this.audio = this.media.create(this.audioFilePath);
-    } else if (this.platform.is('android')) {
-      this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
-      this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
-      this.audio = this.media.create(this.audioFilePath);
+    try {
+      if (this.platform.is('ios')) {
+        this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
+        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+        this.audio = this.media.create(this.audioFilePath);
+      } else if (this.platform.is('android')) {
+        this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
+        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+        this.audio = this.media.create(this.audioFilePath);
+      }
+      console.log("before start record");
+      this.audio.startRecord();
+      this.recording = true;
     }
-    alert("start record");
-    this.audio.startRecord();
-    this.recording = true;
+    catch (error) {
+      this.showAlert("לא הצלחנו לבצע הקלטה....", error);
+    }
   }
 
   //stop the record and save the audio file on local storage
   stopRecord() {
     this.audio.stopRecord();
     let data = { filename: this.fileName };
-    this.audioList.push(data);
-    localStorage.setItem("audiolist", JSON.stringify(this.audioList));
+    this.audioFile = data;
+    this._myForm.patchValue({ 'audioFile': this.audioFile });//insert the capture audio file to the form 
     this.recording = false;
-    this.getAudioList();
   }
 
   //play the input audio file
   playAudio(file) {
-    if (this.platform.is('ios')) {
-      this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-      this.audio = this.media.create(this.audioFilePath);
-    } else if (this.platform.is('android')) {
-      this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-      this.audio = this.media.create(this.audioFilePath);
+    try {
+      if (this.platform.is('ios')) {
+        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+        this.audio = this.media.create(this.audioFilePath);
+      } else if (this.platform.is('android')) {
+        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+        this.audio = this.media.create(this.audioFilePath);
+      }
+      this.audio.play();
+      this.audio.setVolume(0.8);
+    } catch (error) {
+      this.showAlert("לא הצלחנו להשמיע את הקלטה....", error);
     }
-    this.audio.play();
-    this.audio.setVolume(0.8);
   }
 
 }
