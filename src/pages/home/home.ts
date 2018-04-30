@@ -8,16 +8,16 @@ import { AboutMePage } from '../about-me/about-me';
 import { PhrasesPage } from '../phrases/phrases';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 import { MockTestPage } from '../mock-test/mock-test';
-
+import { FirebaseProvider } from '../../providers/firebase/firebase'
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
+import { AngularFireList } from 'angularfire2/database';
+import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore'
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 
-// @Page({
-//   templateUrl: 'categories.html'
-// })
 
 export class HomePage {
   homePage = HomePage;
@@ -25,12 +25,14 @@ export class HomePage {
   aboutMePage = AboutMePage;  
   addPhrasePage = AddPhrasePage;
   mockTestPage = MockTestPage;
-  
-  constructor(public navCtrl: NavController) {
-
+  users;
+  user_name = "אורח";
+  constructor(public navCtrl: NavController, firebase: FirebaseProvider) {
+    this.users = firebase.getImages();
+    // console.log("Home: "+ this.users)
   }
 
-  user_name = "אורח";
+  
 
   // Should get the user name from the login process
   get userName(){

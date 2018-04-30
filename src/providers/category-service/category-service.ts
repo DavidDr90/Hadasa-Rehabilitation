@@ -23,9 +23,6 @@ export class CategoryServiceProvider {
     var title = "Numbers";
     var url = "/assets/imgs/numbers.jpg";
     this.addCategory(new Category(title,url));
-    var title = "MySelf";
-    var url = "/assets/imgs/myself.png";
-    this.addCategory(new Category(title,url));
   }
 
   public getCategories(): Array<Category>{

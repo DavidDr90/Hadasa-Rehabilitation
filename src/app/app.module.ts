@@ -15,17 +15,23 @@ import { HomePage } from '../pages/home/home';
 import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
 import { MockTestPage } from '../pages/mock-test/mock-test';
 import { CategoriesPage } from '../pages/categories/categories';
-import { NothingPage } from '../pages/nothing/nothing';
 import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
 
-//import component
+//import componentR
 import { PhraseComponent } from '../components/phrase/phrase';
 import { MyCategoryComponent } from '../components/my-category/my-category';
 
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
+
+import { AngularFireModule } from 'angularfire2';
+import { firebaseConfig } from '../environments/firebase.config';
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
+import { AngularFirestoreModule } from 'angularfire2/firestore'
 
 @NgModule({
   declarations: [
@@ -34,15 +40,17 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     AddPhrasePage,
     MockTestPage,
     CategoriesPage,
-    NothingPage,
     MyCategoryComponent,
     AboutMePage,
     PhrasesPage,
-    PhraseComponent
+    PhraseComponent,
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp)
+    IonicModule.forRoot(MyApp),
+    AngularFireModule.initializeApp(firebaseConfig.firebase),
+    AngularFireDatabaseModule,
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -61,7 +69,8 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     NativeAudio,
     Camera,
     CategoryServiceProvider,
-    PhrasesProvider
+    PhrasesProvider,
+    FirebaseProvider
   ]
 })
 export class AppModule {}
