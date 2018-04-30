@@ -60,6 +60,8 @@
       <ion-icon name="mic-off"></ion-icon>&nbsp;&nbsp;עצור הקלטה</button>
     <button ion-button primary (click)="startRecord()" *ngIf="!recording">
       <ion-icon name="mic"></ion-icon>&nbsp;&nbsp;התחל הקלטה</button>
+      <button ion-button primary (click)="getAudioFromTTS()">
+        <ion-icon name="radio"></ion-icon>&nbsp;&nbsp; יצר הקלטה</button>
 
     <ion-list>
       <ion-item *ngIf="audioFile != null">

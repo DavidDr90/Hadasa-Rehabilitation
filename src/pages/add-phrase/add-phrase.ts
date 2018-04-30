@@ -43,7 +43,6 @@ export class AddPhrasePage {
   audioFilePath: string;
   fileName: string;
   audio: MediaObject;
-  audioList: any[] = [];
   audioFile: any;
 
   constructor(private _formBuilder: FormBuilder,
@@ -51,7 +50,6 @@ export class AddPhrasePage {
     private _viewCtrl: ViewController,
     private _alertCtrl: AlertController,
     private camera: Camera,
-
     /* media provider for the record methods */
     private media: Media,
     public platform: Platform,
@@ -268,7 +266,7 @@ export class AddPhrasePage {
     }
   }
 
-  //stop the record and save the audio file on local storage
+  //stop the record and save the audio file on local variable
   stopRecord() {
     this.audio.stopRecord();
     let data = { filename: this.fileName };
@@ -277,7 +275,9 @@ export class AddPhrasePage {
     this.recording = false;
   }
 
-  //play the input audio file
+  /** play the input file on the device speakers
+   * @param file - an input audio file to play
+   */
   playAudio(file) {
     try {
       if (this.platform.is('ios')) {
@@ -290,8 +290,13 @@ export class AddPhrasePage {
       this.audio.play();
       this.audio.setVolume(0.8);
     } catch (error) {
-      this.showAlert("לא הצלחנו להשמיע את הקלטה....", error);
+      this.showAlert("לא הצלחנו להשמיע את ההקלטה....", error);
     }
   }
 
+  //TODO:
+  //use the http provider to get the audio file from the TTS server
+  getAudioFromTTS(){
+    console.log(this._myForm.controls['text'].value);//the input text value
+  }
 }
