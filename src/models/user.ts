@@ -16,6 +16,11 @@ export class User extends Item{
         super()
     }
 
+    public Clone()
+    {
+        return new User(this.name,this.lastname);
+    }
+
     public toString()
     {
         return this.name +" "+ this.lastname;

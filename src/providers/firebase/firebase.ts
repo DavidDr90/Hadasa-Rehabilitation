@@ -2,29 +2,37 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Image } from '../../models/image'
 import { User } from '../../models/user'
+import { List } from 'ionic-angular';
+import { FirebaseListObservable } from 'angularfire2/database-deprecated';
+import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 
 @Injectable()
 export class FirebaseProvider{
-  
-  private imageCollections: AngularFirestoreCollection<any>;
-  constructor(private afs: AngularFirestore) {
-     this.imageCollections = afs.collection<any>('users');
+
+  private usersCollection: AngularFirestoreCollection<any>;
+  private users = [];
+
+  constructor(private afs : AngularFirestore) 
+  {
+    const settings = { timestampsInSnapshots: true }
+    afs.app.firestore().settings(settings);
+     this.usersCollection = afs.collection<any>('users');
+     this.users = [];
   }
 
-  public addImage(image: Image){
-    this.imageCollections.add(Image.toObject(image))
+  public addUser(user: User){
+    this.usersCollection.add(User.toObject(user))
   }
 
-  public getImages(){
-    this.imageCollections.valueChanges().subscribe(actions => {
-      console.log(actions);
-    })
+  public getUsers()
+  {
+    this.usersCollection.valueChanges().subscribe(collection => 
+      {
+        collection.forEach(col => {
+            this.users.push(new User(col['name'], col['lastname']));
+          });
+      }
+    )
+    return this.users;
   }
-
-  public getImageById(id: string) {
-    return this.afs.doc<any>('images/' + id).valueChanges()
-    /*this.imageCollections = afs.doc<סוג האובייקט>(‘שם האוסף/שם המסמך’);*/
-  }
-  
-
 }
