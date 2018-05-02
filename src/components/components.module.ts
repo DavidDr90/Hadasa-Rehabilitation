@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { MyCategoryComponent } from './my-category/my-category';
 import { PhraseComponent } from './phrase/phrase';
+import { TimerComponent } from './timer/timer';
 
 @NgModule({
 	declarations: [
     MyCategoryComponent,
-    PhraseComponent
+    PhraseComponent,
+    TimerComponent
   ],
 	imports: [],
 	exports: [
     MyCategoryComponent,
-    PhraseComponent
+    PhraseComponent,
+    TimerComponent
   ]
 })
 
