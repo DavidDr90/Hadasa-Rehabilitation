@@ -29,9 +29,7 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
 import { AngularFireModule } from 'angularfire2';
 import { firebaseConfig } from '../environments/firebase.config';
 import { FirebaseProvider } from '../providers/firebase/firebase';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
-import { AngularFirestoreModule } from 'angularfire2/firestore'
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -49,7 +47,6 @@ import { AngularFirestoreModule } from 'angularfire2/firestore'
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
-    AngularFireDatabaseModule,
     AngularFirestoreModule
   ],
   bootstrap: [IonicApp],

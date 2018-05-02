@@ -5,34 +5,40 @@ import { User } from '../../models/user'
 import { List } from 'ionic-angular';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
+import { ReplaySubject } from 'rxjs/ReplaySubject';
+import { firebaseConfig } from '../../environments/firebase.config';
+import { AngularFireModule } from 'angularfire2';
 
 @Injectable()
-export class FirebaseProvider{
+export class FirebaseProvider {
 
-  private usersCollection: AngularFirestoreCollection<any>;
-  private users = [];
+  usersCollection: AngularFirestoreCollection<User>;
+  users: ReplaySubject<User[]> = new ReplaySubject<User[]>()
+  _users: User[]
 
-  constructor(private afs : AngularFirestore) 
-  {
-    const settings = { timestampsInSnapshots: true }
-    afs.app.firestore().settings(settings);
-     this.usersCollection = afs.collection<any>('users');
-     this.users = [];
+  constructor(public afs: AngularFirestore) {
+
+    this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('name', 'desc'));
+    this.usersCollection.snapshotChanges().subscribe(result => {
+    this._users = result.map(a => {
+        let temp = a.payload.doc.data() as User;
+        temp.id = a.payload.doc.id;
+        return new User(temp.name, temp.lastname, temp.id)
+      });
+      this.users.next(this._users);
+    });
+
   }
 
-  public addUser(user: User){
-    this.usersCollection.add(User.toObject(user))
+  getUserById(id: string){
+    return this._users.find(u => u.id === id)
+  }
+  get getUsers() {
+    return this._users;
   }
 
-  public getUsers()
-  {
-    this.usersCollection.valueChanges().subscribe(collection => 
-      {
-        collection.forEach(col => {
-            this.users.push(new User(col['name'], col['lastname']));
-          });
-      }
-    )
-    return this.users;
+  addUser(user: User) {
+    return this.usersCollection.add(User.toObject(user));
   }
+
 }

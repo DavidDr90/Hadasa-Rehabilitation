@@ -8,12 +8,12 @@ import { AboutMePage } from '../about-me/about-me';
 import { PhrasesPage } from '../phrases/phrases';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 import { MockTestPage } from '../mock-test/mock-test';
+
+
 import { FirebaseProvider } from '../../providers/firebase/firebase'
-import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
-import { AngularFireList } from 'angularfire2/database';
-import { AngularFirestoreModule, AngularFirestore } from 'angularfire2/firestore'
+// import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
 import { User } from '../../models/user';
-import { forEach } from '@firebase/util';
+
 
 
 @Component({
@@ -28,25 +28,23 @@ export class HomePage {
   aboutMePage = AboutMePage;  
   addPhrasePage = AddPhrasePage;
   mockTestPage = MockTestPage;
-  users = [];
   user_name = "אורח";
-  constructor(public navCtrl: NavController,public firebase: FirebaseProvider) {
 
-    // var new_user;
-    // new_user = new User("Or", "Cohen");
-    // firebase.addUser(new_user)
 
-    // this.users = firebase.getUsers();
-    firebase.filterBooks()
-    console.log();
 
+  private users: User[];
+
+
+  constructor(public navCtrl: NavController,public firebaseProvider: FirebaseProvider) {
+    
+    firebaseProvider.addUser(new User("sssssssss","yyyyyyyyyy"));
   }
 
-  public printUsers()
-  {
-  
+
+  public get _users(){
+    console.log(this.firebaseProvider.getUsers)
+    return this.firebaseProvider.getUsers
   }
-  
 
   // Should get the user name from the login process
   get userName(){
