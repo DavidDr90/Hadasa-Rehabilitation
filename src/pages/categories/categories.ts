@@ -4,6 +4,7 @@ import { CategoryServiceProvider } from '../../providers/category-service/catego
 import { Client } from '../../models/Client';
 import { HomePage } from '../home/home';
 import { AboutMePage } from '../about-me/about-me';
+import { Category } from '../../models/Category';
 
 /**
  * Generated class for the CategoriesPage page.
@@ -23,9 +24,10 @@ export class CategoriesPage {
   aboutMePage = AboutMePage;
 
   private client: Client;
+  private categories;
 
   constructor(public categoryService: CategoryServiceProvider,public navCtrl: NavController, public navParams: NavParams) {
-    categoryService.importCategories(this.client);
+  this.categories = categoryService.getCategories();
   }
 
 

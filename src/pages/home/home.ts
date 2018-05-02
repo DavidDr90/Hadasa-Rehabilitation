@@ -42,7 +42,6 @@ export class HomePage {
 
 
   public get _users(){
-    console.log(this.firebaseProvider.getUsers)
     return this.firebaseProvider.getUsers
   }
 

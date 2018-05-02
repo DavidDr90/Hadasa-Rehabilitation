@@ -1,28 +1,50 @@
+export class Item{
+    public static toObject(item){
+        return JSON.parse(JSON.stringify(item));
+    }
+}
+
+// public static toHomeStory(json){
+//     let story = Object.create(HomeStory.prototype);
+//     return Object.assign(story, json);
+// }
 
 
-export class Category {
+export class Category extends Item{
+
     constructor(
-        private title: string,
-        private url: string
-        )
-    { }
+        public name: string,
+        public imageURL: string,
+        public id: string)
+        {
+            super()
+        }
+    
 
     public get getTitle(){
-            return this.title;
+            return this.name;
     }
     
     public get getImage(){
-        return this.url;
+        return this.imageURL;
     }
     
+    public get getID(){
+        return this.id;
+    }
+
+
     public setTitle(t: string){
-        this.title = t;
+        this.name = t;
     }
 
     public setUrl(u: string){
-        this.url = u;
+        this.imageURL = u;
     }
 
+    public setID(id: string){
+        this.id = id;
+    }
 
         
   }
