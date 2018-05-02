@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -30,6 +31,8 @@ import { AngularFireModule } from 'angularfire2';
 import { firebaseConfig } from '../environments/firebase.config';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AutenticationProvider } from '../providers/autentication/autentication';
+import {AngularFireAuthModule} from 'angularfire2/auth';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+    AngularFireAuthModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -67,7 +71,14 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     Camera,
     CategoryServiceProvider,
     PhrasesProvider,
-    FirebaseProvider
+    FirebaseProvider,
+    AutenticationProvider
   ]
 })
-export class AppModule {}
+export class AppModule {
+
+  constructor(public authentication: AutenticationProvider)
+  {
+    authentication.createAuthentication();
+  }
+}

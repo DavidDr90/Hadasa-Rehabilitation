@@ -25,6 +25,12 @@ export class FirebaseProvider {
 
   constructor(public afs: AngularFirestore) {
 
+    //Firestore settings
+    const firestore = afs.firestore;
+    const settings = {timestampsInSnapshots: true};
+    firestore.settings(settings);
+
+    //Creating the users collection.
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('name', 'desc'));
     this.usersCollection.snapshotChanges().subscribe(result => {
     this._users = result.map(a => {
@@ -35,11 +41,11 @@ export class FirebaseProvider {
       this.users.next(this._users);
     });
 
+    //Creating the categories collection.
     this.categoriesCollection = afs.collection<Category>('categories', ref => ref.orderBy('name', 'desc'));
     this.categoriesCollection.snapshotChanges().subscribe(result => {
     this._categories = result.map(a => {
         let temp = a.payload.doc.data() as Category;
-        console.log(temp);
         temp.id = a.payload.doc.id;
         return new Category(temp.name, temp.imageURL, temp.id);
       });

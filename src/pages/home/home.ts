@@ -13,6 +13,7 @@ import { MockTestPage } from '../mock-test/mock-test';
 import { FirebaseProvider } from '../../providers/firebase/firebase'
 // import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
 import { User } from '../../models/user';
+import { AutenticationProvider } from '../../providers/autentication/autentication';
 
 
 
@@ -35,14 +36,19 @@ export class HomePage {
   private users: User[];
 
 
-  constructor(public navCtrl: NavController,public firebaseProvider: FirebaseProvider) {
-    
-    firebaseProvider.addUser(new User("sssssssss","yyyyyyyyyy"));
+  constructor(public navCtrl: NavController,public firebaseProvider: FirebaseProvider,public authentication: AutenticationProvider) {
+    // authentication.createAuthentication();
+  
   }
 
 
   public get _users(){
     return this.firebaseProvider.getUsers
+  }
+
+  public set setDisplayName(displayName)
+  {
+    this.user_name = displayName;
   }
 
   // Should get the user name from the login process
