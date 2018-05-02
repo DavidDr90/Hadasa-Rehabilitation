@@ -42,8 +42,6 @@ export class AddPhrasePage {
   audioFile: any;
   firstTime: boolean = true;
 
-
-
   constructor(private _formBuilder: FormBuilder,
     private _actionSheetCtrl: ActionSheetController,
     private _viewCtrl: ViewController,

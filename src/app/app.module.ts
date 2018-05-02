@@ -33,6 +33,9 @@ import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 
 import { HTTP } from '@ionic-native/http';
+import { AudioRecordProvider } from '../providers/audio-record/audio-record';
+import { GetImageProvider } from '../providers/get-image/get-image';
+import { TimerComponent } from '../components/timer/timer';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,8 @@ import { HTTP } from '@ionic-native/http';
     AboutMePage,
     PhrasesPage,
     PhraseComponent,
-    NothingPage
+    NothingPage,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
@@ -75,6 +79,8 @@ import { HTTP } from '@ionic-native/http';
     Transfer,
     Camera,
     FilePath,
+    AudioRecordProvider,
+    GetImageProvider,
   ]
 })
 export class AppModule { }
