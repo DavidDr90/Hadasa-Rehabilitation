@@ -13,15 +13,10 @@ import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 
-
-enum ImageOptions {
-  CAMERA = 1,
-  GALLERY,
-  SEARCH
-}
-
-
 declare var cordova: any;
+
+const START_REC = "התחל הקלטה";
+const STOP_REC = "עצור הקלטה";
 
 @IonicPage()
 @Component({
@@ -29,7 +24,6 @@ declare var cordova: any;
   templateUrl: 'add-phrase.html',
 })
 export class AddPhrasePage {
-  @ViewChild('fileInput') fileInput;
 
   private _myForm: FormGroup;
   private _curserPosition;
@@ -37,13 +31,18 @@ export class AddPhrasePage {
   private _needNikud = false;
 
   lastImage: string = null;
+  micText = START_REC;
 
   //varibales for the record
   recording: boolean = false;
+  playing: boolean = false;
   audioFilePath: string;
   fileName: string;
   audio: MediaObject;
   audioFile: any;
+  firstTime: boolean = true;
+
+
 
   constructor(private _formBuilder: FormBuilder,
     private _actionSheetCtrl: ActionSheetController,
@@ -56,9 +55,14 @@ export class AddPhrasePage {
     private file: File,
     private filePath: FilePath) {
 
+
+    let hebrewRegx = "[\u0590-\u05fe]+$";
+
     //create the form object with the required fileds
     this._myForm = this._formBuilder.group({
-      "text": ['', Validators.required],//the phrase
+      "text": ['', [Validators.required,
+      Validators.pattern(hebrewRegx)],
+        Validators.minLength(1)],//the phrase
       "categoryID": ['', Validators.required],//the associated category
       "imagePath": ['', Validators.required],//the path to the pharse's image
       "audioFile": ['', Validators.required],//the path to the phrase's audio file
@@ -247,6 +251,7 @@ export class AddPhrasePage {
 
   //start the record
   startRecord() {
+    this.micText = STOP_REC;
     try {
       if (this.platform.is('ios')) {
         this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
@@ -257,7 +262,6 @@ export class AddPhrasePage {
         this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
         this.audio = this.media.create(this.audioFilePath);
       }
-      console.log("before start record");
       this.audio.startRecord();
       this.recording = true;
     }
@@ -268,6 +272,7 @@ export class AddPhrasePage {
 
   //stop the record and save the audio file on local variable
   stopRecord() {
+    this.micText = START_REC;
     this.audio.stopRecord();
     let data = { filename: this.fileName };
     this.audioFile = data;
@@ -280,13 +285,17 @@ export class AddPhrasePage {
    */
   playAudio(file) {
     try {
-      if (this.platform.is('ios')) {
-        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-        this.audio = this.media.create(this.audioFilePath);
-      } else if (this.platform.is('android')) {
-        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-        this.audio = this.media.create(this.audioFilePath);
+      if (this.firstTime) {//enter this if only the first time
+        if (this.platform.is('ios')) {
+          this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
+          this.audio = this.media.create(this.audioFilePath);
+        } else if (this.platform.is('android')) {
+          this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
+          this.audio = this.media.create(this.audioFilePath);
+        }
       }
+      this.firstTime = false;
+      this.playing = true;
       this.audio.play();
       this.audio.setVolume(0.8);
     } catch (error) {
@@ -294,9 +303,22 @@ export class AddPhrasePage {
     }
   }
 
+  stopAudio(file) {
+    try {
+      this.playing = false;
+      this.audio.pause();
+    } catch (error) {
+      this.showAlert("לא הצלחנו לעצור את ההקלטה....", error);
+    }
+  }
+
   //TODO:
   //use the http provider to get the audio file from the TTS server
-  getAudioFromTTS(){
-    console.log(this._myForm.controls['text'].value);//the input text value
+  getAudioFromTTS() {
+    if (this._myForm.controls['text'].value == "") {
+      this.showAlert("לא הוכנס משפט", null);
+    } else {
+      console.log(this._myForm.controls['text'].value);//the input text value
+    }
   }
 }
