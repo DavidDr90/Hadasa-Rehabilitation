@@ -27,7 +27,9 @@ export class CategoriesPage {
   private categories;
 
   constructor(public categoryService: CategoryServiceProvider,public navCtrl: NavController, public navParams: NavParams) {
+  this.categoryService.firebaseProvider.importCategories();
   this.categories = categoryService.getCategories();
+  
   }
 
 

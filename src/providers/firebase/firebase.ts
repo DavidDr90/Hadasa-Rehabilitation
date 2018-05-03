@@ -9,7 +9,7 @@ import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { firebaseConfig } from '../../environments/firebase.config';
 import { AngularFireModule } from 'angularfire2';
 import { Category } from '../../models/Category';
-
+import { AutenticationProvider } from '../../providers/autentication/autentication';
 
 @Injectable()
 export class FirebaseProvider {
@@ -23,40 +23,26 @@ export class FirebaseProvider {
   _categories: Category[]
 
 
-  constructor(public afs: AngularFirestore) {
-
-    //Firestore settings
-    const firestore = afs.firestore;
-    const settings = {timestampsInSnapshots: true};
-    firestore.settings(settings);
+  constructor(public afs: AngularFirestore, public authentication: AutenticationProvider) {
 
     //Creating the users collection.
-    this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('name', 'desc'));
+    this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('email', 'desc'));
     this.usersCollection.snapshotChanges().subscribe(result => {
     this._users = result.map(a => {
         let temp = a.payload.doc.data() as User;
-        temp.id = a.payload.doc.id;
-        return new User(temp.name, temp.lastname, temp.id)
+        // temp.id = a.payload.doc.id;
+        return new User(temp.email)
       });
       this.users.next(this._users);
     });
 
-    //Creating the categories collection.
-    this.categoriesCollection = afs.collection<Category>('categories', ref => ref.orderBy('name', 'desc'));
-    this.categoriesCollection.snapshotChanges().subscribe(result => {
-    this._categories = result.map(a => {
-        let temp = a.payload.doc.data() as Category;
-        temp.id = a.payload.doc.id;
-        return new Category(temp.name, temp.imageURL, temp.id);
-      });
-      this.categories.next(this._categories);
-    });
+    // this.importCategories();
 
   }
 
-  getUserById(id: string){
-    return this._users.find(u => u.id === id)
-  }
+  // getUserById(id: string){
+  //   return this._users.find(u => u.id === id)
+  // }
   get getUsers() {
     return this._users;
   }
@@ -65,10 +51,28 @@ export class FirebaseProvider {
     return this.usersCollection.add(User.toObject(user));
   }
 
-
-  getCategoryById(id: string){
-    return this._users.find(u => u.id === id)
+  public importCategories()
+  {
+        //Creating the categories collection.
+        this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.orderBy('email', 'desc'));
+        this.categoriesCollection.snapshotChanges().subscribe(result => {
+        this._categories = result.map(a => {
+            let temp = a.payload.doc.data() as Category;
+            temp.id = a.payload.doc.id;
+            console.log(temp.name);
+            // if(temp.getEmail == this.authentication.user.email)
+            // {
+            return new Category(temp.name, temp.imageURL, temp.email, temp.id);
+            // }
+          });
+          this.categories.next(this._categories);
+        });
+        console.log(this._categories);
   }
+
+  // getCategoryById(id: string){
+  //   return this._users.find(u => u.id === id)
+  // }
   get getCategories() {
     return this._categories;
   }

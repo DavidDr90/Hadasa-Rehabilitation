@@ -13,25 +13,28 @@ export class Item{
 export class User extends Item{
     // { url: string, title?: string, description?: string, category?: string[] }[]
     constructor(
-        public name : string = "", 
-        public lastname: string = "",
-        public id: string = ""
+        public email : string = ""
     )
     {
         super()
     }
 
+    public get getEmail()
+    {
+        return this.email;
+    }
+
     public static copy(obj): User{
-        return new User(obj.name, obj.lastname, obj.id)
+        return new User(obj.email)
     }
 
     public Clone()
     {
-        return new User(this.name,this.lastname);
+        return new User(this.email);
     }
 
     public toString()
     {
-        return this.name +" "+ this.lastname;
+        return this.email;
     }
 }

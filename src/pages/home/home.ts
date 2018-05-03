@@ -37,13 +37,34 @@ export class HomePage {
 
 
   constructor(public navCtrl: NavController,public firebaseProvider: FirebaseProvider,public authentication: AutenticationProvider) {
-    // authentication.createAuthentication();
   
+    if(authentication.loggedIn)
+    {
+      this.updateDisplayName();
+      // this.user_name = authentication.GetDisplayName;
+      var user_exists = false;
+      firebaseProvider.getUsers.forEach(user => 
+      {
+        if(user.getEmail == authentication.user.email)
+        {
+          user_exists = true;
+        }
+      })
+      if(!user_exists)
+      {
+        firebaseProvider.addUser(new User(authentication.user.email));
+      }
+    }
+    
   }
 
 
-  public get _users(){
-    return this.firebaseProvider.getUsers
+  public updateDisplayName()
+  {
+    this.authentication.afAuth.authState.subscribe(auth=>
+      {
+        this.user_name= auth.displayName;
+      });
   }
 
   public set setDisplayName(displayName)

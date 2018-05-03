@@ -15,26 +15,31 @@ export class Category extends Item{
     constructor(
         public name: string,
         public imageURL: string,
+        public email: string,
         public id: string)
         {
             super()
         }
     
 
-    public get getTitle(){
+    public get getName(){
             return this.name;
     }
+
+    public get getID(){
+        return this.id;
+}
     
     public get getImage(){
         return this.imageURL;
     }
     
-    public get getID(){
-        return this.id;
+    public get getEmail(){
+        return this.email;
     }
 
 
-    public setTitle(t: string){
+    public setName(t: string){
         this.name = t;
     }
 
@@ -44,6 +49,10 @@ export class Category extends Item{
 
     public setID(id: string){
         this.id = id;
+    }
+
+    public setEmail(email: string){
+        this.email = email;
     }
 
         

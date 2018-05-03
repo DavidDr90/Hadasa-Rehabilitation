@@ -13,16 +13,23 @@ import { User } from '@firebase/auth-types';
 export class AutenticationProvider {
 
   user : User;
-  
-
+  loggedIn: boolean;
   constructor(public afAuth: AngularFireAuth) {
   
   }
 
 
   public async createAuthentication() {
-    let user = await this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    this.loggedIn = false;
+    let user = await this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>
+  {
     this.user = this.afAuth.auth.currentUser;
+    this.loggedIn = true;
+  }).catch(()=>
+  {
+    this.loggedIn = false;
+  })
+
   }
 
 get GetDisplayName()
