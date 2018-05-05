@@ -53,7 +53,9 @@
       <ion-icon name="mic-off" *ngIf="recording"></ion-icon>
       &nbsp;&nbsp; {{ micText }}
     </button>
-
+    <div [hidden]= "!recording">
+      <timer [recored] = "recording" ></timer>
+    </div>
 
     <button ion-button primary (click)="getAudioFromTTS()" *ngIf="!recording">
       <ion-icon name="radio"></ion-icon>&nbsp;&nbsp; יצר הקלטה</button>
