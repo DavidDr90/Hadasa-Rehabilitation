@@ -9,23 +9,32 @@ declare var cordova: any;
 @Injectable()
 export class GetImageProvider {
 
+  lastImage: string = "null";
+
   constructor(private camera: Camera,
     public platform: Platform,
     private file: File,
     private filePath: FilePath
-  ) {
-
-  }
+  ) {  }
 
   /********* The following are the image handler functions ************/
 
+  public generateImageFile(sourceType): string{
+    let fileName:string = "";
+    this.takePicture(sourceType);
+    setInterval({},200);
+    fileName = this.lastImage;
+    return fileName;
+  }
+
   /**define the native camera oprtion from the givven input
    * then call the getPicture() method with the option
-   * @param sourceType - from where to get the image, the camera or the gallery
+   * @param sourceType - from where to get the image, the camera or the gallery, use camera provider like follow:
+   * 'this.camera.PictureSourceType.CAMERA' or 'this.camera.PictureSourceType.PHOTOLIBRARY'
    * @returns name to the new picture
    * dispaly an error window on fialure
-   */
-  public takePicture(sourceType) : string {
+    */
+  public takePicture(sourceType) {
     // Create options for the Camera Dialog
     var options = {
       quality: 100,
@@ -42,17 +51,16 @@ export class GetImageProvider {
           .then(filePath => {
             let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
             let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            return this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
           });
       } else {
         var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        return this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
     }, (err) => {
-      throw err;
+      // this.showAlert("לא הצלחנו לבחור תמונה....", err);
     });
-    return "";
   }
 
   // Create a new name for the image from the current time
@@ -64,13 +72,12 @@ export class GetImageProvider {
   }
 
   // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) : string{
+  private copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-      return newFileName;
+      this.lastImage = newFileName;
     }, error => {
-      throw error;
+      // this.showAlert("לא הצלחנו לשמור את התמונה....", error);
     });
-    return "";
   }
 
   /** add the path to the form filed 
@@ -81,8 +88,9 @@ export class GetImageProvider {
     if (img === null) {
       return '';
     } else {
+      // this._myForm.patchValue({ 'imagePath': cordova.file.dataDirectory + img });//insert the capture image path to the form 
       return cordova.file.dataDirectory + img;
     }
-  }
+  } 
 
 }
