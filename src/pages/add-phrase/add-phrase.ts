@@ -1,14 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, ActionSheetController, ViewController, ToastController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, ActionSheetController, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
-import { HTTP } from '@ionic-native/http';
-import { MediaCapture, MediaFile, CaptureError, CaptureImageOptions } from '@ionic-native/media-capture';
 import { AlertController } from 'ionic-angular';
 
 //for the recorder functions
-import { NavController, Platform } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
@@ -17,6 +15,7 @@ declare var cordova: any;
 
 const START_REC = "התחל הקלטה";
 const STOP_REC = "עצור הקלטה";
+const hebrewRegx = "[\u0590-\u05fe]+$";//regex for hebrew chars
 
 @IonicPage()
 @Component({
@@ -54,13 +53,12 @@ export class AddPhrasePage {
     private filePath: FilePath) {
 
 
-    let hebrewRegx = "[\u0590-\u05fe]+$";
 
     //create the form object with the required fileds
     this._myForm = this._formBuilder.group({
       "text": ['', [Validators.required,
-      Validators.pattern(hebrewRegx)],
-        Validators.minLength(1)],//the phrase
+      Validators.pattern(hebrewRegx),//the text must be hebrew text
+      Validators.minLength(1)]],//the text must be more the one char
       "categoryID": ['', Validators.required],//the associated category
       "imagePath": ['', Validators.required],//the path to the pharse's image
       "audioFile": ['', Validators.required],//the path to the phrase's audio file
@@ -123,8 +121,9 @@ export class AddPhrasePage {
    */
   onSubmit() {
     // use the form object to create new phares object and add it to the server
-    // if (!this._myForm.valid) { return; }
-    // this._viewCtrl.dismiss(this._myForm.value);//return the new object
+    if (!this._myForm.valid) { return; }
+    this._viewCtrl.dismiss(this._myForm.value);//return the new object
+    this._myForm.reset();//reset the form
   }
 
   /**present Action Sheet when press the add button
@@ -264,18 +263,25 @@ export class AddPhrasePage {
       this.recording = true;
     }
     catch (error) {
+      this.recording = false;
       this.showAlert("לא הצלחנו לבצע הקלטה....", error);
     }
   }
 
   //stop the record and save the audio file on local variable
   stopRecord() {
-    this.micText = START_REC;
-    this.audio.stopRecord();
-    let data = { filename: this.fileName };
-    this.audioFile = data;
-    this._myForm.patchValue({ 'audioFile': this.audioFile });//insert the capture audio file to the form 
-    this.recording = false;
+    if (this.recording) {
+      try {
+        this.micText = START_REC;
+        this.audio.stopRecord();
+        let data = { filename: this.fileName };
+        this.audioFile = data;
+        this._myForm.patchValue({ 'audioFile': this.audioFile });//insert the capture audio file to the form 
+        this.recording = false;
+      } catch (error) {
+        this.showAlert(error, "");
+      }
+    }
   }
 
   /** play the input file on the device speakers
@@ -313,10 +319,25 @@ export class AddPhrasePage {
   //TODO:
   //use the http provider to get the audio file from the TTS server
   getAudioFromTTS() {
-    if (this._myForm.controls['text'].value == "") {
+    if (this._myForm.controls['text'].value == "" || !this.isHebrew(this._myForm.controls['text'].value)) {
       this.showAlert("לא הוכנס משפט", null);
     } else {
       console.log(this._myForm.controls['text'].value);//the input text value
     }
   }
+
+  /**check if a given text is in hebrew chars
+   * @param str - input text to check
+   * @returns - true if the input string is hebrew
+   *            false if not
+   */
+  private isHebrew(str): boolean {
+    let re = new RegExp(hebrewRegx);
+    if (re.test(str)) {
+      return true
+    } else {
+      return false;
+    }
+  }
+
 }
