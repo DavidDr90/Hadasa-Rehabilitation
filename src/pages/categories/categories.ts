@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Client } from '../../models/Client';
@@ -33,8 +33,10 @@ export class CategoriesPage {
   }
 
 
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad CategoriesPage');
+    this.categories = this.categoryService.firebaseProvider.getCategories;
   }
 
   public getClient(): Client{

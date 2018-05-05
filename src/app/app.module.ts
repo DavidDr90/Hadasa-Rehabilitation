@@ -28,6 +28,12 @@ import { MyCategoryComponent } from '../components/my-category/my-category';
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 import { LoginProvider } from '../providers/login/login';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { firebaseConfig } from '../environments/firebase.config';
+import { FirebaseProvider } from '../providers/firebase/firebase';
+import { AutenticationProvider } from '../providers/autentication/autentication';
 
 @NgModule({
   declarations: [
@@ -47,7 +53,7 @@ import { LoginProvider } from '../providers/login/login';
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -69,13 +75,15 @@ import { LoginProvider } from '../providers/login/login';
     CategoryServiceProvider,
     PhrasesProvider,
     FirebaseProvider,
-    LoginProvider
+    LoginProvider,
+    AutenticationProvider
   ]
 })
 export class AppModule {
 
-  constructor(public authentication: AutenticationProvider)
+  constructor()
   {
-    authentication.createAuthentication();
+
   }
+
 }
