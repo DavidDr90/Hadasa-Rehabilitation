@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -6,20 +6,20 @@ import { Subscription } from 'rxjs/Subscription';
  * https://dmkcode.com/2016/08/simple-timer-using-angular-2-and-rxjs/
  */
 
- 
+
 @Component({
-  selector: 'timer',
-  templateUrl: 'timer.html'
+    selector: 'timer',
+    templateUrl: 'timer.html'
 })
 export class TimerComponent {
+    @Input() recored;
+    text: string;
 
-  text: string;
+    constructor() {
 
-  constructor() {
+    }
+    ticks = 0;
 
-  }
-  ticks = 0;
-    
     minutesDisplay: number = 0;
     hoursDisplay: number = 0;
     secondsDisplay: number = 0;
@@ -36,7 +36,7 @@ export class TimerComponent {
         this.sub = timer.subscribe(
             t => {
                 this.ticks = t;
-                
+
                 this.secondsDisplay = this.getSeconds(this.ticks);
                 this.minutesDisplay = this.getMinutes(this.ticks);
                 this.hoursDisplay = this.getHours(this.ticks);
@@ -49,14 +49,14 @@ export class TimerComponent {
     }
 
     private getMinutes(ticks: number) {
-         return this.pad((Math.floor(ticks / 60)) % 60);
+        return this.pad((Math.floor(ticks / 60)) % 60);
     }
 
     private getHours(ticks: number) {
         return this.pad(Math.floor((ticks / 60) / 60));
     }
 
-    private pad(digit: any) { 
+    private pad(digit: any) {
         return digit <= 9 ? '0' + digit : digit;
     }
 }
