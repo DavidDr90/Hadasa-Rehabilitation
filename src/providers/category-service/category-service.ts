@@ -20,12 +20,12 @@ export class CategoryServiceProvider {
 
   //suppose to import all client's categories from DB
   public importCategories(client: Client){
-    var title = "Numbers";
-    var url = "/assets/imgs/numbers.jpg";
-    this.addCategory(new Category(title,url));
-    var title = "MySelf";
-    var url = "/assets/imgs/myself.png";
-    this.addCategory(new Category(title,url));
+    var title1 = "Numbers";
+    var url1 = "/assets/imgs/numbers.jpg";
+    this.addCategory(new Category(title1,url1));
+    var title2 = "MySelf";
+    var url2 = "/assets/imgs/myself.png";
+    this.addCategory(new Category(title2,url2));
   }
 
   public getCategories(): Array<Category>{

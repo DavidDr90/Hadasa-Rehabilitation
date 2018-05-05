@@ -8,7 +8,7 @@ export class Category {
     { }
 
     public get getTitle(){
-            return this.title;
+        return this.title;
     }
     
     public get getImage(){
