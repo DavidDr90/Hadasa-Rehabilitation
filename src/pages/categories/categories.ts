@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Client } from '../../models/Client';
-import { HomePage } from '../home/home';
-import { AboutMePage } from '../about-me/about-me';
+
 
 /**
  * Generated class for the CategoriesPage page.
@@ -18,9 +17,6 @@ import { AboutMePage } from '../about-me/about-me';
   templateUrl: 'categories.html',
 })
 export class CategoriesPage {
-
-  homePage =HomePage;
-  aboutMePage = AboutMePage;
 
   private client: Client;
 

@@ -19,6 +19,7 @@ import { NothingPage } from '../pages/nothing/nothing';
 import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
+import { TabsPage } from '../pages/tabs/tabs';
 
 //import component
 import { PhraseComponent } from '../components/phrase/phrase';
@@ -28,6 +29,8 @@ import { MyCategoryComponent } from '../components/my-category/my-category';
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 import { LoginProvider } from '../providers/login/login';
+
+
 
 @NgModule({
   declarations: [
@@ -41,7 +44,8 @@ import { LoginProvider } from '../providers/login/login';
     AboutMePage,
     IntroSliderPage,
     PhrasesPage,
-    PhraseComponent
+    PhraseComponent,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -55,7 +59,8 @@ import { LoginProvider } from '../providers/login/login';
     MockTestPage,
     CategoriesPage,
     AboutMePage,
-    IntroSliderPage
+    IntroSliderPage,
+    TabsPage
   ],
   providers: [
     CategoryServiceProvider,
@@ -66,7 +71,8 @@ import { LoginProvider } from '../providers/login/login';
     Camera,
     CategoryServiceProvider,
     PhrasesProvider,
-    LoginProvider
+    LoginProvider,
+
   ]
 })
 export class AppModule {}

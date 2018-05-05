@@ -2,10 +2,9 @@ import { Component } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
 import { LoginProvider} from '../providers/login/login';
+import { TabsPage } from '../pages/tabs/tabs';
 //import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
 //import { MockTestPage } from '../pages/mock-test/mock-test';
 @Component({
@@ -28,7 +27,7 @@ export class MyApp {
   //make sure to update it when implementing login feature
   getRootPage(): any {
     if(this.login.loginStatus)
-      return HomePage;
+      return TabsPage;
     else
       return IntroSliderPage;  
   }

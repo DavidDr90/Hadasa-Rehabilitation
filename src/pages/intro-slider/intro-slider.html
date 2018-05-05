@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>IntroSlider</ion-title>
+    <ion-title>TestingIntroSlider</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,18 +15,19 @@
 
 <ion-content>
 
-    <ion-slides pager="true">
- 
-        <ion-slide>
-          jjh
-        </ion-slide>
-       
-        <ion-slide>
-         ghk
-        </ion-slide>
-       
-        <ion-slide>
-         dhkdghk
+    <ion-slides pager="true" >
+      <ion-slide (click)=logIn() style="background-color: rgb(177, 218, 113)">
+        <h1>"ברוכים הבאים לאפליקציית "בוא נדבר</h1>
+        <h1>היישור לעברית עובד מצוין</h1>
+        <p style="border:2px black solid">
+            click here to login
+        </p>
+       </ion-slide>
+        <ion-slide style="background-color: yellow" >
+          slide2
+        </ion-slide>              
+        <ion-slide style="background-color: blue">
+         slide3
         </ion-slide>
 
     </ion-slides> 

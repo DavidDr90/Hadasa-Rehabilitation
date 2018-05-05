@@ -1,6 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
-import { HomePage } from '../home/home';
+import { TabsPage } from '../tabs/tabs'
 import { LoginProvider } from '../../providers/login/login'
 
 
@@ -14,10 +14,10 @@ import { LoginProvider } from '../../providers/login/login'
 @IonicPage()
 @Component({
   selector: 'page-intro-slider',
-  templateUrl: 'intro-slider.html',
+  templateUrl: 'intro-slider.html'
 })
 export class IntroSliderPage {
-  homePage = HomePage;
+  tabsPage = TabsPage;
   //allows to access its childeren (individual slides)
   @ViewChild(Slides) slides:Slides; 
 
@@ -32,6 +32,7 @@ export class IntroSliderPage {
   logIn(){
     this.login.loginStatus = true;
     alert("login succesful, flag updated");
+    this.navCtrl.push(this.tabsPage);
   }
 
 }
