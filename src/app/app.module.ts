@@ -18,21 +18,16 @@ import { MockTestPage } from '../pages/mock-test/mock-test';
 import { CategoriesPage } from '../pages/categories/categories';
 import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
+import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
 
-//import componentR
+//import component
 import { PhraseComponent } from '../components/phrase/phrase';
 import { MyCategoryComponent } from '../components/my-category/my-category';
 
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
-
-import { AngularFireModule } from 'angularfire2';
-import { firebaseConfig } from '../environments/firebase.config';
-import { FirebaseProvider } from '../providers/firebase/firebase';
-import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AutenticationProvider } from '../providers/autentication/autentication';
-import {AngularFireAuthModule} from 'angularfire2/auth';
+import { LoginProvider } from '../providers/login/login';
 
 @NgModule({
   declarations: [
@@ -43,8 +38,9 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     CategoriesPage,
     MyCategoryComponent,
     AboutMePage,
+    IntroSliderPage,
     PhrasesPage,
-    PhraseComponent,
+    PhraseComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +56,8 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     AddPhrasePage,
     MockTestPage,
     CategoriesPage,
-    AboutMePage
+    AboutMePage,
+    IntroSliderPage
   ],
   providers: [
     CategoryServiceProvider,
@@ -72,7 +69,7 @@ import {AngularFireAuthModule} from 'angularfire2/auth';
     CategoryServiceProvider,
     PhrasesProvider,
     FirebaseProvider,
-    AutenticationProvider
+    LoginProvider
   ]
 })
 export class AppModule {

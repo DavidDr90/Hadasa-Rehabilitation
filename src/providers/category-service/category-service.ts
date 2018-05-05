@@ -19,8 +19,7 @@ export class CategoryServiceProvider {
   constructor(firebaseProvider: FirebaseProvider) {
     this.firebaseProvider = firebaseProvider;
     firebaseProvider.importCategories();
-    this.categories = firebaseProvider.getCategories;
-    // this.addCategory(new Category("חיות מחמד","https://metrouk2.files.wordpress.com/2017/03/pets-e1490696661315.jpg","2"));
+
   }
 
   public getCategories() {
