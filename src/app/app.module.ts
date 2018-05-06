@@ -51,7 +51,8 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
     IntroSliderPage,
     PhrasesPage,
     PhraseComponent,
-    TabsPage
+    TabsPage,
+    //NumbersPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +70,8 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
     CategoriesPage,
     AboutMePage,
     IntroSliderPage,
-    TabsPage
+    TabsPage,
+    //NumbersPage
   ],
   providers: [
     CategoryServiceProvider,
@@ -79,23 +81,19 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
     NativeAudio,
     Camera,
     HTTP,
-    PhrasesProvider,
-    HttpProvider
-  ]
-})
-export class AppModule {}
-=======
-    CategoryServiceProvider,
+    HttpProvider,
+
     PhrasesProvider,
     FirebaseProvider,
     AutenticationProvider
   ]
 })
-export class AppModule {
+export class AppModule {}
+[
+    CategoryServiceProvider,
+    PhrasesProvider,
+    FirebaseProvider,
+    AutenticationProvider
+  ]
 
-  constructor()
-  {
 
-  }
-
-}

@@ -4,15 +4,15 @@
         <ion-title>
             בוא נדבר! שלום {{user_name}}
         </ion-title>
-    <!-- refresh button in the end of the nav-bar -->
-    <ion-buttons end>
-      <button ion-button icon-only [navPush] = "NULL">
+        <!-- refresh button in the end of the nav-bar -->
+        <ion-buttons end>
+            <button ion-button icon-only [navPush]="NULL">
         <ion-icon name="refresh"></ion-icon>
       </button>
-    </ion-buttons>
-  </ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 </ion-header>
-  <!-- The toolbar for the different main pages -->
+<!-- The toolbar for the different main pages -->
 
 
 <ion-content padding>
@@ -38,11 +38,8 @@
 
 <ion-content padding>
     <h1> ברוכים הבאים! </h1>
-</ion-content>
-  <h1> ברוכים הבאים! </h1>
-  
-  <div *ngFor="let user of _users">
-    {{user.name}} {{user.lastname}}
-  </div>
-</ion-content>
 
+    <div *ngFor="let user of _users">
+        {{user.name}} {{user.lastname}}
+    </div>
+</ion-content>
