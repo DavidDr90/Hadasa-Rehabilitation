@@ -9,45 +9,28 @@ import { MyApp } from '../../app/app.component';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { HomePage } from '../../pages/home/home';
 
-
-
-
 @Injectable()
 export class AutenticationProvider {
 
   user : User;
-  loggedIn: boolean;
+  loggedIn: boolean
   
   constructor(public afAuth: AngularFireAuth) {
   }
 
-
+  //open auth page for sing in
   public createAuthentication() {
     this.loggedIn = false;
     let user = this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>
-  {
-    this.user = this.afAuth.auth.currentUser;
-    this.loggedIn = true;
-
-  }).catch(()=>
+      {
+        this.user = this.afAuth.auth.currentUser;
+        this.loggedIn = true;
+      }).catch(()=>
   {
     this.loggedIn = false;
   })
+  return user;
   }
-
-  // public async createAuthentication() {
-  //   this.loggedIn = false;
-  //   let user = await this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>
-  // {
-  //   this.user = this.afAuth.auth.currentUser;
-  //   this.loggedIn = true;
-  // }).catch(()=>
-  // {
-  //   this.loggedIn = false;
-  // })
-  
-  // }
-
 
 get GetDisplayName()
 {
@@ -57,16 +40,50 @@ get GetDisplayName()
   }
 }
 
-  public isLoggedIn()
-  {
-    this.afAuth.authState.subscribe(res => {
-      if (res && res.uid) 
-      {
-        return true;
-      } else 
-      {
-        return false;
-      }
-    });
+  //check if current user is logged in
+  public isLoggedIn(){
+  console.log("isLoggedIn()");
+  try {
+    this.afAuth.auth.currentUser.uid
+    this.loggedIn = true;
   }
+  catch(e) {
+    console.log(e.message)
+    this.loggedIn = false;
+  }
+  
+  // //subscribe  = listener to any user to connect
+  // this.afAuth.authState.subscribe(res => {
+  //   if (res && res.uid ) 
+  //   {
+      
+  //     console.log("loggedIn is" + this.loggedIn)
+  //     return true;
+  //   } 
+  //   else 
+  //   {
+  //     this.loggedIn = false;
+  //     console.log("loggedIn is" + this.loggedIn)
+  //     return false;
+  //   }
+  // });
+  }
+
+  //warrped by await in isLoggedIn()
+  isLoggedInHelper(){
+
+  }
+
+
+  public loggedInStatus(){
+    console.log(this.loggedIn)
+    return this.loggedIn;  
+  }
+
+
+
+
+
+
+
 }

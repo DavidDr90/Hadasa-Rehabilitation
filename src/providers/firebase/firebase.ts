@@ -6,16 +6,18 @@ import { List } from 'ionic-angular';
 import { FirebaseListObservable } from 'angularfire2/database-deprecated';
 import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
+
 import { firebaseConfig } from '../../environments/firebase.config';
 import { AngularFireModule } from 'angularfire2';
 import { Category } from '../../models/Category';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class FirebaseProvider {
 
   usersCollection: AngularFirestoreCollection<User>;
-  users: ReplaySubject<User[]> = new ReplaySubject<User[]>()
+  users: Observable<User[]> = new Observable<User[]>()
   _users: User[]
 
   categoriesCollection: AngularFirestoreCollection<Category>;
@@ -27,13 +29,13 @@ export class FirebaseProvider {
 
     //Creating the users collection.
     this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('email', 'desc'));
-    this.usersCollection.snapshotChanges().subscribe(result => {
-    this._users = result.map(a => {
+    this.users = this.usersCollection.snapshotChanges().map(result => {
+    return result.map(a => {
         let temp = a.payload.doc.data() as User;
         // temp.id = a.payload.doc.id;
-        return new User(temp.email)
+        return temp;
       });
-      this.users.next(this._users);
+      //this.users.next(this._users);
     });
 
     // this.importCategories();
@@ -44,7 +46,9 @@ export class FirebaseProvider {
   //   return this._users.find(u => u.id === id)
   // }
   get getUsers() {
-    return this._users;
+
+  return this.users
+   
   }
 
   addUser(user: User) {

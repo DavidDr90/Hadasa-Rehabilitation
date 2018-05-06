@@ -5,8 +5,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
-import { LoginProvider} from '../providers/login/login';
 import { AutenticationProvider } from '../providers/autentication/autentication';
+import { delay } from 'rxjs/operator/delay';
 //import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
 //import { MockTestPage } from '../pages/mock-test/mock-test';
 @Component({
@@ -14,11 +14,11 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
 })
 export class MyApp {
   
-  rootPage:any  = this.getRootPage();
+  rootPage:any
   
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
-    public login: LoginProvider,public authentication: AutenticationProvider) 
+      public authentication: AutenticationProvider) 
     {
       platform.ready().then(() => {
         // Okay, so the platform is ready and our plugins are available.
@@ -27,28 +27,33 @@ export class MyApp {
         splashScreen.hide();
 
       });
-      authentication.createAuthentication();
-
+      //async calling 
+      //this.helper();
+      console.log("before");
+      this.authentication.isLoggedIn();
+      console.log("after");
+      this.getRootPage();
     }
-
-
-
   //logic to choose root page, uses LoginProvider
   //make sure to update it when implementing login feature
-  getRootPage(): any {
+  getRootPage(){
+    if(this.authentication.loggedInStatus()){
+      this.rootPage = HomePage;
+    }
+    else{
+      this.rootPage = IntroSliderPage;  
+      this.authentication.createAuthentication().then(()=>{
+        this.rootPage = HomePage;
+      })
+      
+    }
+  }
+  
+  public async helper(){
 
-    if(this.authentication.isLoggedIn())
-      return HomePage;
-    else
-      return IntroSliderPage;  
   }
 
-  async checkLogin()
-  {
-    await this.authentication.isLoggedIn();
-  }
-
-
+  
 
 }
 

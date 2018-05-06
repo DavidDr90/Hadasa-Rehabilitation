@@ -32,46 +32,40 @@ export class HomePage {
 
 
 
-  private users: User[];
+  private users: User[] = [];
 
 
   constructor(public navCtrl: NavController,public firebaseProvider: FirebaseProvider,public authentication: AutenticationProvider) {
   
     if(authentication.loggedIn)
     {
-      this.updateDisplayName();
+     // this.updateDisplayName();
       // this.user_name = authentication.GetDisplayName;
       var user_exists = false;
-      firebaseProvider.getUsers.forEach(user => 
-      {
-        if(user.getEmail == authentication.user.email)
-        {
-          user_exists = true;
+      let x = firebaseProvider.getUsers.subscribe(a => {
+        this.users = a;
+        this.users.forEach(user => {
+            if(user.getEmail == authentication.user.email) {
+                user_exists = true;
+            }
+            
+          })
+        if(!user_exists) {
+           firebaseProvider.addUser(new User(authentication.user.email));
         }
+        this.user_name = authentication.afAuth.auth.currentUser.displayName;
+        if(this.user_name != "אורח"){
+          x.unsubscribe();
+        }
+        console.log(this.user_name)
       })
-      if(!user_exists)
-      {
-        firebaseProvider.addUser(new User(authentication.user.email));
-      }
+
+      // if(this.users.length > 0)
+      //  x.unsubscribe();
     }
     
   }
 
-
-  public updateDisplayName()
-  {
-    this.authentication.afAuth.authState.subscribe(auth=>
-      {
-        this.user_name= auth.displayName;
-      });
-  }
-
-  public set setDisplayName(displayName)
-  {
-    this.user_name = displayName;
-  }
-
-  // Should get the user name from the login process
   get userName(){
     // TODO:
     // get the user name from the Google account.

@@ -19,7 +19,6 @@ export class CategoryServiceProvider {
   constructor(firebaseProvider: FirebaseProvider) {
     this.firebaseProvider = firebaseProvider;
     firebaseProvider.importCategories();
-
   }
 
   public getCategories() {

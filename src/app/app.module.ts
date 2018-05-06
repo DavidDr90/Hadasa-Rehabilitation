@@ -27,7 +27,6 @@ import { MyCategoryComponent } from '../components/my-category/my-category';
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
-import { LoginProvider } from '../providers/login/login';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -75,7 +74,6 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
     CategoryServiceProvider,
     PhrasesProvider,
     FirebaseProvider,
-    LoginProvider,
     AutenticationProvider
   ]
 })

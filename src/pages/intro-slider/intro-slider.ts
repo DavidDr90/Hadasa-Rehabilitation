@@ -1,7 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { HomePage } from '../home/home';
-import { LoginProvider } from '../../providers/login/login'
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 
 
@@ -22,21 +21,14 @@ export class IntroSliderPage {
   //allows to access its childeren (individual slides)
   @ViewChild(Slides) slides:Slides; 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public login: LoginProvider, public authentication: AutenticationProvider) {
-    this.checkIfDataLoaded();
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authentication: AutenticationProvider) {
+   // this.checkIfDataLoaded();
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad IntroSliderPage');
 
   }
-
-  //update the flag in the provider
-  logIn(){
-    this.login.loginStatus = true;
-    alert("login succesful, flag updated");
-  }
-
+  
   public checkIfDataLoaded() 
   {
     return new Promise((resolve, reject) => 
