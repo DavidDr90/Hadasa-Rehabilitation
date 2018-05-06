@@ -1,7 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonicPage, ActionSheetController, ViewController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera/*, CameraOptions*/ } from '@ionic-native/camera';
 
 
 //look in this link for more info abuot images
