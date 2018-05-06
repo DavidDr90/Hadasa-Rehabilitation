@@ -4,32 +4,16 @@
         <ion-title>
             בוא נדבר! שלום {{user_name}}
         </ion-title>
-
-        <!-- refresh button in the end of the nav-bar -->
-        <ion-buttons end>
-            <button ion-button icon-only [navPush]="mockTestPage">
+    <!-- refresh button in the end of the nav-bar -->
+    <ion-buttons end>
+      <button ion-button icon-only [navPush] = "NULL">
         <ion-icon name="refresh"></ion-icon>
       </button>
-        </ion-buttons>
-    </ion-navbar>
-
-    <!-- The toolbar for the different main pages -->
-    <ion-toolbar>
-        <ion-segment>
-            <ion-segment-button [navPush]="homePage" value="home">
-                <!-- Or can you explaine this line? -->
-                <!--     <ion-segment ng-model="menu" full="true" assertive> -->
-                דף הבית
-            </ion-segment-button>
-            <ion-segment-button [navPush]="categoriesPage" value="categories">
-                כל הקטגוריות
-            </ion-segment-button>
-            <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
-                על עצמי
-            </ion-segment-button>
-        </ion-segment>
-    </ion-toolbar>
+    </ion-buttons>
+  </ion-navbar>
 </ion-header>
+  <!-- The toolbar for the different main pages -->
+
 
 <ion-content padding>
     <!-- fab is the button in the corner of the screen -->
@@ -54,5 +38,11 @@
 
 <ion-content padding>
     <h1> ברוכים הבאים! </h1>
-    <test-http>aaa</test-http>
 </ion-content>
+  <h1> ברוכים הבאים! </h1>
+  
+  <div *ngFor="let user of _users">
+    {{user.name}} {{user.lastname}}
+  </div>
+</ion-content>
+
