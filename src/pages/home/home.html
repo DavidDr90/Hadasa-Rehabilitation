@@ -39,4 +39,11 @@
 
 <ion-content padding>
   <h1> ברוכים הבאים! </h1>
+  
+  <div *ngFor="let user of _users">
+    {{user.name}} {{user.lastname}}
+  </div>
 </ion-content>
+
+
+

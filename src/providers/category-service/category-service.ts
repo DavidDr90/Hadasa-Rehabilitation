@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../models/Category';
 import { Client } from '../../models/Client';
+import { FirebaseProvider } from '../firebase/firebase';
 
 /*
   Generated class for the CategoryServiceProvider provider.
@@ -12,23 +13,15 @@ import { Client } from '../../models/Client';
 @Injectable()
 export class CategoryServiceProvider {
 
-  private categories;
-   
-  constructor() {
-    this.categories = [];
+  private categories = [];
+  firebaseProvider;
+
+  constructor(firebaseProvider: FirebaseProvider) {
+    this.firebaseProvider = firebaseProvider;
+    firebaseProvider.importCategories();
   }
 
-  //suppose to import all client's categories from DB
-  public importCategories(client: Client){
-    var title1 = "Numbers";
-    var url1 = "/assets/imgs/numbers.jpg";
-    this.addCategory(new Category(title1,url1));
-    var title2 = "MySelf";
-    var url2 = "/assets/imgs/myself.png";
-    this.addCategory(new Category(title2,url2));
-  }
-
-  public getCategories(): Array<Category>{
+  public getCategories() {
     return this.categories;
   }
 
@@ -36,8 +29,8 @@ export class CategoryServiceProvider {
     return this.categories[index];
   }
 
-  public addCategory(value: Category): void {
-      this.categories.push(value);
+  public addCategory(category: Category): void {
+      this.firebaseProvider.addCategory(category);
   }
 
   removeCategory(category: Category){
