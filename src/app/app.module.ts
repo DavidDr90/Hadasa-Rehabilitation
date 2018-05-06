@@ -28,6 +28,8 @@ import { MyCategoryComponent } from '../components/my-category/my-category';
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
+import {HTTP} from '@ionic-native/http';
+import { HttpProvider } from '../providers/http/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -76,6 +78,13 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     NativeAudio,
     Camera,
+    HTTP,
+    PhrasesProvider,
+    HttpProvider
+  ]
+})
+export class AppModule {}
+=======
     CategoryServiceProvider,
     PhrasesProvider,
     FirebaseProvider,

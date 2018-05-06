@@ -1,10 +1,9 @@
 <ion-header>
-  <ion-navbar>
-    <!-- user_name holds the looged in user from the google account -->
-    <ion-title>
-      בוא נדבר! שלום {{user_name}}
-    </ion-title>
-
+    <ion-navbar>
+        <!-- user_name holds the looged in user from the google account -->
+        <ion-title>
+            בוא נדבר! שלום {{user_name}}
+        </ion-title>
     <!-- refresh button in the end of the nav-bar -->
     <ion-buttons end>
       <button ion-button icon-only [navPush] = "NULL">
@@ -17,33 +16,33 @@
 
 
 <ion-content padding>
-  <!-- fab is the button in the corner of the screen -->
-  <!-- this button flot over the contnet and stay in his place on scrolling -->
-  <ion-fab bottom right>
-    <button ion-fab color="light">
+    <!-- fab is the button in the corner of the screen -->
+    <!-- this button flot over the contnet and stay in his place on scrolling -->
+    <ion-fab bottom right>
+        <button ion-fab color="light">
       <ion-icon name="add"></ion-icon>
     </button>
-    <!-- list opened when press the button -->
-    <ion-fab-list side="top">
-      <button ion-fab [navPush] = "addPhrasePage">
+        <!-- list opened when press the button -->
+        <ion-fab-list side="top">
+            <button ion-fab [navPush]="addPhrasePage">
         <ion-icon name="text"></ion-icon>
         <ion-label>הוספת ביטוי</ion-label>
       </button>
-      <button ion-fab>
+            <button ion-fab>
         <ion-icon name="information-circle"></ion-icon>
         <ion-label>הוספת קטגוריה</ion-label>
       </button>
-    </ion-fab-list>
-  </ion-fab>
+        </ion-fab-list>
+    </ion-fab>
 </ion-content>
 
 <ion-content padding>
+    <h1> ברוכים הבאים! </h1>
+</ion-content>
   <h1> ברוכים הבאים! </h1>
   
   <div *ngFor="let user of _users">
     {{user.name}} {{user.lastname}}
   </div>
 </ion-content>
-
-
 
