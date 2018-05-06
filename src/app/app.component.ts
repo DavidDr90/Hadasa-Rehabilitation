@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
-import { HomePage } from '../pages/home/home';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
+=======
+import { LoginProvider} from '../providers/login/login';
+import { TabsPage } from '../pages/tabs/tabs';
 import { AutenticationProvider } from '../providers/autentication/autentication';
 import { delay } from 'rxjs/operator/delay';
 //import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
@@ -36,9 +37,10 @@ export class MyApp {
     }
   //logic to choose root page, uses LoginProvider
   //make sure to update it when implementing login feature
+=======
   getRootPage(){
     if(this.authentication.loggedInStatus()){
-      this.rootPage = HomePage;
+      this.rootPage = TabsPage;
     }
     else{
       this.rootPage = IntroSliderPage;  

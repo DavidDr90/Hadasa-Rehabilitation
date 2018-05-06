@@ -19,6 +19,7 @@ import { CategoriesPage } from '../pages/categories/categories';
 import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
+import { TabsPage } from '../pages/tabs/tabs';
 
 //import component
 import { PhraseComponent } from '../components/phrase/phrase';
@@ -34,6 +35,8 @@ import { firebaseConfig } from '../environments/firebase.config';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AutenticationProvider } from '../providers/autentication/autentication';
 
+
+
 @NgModule({
   declarations: [
     MyApp,
@@ -45,7 +48,8 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
     AboutMePage,
     IntroSliderPage,
     PhrasesPage,
-    PhraseComponent
+    PhraseComponent,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -62,7 +66,8 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
     MockTestPage,
     CategoriesPage,
     AboutMePage,
-    IntroSliderPage
+    IntroSliderPage,
+    TabsPage
   ],
   providers: [
     CategoryServiceProvider,

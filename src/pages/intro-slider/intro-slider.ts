@@ -1,5 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { TabsPage } from '../tabs/tabs'
 import { HomePage } from '../home/home';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 
@@ -14,10 +15,10 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 @IonicPage()
 @Component({
   selector: 'page-intro-slider',
-  templateUrl: 'intro-slider.html',
+  templateUrl: 'intro-slider.html'
 })
 export class IntroSliderPage {
-  homePage = HomePage;
+  tabsPage = TabsPage;
   //allows to access its childeren (individual slides)
   @ViewChild(Slides) slides:Slides; 
 

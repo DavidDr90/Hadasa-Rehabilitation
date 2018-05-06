@@ -6,6 +6,7 @@ import { HomePage } from '../home/home';
 import { AboutMePage } from '../about-me/about-me';
 import { Category } from '../../models/Category';
 
+
 /**
  * Generated class for the CategoriesPage page.
  *
@@ -19,9 +20,6 @@ import { Category } from '../../models/Category';
   templateUrl: 'categories.html',
 })
 export class CategoriesPage {
-
-  homePage =HomePage;
-  aboutMePage = AboutMePage;
 
   private client: Client;
   private categories;

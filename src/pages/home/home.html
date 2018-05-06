@@ -7,29 +7,14 @@
 
     <!-- refresh button in the end of the nav-bar -->
     <ion-buttons end>
-      <button ion-button icon-only [navPush] = "mockTestPage">
+      <button ion-button icon-only [navPush] = "NULL">
         <ion-icon name="refresh"></ion-icon>
       </button>
     </ion-buttons>
   </ion-navbar>
-
-  <!-- The toolbar for the different main pages -->
-  <ion-toolbar>
-    <ion-segment>
-      <ion-segment-button [navPush]="homePage" value="home">
-        <!-- Or can you explaine this line? -->
-        <!--     <ion-segment ng-model="menu" full="true" assertive> -->
-        דף הבית
-      </ion-segment-button>
-      <ion-segment-button [navPush]="categoriesPage" value="categories">
-        כל הקטגוריות
-      </ion-segment-button>
-      <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
-        על עצמי
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar>
 </ion-header>
+  <!-- The toolbar for the different main pages -->
+
 
 <ion-content padding>
   <!-- fab is the button in the corner of the screen -->

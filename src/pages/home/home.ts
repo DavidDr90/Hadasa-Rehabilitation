@@ -1,13 +1,6 @@
 import { Component/*, Input, Output*/ } from '@angular/core';
 import { NavController } from 'ionic-angular';
-//import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-//import { Client } from '../../models/Client';
-import { CategoriesPage } from '../categories/categories';
-import { AboutMePage } from '../about-me/about-me';
-//import { PhrasesPage } from '../phrases/phrases';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
-import { MockTestPage } from '../mock-test/mock-test';
-
 
 import { FirebaseProvider } from '../../providers/firebase/firebase'
 // import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
@@ -23,19 +16,15 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 
 
 export class HomePage {
-  //homePage = HomePage;
-  categoriesPage = CategoriesPage;
-  aboutMePage = AboutMePage;  
   addPhrasePage = AddPhrasePage;
-  mockTestPage = MockTestPage;
+
   user_name = "אורח";
-
-
 
   private users: User[] = [];
 
 
   constructor(public navCtrl: NavController,public firebaseProvider: FirebaseProvider,public authentication: AutenticationProvider) {
+
   
     if(authentication.loggedIn)
     {
