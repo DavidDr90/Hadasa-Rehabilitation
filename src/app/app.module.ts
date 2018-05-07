@@ -8,6 +8,11 @@ import { MyApp } from './app.component';
 
 //native services
 import { NativeAudio } from '@ionic-native/native-audio';
+import { Media } from '@ionic-native/media';
+//for handle the images
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
 //import pages
@@ -27,6 +32,11 @@ import { MyCategoryComponent } from '../components/my-category/my-category';
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 
+import { HTTP } from '@ionic-native/http';
+import { AudioRecordProvider } from '../providers/audio-record/audio-record';
+import { GetImageProvider } from '../providers/get-image/get-image';
+import { TimerComponent } from '../components/timer/timer';
+
 @NgModule({
   declarations: [
     MyApp,
@@ -34,11 +44,12 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     AddPhrasePage,
     MockTestPage,
     CategoriesPage,
-    NothingPage,
     MyCategoryComponent,
     AboutMePage,
     PhrasesPage,
-    PhraseComponent
+    PhraseComponent,
+    NothingPage,
+    TimerComponent
   ],
   imports: [
     BrowserModule,
@@ -51,17 +62,25 @@ import { CategoryServiceProvider } from '../providers/category-service/category-
     AddPhrasePage,
     MockTestPage,
     CategoriesPage,
-    AboutMePage
+    AboutMePage,
+    NothingPage
   ],
   providers: [
     CategoryServiceProvider,
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     NativeAudio,
-    Camera,
     CategoryServiceProvider,
-    PhrasesProvider
+    PhrasesProvider,
+    HTTP,
+    Media,
+    File,
+    Transfer,
+    Camera,
+    FilePath,
+    AudioRecordProvider,
+    GetImageProvider,
   ]
 })
-export class AppModule {}
+export class AppModule { }

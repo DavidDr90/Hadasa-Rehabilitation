@@ -1,45 +1,84 @@
 <ion-header>
-
   <ion-navbar>
     <ion-title>הוספת ביטוי</ion-title>
   </ion-navbar>
-
 </ion-header>
 
-
 <ion-content padding>
-  <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
   <form [formGroup]="_myForm" (ngSubmit)="onSubmit()">
+
+    <!-- deal with the image choosing procces -->
+    <!-- connect the file choose to the html elemnt -->
+    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
     <div class="profile-image-wrapper" (click)="presentActionSheet()">
-      <div class="profile-image-placeholder" *ngIf="!this._myForm.controls.imagePath.value">
+      <!-- display circle with '+' symbol for adding an image -->
+      <div class="profile-image-placeholder" [hidden]="lastImage !== null">
         <ion-icon name="add"></ion-icon>
         <div>
-          <!-- {{ 'ITEM_CREATE_CHOOSE_IMAGE' }} -->
           הוספת תמונה
         </div>
       </div>
+      <!-- display the choosen image -->
+      <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
     </div>
 
+    <!-- deal with the user input fileds -->
     <ion-item>
       <ion-label>ביטוי</ion-label>
-      <ion-textarea formControlName="text"></ion-textarea>
+      <ion-input #textInput (click)="getCaretPos($event)" (keyup)="getCaretPos($event)" formControlName="text"></ion-input>
     </ion-item>
+
+    <ion-item>
+      <ion-label>הצג מקלדת ניקוד</ion-label>
+      <ion-checkbox checked="false" (click)="_needNikud = !_needNikud"></ion-checkbox>
+    </ion-item>
+    <!-- display the nikud buttons on demend -->
+    <ion-grid *ngIf="_needNikud">
+      <ion-row>
+        <ion-col col-auto *ngFor="let nikud of getNikud">
+          <button ion-button (click)="addNikudToText(nikud.uniCode)">
+            {{ nikud.uniCode }}
+          </button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
     <ion-item>
       <ion-label>קטגוריה</ion-label>
       <ion-input type="text" formControlName="categoryID"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label floating>Image</ion-label>
-      <ion-input type="text" formControlName="imagePath"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label floating>Audio</ion-label>
-      <ion-input type="text" formControlName="audioFile"></ion-input>
-    </ion-item>
+
+    <button ion-button primary (touchstart)="startRecord()" (touchend)="stopRecord()">
+      <ion-icon name="mic" *ngIf="!recording"></ion-icon>
+      <ion-icon name="mic-off" *ngIf="recording"></ion-icon>
+      &nbsp;&nbsp; {{ micText }}
+    </button>
+    <div [hidden]= "!recording">
+      <timer [recored] = "recording" ></timer>
+    </div>
+
+    <button ion-button primary (click)="getAudioFromTTS()" *ngIf="!recording">
+      <ion-icon name="radio"></ion-icon>&nbsp;&nbsp; יצר הקלטה</button>
+
+    <ion-list>
+      <ion-item *ngIf="audioFile != null">
+        <p>{{audioFile.filename}}</p>
+        <button ion-button clear item-end large (click)="playAudio(audioFile.filename)" *ngIf="!playing">
+          <ion-icon name="play"></ion-icon>
+        </button>
+        <button ion-button clear item-end large (click)="stopAudio(audioFile.filename)" *ngIf="playing">
+          <ion-icon name="pause"></ion-icon>
+        </button>
+      </ion-item>
+    </ion-list>
 
     <!-- show the object that create from the inputs -->
     <p>Form value: {{ _myForm.value | json }}</p>
 
-    <button ion-button type="submit" [disabled]="!_myForm.valid">Submit</button>
+    <button ion-button large full type="submit" [disabled]="!_myForm.valid">
+      <ion-icon name="home" large></ion-icon>
+      אישור
+    </button>
+
   </form>
 </ion-content>
