@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input/*, Output*/ } from '@angular/core';
 import { Category } from '../../models/Category';
+//import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Client } from '../../models/Client';
 
 

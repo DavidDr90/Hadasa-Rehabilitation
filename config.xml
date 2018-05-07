@@ -83,6 +83,7 @@
     <plugin name="cordova-plugin-device" spec="^2.0.2" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <plugin name="cordova-plugin-advanced-http" spec="^1.11.1" />
+<<<<<<< HEAD
     <plugin name="cordova-plugin-media-capture" spec="^3.0.2" />
     <plugin name="cordova-plugin-media" spec="^5.0.2" />
     <plugin name="cordova-plugin-camera" spec="^4.0.3" />
@@ -92,6 +93,9 @@
     <allow-navigation href="http://192.168.1.104:8100" />
     <allow-navigation href="http://10.8.5.103:8100" />
     <allow-navigation href="http://10.8.5.54:8100" />
+=======
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+>>>>>>> f3fcad9cc261533c786f6b8591d22e2799c61ca3
     <engine name="browser" spec="5.0.3" />
     <engine name="android" spec="7.0.0" />
 </widget>
