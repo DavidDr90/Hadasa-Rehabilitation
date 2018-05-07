@@ -10,6 +10,7 @@ import { Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
+import { HttpProvider } from '../../providers/http/http';
 
 declare var cordova: any;
 
@@ -50,7 +51,8 @@ export class AddPhrasePage {
     private media: Media,
     public platform: Platform,
     private file: File,
-    private filePath: FilePath) {
+    private filePath: FilePath,
+    private httpProvider:HttpProvider) {
 
 
 
@@ -323,6 +325,7 @@ export class AddPhrasePage {
       this.showAlert("לא הוכנס משפט", null);
     } else {
       console.log(this._myForm.controls['text'].value);//the input text value
+      //this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.API_KEYS.TTS_ofek_API_KEY, "");
     }
   }
 
