@@ -19,7 +19,6 @@ import { Camera } from '@ionic-native/camera';
 //import pages
 import { HomePage } from '../pages/home/home';
 import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
-import { MockTestPage } from '../pages/mock-test/mock-test';
 import { CategoriesPage } from '../pages/categories/categories';
 import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
@@ -53,7 +52,6 @@ import { TimerComponent } from '../components/timer/timer';
     MyApp,
     HomePage,
     AddPhrasePage,
-    MockTestPage,
     CategoriesPage,
     MyCategoryComponent,
     AboutMePage,
@@ -76,7 +74,6 @@ import { TimerComponent } from '../components/timer/timer';
     MyApp,
     HomePage,
     AddPhrasePage,
-    MockTestPage,
     CategoriesPage,
     AboutMePage,
     IntroSliderPage,
