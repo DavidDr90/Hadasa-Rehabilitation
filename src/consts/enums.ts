@@ -9,26 +9,15 @@
  */
 
 
-<<<<<<< HEAD
 export const enum API_KEYS {
-=======
-export const enum API_KEYS{
->>>>>>> f3fcad9cc261533c786f6b8591d22e2799c61ca3
     /** API key for google URL Shorter, can be use in the image and audio urls
         guide how to use this API:
         https://developers.google.com/url-shortener/v1/getting_started
     */
-<<<<<<< HEAD
-    // GOOGLE_URL_SHORTER_API_KEY = "AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng", //David's API
-    GOOGLE_URL_SHORTER_API_KEY = "AIzaSyA4mcNEnU-m9VPah1N9U7bH9Oki90FTHOE",
-    /**
-     * To enter the TTS system follow and sgin-in in this link:
-=======
     GOOGLE_URL_SHORTER_API_KEY = "AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng",
     
     /**
      * To enter the TTS system follow and sign-in in this link:
->>>>>>> f3fcad9cc261533c786f6b8591d22e2799c61ca3
      * https://ttsapi.almagu.com/Account/Login?ReturnUrl=%2F
      * 
      * To use the service send HTTP GET messages with text and some parameters.

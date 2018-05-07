@@ -60,7 +60,7 @@ import { TimerComponent } from '../components/timer/timer';
     IntroSliderPage,
     PhrasesPage,
     PhraseComponent,
-    TimerComponent
+    TimerComponent,
     TabsPage,
     //NumbersPage
   ],
