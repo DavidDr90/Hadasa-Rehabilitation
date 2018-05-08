@@ -10,5 +10,5 @@
 
 
 <ion-content padding class="categories">
- <my-category [category] = "item" *ngFor = "let item of categories"> </my-category>
+  <my-category [category] = "item" *ngFor = "let item of categoryService.getCategories"> </my-category>
 </ion-content>

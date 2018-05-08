@@ -29,32 +29,29 @@ export class HomePage {
 
   constructor(public navCtrl: NavController,public firebaseProvider: FirebaseProvider,public authentication: AutenticationProvider) {
 
-  
+  //when user logged in, check in DB if the user is a new user.
+  //if current user is new, add the user to DB.
     if(authentication.loggedIn)
     {
-     // this.updateDisplayName();
-      // this.user_name = authentication.GetDisplayName;
       var user_exists = false;
-      let x = firebaseProvider.getUsers.subscribe(a => {
+      let x = firebaseProvider.getUsersObservable.subscribe(a => {
         this.users = a;
         this.users.forEach(user => {
             if(user.getEmail == authentication.user.email) {
                 user_exists = true;
             }
             
-          })
+          });
         if(!user_exists) {
            firebaseProvider.addUser(new User(authentication.user.email));
         }
         this.user_name = authentication.afAuth.auth.currentUser.displayName;
+        //after the user is loaded successfuly, stop subscribe users from DB.
         if(this.user_name != "אורח"){
           x.unsubscribe();
         }
-        console.log(this.user_name)
       })
 
-      // if(this.users.length > 0)
-      //  x.unsubscribe();
     }
     
   }

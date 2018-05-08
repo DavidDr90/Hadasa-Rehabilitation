@@ -30,20 +30,22 @@ export class IntroSliderPage {
 
   }
   
-  public checkIfDataLoaded() 
-  {
-    return new Promise((resolve, reject) => 
-    {
-        if (this.authentication.isLoggedIn()) 
-        {
-          console.log('user is logged in');
-          this.navCtrl.push(HomePage);
-            resolve(true);
-        } else 
-        {
-            resolve(false);
-        }
-    });
-}
+
+
+//   public checkIfDataLoaded() 
+//   {
+//     return new Promise((resolve, reject) => 
+//     {
+//         if (this.authentication.isLoggedIn()) 
+//         {
+//           console.log('user is logged in');
+//           this.navCtrl.push(HomePage);
+//             resolve(true);
+//         } else 
+//         {
+//             resolve(false);
+//         }
+//     });
+// }
 
 }

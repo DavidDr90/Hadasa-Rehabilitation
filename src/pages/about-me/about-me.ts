@@ -18,7 +18,6 @@ export class AboutMePage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AboutMePage');
   }
 
 }

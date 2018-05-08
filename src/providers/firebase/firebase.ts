@@ -18,11 +18,9 @@ export class FirebaseProvider {
 
   usersCollection: AngularFirestoreCollection<User>;
   users: Observable<User[]> = new Observable<User[]>()
-  _users: User[]
 
   categoriesCollection: AngularFirestoreCollection<Category>;
-  categories: ReplaySubject<Category[]> = new ReplaySubject<Category[]>()
-  _categories: Category[]
+  categories: Observable<Category[]> = new Observable<Category[]>()
 
 
   constructor(public afs: AngularFirestore, public authentication: AutenticationProvider) {
@@ -35,54 +33,41 @@ export class FirebaseProvider {
         // temp.id = a.payload.doc.id;
         return temp;
       });
-      //this.users.next(this._users);
     });
-
-    // this.importCategories();
-
   }
 
-  // getUserById(id: string){
-  //   return this._users.find(u => u.id === id)
-  // }
-  get getUsers() {
+  public importCategories()
+  {
+    //Creating the categories collection.
+    this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.orderBy('email', 'desc'));
+    this.categories = this.categoriesCollection.snapshotChanges().map(result => {
+      return result.map(a => {
+        let temp = a.payload.doc.data() as Category;
+        temp.id = a.payload.doc.id;
+        return temp;
+      });
+    });
+  }
 
-  return this.users
-   
+  // move to UserService or something.... 
+  // getUserByEmail(email: string){
+  //   return this._users.find(u => u.email === email)
+  // }
+
+  get getUsersObservable() {
+    return this.users
   }
 
   addUser(user: User) {
     return this.usersCollection.add(User.toObject(user));
   }
 
-  public importCategories()
-  {
-        //Creating the categories collection.
-        this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.orderBy('email', 'desc'));
-        this.categoriesCollection.snapshotChanges().subscribe(result => {
-        this._categories = result.map(a => {
-            let temp = a.payload.doc.data() as Category;
-            temp.id = a.payload.doc.id;
-            console.log(temp.name);
-            // if(temp.getEmail == this.authentication.user.email)
-            // {
-            return new Category(temp.name, temp.imageURL, temp.email, temp.id);
-            // }
-          });
-          this.categories.next(this._categories);
-        });
-        console.log(this._categories);
-  }
-
-  // getCategoryById(id: string){
-  //   return this._users.find(u => u.id === id)
-  // }
-  get getCategories() {
-    return this._categories;
+  get getCategoriesObservable() {
+    return this.categories;
   }
 
   addCategory(category: Category) {
-    return this.categoriesCollection.add(Category.toObject(category));
+    this.categoriesCollection.add(Category.toObject(category));
   }
 
 }

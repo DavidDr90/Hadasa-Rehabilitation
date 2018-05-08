@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AutenticationProvider } from '../providers/autentication/autentication';
-import { delay } from 'rxjs/operator/delay';
 
 @Component({
   templateUrl: 'app.html'
@@ -13,8 +12,7 @@ import { delay } from 'rxjs/operator/delay';
 export class MyApp {
   
   rootPage:any
-  
-
+ 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
       public authentication: AutenticationProvider) 
     {
@@ -25,33 +23,29 @@ export class MyApp {
         splashScreen.hide();
 
       });
-      //async calling 
-      //this.helper();
-      console.log("before");
+
+      //check if current user is login, initialize authentication.loggedIn attr.
       this.authentication.isLoggedIn();
-      console.log("after");
+      //considering authentication.loggedIn set the following page: homePage or loginPage
       this.getRootPage();
     }
-  //logic to choose root page, uses LoginProvider
-  //make sure to update it when implementing login feature
 
+  //---------------------------------------------------------------------------//
+  //considering authentication.loggedIn set the following page: homePage or loginPage
+  //if current user doesn't logged in -> popup google login window.  
   getRootPage(){
     if(this.authentication.loggedInStatus()){
       this.rootPage = TabsPage;
     }
     else{
-      this.rootPage = IntroSliderPage;  
+      this.rootPage = IntroSliderPage; 
       this.authentication.createAuthentication().then(()=>{
         this.rootPage = TabsPage;
       })
       
     }
   }
-  
-  public async helper(){
-
-  }
-
+  //---------------------------------------------------------------------------//
   
 
 }

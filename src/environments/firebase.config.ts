@@ -1,3 +1,5 @@
+
+//firebase key, initial for connecting to DB and storage. 
 export const firebaseConfig = {
   prodction: false,
   firebase:{

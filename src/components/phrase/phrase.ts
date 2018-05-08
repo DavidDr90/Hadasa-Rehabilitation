@@ -11,8 +11,6 @@ export class PhraseComponent {
   @Input() phrase : Phrase;
 
   constructor() {
-    console.log('Hello PhraseComponent Component');
-    
   }
 
 }

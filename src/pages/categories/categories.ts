@@ -22,23 +22,15 @@ import { Category } from '../../models/Category';
 export class CategoriesPage {
 
   private client: Client;
-  private categories;
 
   constructor(public categoryService: CategoryServiceProvider,public navCtrl: NavController, public navParams: NavParams) {
-  this.categoryService.firebaseProvider.importCategories();
-  this.categories = categoryService.getCategories();
-  
+    
   }
 
 
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad CategoriesPage');
-    this.categories = this.categoryService.firebaseProvider.getCategories;
   }
 
-  public getClient(): Client{
-      return this.client;
-    }
 
 }

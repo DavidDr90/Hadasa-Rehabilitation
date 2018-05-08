@@ -14,25 +14,27 @@ import { FirebaseProvider } from '../firebase/firebase';
 export class CategoryServiceProvider {
 
   private categories = [];
-  firebaseProvider;
 
-  constructor(firebaseProvider: FirebaseProvider) {
-    this.firebaseProvider = firebaseProvider;
+  constructor(public firebaseProvider: FirebaseProvider) {
     firebaseProvider.importCategories();
+    let x = firebaseProvider.getCategoriesObservable.subscribe(a => {
+      this.categories = a;
+    });
   }
 
-  public getCategories() {
+  get getCategories() {
     return this.categories;
   }
 
-  public getCategory(index: number): Category{
-    return this.categories[index];
+  public getCategoryById(id: string): Category{
+    return this.categories.find(cat => cat.id === id);
   }
 
   public addCategory(category: Category): void {
       this.firebaseProvider.addCategory(category);
   }
 
+  //needs to connect with db
   removeCategory(category: Category){
       this.categories.splice(this.categories.indexOf(category),1);
   }

@@ -10,4 +10,7 @@ import { IntroSliderPage } from './intro-slider';
     IonicPageModule.forChild(IntroSliderPage),
   ],
 })
-export class IntroSliderPageModule {}
+export class IntroSliderPageModule {
+
+  
+}
