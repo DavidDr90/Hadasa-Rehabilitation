@@ -7,7 +7,7 @@ import { Phrase } from '../../models/Phrase';
 export class PhrasesProvider {
 
   private phrases;
-  private phraseName;
+  private categoryName;
 
 
   constructor() {
@@ -17,7 +17,7 @@ export class PhrasesProvider {
 
   private initiate()
   {
-    this.phraseName = "על עצמי"
+    this.categoryName = "על עצמי"
     this.AddNewPhrase("השם שלי","../assets/imgs/name.png");
     this.AddNewPhrase("הכתובת שלי","../assets/imgs/home.png");
     this.AddNewPhrase("מספר הפלאפון שלי","../assets/imgs/phone.png");
@@ -35,8 +35,8 @@ export class PhrasesProvider {
     return this.phrases;
   }
 
-  public GetPhraseName()
+  public GetCategoryName()
   {
-    return this.phraseName;
+    return this.categoryName;
   }
 }

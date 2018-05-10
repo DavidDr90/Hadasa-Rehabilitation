@@ -1,10 +1,15 @@
-
 <ion-header>
 
   <ion-navbar>
     <ion-title>
-      <h1>{{ phraseName }}</h1>
+      <h1>{{ categoryName }}</h1>
     </ion-title>
+    <!-- add button in the end of the nav-bar -->
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openAddPage()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -12,6 +17,6 @@
 
 <ion-content padding>
   <div *ngFor="let item of phrases">
-      <phrase [phrase] = 'item'></phrase>
+    <phrase [phrase]='item'></phrase>
   </div>
 </ion-content>

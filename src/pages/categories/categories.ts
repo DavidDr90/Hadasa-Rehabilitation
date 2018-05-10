@@ -4,6 +4,7 @@ import { CategoryServiceProvider } from '../../providers/category-service/catego
 import { Client } from '../../models/Client';
 import { Category } from '../../models/Category';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
+import * as Enums from '../../consts/enums';
 
 
 const isCategory = true;
@@ -34,7 +35,7 @@ export class CategoriesPage {
    * modal and then adds the new item to our data source if the user created one.
    */
   openAddPage() {
-    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': CATEGORY});
+    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': Enums.ADD_OPTIONS.CATEGORY});
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);
