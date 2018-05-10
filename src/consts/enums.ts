@@ -60,18 +60,14 @@ export const NIKUD = [
 ];
 
 
-/* Enum Defintinon
-export const enum NIKUD{
-    QAMATZ = "\u05B8",
-    SHEVA = "\u05B0",
-    DAGESH = "\u05BC",
-    PATAH = "\u05B7",
-    SEGOL = "\u05B6",
-    HATAF_PATAH = "\u05B2",
-    SHIN = "\u05C1",
-    SIN = "\u05C2",
-    TSERE = "\u05B5",
-    HOLAM = "\u05B9",
-    HIRIQ = "\u05B4",
-    QUBUTS = "\u05BB"
-}*/
+//option for the addPhrasePage
+export const enum ADD_OPTIONS{
+    CATEGORY = 1,
+    PHRASE,
+}
+
+//option for the TTS server
+export const enum VOICE_OPTIONS{
+    SIVAN = "Sivan",
+    GILAD = "Gilad-legacy",
+}
