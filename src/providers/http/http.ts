@@ -33,7 +33,7 @@ export class HttpProvider {
 
   /*return shorter url of a long url by sending post http request to Google URL Shortener.
     in case of error, returns -1.*/
-  getShorterURL(longUrl) {
+  private getShorterURL(longUrl) {
     var body = '{\"longUrl\": \"';
     body += longUrl + '\"}';
     var headers = "Content-Type: application/json";
@@ -52,6 +52,17 @@ export class HttpProvider {
   textToSpeech(text, voice): any {
     //TODO: add validation for the input voice
     let api = API_KEYS.TTS_ofek_API_KEY;
+    
+    //validate that the voice and text are not undefined or empty.
+    if(voice==undefined||voice==""){
+      console.log("no voice has been chose to TTS request.")
+      return -1;
+    }
+    if(text==undefined||text==""){
+      console.log("no text has been chose to TTS request.")
+      return -1;
+    }
+    
     //replace space with "%20"
     var re = / /gi;
     text = text.replace(re, "%20");
