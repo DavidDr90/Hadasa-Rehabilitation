@@ -26,7 +26,7 @@ export class HttpProvider {
         return data.data;// data received by server
       })
       .catch(error => {
-        return -1
+        return error
       });
     ;
   }
@@ -47,7 +47,7 @@ export class HttpProvider {
   /**sent http request to the TTS server and return the audio file
    * @param text the input text from the user
    * @param voice can be choosne from: 'SIVAN' or 'GILAD'
-   * @returns on secuss return data.date on failure return -1
+   * @returns on secuss return data.date on failure return error message
    */
   textToSpeech(text, voice): any {
     //TODO: add validation for the input voice

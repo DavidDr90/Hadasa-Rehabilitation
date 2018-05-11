@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, ActionSheetController, ViewController } from 'ionic-angular';
+import { IonicPage, ActionSheetController, ViewController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
@@ -25,6 +25,7 @@ const hebrewRegx = "[\u0590-\u05fe]+$";//regex for hebrew chars
 })
 export class AddPhrasePage {
 
+  private isCategory: boolean = true;
   private _myForm: FormGroup;
   private _curserPosition;
   private _nikudArray = Enums.NIKUD;
@@ -52,19 +53,35 @@ export class AddPhrasePage {
     public platform: Platform,
     private file: File,
     private filePath: FilePath,
-    private httpProvider:HttpProvider) {
+    private httpProvider: HttpProvider,
+    public navParams: NavParams) {
 
+    //if we gote here from some categroy page and we want to add new phrase
+    if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
+      this.isCategory = false;
+    }
 
-
-    //create the form object with the required fileds
-    this._myForm = this._formBuilder.group({
-      "text": ['', [Validators.required,
-      Validators.pattern(hebrewRegx),//the text must be hebrew text
-      Validators.minLength(1)]],//the text must be more the one char
-      "categoryID": ['', Validators.required],//the associated category
-      "imagePath": ['', Validators.required],//the path to the pharse's image
-      "audioFile": ['', Validators.required],//the path to the phrase's audio file
-    })
+    //create the form object depend from where you arrived
+    if (this.isCategory) {
+      //create the form object with the required fileds
+      this._myForm = this._formBuilder.group({
+        "text": ['', [Validators.required,
+        Validators.pattern(hebrewRegx),//the text must be hebrew text
+        Validators.minLength(1)]],//the text must be more the one char
+        "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
+        "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
+      })
+    } else {
+      this._myForm = this._formBuilder.group({
+        "text": ['', [Validators.required,
+        Validators.pattern(hebrewRegx),//the text must be hebrew text
+        Validators.minLength(1)]],//the text must be more the one char
+        "categoryID": ['', Validators.required],//the associated category
+        "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
+        "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
+      })
+      this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
+    }
   }
 
   ionViewDidLoad() { }
@@ -325,7 +342,15 @@ export class AddPhrasePage {
       this.showAlert("לא הוכנס משפט", null);
     } else {
       console.log(this._myForm.controls['text'].value);//the input text value
-      //this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.API_KEYS.TTS_ofek_API_KEY, "");
+      let data = this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
+      /*TODO:
+      //check if the recive data is audio file or error
+      console.log(data);
+      if (data != -1) {//if audio file
+        this.audioFile = data;//save the audio file
+      } else {//if error 
+        this.showAlert("הייתה בעיה בטעינת הקובץ", data);
+      }*/
     }
   }
 
