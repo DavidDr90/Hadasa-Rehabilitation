@@ -325,7 +325,7 @@ export class AddPhrasePage {
       this.showAlert("לא הוכנס משפט", null);
     } else {
       console.log(this._myForm.controls['text'].value);//the input text value
-      //this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.API_KEYS.TTS_ofek_API_KEY, "");
+      this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
     }
   }
 
