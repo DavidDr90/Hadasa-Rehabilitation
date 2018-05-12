@@ -42,9 +42,9 @@ export class HomePage {
             }
             
           });
-        if(!user_exists) {
-           firebaseProvider.addUser(new User(authentication.user.email));
-        }
+        // if(!user_exists) {
+        //    firebaseProvider.addUser(new User(authentication.user.email));
+        // }
         this.user_name = authentication.afAuth.auth.currentUser.displayName;
         //after the user is loaded successfuly, stop subscribe users from DB.
         if(this.user_name != "אורח"){
