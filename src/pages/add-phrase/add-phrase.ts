@@ -320,12 +320,12 @@ export class AddPhrasePage {
 
   //TODO:
   //use the http provider to get the audio file from the TTS server
-  getAudioFromTTS() {
+ async getAudioFromTTS() {
     if (this._myForm.controls['text'].value == "" || !this.isHebrew(this._myForm.controls['text'].value)) {
       this.showAlert("לא הוכנס משפט", null);
     } else {
       console.log(this._myForm.controls['text'].value);//the input text value
-      this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
+     await this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
     }
   }
 

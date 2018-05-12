@@ -49,7 +49,7 @@ export class HttpProvider {
    * @param voice can be choosne from: 'SIVAN' or 'GILAD'
    * @returns on secuss return data.date on failure return -1
    */
-  textToSpeech(text, voice): any {
+  async textToSpeech(text, voice){
     //TODO: add validation for the input voice
     let api = API_KEYS.TTS_ofek_API_KEY;
     
@@ -74,8 +74,9 @@ export class HttpProvider {
     url += voice;
     url += "&text=";
     url += text;
+   
     //send a GET http request to the url.
-    let data =  this.sendGetRequest(url, {}, {})
+    let data = await this.sendGetRequest(url, {}, {})
     return data;
   }
 
