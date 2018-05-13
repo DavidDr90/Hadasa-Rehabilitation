@@ -2,7 +2,7 @@ import {AngularFireStorage} from 'angularfire2/storage';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
-import { AngularFireModule } from 'angularfire2';
+import { AutenticationProvider } from '../autentication/autentication';
 
 /*
   Generated class for the StorageProvider provider.
@@ -15,7 +15,7 @@ export class StorageProvider {
 
   public uploadPercentage;
 
-  constructor(private storage: AngularFireStorage) {
+  constructor(private storage: AngularFireStorage, private auth : AutenticationProvider) {
     this.uploadPercentage = 0;
   }
 
@@ -29,7 +29,8 @@ export class StorageProvider {
     try
     {
     const file = event.target.files;
-    const task = this.storage.upload("/images/file_name",file.item(0));
+
+    const task = this.storage.upload(this.auth.user.email + "/images/"+file.item(0).name ,file.item(0));
     task.percentageChanges().subscribe( a =>
     {
       this.uploadPercentage = a;
