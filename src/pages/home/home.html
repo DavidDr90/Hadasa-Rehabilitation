@@ -39,7 +39,7 @@
 <ion-content padding>
     <h1> ברוכים הבאים! </h1>
 
-    <div *ngFor="let user of _users">
-        {{user.name}} {{user.lastname}}
-    </div>
+    <!-- Just for upload testing - the two lines below can be deleted when merging. -->
+    <input type="file" (change)="storage.uploadFile($event)" />
+    <div>{{ storage.uploadPercentage }}%</div>
 </ion-content>

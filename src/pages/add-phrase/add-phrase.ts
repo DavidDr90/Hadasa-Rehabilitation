@@ -11,6 +11,7 @@ import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpProvider } from '../../providers/http/http';
+import { StorageProvider } from '../../providers/storage/storage';
 
 declare var cordova: any;
 
@@ -52,7 +53,8 @@ export class AddPhrasePage {
     public platform: Platform,
     private file: File,
     private filePath: FilePath,
-    private httpProvider:HttpProvider) {
+    private httpProvider:HttpProvider,
+    private storageProvider: StorageProvider) {
 
 
 
@@ -154,7 +156,8 @@ export class AddPhrasePage {
           handler: () => {
             console.log('gallery');
             // this.getPicture(ImageOptions.GALLERY);
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            const pic = this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            this.storageProvider.uploadFile(pic);
           }
         },
         {
