@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { HomePage } from '../home/home';
 import { CategoriesPage } from '../categories/categories';
 import { AboutMePage } from '../about-me/about-me'; 
-import { PhrasesPage } from '../phrases/phrases';
 
 
 @IonicPage()
