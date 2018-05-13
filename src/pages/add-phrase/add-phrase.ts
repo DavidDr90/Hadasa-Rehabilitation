@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { IonicPage, ActionSheetController, ViewController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
@@ -25,6 +25,8 @@ const hebrewRegx = "[\u0590-\u05fe]+$";//regex for hebrew chars
   templateUrl: 'add-phrase.html',
 })
 export class AddPhrasePage {
+  @ViewChild('myTimer') timer;
+
 
   private isCategory: boolean = true;
   private _myForm: FormGroup;
@@ -271,7 +273,7 @@ export class AddPhrasePage {
   startRecord() {
     this.micText = STOP_REC;
     this.recording = true;
-
+    this.timer.startTimer();
     let data = this._audioRecordProvider.startRecord();
 
     if (data instanceof Error) {
@@ -288,6 +290,9 @@ export class AddPhrasePage {
     if (this.recording) {
       this.micText = START_REC;
       let data = this._audioRecordProvider.stopRecord();
+
+      // this.timer.destroy();
+
       if (data instanceof Error) {
         this.recording = false;
         this.showAlert(data.message, "");
@@ -313,7 +318,7 @@ export class AddPhrasePage {
     if (data instanceof Error)
       this.showAlert("לא הצלחנו להשמיע את ההקלטה....", data.message);
   }
-  
+
   //stop the file in the current posision
   stopAudio() {
     this.playing = !this.playing;

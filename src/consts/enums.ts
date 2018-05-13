@@ -63,7 +63,7 @@ export const NIKUD = [
 //option for the addPhrasePage
 export const enum ADD_OPTIONS{
     CATEGORY = 1,
-    PHRASE,
+    PHRASE
 }
 
 //option for the TTS server

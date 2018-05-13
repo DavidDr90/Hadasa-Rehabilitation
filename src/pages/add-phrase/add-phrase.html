@@ -58,9 +58,9 @@
       &nbsp;&nbsp; {{ micText }}
     </button>
 
-    <!-- TODO: fix the timer component -->
+    <!-- TODO: ask eran about how to reactived the component -->
     <div [hidden]="!recording">
-      <!-- <timer></timer> -->
+      <timer #myTimer></timer>
     </div>
 
     <button ion-button primary (click)="getAudioFromTTS()" *ngIf="!recording">
