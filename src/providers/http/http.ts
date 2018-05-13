@@ -20,15 +20,16 @@ export class HttpProvider {
       body=the body of the request
       headers=the headers to set for this request
     and return the data received by server on success, and -1 on failure */
-  private sendGetRequest(url, body, headers) {
+  private sendGetRequest(url, body, headers): any {
     this.http.get(url, body, headers)
       .then(data => {
+        console.log("data in send = " + data);
+        console.log("data.data in send = " + data.data);
         return data.data;// data received by server
       })
       .catch(error => {
         return error
       });
-    ;
   }
 
   /*return shorter url of a long url by sending post http request to Google URL Shortener.
@@ -52,17 +53,17 @@ export class HttpProvider {
   textToSpeech(text, voice): any {
     //TODO: add validation for the input voice
     let api = API_KEYS.TTS_ofek_API_KEY;
-    
+
     //validate that the voice and text are not undefined or empty.
-    if(voice==undefined||voice==""){
+    if (voice == undefined || voice == "") {
       console.log("no voice has been chose to TTS request.")
       return -1;
     }
-    if(text==undefined||text==""){
+    if (text == undefined || text == "") {
       console.log("no text has been chose to TTS request.")
       return -1;
     }
-    
+
     //replace space with "%20"
     var re = / /gi;
     text = text.replace(re, "%20");
@@ -74,12 +75,16 @@ export class HttpProvider {
     url += voice;
     url += "&text=";
     url += text;
+
+    console.log("in http provider, url = " + url);
     //send a GET http request to the url.
-    let data =  this.sendGetRequest(url, {}, {})
+    let data = this.sendGetRequest(url, {}, {});
+    console.log("data in http pro = " + data);
+
     return data;
   }
 
 
-    
+
 
 }

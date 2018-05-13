@@ -343,14 +343,14 @@ export class AddPhrasePage {
     } else {
       console.log(this._myForm.controls['text'].value);//the input text value
       let data = this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
-      /*TODO:
+      //TODO:
       //check if the recive data is audio file or error
       console.log(data);
       if (data != -1) {//if audio file
         this.audioFile = data;//save the audio file
       } else {//if error 
         this.showAlert("הייתה בעיה בטעינת הקובץ", data);
-      }*/
+      }
     }
   }
 

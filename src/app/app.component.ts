@@ -9,13 +9,14 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
 import { CategoriesPage } from '../pages/categories/categories';
 import { HomePage } from '../pages/home/home';
 import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
+import { AboutMePage } from '../pages/about-me/about-me';
 
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   
-  rootPage:any = AddPhrasePage;
+  rootPage:any = AboutMePage;
  
   /*
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
