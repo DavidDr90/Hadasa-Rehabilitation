@@ -11,6 +11,7 @@ import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpProvider } from '../../providers/http/http';
+import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
 
 declare var cordova: any;
 
@@ -48,6 +49,7 @@ export class AddPhrasePage {
     private _viewCtrl: ViewController,
     private _alertCtrl: AlertController,
     private camera: Camera,
+    private _audioRecordProvider: AudioRecordProvider,
     /* media provider for the record methods */
     private media: Media,
     public platform: Platform,
@@ -268,92 +270,79 @@ export class AddPhrasePage {
   //start the record
   startRecord() {
     this.micText = STOP_REC;
-    try {
-      if (this.platform.is('ios')) {
-        this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
-        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
-        this.audio = this.media.create(this.audioFilePath);
-      } else if (this.platform.is('android')) {
-        this.fileName = 'record' + new Date().getDate() + new Date().getMonth() + new Date().getFullYear() + new Date().getHours() + new Date().getMinutes() + new Date().getSeconds() + '.3gp';
-        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
-        this.audio = this.media.create(this.audioFilePath);
-      }
-      this.audio.startRecord();
-      this.recording = true;
-    }
-    catch (error) {
+    this.recording = true;
+
+    let data = this._audioRecordProvider.startRecord();
+
+    if (data instanceof Error) {
       this.recording = false;
-      this.showAlert("לא הצלחנו לבצע הקלטה....", error);
+      this.micText = START_REC;
+      this.showAlert("לא הצלחנו לבצע הקלטה....", data.message);
+    } else {
+      this.fileName = data;
     }
   }
 
   //stop the record and save the audio file on local variable
   stopRecord() {
     if (this.recording) {
-      try {
-        this.micText = START_REC;
-        this.audio.stopRecord();
-        let data = { filename: this.fileName };
-        this.audioFile = data;
-        this._myForm.patchValue({ 'audioFile': this.audioFile });//insert the capture audio file to the form 
+      this.micText = START_REC;
+      let data = this._audioRecordProvider.stopRecord();
+      if (data instanceof Error) {
         this.recording = false;
-      } catch (error) {
-        this.showAlert(error, "");
-      }
-    }
-  }
-
-  /** play the input file on the device speakers
-   * @param file - an input audio file to play
-   */
-  playAudio(file) {
-    try {
-      if (this.firstTime) {//enter this if only the first time
-        if (this.platform.is('ios')) {
-          this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-          this.audio = this.media.create(this.audioFilePath);
-        } else if (this.platform.is('android')) {
-          this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-          this.audio = this.media.create(this.audioFilePath);
+        this.showAlert(data.message, "");
+      } else {
+        if (data == true) {
+          this.recording = false;
+          this._myForm.patchValue({ 'audioFile': this.fileName });//insert the capture audio file to the form 
+        } else {
+          this.recording = false;
+          this.showAlert("Error", "");
         }
       }
-      this.firstTime = false;
-      this.playing = true;
-      this.audio.play();
-      this.audio.setVolume(0.8);
-    } catch (error) {
-      this.showAlert("לא הצלחנו להשמיע את ההקלטה....", error);
     }
   }
 
-  stopAudio(file) {
-    try {
-      this.playing = false;
-      this.audio.pause();
-    } catch (error) {
-      this.showAlert("לא הצלחנו לעצור את ההקלטה....", error);
+  // play the input file on the device speakers
+  playAudio() {
+    this.playing = !this.playing;
+
+    let data = this._audioRecordProvider.playAudio(this.fileName, this.firstTime);
+    this.firstTime = false;
+
+    if (data instanceof Error)
+      this.showAlert("לא הצלחנו להשמיע את ההקלטה....", data.message);
+  }
+  
+  //stop the file in the current posision
+  stopAudio() {
+    this.playing = !this.playing;
+    let data = this._audioRecordProvider.stopAudio(this.fileName);
+    if (data instanceof Error) {
+      this.showAlert("לא הצלחנו לעצור את ההקלטה....", data.message);
+      return;
     }
   }
 
   //TODO:
   //use the http provider to get the audio file from the TTS server
- async getAudioFromTTS() {
+  async getAudioFromTTS() {
     if (this._myForm.controls['text'].value == "" || !this.isHebrew(this._myForm.controls['text'].value)) {
       this.showAlert("לא הוכנס משפט", null);
     } else {
       console.log(this._myForm.controls['text'].value);//the input text value
 
-     await this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
+      await this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
 
-//       let data = this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
-//       //TODO:
-//       //check if the recive data is audio file or error
-//       console.log(data);
-//       if (data != -1) {//if audio file
-//         this.audioFile = data;//save the audio file
-//       } else {//if error 
-//         this.showAlert("הייתה בעיה בטעינת הקובץ", data);
-//       }
+      //       let data = this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
+      //       //TODO:
+      //       //check if the recive data is audio file or error
+      //       console.log(data);
+      //       if (data != -1) {//if audio file
+      //         this.audioFile = data;//save the audio file
+      //       } else {//if error 
+      //         this.showAlert("הייתה בעיה בטעינת הקובץ", data);
+      //       }
     }
   }
 
