@@ -71,3 +71,10 @@ export const enum VOICE_OPTIONS{
     SIVAN = "Sivan",
     GILAD = "Gilad-legacy",
 }
+
+
+//const value for number of favorite categories & phrases
+export const enum NUM_FAVORITES{
+    CAT=5,
+    PHRASES=10
+}
