@@ -32,15 +32,6 @@ export class IntroSliderPage {
 
   }
   
-  // private async AsyncPhrasesloader(){
-  //   let promise = await this.phraseProvider.getPhrases(this.aboutMeCategory);
-  //   let temp = new Promise ((resolve,reject) => {
-  //     resolve(promise);
-  //   });
-  //   temp.then((data)=>{
-  //     this.phrases = data;
-  //   })
-  // }
 
   public async logIn()
   {
