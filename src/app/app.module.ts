@@ -40,12 +40,15 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { firebaseConfig } from '../environments/firebase.config';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AutenticationProvider } from '../providers/autentication/autentication';
+import {AngularFireStorage, AngularFireStorageModule} from 'angularfire2/storage';
 
 
 
 import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { TimerComponent } from '../components/timer/timer';
+import { StorageProvider } from '../providers/storage/storage';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,8 @@ import { TimerComponent } from '../components/timer/timer';
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
+    NgProgressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -100,7 +105,8 @@ import { TimerComponent } from '../components/timer/timer';
     HttpProvider,
     PhrasesProvider,
     FirebaseProvider,
-    AutenticationProvider
+    AutenticationProvider,
+    StorageProvider
   ]
 })
 
@@ -109,7 +115,8 @@ export class AppModule {}
     CategoryServiceProvider,
     PhrasesProvider,
     FirebaseProvider,
-    AutenticationProvider
+    AutenticationProvider,
+    StorageProvider
   ]
 
 
