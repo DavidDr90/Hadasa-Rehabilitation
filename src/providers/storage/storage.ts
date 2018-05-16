@@ -16,6 +16,7 @@ export class StorageProvider {
 
   //float of uploaded percentage.
   public uploadPercentage;
+  public downloadURL;
 
   constructor(private storage: AngularFireStorage, private auth : AutenticationProvider, private ngProgress: NgProgress) {
     this.uploadPercentage = 0;
@@ -73,10 +74,15 @@ export class StorageProvider {
           if (this.uploadPercentage == 100)
           {
             this.ngProgress.done();
-            console.log("Uploaded successfully.");
-            return storage_path
+            return task.downloadURL().subscribe(URL => {
+              console.log("Uploaded successfully, can be found at: "+URL);
+              return URL;
+              // return URL;
+            });
+         
           }
         });
+  
      }
 
   catch(e)
