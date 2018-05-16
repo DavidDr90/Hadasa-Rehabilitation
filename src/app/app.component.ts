@@ -25,7 +25,7 @@ export class MyApp {
       });
 
       //check if current user is login, initialize authentication.loggedIn attr.
-      this.authentication.isLoggedIn();
+      // this.authentication.isLoggedIn();
       //considering authentication.loggedIn set the following page: homePage or loginPage
       this.getRootPage();
     }
@@ -38,15 +38,15 @@ export class MyApp {
       this.rootPage = TabsPage;
     }
     else{
-      this.rootPage = IntroSliderPage; 
-      this.authentication.createAuthentication().then(()=>{
-        this.rootPage = TabsPage;
-      })
-      
+      this.rootPage = IntroSliderPage;
     }
   }
   //---------------------------------------------------------------------------//
   
+  public setRootPage(page)
+  {
+    this.rootPage = page
+  }
 
 }
 

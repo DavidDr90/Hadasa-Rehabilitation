@@ -48,6 +48,7 @@ import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { TimerComponent } from '../components/timer/timer';
 import { StorageProvider } from '../providers/storage/storage';
+import { NgProgressModule } from 'ngx-progressbar';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { StorageProvider } from '../providers/storage/storage';
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireStorageModule
+    AngularFireStorageModule,
+    NgProgressModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
