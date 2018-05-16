@@ -1,24 +1,4 @@
-<!--
-  Generated template for the AboutMePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
-  <!-- The toolbar for the different main pages -->
-  <!--<ion-toolbar>
-    <ion-segment>
-      <ion-segment-button [navPush]="homePage" value="home">
-        דף הבית
-      </ion-segment-button>
-      <ion-segment-button [navPush]="categoriesPage" value="categories">
-        כל הקטגוריות
-      </ion-segment-button>
-      <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
-        על עצמי
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar> -->
+<!-- 
  <ion-header>
 
  <ion-navbar>
@@ -29,4 +9,40 @@
 
 <ion-content padding>
   <page-phrases></page-phrases>
+</ion-content> -->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Test Page</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+  <input type="text" [(ngModel)] ="text" />
+
+  <button ion-button large (click)="start()" *ngIf="!record">
+    start
+  </button>
+  <button ion-button large (click)="stop()" *ngIf="record">
+    stop
+  </button>
+
+  <p *ngIf="stopRec">
+    {{data}}
+
+  </p>
+  <button ion-button large (click)="play(data)">
+    <ion-icon name="play"></ion-icon>
+  </button>
+
+  <p>
+    {{playData.message}}
+  </p>
+
+
+  <button ion-button latge (click)="send()" >
+    send http
+  </button>
+
 </ion-content>

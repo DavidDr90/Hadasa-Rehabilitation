@@ -46,12 +46,13 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
 import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { TimerComponent } from '../components/timer/timer';
+import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    AddPhrasePage,
+    // AddPhrasePage,
     CategoriesPage,
     MyCategoryComponent,
     AboutMePage,
@@ -68,6 +69,7 @@ import { TimerComponent } from '../components/timer/timer';
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AddPhrasePageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -78,6 +80,7 @@ import { TimerComponent } from '../components/timer/timer';
     AboutMePage,
     IntroSliderPage,
     TabsPage,
+    PhrasesPage
     //NumbersPage
   ],
   providers: [

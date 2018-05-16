@@ -33,7 +33,6 @@ export class HttpProvider {
     });
 
 
-    
   }
 
   /*return shorter url of a long url by sending post http request to Google URL Shortener.
@@ -52,22 +51,22 @@ export class HttpProvider {
   /**sent http request to the TTS server and return the audio file
    * @param text the input text from the user
    * @param voice can be choosne from: 'SIVAN' or 'GILAD'
-   * @returns on secuss return data.date on failure return -1
+   * @returns on secuss return data.date on failure return error message
    */
     async textToSpeech(text, voice){
     //TODO: add validation for the input voice
     let api = API_KEYS.TTS_ofek_API_KEY;
-    
+
     //validate that the voice and text are not undefined or empty.
-    if(voice==undefined||voice==""){
+    if (voice == undefined || voice == "") {
       console.log("no voice has been chose to TTS request.")
       return -1;
     }
-    if(text==undefined||text==""){
+    if (text == undefined || text == "") {
       console.log("no text has been chose to TTS request.")
       return -1;
     }
-    
+
     //replace space with "%20"
     var re = / /gi;
     text = text.replace(re, "%20");
@@ -86,5 +85,6 @@ export class HttpProvider {
     return result;
   }
   
+
 
 }

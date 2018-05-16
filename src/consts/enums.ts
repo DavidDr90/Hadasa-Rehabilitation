@@ -14,7 +14,7 @@ export const enum API_KEYS {
         guide how to use this API:
         https://developers.google.com/url-shortener/v1/getting_started
     */
-    GOOGLE_URL_SHORTER_API_KEY = "AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng",
+    GOOGLE_URL_SHORTER_API_KEY = "",
     
     /**
      * To enter the TTS system follow and sign-in in this link:
