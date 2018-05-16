@@ -19,30 +19,12 @@
 
 <ion-content>
 
-  <input type="text" [(ngModel)] ="text" />
+ <ion-title>
+   <timer #myTimer></timer>
+ </ion-title>
 
-  <button ion-button large (click)="start()" *ngIf="!record">
-    start
-  </button>
-  <button ion-button large (click)="stop()" *ngIf="record">
-    stop
-  </button>
-
-  <p *ngIf="stopRec">
-    {{data}}
-
-  </p>
-  <button ion-button large (click)="play(data)">
-    <ion-icon name="play"></ion-icon>
-  </button>
-
-  <p>
-    {{playData.message}}
-  </p>
-
-
-  <button ion-button latge (click)="send()" >
-    send http
-  </button>
+ <button ion-button large (click)="activeTimer()">
+   active
+ </button>
 
 </ion-content>

@@ -58,21 +58,21 @@
       &nbsp;&nbsp; {{ micText }}
     </button>
 
-    <!-- TODO: fix the timer component -->
+    <!-- TODO: ask eran about how to reactived the component -->
     <div [hidden]="!recording">
-      <!-- <timer></timer> -->
+      <timer #myTimer></timer>
     </div>
 
     <button ion-button primary (click)="getAudioFromTTS()" *ngIf="!recording">
       <ion-icon name="radio"></ion-icon>&nbsp;&nbsp; יצר הקלטה</button>
 
     <ion-list>
-      <ion-item *ngIf="audioFile != null">
-        <p>{{audioFile.filename}}</p>
-        <button ion-button clear item-end large (click)="playAudio(audioFile.filename)" *ngIf="!playing">
+      <ion-item *ngIf="fileName != null && !recording">
+        <p>{{fileName}}</p>
+        <button ion-button clear item-end large (click)="playAudio()" *ngIf="!playing">
           <ion-icon name="play"></ion-icon>
         </button>
-        <button ion-button clear item-end large (click)="stopAudio(audioFile.filename)" *ngIf="playing">
+        <button ion-button clear item-end large (click)="stopAudio()" *ngIf="playing">
           <ion-icon name="pause"></ion-icon>
         </button>
       </ion-item>
