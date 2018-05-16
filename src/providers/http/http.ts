@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { API_KEYS } from '../../consts/enums';
+import { Media, MediaObject } from '@ionic-native/media';
 
 const GOOGLE_SHORTER_URL = "https://www.googleapis.com/urlshortener/v1/url?key={AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng}";  //url of google shorter url.
 const GOOGLE_API = "AIzaSyDIvgXvW1g3LLVQlCHbza43IKIthfYG4SE"; //let's talk application'w google API
@@ -20,16 +21,18 @@ export class HttpProvider {
       body=the body of the request
       headers=the headers to set for this request
     and return the data received by server on success, and -1 on failure */
-  private sendGetRequest(url, body, headers): any {
-    this.http.get(url, body, headers)
+  private sendGetRequest(url, body, headers) {
+    return new Promise((resolve, reject)=>{
+      this.http.get(url, body, headers)
       .then(data => {
-        console.log("data in send = " + data);
-        console.log("data.data in send = " + data.data);
-        return data.data;// data received by server
-      })
-      .catch(error => {
-        return error
-      });
+            resolve(data.data) ;// data received by server
+        })
+        .catch(error => {
+          resolve(-1) //return -1 in case of failure in the request
+        })
+    });
+
+
   }
 
   /*return shorter url of a long url by sending post http request to Google URL Shortener.
@@ -50,7 +53,7 @@ export class HttpProvider {
    * @param voice can be choosne from: 'SIVAN' or 'GILAD'
    * @returns on secuss return data.date on failure return error message
    */
-  async textToSpeech(text, voice){
+    async textToSpeech(text, voice){
     //TODO: add validation for the input voice
     let api = API_KEYS.TTS_ofek_API_KEY;
 
@@ -75,17 +78,13 @@ export class HttpProvider {
     url += voice;
     url += "&text=";
     url += text;
-   
+    
     //send a GET http request to the url.
-    let data = await this.sendGetRequest(url, {}, {})
-
-    console.log("in http provider, url = " + url);
-    console.log("data in http pro = " + data);
-
-    return data;
+   let result= await this.sendGetRequest(url, {}, {})
+   //return the result only when the "sendGetRequest" getting the response from the server
+    return result;
   }
-
-
+  
 
 
 }
