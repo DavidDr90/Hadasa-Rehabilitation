@@ -35,7 +35,6 @@ export class HomePage {
     if(authentication.loggedIn)
     {
       var user_exists = false;
-      storage.getUploadPercent;
       let x = firebaseProvider.getUsersObservable.subscribe(a => {
         this.users = a;
         this.users.forEach(user => {
@@ -63,9 +62,9 @@ export class HomePage {
     return this.user_name;
   }
 
-  get getUploadPersentage()
+  getUploadPersentage()
   {
-    this.percentage = this.storage.getUploadPercent;
-    return this.percentage;
+    this.percentage = this.storage.uploadPercentage;
+    
   }
 }

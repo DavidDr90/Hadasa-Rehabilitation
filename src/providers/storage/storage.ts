@@ -24,23 +24,42 @@ export class StorageProvider {
    *
    * TODO: Should add error-dialog and percentage bar to the user.
   */
-  public uploadFile(event)
-  {    
-    try
-    {
-    const file = event.target.files;
+ public uploadFile(event)
+ {    
+   try
+   {
+   const file = event.target.files;
+   var folder_name = ""
+   const type = file.item(0).type 
+   if(type.startsWith("image/"))
+         folder_name = "/images/"
+   
+   else if(type.startsWith("audio/"))
+        folder_name = "/audios/"
 
-    const task = this.storage.upload(this.auth.user.email + "/images/"+file.item(0).name ,file.item(0));
-    task.percentageChanges().subscribe( a =>
-    {
-      this.uploadPercentage = a;
-    });
-    console.log("Uploaded successfully.");
-    }
-    catch(e)
-    {
-      console.log("Uploading file failed: ",e.message); 
-    }
+  else
+  {
+    console.log("File not supported "); 
+    return ""
   }
+
+   const storage_path =  this.auth.user.email + folder_name + file.item(0).name
+
+   const task = this.storage.upload(storage_path ,file.item(0));
+   task.percentageChanges().subscribe( a =>
+   {
+     this.uploadPercentage = a;
+     if (this.uploadPercentage == 100)
+     {
+       console.log("Uploaded successfully.");
+       return storage_path
+     }
+   });
+   }
+   catch(e)
+   {
+     console.log("Uploading file failed: ",e.message); 
+   }
+ }
 
 }
