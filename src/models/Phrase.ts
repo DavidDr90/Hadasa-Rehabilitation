@@ -1,17 +1,25 @@
-export class Phrase {
-
-    name: string;
-    imageURL: string;
-
-    constructor(name, imageURL) {
-        this.imageURL = imageURL;
-        this.name = name;
-        
+export class Item{
+    public static toObject(item){
+        return JSON.parse(JSON.stringify(item));
     }
-    public GetName() {
+}
+
+
+export class Phrase extends Item {
+
+    constructor(public categoryID: string,
+                public imageURL:string,
+                public name: string,
+                public voiceURL: string,
+                public id: string
+                ) {
+        super()
+    }
+
+    get GetName() {
         return this.name;
     }
-    public GetImageURL() {
+    get GetImageURL() {
         return this.imageURL;
     }
 

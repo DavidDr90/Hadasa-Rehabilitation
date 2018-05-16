@@ -46,4 +46,12 @@ export class AutenticationProvider {
     return this.loggedIn;  
   }
 
+  public get getUserName(){
+    return this.afAuth.auth.currentUser.displayName;
+  }
+
+  public get getUserEmail(){
+    return this.afAuth.auth.currentUser.email;
+  }
+
 }

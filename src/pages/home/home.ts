@@ -1,15 +1,13 @@
 import { Component/*, Input, Output*/ } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Client } from '../../models/Client';
 import { CategoriesPage } from '../categories/categories';
 import { AboutMePage } from '../about-me/about-me';
 import { PhrasesPage } from '../phrases/phrases';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
-
 import { FirebaseProvider } from '../../providers/firebase/firebase'
-// import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
 import { User } from '../../models/user';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
+import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 
 
 
@@ -24,10 +22,10 @@ export class HomePage {
 
   user_name = "אורח";
 
-  private users: User[] = [];
+  public users: User[] = [];
 
 
-  constructor(public navCtrl: NavController,public firebaseProvider: FirebaseProvider,public authentication: AutenticationProvider) {
+  constructor(public categoryProvider: CategoryServiceProvider,public navCtrl: NavController,public firebaseProvider: FirebaseProvider,public authentication: AutenticationProvider) {
 
   //when user logged in, check in DB if the user is a new user.
   //if current user is new, add the user to DB.

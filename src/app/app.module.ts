@@ -78,6 +78,7 @@ import { TimerComponent } from '../components/timer/timer';
     AboutMePage,
     IntroSliderPage,
     TabsPage,
+    PhrasesPage,
     //NumbersPage
   ],
   providers: [

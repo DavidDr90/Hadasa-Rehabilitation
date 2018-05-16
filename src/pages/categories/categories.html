@@ -1,14 +1,11 @@
  <ion-header>
-
   <ion-navbar>
     <ion-title>קטגוריות</ion-title>
   </ion-navbar>
-
-
-
 </ion-header> 
 
 
 <ion-content padding class="categories">
-  <my-category [category] = "item" *ngFor = "let item of categoryService.getCategories"> </my-category>
+  <my-category (click)="openCategoryPhrases(item)"
+   [category] = "item" *ngFor = "let item of categoryService.getCategories"> </my-category>
 </ion-content>

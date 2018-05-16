@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, NavPush } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-import { Client } from '../../models/Client';
+
 import { HomePage } from '../home/home';
 import { AboutMePage } from '../about-me/about-me';
 import { Category } from '../../models/Category';
+import { PhrasesPage } from '../phrases/phrases';
 
 
 /**
@@ -21,15 +22,18 @@ import { Category } from '../../models/Category';
 })
 export class CategoriesPage {
 
-  private client: Client;
+  public phrasesPage: PhrasesPage;
+
 
   constructor(public categoryService: CategoryServiceProvider,public navCtrl: NavController, public navParams: NavParams) {
-    
+
   }
 
-
-
-  ionViewDidLoad() {
+  //popup the category's phrases's page.
+  public openCategoryPhrases(category: Category){
+    this.navCtrl.push(PhrasesPage, {
+      parentCategory: category
+    }); 
   }
 
 

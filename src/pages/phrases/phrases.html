@@ -3,15 +3,21 @@
 
   <ion-navbar>
     <ion-title>
-      <h1>{{ phraseName }}</h1>
+      {{parentCategory.name}}
     </ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<ion-content>
+  <div> 
+    <h1>{{parentCategory.name}}</h1>
+  </div>
+</ion-content>
+
 
 <ion-content padding>
-  <div *ngFor="let item of phrases">
-      <phrase [phrase] = 'item'></phrase>
+  <div>
+    <phrase [phrase] = "item" *ngFor = "let item of phrases"></phrase>
   </div>
 </ion-content>

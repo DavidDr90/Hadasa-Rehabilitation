@@ -30,7 +30,9 @@ export class IntroSliderPage {
 
   }
   
-
+  public logIn(){
+    
+  }
 
 //   public checkIfDataLoaded() 
 //   {

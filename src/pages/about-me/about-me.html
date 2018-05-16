@@ -5,28 +5,14 @@
   Ionic pages and navigation.
 -->
 
-  <!-- The toolbar for the different main pages -->
-  <!--<ion-toolbar>
-    <ion-segment>
-      <ion-segment-button [navPush]="homePage" value="home">
-        דף הבית
-      </ion-segment-button>
-      <ion-segment-button [navPush]="categoriesPage" value="categories">
-        כל הקטגוריות
-      </ion-segment-button>
-      <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
-        על עצמי
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar> -->
  <ion-header>
-
  <ion-navbar>
     <ion-title>על עצמי</ion-title>
   </ion-navbar>
 </ion-header>
 
+<h1>על עצמי</h1>
 
 <ion-content padding>
-  <page-phrases></page-phrases>
+  <phrase [phrase] = "item" *ngFor = "let item of phrases"></phrase>
 </ion-content>

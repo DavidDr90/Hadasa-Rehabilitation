@@ -4,19 +4,14 @@ export class Item{
     }
 }
 
-// public static toHomeStory(json){
-//     let story = Object.create(HomeStory.prototype);
-//     return Object.assign(story, json);
-// }
-
-
 export class Category extends Item{
 
     constructor(
         public name: string,
         public imageURL: string,
         public email: string,
-        public id: string)
+        public id: string,
+        public parentCategoryId: string)
         {
             super()
         }
@@ -38,6 +33,9 @@ export class Category extends Item{
         return this.email;
     }
 
+    public get getparentCategoryId(){
+        return this.parentCategoryId;
+    }
 
     public setName(t: string){
         this.name = t;
