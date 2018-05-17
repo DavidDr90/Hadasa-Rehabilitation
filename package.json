@@ -32,6 +32,7 @@
     "@ionic-native/status-bar": "4.6.0",
     "@ionic-native/transfer": "^3.14.0",
     "@ionic/storage": "2.1.3",
+    "angular-module-core": "^1.2.19",
     "angularfire2": "^5.0.0-rc.6.0",
     "cordova-android": "7.0.0",
     "cordova-browser": "5.0.3",

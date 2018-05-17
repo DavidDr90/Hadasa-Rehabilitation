@@ -41,9 +41,7 @@
 
     <!-- Just for upload testing - the two lines below can be deleted when merging. -->
     <input type="file" (change)="storage.uploadFile($event)" />
-    <div>{{ storage.uploadPercentage }}%</div>
-    <ng-progress [positionUsing]="'marginLeft'" [minimum]="0" [maximum]="1"
-    [speed]="200" [showSpinner]="false" [direction]="'rightToLeftIncreased'"
-    [color]="'red'" [trickleSpeed]="250" [thick]="true" [ease]="'linear'"
-></ng-progress>
+    {{storage.uploadPercentage}}
+    <progress-bar [progress]= "storage.uploadPercentage"> </progress-bar>
+
 </ion-content>

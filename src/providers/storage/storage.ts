@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 import { AutenticationProvider } from '../autentication/autentication';
-import { NgProgress } from 'ngx-progressbar';
 
 /*
   Generated class for the StorageProvider provider.
@@ -18,7 +17,7 @@ export class StorageProvider {
   public uploadPercentage;
   public downloadURL;
 
-  constructor(private storage: AngularFireStorage, private auth : AutenticationProvider, private ngProgress: NgProgress) {
+  constructor(private storage: AngularFireStorage, private auth : AutenticationProvider) {
     this.uploadPercentage = 0;
   }
 
@@ -61,19 +60,14 @@ export class StorageProvider {
       }
 
       const storage_path =  this.auth.user.email + folder_name + file.item(0).name
-      this.ngProgress.start();
-      // this.ngProgress.set(0);
       const task = this.storage.upload(storage_path ,file.item(0));
       task.percentageChanges().subscribe( a =>
         {
           
-          this.uploadPercentage = a;
-          console.log(this.uploadPercentage/100);
-          
-          this.ngProgress.set(this.uploadPercentage/100)
+          this.uploadPercentage = Math.round(a);
+
           if (this.uploadPercentage == 100)
           {
-            this.ngProgress.done();
             return task.downloadURL().subscribe(URL => {
               console.log("Uploaded successfully, can be found at: "+URL);
               return URL;
