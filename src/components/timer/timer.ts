@@ -24,6 +24,14 @@ export class TimerComponent {
 
     sub: Subscription;
 
+    public getTime() {
+        return {
+            'seconds': +this.secondsDisplay + 0.5,//add one to fix the pause, the first '+' is to tall the TS that 'secondsDisplay' is number
+            'minutes': this.minutesDisplay,
+            'hours': this.hoursDisplay
+        };
+    }
+
     public resetTimer() {
         this.secondsDisplay = 0;
         this.minutesDisplay = 0;
