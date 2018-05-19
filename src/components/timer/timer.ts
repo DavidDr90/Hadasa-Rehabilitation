@@ -12,8 +12,6 @@ import { Subscription } from 'rxjs/Subscription';
     templateUrl: 'timer.html'
 })
 export class TimerComponent {
-    @Input() recored;
-    text: string;
 
     constructor() {
 
@@ -26,11 +24,13 @@ export class TimerComponent {
 
     sub: Subscription;
 
-    ngOnInit() {
-        this.startTimer();
+    public resetTimer() {
+        this.secondsDisplay = 0;
+        this.minutesDisplay = 0;
+        this.hoursDisplay = 0;
     }
 
-    private startTimer() {
+    public startTimer() {
 
         let timer = Observable.timer(1, 1000);
         this.sub = timer.subscribe(
