@@ -16,9 +16,10 @@ import { AboutMePage } from '../about-me/about-me';
   templateUrl: 'tabs.html',
 })
 export class TabsPage {
-  tab1=HomePage;
-  tab2=CategoriesPage
-  tab3=AboutMePage
+  //below we connect the tabs with the HTML pages
+  tab1 = HomePage;
+  tab2 = CategoriesPage;
+  tab3 = AboutMePage;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
