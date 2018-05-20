@@ -1,19 +1,16 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
 //for the recorder functions
-import { Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
-import { HttpProvider } from '../../providers/http/http';
 
 /**
- * Generated class for the PhrasePopupPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
+This is the page that pops onscreen when phrase is clicked
+has the phrase itself
+the image 
+and the audio playable by button click
  */
-
 @IonicPage()
 @Component({
   selector: 'page-phrase-popup',
@@ -51,10 +48,9 @@ export class PhrasePopupPage {
     console.log('ionViewDidLoad PhrasePopupPage');
   }
 
-  //clicked the button
+  //clicked the button, play audio
   private clicked(){
-    this.playAudio(this.phraseAudioURL);
-     
+    this.playAudio(this.phraseAudioURL);   
   }
 
     /** play the input file on the device speakers
