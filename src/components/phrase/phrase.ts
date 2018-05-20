@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Phrase } from "../../models/Phrase"
 import { PhrasePopupPage } from '../../pages/phrase-popup/phrase-popup';
-import { NavController } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 
 @Component({
   selector: 'phrase',
@@ -12,11 +12,30 @@ export class PhraseComponent {
 
   @Input() phrase : Phrase;
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private alertCtrl: AlertController) {
   }
 
+  /*open the phrase popup page and pass to it
+   current phrase , image, audio*/
   public openPopup(){
-    this.navCtrl.push(PhrasePopupPage);
+    try{
+      this.navCtrl.push(PhrasePopupPage, {
+        phraseName: this.phrase.GetName(),
+        phraseImageURL: this.phrase.GetImageURL(), 
+        //TODO add audio to phrase model and pass it here 
+        //phraseAudioURL: "this.phrase.GetAudioURL"     
+      });
+    }
+    catch{
+
+        let alert = this.alertCtrl.create({
+          title: 'cannot open phrase popup',
+          buttons: ['sorry']
+        });
+        alert.present();
+
+    }
+
 }
 
 }
