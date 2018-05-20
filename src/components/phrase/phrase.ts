@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Phrase } from "../../models/Phrase"
+import { PhrasePopupPage } from '../../pages/phrase-popup/phrase-popup';
+import { NavController } from 'ionic-angular';
 
 @Component({
   selector: 'phrase',
@@ -10,7 +12,11 @@ export class PhraseComponent {
 
   @Input() phrase : Phrase;
 
-  constructor() {
+  constructor(public navCtrl: NavController) {
   }
+
+  public openPopup(){
+    this.navCtrl.push(PhrasePopupPage);
+}
 
 }

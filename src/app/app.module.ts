@@ -24,6 +24,7 @@ import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
 import { TabsPage } from '../pages/tabs/tabs';
+import { PhrasePopupPage } from '../pages/phrase-popup/phrase-popup';
 
 //import component
 import { PhraseComponent } from '../components/phrase/phrase';
@@ -47,6 +48,7 @@ import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { TimerComponent } from '../components/timer/timer';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -60,11 +62,14 @@ import { TimerComponent } from '../components/timer/timer';
     PhraseComponent,
     TimerComponent,
     TabsPage,
+    PhrasePopupPage
     //NumbersPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages: true //show the tabs bar only on pages navigated by tabs
+    } ),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -78,6 +83,7 @@ import { TimerComponent } from '../components/timer/timer';
     AboutMePage,
     IntroSliderPage,
     TabsPage,
+    PhrasePopupPage
     //NumbersPage
   ],
   providers: [
