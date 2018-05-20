@@ -19,7 +19,13 @@
 
 
 <ion-content padding>
-    <h1  style="text-align:center">the phrase is: "{{phraseName}}"</h1>
+    <h1  style="text-align:center">{{phraseName}}</h1>
     <img src=' {{phraseImageURL}}' >
-    <button  (click)='back();'>CLICK</button>
+    <div>
+      <button ion-button round icon-start (click)='clicked();'>
+        <ion-icon name="PLAY"></ion-icon>
+        PLAY
+      </button>
+    </div>
+ 
 </ion-content>

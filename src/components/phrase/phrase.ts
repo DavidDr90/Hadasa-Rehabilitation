@@ -26,10 +26,11 @@ export class PhraseComponent {
         //phraseAudioURL: "this.phrase.GetAudioURL"     
       });
     }
-    catch{
+    catch(error){
 
         let alert = this.alertCtrl.create({
           title: 'cannot open phrase popup',
+          subTitle: error,
           buttons: ['sorry']
         });
         alert.present();
