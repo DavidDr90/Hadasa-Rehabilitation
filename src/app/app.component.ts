@@ -6,13 +6,19 @@ import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
 import { TabsPage } from '../pages/tabs/tabs';
 import { AutenticationProvider } from '../providers/autentication/autentication';
 
+import { CategoriesPage } from '../pages/categories/categories';
+import { HomePage } from '../pages/home/home';
+import { AddPhrasePage } from '../pages/add-phrase/add-phrase';
+import { AboutMePage } from '../pages/about-me/about-me';
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
   
-  rootPage:any
+  rootPage:any;
  
+  
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
       public authentication: AutenticationProvider) 
     {
@@ -46,6 +52,7 @@ export class MyApp {
     }
   }
   //---------------------------------------------------------------------------//
+  
   
 
 }

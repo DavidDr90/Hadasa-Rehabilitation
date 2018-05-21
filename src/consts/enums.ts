@@ -14,7 +14,7 @@ export const enum API_KEYS {
         guide how to use this API:
         https://developers.google.com/url-shortener/v1/getting_started
     */
-    GOOGLE_URL_SHORTER_API_KEY = "AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng",
+    GOOGLE_URL_SHORTER_API_KEY = "",
     
     /**
      * To enter the TTS system follow and sign-in in this link:
@@ -60,18 +60,21 @@ export const NIKUD = [
 ];
 
 
-/* Enum Defintinon
-export const enum NIKUD{
-    QAMATZ = "\u05B8",
-    SHEVA = "\u05B0",
-    DAGESH = "\u05BC",
-    PATAH = "\u05B7",
-    SEGOL = "\u05B6",
-    HATAF_PATAH = "\u05B2",
-    SHIN = "\u05C1",
-    SIN = "\u05C2",
-    TSERE = "\u05B5",
-    HOLAM = "\u05B9",
-    HIRIQ = "\u05B4",
-    QUBUTS = "\u05BB"
-}*/
+//option for the addPhrasePage
+export const enum ADD_OPTIONS{
+    CATEGORY = 1,
+    PHRASE
+}
+
+//option for the TTS server
+export const enum VOICE_OPTIONS{
+    SIVAN = "Sivan",
+    GILAD = "Gilad-legacy",
+}
+
+
+//const value for number of favorite categories & phrases
+export const enum NUM_FAVORITES{
+    CAT=5,
+    PHRASES=10
+}
