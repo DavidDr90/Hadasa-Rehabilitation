@@ -84,7 +84,7 @@ import { timer } from 'rxjs/observable/timer';
     AboutMePage,
     IntroSliderPage,
     TabsPage,
-    PhrasePopupPage
+    PhrasePopupPage,
     PhrasesPage,
     //NumbersPage
   ],
