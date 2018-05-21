@@ -4,19 +4,20 @@ import { PhraseComponent } from './phrase/phrase';
 import { TimerComponent } from './timer/timer';
 import { ProgressBarComponent } from './progress-bar/progress-bar';
 
+
 @NgModule({
 	declarations: [
     MyCategoryComponent,
     PhraseComponent,
     TimerComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
   ],
 	imports: [],
 	exports: [
     MyCategoryComponent,
     PhraseComponent,
     TimerComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
   ]
 })
 

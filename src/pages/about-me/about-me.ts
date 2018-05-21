@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
@@ -7,13 +7,6 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { TwitterAuthProvider_Instance } from '@firebase/auth-types';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Phrase } from '../../models/Phrase';
-
-/**
- * Generated class for the AboutMePage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -25,7 +18,12 @@ export class AboutMePage {
   public aboutMeCategory: Category
   public phrases;
 
-  constructor(public categoryProvider: CategoryServiceProvider, public db: FirebaseProvider,public phrasesProvider: PhrasesProvider,public auth: AutenticationProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public categoryProvider: CategoryServiceProvider,
+              public db: FirebaseProvider,
+              public phrasesProvider: PhrasesProvider,
+              public auth: AutenticationProvider,
+              public navCtrl: NavController,
+              public navParams: NavParams) {
     this.aboutMeCategory = this.categoryProvider.getCategoriesByName('aboutMe');
     this.AsyncPhrasesloader();
   }
@@ -61,5 +59,6 @@ export class AboutMePage {
       this.phrases = data;
     })
   }
+
 
 }

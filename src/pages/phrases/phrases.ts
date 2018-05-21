@@ -4,6 +4,10 @@ import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
 
+import * as Enums from '../../consts/enums';
+
+const PHRASE = 2;
+
 @IonicPage()
 @Component({
   selector: 'page-phrases',
@@ -52,6 +56,23 @@ export class PhrasesPage {
     temp.then((data)=>{
       this.phrases = data;
     })
+
+
+
+  /**display the addPhrasePage and get the retrun object from the form.
+  * Prompt the user to add a new phrase. This shows our AddPhrasePage in a
+  * modal and then adds the new item to our data source if the user created one.
+  */
+  openAddPage() {
+    let addModal = this.modalCtrl.create('AddPhrasePage',
+    { 'fromWhere': Enums.ADD_OPTIONS.PHRASE, 'categoryName': this.categoryName });
+    addModal.onDidDismiss(item => {
+      if (item) {//if there is an object that return from the form
+        console.log(item);
+        //TOOD: here we should upload the 'item' to the DB using Or & Dor firebaseProvider
+      }
+    })
+    addModal.present();//present the addPhrasePage
   }
 
 }

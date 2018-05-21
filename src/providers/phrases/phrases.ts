@@ -10,7 +10,6 @@ import { Category } from '../../models/Category';
 export class PhrasesProvider {
 
   constructor(public firebaseProvider: FirebaseProvider) {
-
   }
 
   //first,calling import of all category's phrases.
@@ -25,6 +24,7 @@ export class PhrasesProvider {
         resolve(arrayOfPhrases);
       })
     })
+
   }
 
   
@@ -36,4 +36,9 @@ removePhrase(phrase: Phrase){
   this.firebaseProvider.removePhrase(phrase);
 }
 
+
+  public GetCategoryName()
+  {
+    return this.categoryName;
+  }
 }

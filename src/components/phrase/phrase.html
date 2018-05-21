@@ -1,5 +1,4 @@
-<!-- Generated template for the PhraseComponent component -->
-<div>
-    <p>{{phrase.name}}</p>
-    <img src =' {{phrase.imageURL}}'>
+<div (click)='openPopup();'> <!-- Phrase is clickable -->
+    <p>{{ phrase.GetName() }}</p>
+    <img src=' {{phrase.GetImageURL() }}'>
 </div>
