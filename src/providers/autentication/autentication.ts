@@ -24,9 +24,11 @@ export class AutenticationProvider {
       return new Promise((resolve,reject) => 
     {
       //The line below will open google's pop-up window.
+      //you can NOT use auth.signInWithPopup() in mobile phones, should use auth.signInWithRedirect() 
       let user = this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>
       {
         this.user = this.afAuth.auth.currentUser;
+        console.log("user = " + user);
         resolve(this.afAuth.auth.currentUser)
       }
       )})

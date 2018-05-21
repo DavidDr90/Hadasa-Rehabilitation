@@ -9,6 +9,7 @@ import { PhrasesPage } from '../phrases/phrases';
 
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 import * as Enums from '../../consts/enums';
+import { StorageProvider } from '../../providers/storage/storage';
 
 
 const isCategory = true;
@@ -27,12 +28,10 @@ export class CategoriesPage {
     public categoryService: CategoryServiceProvider,
     public navParams: NavParams,
     public modalCtrl:ModalController,
-    public navCtrl:NavController) {
+    public navCtrl:NavController,
+    public storage:StorageProvider) {
     
   }
-
-
-
 
   //popup the category's phrases's page.
   public openCategoryPhrases(category: Category){
@@ -46,7 +45,7 @@ export class CategoriesPage {
    * modal and then adds the new item to our data source if the user created one.
    */
   openAddPage() {
-    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': Enums.ADD_OPTIONS.CATEGORY});
+    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': CATEGORY});
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);

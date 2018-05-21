@@ -64,10 +64,10 @@ export class HomePage {
         }
       })
 
-    }*/
+    }
 
 
-  }
+  }*/
 
 
 }

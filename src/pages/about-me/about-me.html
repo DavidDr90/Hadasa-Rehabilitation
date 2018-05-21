@@ -1,12 +1,17 @@
-
- <ion-header>
- <ion-navbar>
+<ion-header>
+  <ion-navbar>
     <ion-title>על עצמי</ion-title>
+
+    <!-- add button in the end of the nav-bar -->
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openAddPage()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 </ion-header>
 
-<h1>על עצמי</h1>
-
 <ion-content padding>
-  <phrase [phrase] = "item" *ngFor = "let item of phrases"></phrase>
+  <phrase [phrase]="item" *ngFor="let item of phrases"></phrase>
 </ion-content>

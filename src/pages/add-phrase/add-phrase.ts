@@ -29,7 +29,7 @@ const hebrewRegx = "[\u0590-\u05fe]+$";//regex for hebrew chars
 export class AddPhrasePage {
   @ViewChild('myTimer') timer;
 
-  private duration:any;
+  private duration: any;
   private isCategory: boolean = true;
   private _myForm: FormGroup;
   private _curserPosition;
@@ -59,14 +59,14 @@ export class AddPhrasePage {
     public platform: Platform,
     private file: File,
     private filePath: FilePath,
-    private httpProvider:HttpProvider,
+    private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
-    ) {
+  ) {
 
 
     //if we gote here from some categroy page and we want to add new phrase
-    if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
+    if (this.navParams.get('fromWhere') == 2) {
       this.isCategory = false;
     }
 
@@ -89,11 +89,12 @@ export class AddPhrasePage {
         "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
         "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
       })
-      this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
+      if (this.navParams.get('categoryName') == null || this.navParams.get('categoryName') == undefined)
+        this._myForm.patchValue({ 'categoryID': "null" });//add the 'null' as empty category
+      else
+        this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
     }
   }
-
-  ionViewDidLoad() { }
 
   /** @returns the nikud array
    */
@@ -298,7 +299,7 @@ export class AddPhrasePage {
       let data = this._audioRecordProvider.stopRecord();
 
       this.duration = this.timer.getTime();
-      
+
       // this.timer.destroy();
 
       if (data instanceof Error) {
@@ -320,8 +321,8 @@ export class AddPhrasePage {
    * @param duration object with the seconds, minutes and hours that was record
    * @returns the duration in millisconds format
    */
-  private calcDuration(duration):number{
-    return ( (+duration.seconds) + (+duration.minutes * 60) ) * 1000;//the first '+' is to tall the JS that this is numbers
+  private calcDuration(duration): number {
+    return ((+duration.seconds) + (+duration.minutes * 60)) * 1000;//the first '+' is to tall the JS that this is numbers
   }
 
   // play the input file on the device speakers

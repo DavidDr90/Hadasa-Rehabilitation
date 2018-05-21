@@ -16,10 +16,10 @@ export class Phrase extends Item {
         super()
     }
 
-    get GetName() {
+    public GetName():string {
         return this.name;
     }
-    get GetImageURL() {
+    public GetImageURL() :string {
         return this.imageURL;
     }
 

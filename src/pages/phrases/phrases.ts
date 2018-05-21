@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
@@ -18,7 +18,10 @@ export class PhrasesPage {
   public parentCategory: Category;
   public phrases;
   
-  constructor(public navCtrl: NavController, public navParams: NavParams,public phrasesProvider: PhrasesProvider) 
+  constructor(public navCtrl: NavController, 
+              public navParams: NavParams,
+              public phrasesProvider: PhrasesProvider,
+              public modalCtrl:ModalController,) 
   {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
@@ -56,6 +59,7 @@ export class PhrasesPage {
     temp.then((data)=>{
       this.phrases = data;
     })
+  }
 
 
 
@@ -65,7 +69,7 @@ export class PhrasesPage {
   */
   openAddPage() {
     let addModal = this.modalCtrl.create('AddPhrasePage',
-    { 'fromWhere': Enums.ADD_OPTIONS.PHRASE, 'categoryName': this.categoryName });
+    { 'fromWhere': Enums.ADD_OPTIONS.PHRASE, 'categoryName': this.parentCategory.name });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);
