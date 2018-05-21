@@ -4,12 +4,6 @@ export class Item{
     }
 }
 
-// public static toHomeStory(json){
-//     let story = Object.create(HomeStory.prototype);
-//     return Object.assign(story, json);
-// }
-
-
 export class Category extends Item{
 
     constructor(private name: string, //the hebrew name of the category
@@ -23,6 +17,7 @@ export class Category extends Item{
     {
         super()
     }
+
     
     //GETTERS
     public get getName(){
@@ -47,8 +42,13 @@ export class Category extends Item{
         return this.isFav;
     }
 
+    
+    public get getparentCategoryId(){
+        return this.parentCategoryId;
+    }
+  
     //SETTERS
-    public set setName(t: string){
+    public setName(t: string){
         this.name = t;
     }
     public set setUrl(u: string){

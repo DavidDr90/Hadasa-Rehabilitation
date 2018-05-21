@@ -24,6 +24,7 @@ import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
 import { TabsPage } from '../pages/tabs/tabs';
+import { PhrasePopupPage } from '../pages/phrase-popup/phrase-popup';
 
 //import component
 import { PhraseComponent } from '../components/phrase/phrase';
@@ -40,35 +41,46 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { firebaseConfig } from '../environments/firebase.config';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AutenticationProvider } from '../providers/autentication/autentication';
+import {AngularFireStorage, AngularFireStorageModule} from 'angularfire2/storage';
 
 
 import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { TimerComponent } from '../components/timer/timer';
+import { StorageProvider } from '../providers/storage/storage';
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
-import { timer } from 'rxjs/observable/timer';
+
+
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
-    AddPhrasePage,
+    // AddPhrasePage,
     CategoriesPage,
     MyCategoryComponent,
     AboutMePage,
     IntroSliderPage,
     PhrasesPage,
     PhraseComponent,
-    TimerComponent,
+    // TimerComponent,
     TabsPage,
+
+    ProgressBarComponent,
+    PhrasePopupPage,
     //NumbersPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages: true //show the tabs bar only on pages navigated by tabs
+    } ),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
+    AddPhrasePageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -79,6 +91,7 @@ import { timer } from 'rxjs/observable/timer';
     AboutMePage,
     IntroSliderPage,
     TabsPage,
+    PhrasePopupPage,
     PhrasesPage,
     //NumbersPage
   ],
@@ -101,16 +114,18 @@ import { timer } from 'rxjs/observable/timer';
     HttpProvider,
     PhrasesProvider,
     FirebaseProvider,
-    AutenticationProvider
+    AutenticationProvider,
+    StorageProvider
   ]
 })
 
 export class AppModule { }
 [
-  CategoryServiceProvider,
-  PhrasesProvider,
-  FirebaseProvider,
-  AutenticationProvider
-]
+    CategoryServiceProvider,
+    PhrasesProvider,
+    FirebaseProvider,
+    AutenticationProvider,
+    StorageProvider
+  ]
 
 

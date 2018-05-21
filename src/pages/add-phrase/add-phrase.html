@@ -79,7 +79,8 @@
     </ion-list>
 
     <!-- show the object that create from the inputs -->
-    <p>Form value: {{ _myForm.value | json }}</p>
+    <p>{{ _myForm.value | json }}</p>
+
 
     <button ion-button large full type="submit" [disabled]="!_myForm.valid" (click)="onSubmit()">
       <ion-icon name="home" large></ion-icon>

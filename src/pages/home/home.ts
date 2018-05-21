@@ -1,16 +1,14 @@
 import { Component/*, Input, Output*/ } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Client } from '../../models/Client';
 import { CategoriesPage } from '../categories/categories';
 import { AboutMePage } from '../about-me/about-me';
 import { PhrasesPage } from '../phrases/phrases';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
-
 import { FirebaseProvider } from '../../providers/firebase/firebase'
-// import { AngularFireDatabase, FirebaseObjectObservable } from 'angularfire2/database-deprecated'
 import { User } from '../../models/user';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
-
+import { CategoryServiceProvider } from '../../providers/category-service/category-service';
+import { StorageProvider } from '../../providers/storage/storage';
 
 
 @Component({
@@ -20,13 +18,29 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 
 
 export class HomePage {
+  addPhrasePage = AddPhrasePage;
 
   user_name = "אורח";
-
   private users: User[] = [];
+  
+  percentage; // Should be implement on uploading 
+  
 
+  constructor(public navCtrl: NavController,
+               public firebaseProvider: FirebaseProvider,
+               public authentication: AutenticationProvider,
+               public storage : StorageProvider, 
+               public categoryProvider: CategoryServiceProvider) {
+    
+    this.percentage = 0;
 
-  constructor(public navCtrl: NavController, public firebaseProvider: FirebaseProvider, public authentication: AutenticationProvider) {
+    //Sets the display name of the logged-in user
+    this.user_name = authentication.user.displayName;
+    
+  }
+  /* old home - can be deleted???
+  constructor(public navCtrl: NavController,
+              public firebaseProvider: FirebaseProvider, public authentication: AutenticationProvider) {
 
     //when user logged in, check in DB if the user is a new user.
     //if current user is new, add the user to DB.
@@ -52,7 +66,8 @@ export class HomePage {
 
     }
 
-  }
+
+  }*/
 
 
 }

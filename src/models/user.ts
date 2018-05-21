@@ -11,7 +11,7 @@ export class Item{
 
 
 export class User extends Item{
-    // { url: string, title?: string, description?: string, category?: string[] }[]
+
     constructor(
         public email : string = ""
     )

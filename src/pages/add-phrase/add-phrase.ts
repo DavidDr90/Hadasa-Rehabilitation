@@ -11,7 +11,9 @@ import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpProvider } from '../../providers/http/http';
+import { StorageProvider } from '../../providers/storage/storage';
 import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
+
 
 declare var cordova: any;
 
@@ -27,7 +29,7 @@ const hebrewRegx = "[\u0590-\u05fe]+$";//regex for hebrew chars
 export class AddPhrasePage {
   @ViewChild('myTimer') timer;
 
-
+  private duration: any;
   private isCategory: boolean = true;
   private _myForm: FormGroup;
   private _curserPosition;
@@ -58,10 +60,13 @@ export class AddPhrasePage {
     private file: File,
     private filePath: FilePath,
     private httpProvider: HttpProvider,
-    public navParams: NavParams) {
+    private storageProvider: StorageProvider,
+    public navParams: NavParams,
+  ) {
+
 
     //if we gote here from some categroy page and we want to add new phrase
-    if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
+    if (this.navParams.get('fromWhere') == 2) {
       this.isCategory = false;
     }
 
@@ -84,11 +89,12 @@ export class AddPhrasePage {
         "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
         "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
       })
-      this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
+      if (this.navParams.get('categoryName') == null || this.navParams.get('categoryName') == undefined)
+        this._myForm.patchValue({ 'categoryID': "null" });//add the 'null' as empty category
+      else
+        this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
     }
   }
-
-  ionViewDidLoad() { }
 
   /** @returns the nikud array
    */
@@ -175,7 +181,8 @@ export class AddPhrasePage {
           handler: () => {
             console.log('gallery');
             // this.getPicture(ImageOptions.GALLERY);
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            const pic = this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            this.storageProvider.uploadFile(pic);
           }
         },
         {
@@ -291,6 +298,8 @@ export class AddPhrasePage {
       this.micText = START_REC;
       let data = this._audioRecordProvider.stopRecord();
 
+      this.duration = this.timer.getTime();
+
       // this.timer.destroy();
 
       if (data instanceof Error) {
@@ -308,12 +317,31 @@ export class AddPhrasePage {
     }
   }
 
+  /** calculate the record file's duration
+   * @param duration object with the seconds, minutes and hours that was record
+   * @returns the duration in millisconds format
+   */
+  private calcDuration(duration): number {
+    return ((+duration.seconds) + (+duration.minutes * 60)) * 1000;//the first '+' is to tall the JS that this is numbers
+  }
+
   // play the input file on the device speakers
   playAudio() {
     this.playing = !this.playing;
 
     let data = this._audioRecordProvider.playAudio(this.fileName, this.firstTime);
     this.firstTime = false;
+
+    let durationInt = this.calcDuration(this.duration);
+    //if the record file duration is bigger then 0
+    if (durationInt > 0) {
+      //after the file ended switch the buttons
+      let durationInteravle = setInterval(() => {
+        this.playing = !this.playing;
+        clearInterval(durationInteravle);//after using the interavl reset it
+      }, durationInt);
+    }
+
 
     if (data instanceof Error)
       this.showAlert("לא הצלחנו להשמיע את ההקלטה....", data.message);
@@ -331,23 +359,23 @@ export class AddPhrasePage {
 
   //TODO:
   //use the http provider to get the audio file from the TTS server
- getAudioFromTTS() {
+  getAudioFromTTS() {
     if (this._myForm.controls['text'].value == "" || !this.isHebrew(this._myForm.controls['text'].value)) {
       this.showAlert("לא הוכנס משפט", null);
     } else {
-      console.log(this._myForm.controls['text'].value);//the input text value
-
       /*tts_promise is the promise that make sure that we using the real recieved data from the TTS server
         and not the promise object that the "get" HTTP request returns until the real data arive from the server.*/
       let tts_promise = new Promise((resolve, reject) => {
-          resolve(this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN)); // Yay! Everything went well!
+        resolve(this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN)); // Yay! Everything went well!
       });
       //let "data" be the real data recieved from the TTS server- the audio file.
       tts_promise.then((data) => {
         /*TODO: "data" is the recieved audio file from the TTS server
           after waiting to the tts_promise to be solved.
         */
-        console.log("in add phrase page:\n"+data)
+
+        console.log("in add phrase page:\n" + data);
+        this._myForm.patchValue({ 'audioFile': data });//insert the capture audio file to the form 
       });
      
     }
@@ -366,5 +394,37 @@ export class AddPhrasePage {
       return false;
     }
   }
+
+
+  /********** Deprecaed ********************/
+
+  /*askForIneternetPermissions() {
+    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.INTERNET)
+      .then((result) => {
+        if (result.hasPermission)
+          console.log('Has permission?', result.hasPermission);
+        else {
+          console.log("in else");
+          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.INTERNET)
+        }
+      }).catch((err) => {
+        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.INTERNET)
+      });
+  }
+
+  private saveFileToStorage() {
+    let savePath;
+    let name = this._audioRecordProvider.generateFileName();
+    console.log("tts file name is = " + name);
+    if (this.platform.is('ios')) {
+      savePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + name;
+    } else if (this.platform.is('android')) {
+      savePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + name;
+    }
+    this.audio = this.media.create(savePath);
+    console.log("save path is = " + savePath);
+  }*/
+
+
 
 }

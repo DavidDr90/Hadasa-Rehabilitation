@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, NavPush, ModalController } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-import { Client } from '../../models/Client';
+
+import { HomePage } from '../home/home';
+import { AboutMePage } from '../about-me/about-me';
 import { Category } from '../../models/Category';
+import { PhrasesPage } from '../phrases/phrases';
+
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 import * as Enums from '../../consts/enums';
+import { StorageProvider } from '../../providers/storage/storage';
 
 
 const isCategory = true;
@@ -17,17 +22,22 @@ const CATEGORY = 1;
 })
 export class CategoriesPage {
 
-  private client: Client;
+  public phrasesPage: PhrasesPage;
 
   constructor(
     public categoryService: CategoryServiceProvider,
     public navParams: NavParams,
-    public modalCtrl:ModalController) {
+    public modalCtrl:ModalController,
+    public navCtrl:NavController,
+    public storage:StorageProvider) {
     
   }
 
-
-  ionViewDidLoad() {
+  //popup the category's phrases's page.
+  public openCategoryPhrases(category: Category){
+    this.navCtrl.push(PhrasesPage, {
+      parentCategory: category
+    }); 
   }
 
   /**display the addPhrasePage and get the retrun object from the form.
@@ -35,7 +45,7 @@ export class CategoriesPage {
    * modal and then adds the new item to our data source if the user created one.
    */
   openAddPage() {
-    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': Enums.ADD_OPTIONS.CATEGORY});
+    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': CATEGORY});
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);

@@ -89,12 +89,11 @@ export class AudioRecordProvider {
       if (firstTime) {
         //find the input file on the device storage
         if (this.platform.is('ios')) {
-          this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-          this.audio = this.media.create(this.audioFilePath);
+          this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;          
         } else if (this.platform.is('android')) {
           this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-          this.audio = this.media.create(this.audioFilePath);
         }
+        this.audio = this.media.create(this.audioFilePath);
       }
       this.audio.play();
       this.audio.setVolume(0.8);

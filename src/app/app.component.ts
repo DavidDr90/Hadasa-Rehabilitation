@@ -16,9 +16,9 @@ import { AboutMePage } from '../pages/about-me/about-me';
 })
 export class MyApp {
   
-  rootPage:any = AboutMePage;
+  rootPage:any;
  
-  /*
+  
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
       public authentication: AutenticationProvider) 
     {
@@ -31,7 +31,7 @@ export class MyApp {
       });
 
       //check if current user is login, initialize authentication.loggedIn attr.
-      this.authentication.isLoggedIn();
+      // this.authentication.isLoggedIn();
       //considering authentication.loggedIn set the following page: homePage or loginPage
       this.getRootPage();
     }
@@ -44,16 +44,17 @@ export class MyApp {
       this.rootPage = TabsPage;
     }
     else{
-      this.rootPage = IntroSliderPage; 
-      this.authentication.createAuthentication().then(()=>{
-        this.rootPage = TabsPage;
-      })
-      
+      this.rootPage = IntroSliderPage;
     }
   }
   //---------------------------------------------------------------------------//
-  */
   
+
+  public setRootPage(page)
+  {
+    this.rootPage = page
+  }
+
 
 }
 

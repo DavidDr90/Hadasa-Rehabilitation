@@ -1,4 +1,8 @@
-export class Phrase {
+export class Item{
+    public static toObject(item){
+        return JSON.parse(JSON.stringify(item));
+    }
+}
 
     public id: string; //the ID of the phrase in the DB
     private name: string; //the hebrew name of the phrase
@@ -27,6 +31,11 @@ export class Phrase {
         return this.name;
     }
     public get getImageURL() {
+
+    public GetName():string {
+        return this.name;
+    }
+    public GetImageURL() :string {
         return this.imageURL;
     }
     public get getCategoryID(){
