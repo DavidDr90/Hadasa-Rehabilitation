@@ -1,12 +1,20 @@
- <ion-header>
+<ion-header>
 
   <ion-navbar>
     <ion-title>קטגוריות</ion-title>
+
+    <!-- add button in the end of the nav-bar -->
+    <ion-buttons end>
+      <button ion-button icon-only (click)="openAddPage()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+
   </ion-navbar>
 
 
 
-</ion-header> 
+</ion-header>
 
 
 <ion-content padding class="categories">

@@ -32,7 +32,7 @@ import { MyCategoryComponent } from '../components/my-category/my-category';
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
-import {HTTP} from '@ionic-native/http';
+import { HTTP } from '@ionic-native/http';
 import { HttpProvider } from '../providers/http/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
@@ -42,10 +42,11 @@ import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AutenticationProvider } from '../providers/autentication/autentication';
 
 
-
 import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { TimerComponent } from '../components/timer/timer';
+import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
+import { timer } from 'rxjs/observable/timer';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { TimerComponent } from '../components/timer/timer';
     AboutMePage,
     IntroSliderPage,
     TabsPage,
+    PhrasesPage,
     //NumbersPage
   ],
   providers: [
@@ -103,12 +105,12 @@ import { TimerComponent } from '../components/timer/timer';
   ]
 })
 
-export class AppModule {}
+export class AppModule { }
 [
-    CategoryServiceProvider,
-    PhrasesProvider,
-    FirebaseProvider,
-    AutenticationProvider
-  ]
+  CategoryServiceProvider,
+  PhrasesProvider,
+  FirebaseProvider,
+  AutenticationProvider
+]
 
 

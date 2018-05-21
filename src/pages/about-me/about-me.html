@@ -1,24 +1,4 @@
-<!--
-  Generated template for the AboutMePage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
-
-  <!-- The toolbar for the different main pages -->
-  <!--<ion-toolbar>
-    <ion-segment>
-      <ion-segment-button [navPush]="homePage" value="home">
-        דף הבית
-      </ion-segment-button>
-      <ion-segment-button [navPush]="categoriesPage" value="categories">
-        כל הקטגוריות
-      </ion-segment-button>
-      <ion-segment-button [navPush]="aboutMePage" value="aboutMe">
-        על עצמי
-      </ion-segment-button>
-    </ion-segment>
-  </ion-toolbar> -->
+<!-- 
  <ion-header>
 
  <ion-navbar>
@@ -29,4 +9,22 @@
 
 <ion-content padding>
   <page-phrases></page-phrases>
+</ion-content> -->
+
+<ion-header>
+  <ion-navbar>
+    <ion-title>Test Page</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+
+ <ion-title>
+   <timer #myTimer></timer>
+ </ion-title>
+
+ <button ion-button large (click)="activeTimer()">
+   active
+ </button>
+
 </ion-content>
