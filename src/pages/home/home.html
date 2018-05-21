@@ -10,26 +10,6 @@
 <!-- The toolbar for the different main pages -->
 
 
-<ion-content padding>
-    <!-- fab is the button in the corner of the screen -->
-    <!-- this button flot over the contnet and stay in his place on scrolling -->
-    <ion-fab bottom right>
-        <button ion-fab color="light">
-      <ion-icon name="add"></ion-icon>
-    </button>
-        <!-- list opened when press the button -->
-        <ion-fab-list side="top">
-            <button ion-fab [navPush]="addPhrasePage">
-        <ion-icon name="text"></ion-icon>
-        <ion-label>הוספת ביטוי</ion-label>
-      </button>
-            <button ion-fab>
-        <ion-icon name="information-circle"></ion-icon>
-        <ion-label>הוספת קטגוריה</ion-label>
-      </button>
-        </ion-fab-list>
-    </ion-fab>
-</ion-content>
 
 <ion-content padding>
     <h1> ברוכים הבאים! </h1>
