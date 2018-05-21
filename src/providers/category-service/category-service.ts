@@ -1,7 +1,6 @@
 
 import { Injectable } from '@angular/core';
 import { Category } from '../../models/Category';
-import { Client } from '../../models/Client';
 import { FirebaseProvider } from '../firebase/firebase';
 
 /*
@@ -15,28 +14,37 @@ export class CategoryServiceProvider {
 
   private categories = [];
 
+  //import categories collection from db and initialize categories attr.
   constructor(public firebaseProvider: FirebaseProvider) {
-    firebaseProvider.importCategories();
-    let x = firebaseProvider.getCategoriesObservable.subscribe(a => {
+    this.updateCategoriesArray();
+  }
+
+  private updateCategoriesArray(){
+    this.firebaseProvider.importCategories();
+    let x = this.firebaseProvider.getCategoriesObservable.subscribe(a => {
       this.categories = a;
     });
   }
 
-  get getCategories() {
+  public get getCategories() {
     return this.categories;
   }
 
+  public getCategoriesByName(n: string){
+    return this.categories.find(cat => cat.name == n)
+  }
   public getCategoryById(id: string): Category{
     return this.categories.find(cat => cat.id === id);
   }
 
   public addCategory(category: Category): void {
       this.firebaseProvider.addCategory(category);
+      this.updateCategoriesArray();
   }
 
-  //needs to connect with db
   removeCategory(category: Category){
-      this.categories.splice(this.categories.indexOf(category),1);
+    this.firebaseProvider.removeCategory(category);
+    this.updateCategoriesArray();
   }
 
 }

@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, NavPush } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-import { Client } from '../../models/Client';
+
+import { HomePage } from '../home/home';
+import { AboutMePage } from '../about-me/about-me';
 import { Category } from '../../models/Category';
+import { PhrasesPage } from '../phrases/phrases';
+
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 import * as Enums from '../../consts/enums';
 
@@ -17,18 +21,25 @@ const CATEGORY = 1;
 })
 export class CategoriesPage {
 
-  private client: Client;
+  public phrasesPage: PhrasesPage;
 
   constructor(
     public categoryService: CategoryServiceProvider,
     public navParams: NavParams,
-    public modalCtrl:ModalController) {
+    public modalCtrl:ModalController,
+public navParams: NavParams) {
     
   }
 
 
-  ionViewDidLoad() {
-  }
+
+
+  //popup the category's phrases's page.
+  public openCategoryPhrases(category: Category){
+    this.navCtrl.push(PhrasesPage, {
+      parentCategory: category
+    }); 
+
 
   /**display the addPhrasePage and get the retrun object from the form.
    * Prompt the user to add a new category. This shows our AddPhrasePage in a

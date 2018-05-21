@@ -3,6 +3,7 @@ import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs'
 import { HomePage } from '../home/home';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
+import { MyApp } from '../../app/app.component';
 
 
 /**
@@ -19,6 +20,7 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 })
 export class IntroSliderPage {
   tabsPage = TabsPage;
+  appPage = MyApp
   //allows to access its childeren (individual slides)
   @ViewChild(Slides) slides:Slides; 
 
@@ -31,21 +33,18 @@ export class IntroSliderPage {
   }
   
 
+  public async logIn()
+  {
+    let user = await this.authentication.createAuthentication();
+    let temp = new Promise ((resolve,reject) => {
+      resolve(user);
+    });
+   temp.then(()=>{ 
+     console.log(this.authentication.user.displayName);
+    this.navCtrl.setRoot(TabsPage);
+  })
+      
+  }
 
-//   public checkIfDataLoaded() 
-//   {
-//     return new Promise((resolve, reject) => 
-//     {
-//         if (this.authentication.isLoggedIn()) 
-//         {
-//           console.log('user is logged in');
-//           this.navCtrl.push(HomePage);
-//             resolve(true);
-//         } else 
-//         {
-//             resolve(false);
-//         }
-//     });
-// }
 
 }

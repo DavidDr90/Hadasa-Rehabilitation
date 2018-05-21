@@ -11,7 +11,9 @@ import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpProvider } from '../../providers/http/http';
+import { StorageProvider } from '../../providers/storage/storage';
 import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
+
 
 declare var cordova: any;
 
@@ -57,9 +59,11 @@ export class AddPhrasePage {
     public platform: Platform,
     private file: File,
     private filePath: FilePath,
-    private httpProvider: HttpProvider,
+    private httpProvider:HttpProvider,
+    private storageProvider: StorageProvider,
     public navParams: NavParams,
     ) {
+
 
     //if we gote here from some categroy page and we want to add new phrase
     if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
@@ -176,7 +180,8 @@ export class AddPhrasePage {
           handler: () => {
             console.log('gallery');
             // this.getPicture(ImageOptions.GALLERY);
-            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            const pic = this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
+            this.storageProvider.uploadFile(pic);
           }
         },
         {

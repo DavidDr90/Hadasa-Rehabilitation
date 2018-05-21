@@ -17,33 +17,39 @@ export class AutenticationProvider {
   
   constructor(public afAuth: AngularFireAuth) {
   }
-    //open auth page for sing in
+
+  
+    //This function returns a promise (will wait until gets the logged-in user information) and returns it.
     public createAuthentication() {
-      this.loggedIn = false;
-      let user = this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>
-        {
-          this.user = this.afAuth.auth.currentUser;
-          this.loggedIn = true;
-        }).catch(()=>
+      return new Promise((resolve,reject) => 
     {
-      this.loggedIn = false;
-    })
-    return user;
+      //The line below will open google's pop-up window.
+      let user = this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(()=>
+      {
+        this.user = this.afAuth.auth.currentUser;
+        resolve(this.afAuth.auth.currentUser)
+      }
+      )})
   }
 
-  //check if current user is logged in
-  public isLoggedIn(){
-    try {
-      this.afAuth.auth.currentUser.uid
-      this.loggedIn = true;
-    }
-    catch(e) {
-      this.loggedIn = false;
-    }
+  public isLoggedIn() {
+    return new Promise((resolve, reject) => {
+      this.afAuth.authState.subscribe(user => {
+        resolve(user.displayName);
+      })
+    })
   }
-  
+
   public loggedInStatus(){
     return this.loggedIn;  
+  }
+
+  public get getUserName(){
+    return this.afAuth.auth.currentUser.displayName;
+  }
+
+  public get getUserEmail(){
+    return this.afAuth.auth.currentUser.email;
   }
 
 }

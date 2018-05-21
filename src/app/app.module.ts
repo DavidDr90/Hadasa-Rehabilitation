@@ -41,13 +41,16 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { firebaseConfig } from '../environments/firebase.config';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AutenticationProvider } from '../providers/autentication/autentication';
+import {AngularFireStorage, AngularFireStorageModule} from 'angularfire2/storage';
 
 
 import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { TimerComponent } from '../components/timer/timer';
+import { StorageProvider } from '../providers/storage/storage';
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
-import { timer } from 'rxjs/observable/timer';
+
 
 
 @NgModule({
@@ -63,7 +66,9 @@ import { timer } from 'rxjs/observable/timer';
     PhraseComponent,
     // TimerComponent,
     TabsPage,
-    PhrasePopupPage
+
+    ProgressBarComponent,
+    PhrasePopupPage,
     //NumbersPage
   ],
   imports: [
@@ -74,6 +79,7 @@ import { timer } from 'rxjs/observable/timer';
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AngularFireStorageModule,
     AddPhrasePageModule,
   ],
   bootstrap: [IonicApp],
@@ -108,16 +114,18 @@ import { timer } from 'rxjs/observable/timer';
     HttpProvider,
     PhrasesProvider,
     FirebaseProvider,
-    AutenticationProvider
+    AutenticationProvider,
+    StorageProvider
   ]
 })
 
 export class AppModule { }
 [
-  CategoryServiceProvider,
-  PhrasesProvider,
-  FirebaseProvider,
-  AutenticationProvider
-]
+    CategoryServiceProvider,
+    PhrasesProvider,
+    FirebaseProvider,
+    AutenticationProvider,
+    StorageProvider
+  ]
 
 
