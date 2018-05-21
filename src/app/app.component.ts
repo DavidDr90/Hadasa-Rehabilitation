@@ -16,9 +16,9 @@ import { AboutMePage } from '../pages/about-me/about-me';
 })
 export class MyApp {
   
-  rootPage:any = AboutMePage;
+  rootPage:any;
  
-  /*
+  
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,
       public authentication: AutenticationProvider) 
     {
@@ -52,7 +52,7 @@ export class MyApp {
     }
   }
   //---------------------------------------------------------------------------//
-  */
+  
   
 
 }

@@ -12,7 +12,6 @@ import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpProvider } from '../../providers/http/http';
 import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
-import { AndroidPermissions } from '@ionic-native/android-permissions';
 
 declare var cordova: any;
 
