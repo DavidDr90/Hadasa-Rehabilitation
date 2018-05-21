@@ -39,7 +39,7 @@ export class FirebaseProvider {
   public importCategories()
   {
     //Creating the categories collection.
-    this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.orderBy('email', 'desc'));
+    this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.orderBy('userEmail', 'desc'));
     this.categories = this.categoriesCollection.snapshotChanges().map(result => {
       return result.map(a => {
         let temp = a.payload.doc.data() as Category;

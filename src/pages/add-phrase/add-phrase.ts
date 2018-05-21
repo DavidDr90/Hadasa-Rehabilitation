@@ -349,17 +349,7 @@ export class AddPhrasePage {
         */
         console.log("in add phrase page:\n"+data)
       });
-<<<<<<< HEAD
-    
-      
-
-
-
-
-
      
-=======
->>>>>>> 5b717d51ac856faf59d6c4c9d9b8b0d9703938be
     }
   }
 

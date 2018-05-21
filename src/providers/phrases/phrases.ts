@@ -18,15 +18,15 @@ export class PhrasesProvider {
   private initiate()
   {
     this.categoryName = "על עצמי"
-    this.AddNewPhrase("השם שלי","../assets/imgs/name.png");
-    this.AddNewPhrase("הכתובת שלי","../assets/imgs/home.png");
-    this.AddNewPhrase("מספר הפלאפון שלי","../assets/imgs/phone.png");
-    this.AddNewPhrase("מקום העבודה שלי","../assets/imgs/work.png");
+    this.AddNewPhrase("השם שלי","../assets/imgs/name.png", "", "", 0, "", false);
+    this.AddNewPhrase("הכתובת שלי","../assets/imgs/home.png", "", "", 0, "", false);
+    this.AddNewPhrase("מספר הפלאפון שלי","../assets/imgs/phone.png", "", "", 0, "", false);
+    this.AddNewPhrase("מקום העבודה שלי","../assets/imgs/work.png", "", "", 0, "", false);
   }
 
-  public AddNewPhrase(name: string, imageURL: string)
+  public AddNewPhrase(name: string, imageURL: string, id: string, categoryID: string, views: number, audio: string, isFav:boolean)
   {
-    var phrase = new Phrase(name,imageURL);
+    var phrase = new Phrase(id, name,imageURL, categoryID, views, audio, isFav);
     this.phrases.push(phrase);
   }
 
