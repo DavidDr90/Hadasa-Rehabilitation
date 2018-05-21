@@ -54,14 +54,14 @@ import { timer } from 'rxjs/observable/timer';
   declarations: [
     MyApp,
     HomePage,
-    AddPhrasePage,
+    // AddPhrasePage,
     CategoriesPage,
     MyCategoryComponent,
     AboutMePage,
     IntroSliderPage,
     PhrasesPage,
     PhraseComponent,
-    TimerComponent,
+    // TimerComponent,
     TabsPage,
     PhrasePopupPage
     //NumbersPage
@@ -74,6 +74,7 @@ import { timer } from 'rxjs/observable/timer';
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
+    AddPhrasePageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
