@@ -1,19 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, NavPush, ModalController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 
-import { HomePage } from '../home/home';
-import { AboutMePage } from '../about-me/about-me';
 import { Category } from '../../models/Category';
 import { PhrasesPage } from '../phrases/phrases';
 
-import { AddPhrasePage } from '../add-phrase/add-phrase';
 import * as Enums from '../../consts/enums';
 import { StorageProvider } from '../../providers/storage/storage';
 
 
 const isCategory = true;
-const CATEGORY = 1;
 
 @IonicPage()
 @Component({
@@ -45,7 +41,7 @@ export class CategoriesPage {
    * modal and then adds the new item to our data source if the user created one.
    */
   openAddPage() {
-    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': CATEGORY});
+    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': Enums.ADD_OPTIONS.CATEGORY});
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);

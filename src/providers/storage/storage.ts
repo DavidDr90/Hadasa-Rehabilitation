@@ -1,7 +1,5 @@
 import {AngularFireStorage} from 'angularfire2/storage';
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { AlertController } from 'ionic-angular';
 import { AutenticationProvider } from '../autentication/autentication';
 
 /*

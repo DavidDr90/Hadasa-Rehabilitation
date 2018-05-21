@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams, AlertController, Platform } from '
 //for the recorder functions
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
-import { FilePath } from '@ionic-native/file-path';
 
 /**
 This is the page that pops onscreen when phrase is clicked
@@ -21,7 +20,6 @@ export class PhrasePopupPage {
   private phraseImageURL: string;
   private phraseAudioURL: string;
   //varibales for the record
-  private recording: boolean = false;
   private playing: boolean = false;
   private audioFilePath: string;
   private audio: MediaObject;
@@ -43,11 +41,6 @@ export class PhrasePopupPage {
     this.phraseAudioURL = "../assets/audio/Holidays/kipor.mp3"//for testing
   } 
   
-
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PhrasePopupPage');
-  }
-
   //clicked the button, play audio
   private clicked(){
     this.playAudio(this.phraseAudioURL);   
@@ -56,7 +49,7 @@ export class PhrasePopupPage {
     /** play the input file on the device speakers
    * @param file - an input audio file to play
    */
-  private playAudio(file) {
+   private playAudio(file) {
     try {
       if (this.firstTime) {//enter this if only the first time
         if (this.platform.is('ios')) {

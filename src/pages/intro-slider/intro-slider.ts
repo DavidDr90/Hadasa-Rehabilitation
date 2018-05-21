@@ -1,7 +1,6 @@
 import { Component,ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs'
-import { HomePage } from '../home/home';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { MyApp } from '../../app/app.component';
 

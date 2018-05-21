@@ -41,12 +41,11 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { firebaseConfig } from '../environments/firebase.config';
 import { FirebaseProvider } from '../providers/firebase/firebase';
 import { AutenticationProvider } from '../providers/autentication/autentication';
-import {AngularFireStorage, AngularFireStorageModule} from 'angularfire2/storage';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 
 
 import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
-import { TimerComponent } from '../components/timer/timer';
 import { StorageProvider } from '../providers/storage/storage';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
@@ -75,7 +74,7 @@ import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
     BrowserModule,
     IonicModule.forRoot(MyApp, {
       tabsHideOnSubPages: true //show the tabs bar only on pages navigated by tabs
-    } ),
+    }),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -121,11 +120,11 @@ import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
 
 export class AppModule { }
 [
-    CategoryServiceProvider,
-    PhrasesProvider,
-    FirebaseProvider,
-    AutenticationProvider,
-    StorageProvider
-  ]
+  CategoryServiceProvider,
+  PhrasesProvider,
+  FirebaseProvider,
+  AutenticationProvider,
+  StorageProvider
+]
 
 

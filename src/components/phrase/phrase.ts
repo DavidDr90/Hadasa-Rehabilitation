@@ -18,10 +18,11 @@ export class PhraseComponent {
   /*open the phrase popup page and pass to it
    current phrase , image, audio*/
   public openPopup(){
+
     try{
       this.navCtrl.push(PhrasePopupPage, {
-        phraseName: this.phrase.GetName(),
-        phraseImageURL: this.phrase.GetImageURL(), 
+        phraseName: this.phrase.name,//this.phrase.getName(),
+        phraseImageURL: this.phrase.imageURL,//this.phrase.getImageURL(), 
         //TODO add audio to phrase model and pass it here 
         //phraseAudioURL: "this.phrase.GetAudioURL"     
       });

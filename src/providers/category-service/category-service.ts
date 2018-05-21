@@ -21,7 +21,7 @@ export class CategoryServiceProvider {
 
   private updateCategoriesArray(){
     this.firebaseProvider.importCategories();
-    let x = this.firebaseProvider.getCategoriesObservable.subscribe(a => {
+    this.firebaseProvider.getCategoriesObservable.subscribe(a => {
       this.categories = a;
     });
   }

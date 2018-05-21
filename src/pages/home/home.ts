@@ -1,8 +1,5 @@
 import { Component/*, Input, Output*/ } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { CategoriesPage } from '../categories/categories';
-import { AboutMePage } from '../about-me/about-me';
-import { PhrasesPage } from '../phrases/phrases';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 import { FirebaseProvider } from '../../providers/firebase/firebase'
 import { User } from '../../models/user';
@@ -21,7 +18,6 @@ export class HomePage {
   addPhrasePage = AddPhrasePage;
 
   user_name = "אורח";
-  private users: User[] = [];
   
   percentage; // Should be implement on uploading 
   

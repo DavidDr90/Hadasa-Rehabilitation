@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { MediaObject, Media } from '@ionic-native/media';
-import { FilePath } from '@ionic-native/file-path';
 import { Platform } from 'ionic-angular';
 import { File } from '@ionic-native/file';
 
@@ -11,12 +10,10 @@ export class AudioRecordProvider {
   private audioFilePath: string;
   private fileName: string;
   private audio: MediaObject;
-  private firstTime: boolean = true;
 
   constructor(private media: Media,
     public platform: Platform,
-    private file: File,
-    private filePath: FilePath) {
+    private file: File) {
 
   }
 
@@ -53,9 +50,6 @@ export class AudioRecordProvider {
         this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
         this.audio = this.media.create(this.audioFilePath);
       }
-      let data = new Error('fileName = ' + this.fileName + "<br/>" +
-        ' audioFilePath = ' + this.audioFilePath + "<br/>" +
-        ' audio = ' + this.audio);
       this.audio.startRecord();
       return this.fileName;
     }

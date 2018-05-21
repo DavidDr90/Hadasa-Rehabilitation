@@ -1,14 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Image } from '../../models/image'
 import { User } from '../../models/user'
-import { List } from 'ionic-angular';
-import { FirebaseListObservable } from 'angularfire2/database-deprecated';
-import { AngularFireDatabase, AngularFireList } from 'angularfire2/database';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
-
-import { firebaseConfig } from '../../environments/firebase.config';
-import { AngularFireModule } from 'angularfire2';
 import { Category } from '../../models/Category';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { Observable } from 'rxjs/Observable';
@@ -103,7 +95,7 @@ export class FirebaseProvider {
   }
 
   removeCategory(category: Category){
-    this.categoriesCollection.doc(category.id).delete().then(function() {
+    this.categoriesCollection.doc(category.id ).delete().then(function() {
       console.log("Document successfully deleted!");
   }).catch(function(error) {
       console.error("Error removing document: ", error);

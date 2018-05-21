@@ -1,13 +1,7 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { Observable } from '@firebase/util';
-import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { User } from '@firebase/auth-types';
-import { MyApp } from '../../app/app.component';
-import { NavController } from 'ionic-angular/navigation/nav-controller';
-import { HomePage } from '../../pages/home/home';
 
 @Injectable()
 export class AutenticationProvider {

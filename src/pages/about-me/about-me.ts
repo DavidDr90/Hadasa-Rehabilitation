@@ -1,13 +1,11 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { FirebaseProvider } from '../../providers/firebase/firebase';
-import { TwitterAuthProvider_Instance } from '@firebase/auth-types';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Phrase } from '../../models/Phrase';
-import * as Enums from '../../consts/enums';
 
 @IonicPage()
 @Component({

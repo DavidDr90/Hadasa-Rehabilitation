@@ -2,13 +2,15 @@
 import { Injectable } from '@angular/core';
 import { Phrase } from '../../models/Phrase';
 import { FirebaseProvider } from '../firebase/firebase';
-import { AutenticationProvider } from '../autentication/autentication';
 import { Category } from '../../models/Category';
 
 
 @Injectable()
 export class PhrasesProvider {
 
+  phrases: any;
+  categoryName: any;
+  
   constructor(public firebaseProvider: FirebaseProvider) {
   }
 

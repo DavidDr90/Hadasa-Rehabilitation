@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Subscription } from 'rxjs/Subscription';
 
@@ -32,13 +32,15 @@ export class TimerComponent {
         };
     }
 
-    public resetTimer() {
+    private resetTimer() {
         this.secondsDisplay = 0;
         this.minutesDisplay = 0;
         this.hoursDisplay = 0;
     }
 
     public startTimer() {
+        
+        this.resetTimer();//set the timer to zero
 
         let timer = Observable.timer(1, 1000);
         this.sub = timer.subscribe(

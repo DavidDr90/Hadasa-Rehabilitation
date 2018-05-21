@@ -34,7 +34,6 @@ export class AddPhrasePage {
   private _myForm: FormGroup;
   private _curserPosition;
   private _nikudArray = Enums.NIKUD;
-  private _needNikud = false;
 
   lastImage: string = null;
   micText = START_REC;
@@ -55,7 +54,6 @@ export class AddPhrasePage {
     private camera: Camera,
     private _audioRecordProvider: AudioRecordProvider,
     /* media provider for the record methods */
-    private media: Media,
     public platform: Platform,
     private file: File,
     private filePath: FilePath,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
@@ -6,7 +6,6 @@ import { Phrase } from '../../models/Phrase';
 
 import * as Enums from '../../consts/enums';
 
-const PHRASE = 2;
 
 @IonicPage()
 @Component({
@@ -25,7 +24,8 @@ export class PhrasesPage {
   {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
-    this.AsyncPhrasesloader()
+    console.log("perent is = " + this.parentCategory);
+    this.AsyncPhrasesloader();
   }
   
 
@@ -69,7 +69,7 @@ export class PhrasesPage {
   */
   openAddPage() {
     let addModal = this.modalCtrl.create('AddPhrasePage',
-    { 'fromWhere': Enums.ADD_OPTIONS.PHRASE, 'categoryName': this.parentCategory.name });
+    { 'fromWhere': Enums.ADD_OPTIONS.PHRASE, 'categoryName': this.parentCategory.getName });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);

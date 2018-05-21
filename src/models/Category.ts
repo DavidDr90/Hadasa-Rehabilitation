@@ -1,77 +1,85 @@
-export class Item{
-    public static toObject(item){
+export class Item {
+    public static toObject(item) {
         return JSON.parse(JSON.stringify(item));
     }
 }
 
-export class Category extends Item{
+export class Category extends Item {
 
-    constructor(private name: string, //the hebrew name of the category
-                public id: string, //the ID of the category on the DB
-                private imageURL: string, //the image url of the category
-                private userEmail: string, //the email of the user that have this category
-                private parentCategoryID: string, //if not NULL, the ID of the parent category of this sub category
-                private views:number, //the number of the times the user clicked the category
-                private isFav:boolean// TRUE if this category is one of the user selected favorite categories. else, FALSE.
-            )
-    {
+    constructor(public name: string, //the hebrew name of the category
+        public id: string, //the ID of the category on the DB
+        private imageURL: string, //the image url of the category
+        private userEmail: string, //the email of the user that have this category
+        private parentCategoryID: string, //if not NULL, the ID of the parent category of this sub category
+        private views: number, //the number of the times the user clicked the category
+        private isFav: boolean// TRUE if this category is one of the user selected favorite categories. else, FALSE.
+    ) {
         super()
     }
 
-    
+
     //GETTERS
-    public get getName(){
+    public getName() {
         return this.name;
     }
-    public get getID(){
+    public getID(): string {
         return this.id;
     }
-    public get getImage(){
+    public getImage() {
         return this.imageURL;
     }
-    public get getUserEmail(){
+    public getUserEmail() {
         return this.userEmail;
     }
-    public get getParentCategoryID(){
+    public getParentCategoryID() {
         return this.parentCategoryID;
     }
-    public get getViews(){
+    public getViews() {
         return this.views;
     }
-    public get getIsFav(){
+    public getIsFav(): boolean {
         return this.isFav;
     }
 
-    
-    public get getparentCategoryId(){
-        return this.parentCategoryId;
+    public getParentCategoryId() {
+        return this.parentCategoryID;
     }
-  
+
     //SETTERS
-    public setName(t: string){
+    public setName(t: string) {
         this.name = t;
     }
-    public set setUrl(u: string){
+    public setUrl(u: string) {
         this.imageURL = u;
     }
-    public set setID(id: string){
+    public setID(id: string) {
         this.id = id;
     }
-    public set setUserEmail(email: string){
+    public setUserEmail(email: string) {
         this.userEmail = email;
     }
-    public set setParentCategoryID(categoryParent: string){
-       this.parentCategoryID = categoryParent;
+    public setParentCategoryID(categoryParent: string) {
+        this.parentCategoryID = categoryParent;
     }
-    public set setIsFav(isFav:boolean){
-        this.isFav=isFav;
+    public setIsFav(isFav: boolean) {
+        this.isFav = isFav;
     }
 
     //each time a category has chosen, her views increase by 1.
-    public increaseViews(){
+    public increaseViews() {
         this.views++;
     }
 
-        
-  }
+    public toString(): string {
+        return "category: \n" +
+            "name: " + this.getName + "\n" +
+            "id: " + this.getID + "\n" +
+            "imageURL: " + this.imageURL + "\n" +
+            "userEmail: " + this.getUserEmail + "\n" +
+            "parentCategoryID: " + this.getParentCategoryId + "\n" +
+            "views: " + this.getViews + "\n" +
+            "isFav: " + this.getIsFav + "\n";
+    }
+
+}
 

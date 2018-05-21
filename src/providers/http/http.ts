@@ -1,12 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { API_KEYS } from '../../consts/enums';
 import {VOICE_OPTIONS } from '../../consts/enums';
-import { Media, MediaObject } from '@ionic-native/media';
 
-const GOOGLE_SHORTER_URL = "https://www.googleapis.com/urlshortener/v1/url?key={AIzaSyDDoX-BYhNnTprzHlTMj9hYwE4qflNHHng}";  //url of google shorter url.
-const GOOGLE_API = "AIzaSyDIvgXvW1g3LLVQlCHbza43IKIthfYG4SE"; //let's talk application'w google API
 const TTS_URL = "https://ttsapi.almagu.com/Api/Synth?key=" //the URL header of tts service
 const TTS_ATTRIBUTES_URL = "&sampling=16000&encoding=mp3&rate=0&voice=" //the attributes of the audio from the ttl
 

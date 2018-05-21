@@ -2,15 +2,8 @@ import { Component } from '@angular/core';
 import { NUM_FAVORITES } from '../../consts/enums';
 import {Category} from '../../models/Category';
 import {Phrase} from '../../models/Phrase';
-import {User} from '../../models/User';
 
 
-/**
- * Generated class for the FavoritesComponent component.
- *
- * See https://angular.io/api/core/Component for more info on Angular
- * Components.
- */
 @Component({
   selector: 'favorites',
   templateUrl: 'favorites.html'
