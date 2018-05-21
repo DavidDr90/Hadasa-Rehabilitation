@@ -27,7 +27,7 @@ export class AudioRecordProvider {
   /**
    * @returns file name from the current time and data
    */
-  public generateFileName() {
+  private generateFileName() {
     return 'record' +
       new Date().getDate() +
       new Date().getMonth() +

@@ -24,6 +24,7 @@ import { AboutMePage } from '../pages/about-me/about-me';
 import { PhrasesPage } from '../pages/phrases/phrases';
 import { IntroSliderPage } from '../pages/intro-slider/intro-slider';
 import { TabsPage } from '../pages/tabs/tabs';
+import { PhrasePopupPage } from '../pages/phrase-popup/phrase-popup';
 
 //import component
 import { PhraseComponent } from '../components/phrase/phrase';
@@ -48,6 +49,7 @@ import { TimerComponent } from '../components/timer/timer';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
 import { timer } from 'rxjs/observable/timer';
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -61,11 +63,14 @@ import { timer } from 'rxjs/observable/timer';
     PhraseComponent,
     TimerComponent,
     TabsPage,
+    PhrasePopupPage
     //NumbersPage
   ],
   imports: [
     BrowserModule,
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, {
+      tabsHideOnSubPages: true //show the tabs bar only on pages navigated by tabs
+    } ),
     AngularFireModule.initializeApp(firebaseConfig.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
@@ -79,6 +84,7 @@ import { timer } from 'rxjs/observable/timer';
     AboutMePage,
     IntroSliderPage,
     TabsPage,
+    PhrasePopupPage
     PhrasesPage,
     //NumbersPage
   ],

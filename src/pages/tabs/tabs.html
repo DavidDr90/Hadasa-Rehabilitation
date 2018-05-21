@@ -4,21 +4,16 @@
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
-<!-- <ion-header>
 
-  <ion-navbar>
-    <ion-title>tabs</ion-title>
-  </ion-navbar>
-
-</ion-header> -->
-
-
+<!-- This is the "main page", its a tabs navbar shown at top of screen, 
+  stays on screen when moving between tabs 
+  when navigating to this page the first tab is shown  -->
 <ion-content padding>
   <ion-content padding>
     <ion-tabs tabsPlacement="top">
-      <ion-tab [root]="tab1" tabTitle="Home" tabIcon="Home"></ion-tab>
-      <ion-tab [root]="tab2" tabTitle="Categories" tabIcon="Menu"></ion-tab>
-      <ion-tab [root]="tab3" tabTitle="About Me" tabIcon="Person"></ion-tab>
+      <ion-tab [root]="tab1" tabTitle="Home" ></ion-tab>
+      <ion-tab [root]="tab2" tabTitle="Categories" ></ion-tab>
+      <ion-tab [root]="tab3" tabTitle="About Me" ></ion-tab>
      </ion-tabs>
   </ion-content>
 </ion-content>
