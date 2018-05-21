@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, NavPush } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, NavPush, ModalController } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 
 import { HomePage } from '../home/home';
@@ -27,7 +27,7 @@ export class CategoriesPage {
     public categoryService: CategoryServiceProvider,
     public navParams: NavParams,
     public modalCtrl:ModalController,
-public navParams: NavParams) {
+    public navCtrl:NavController) {
     
   }
 
@@ -39,7 +39,7 @@ public navParams: NavParams) {
     this.navCtrl.push(PhrasesPage, {
       parentCategory: category
     }); 
-
+  }
 
   /**display the addPhrasePage and get the retrun object from the form.
    * Prompt the user to add a new category. This shows our AddPhrasePage in a
