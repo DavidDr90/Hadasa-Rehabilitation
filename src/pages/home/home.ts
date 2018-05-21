@@ -2,7 +2,6 @@ import { Component/*, Input, Output*/ } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 import { FirebaseProvider } from '../../providers/firebase/firebase'
-import { User } from '../../models/user';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { StorageProvider } from '../../providers/storage/storage';

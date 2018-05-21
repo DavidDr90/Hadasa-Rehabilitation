@@ -7,7 +7,7 @@ import { AlertController } from 'ionic-angular';
 
 //for the recorder functions
 import { Platform } from 'ionic-angular';
-import { Media, MediaObject } from '@ionic-native/media';
+import { MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpProvider } from '../../providers/http/http';
