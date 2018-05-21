@@ -27,6 +27,13 @@ export class PhrasesProvider {
 
   }
 
+
+
+  public AddNewPhrase(name: string, imageURL: string, id: string, categoryID: string, views: number, audio: string, isFav:boolean)
+  {
+    var phrase = new Phrase(id, name,imageURL, categoryID, views, audio, isFav);
+    this.phrases.push(phrase);
+  }
   
   public addPhrase(phrase: Phrase) {
     this.firebaseProvider.addPhrase(phrase);

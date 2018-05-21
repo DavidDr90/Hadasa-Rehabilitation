@@ -368,16 +368,16 @@ export class AddPhrasePage {
       let tts_promise = new Promise((resolve, reject) => {
         resolve(this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN)); // Yay! Everything went well!
       });
-
       //let "data" be the real data recieved from the TTS server- the audio file.
       tts_promise.then((data) => {
         /*TODO: "data" is the recieved audio file from the TTS server
           after waiting to the tts_promise to be solved.
         */
+
         console.log("in add phrase page:\n" + data);
         this._myForm.patchValue({ 'audioFile': data });//insert the capture audio file to the form 
-
       });
+     
     }
   }
 

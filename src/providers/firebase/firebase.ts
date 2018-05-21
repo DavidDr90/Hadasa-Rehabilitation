@@ -48,9 +48,10 @@ export class FirebaseProvider {
   //**note: need to fix: imports of spesific user
   public importCategories()
   {
+
     //Creating the categories collection of the CURRENT USER!!!!!!!! ha ha
     try{
-      this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.where('email', '==', this.authentication.user.email));
+      this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.where('userEmail', '==', this.authentication.user.email));
       this.categories = this.categoriesCollection.snapshotChanges().map(result => {
         return result.map(a => {
           let temp = a.payload.doc.data() as Category;
