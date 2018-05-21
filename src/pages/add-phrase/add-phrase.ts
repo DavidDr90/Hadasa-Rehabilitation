@@ -59,7 +59,7 @@ export class AddPhrasePage {
     private filePath: FilePath,
     private httpProvider: HttpProvider,
     public navParams: NavParams,
-    private androidPermissions: AndroidPermissions) {
+    ) {
 
     //if we gote here from some categroy page and we want to add new phrase
     if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
@@ -392,7 +392,7 @@ export class AddPhrasePage {
 
   /********** Deprecaed ********************/
 
-  askForIneternetPermissions() {
+  /*askForIneternetPermissions() {
     this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.INTERNET)
       .then((result) => {
         if (result.hasPermission)
@@ -417,7 +417,7 @@ export class AddPhrasePage {
     }
     this.audio = this.media.create(savePath);
     console.log("save path is = " + savePath);
-  }
+  }*/
 
 
 
