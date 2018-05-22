@@ -51,5 +51,8 @@ export class CategoriesPage {
     addModal.present();//present the addPhrasePage
   }
 
-
+  //TODO: enter edit mode
+  edit(){
+    console.log("edit category");
+  }
 }

@@ -84,5 +84,9 @@ export class AboutMePage {
     addModal.present();//present the addPhrasePage
   }
 
+  //TODO: enter edit mode
+  edit(){
+    console.log("edit about me");
+  }
 
 }

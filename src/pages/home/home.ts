@@ -33,6 +33,13 @@ export class HomePage {
     this.user_name = authentication.user.displayName;
     
   }
+
+  //TODO: save changes and log out from the system
+  logOut(){
+    console.log("log out");
+  }
+
+  
   /* old home - can be deleted???
   constructor(public navCtrl: NavController,
               public firebaseProvider: FirebaseProvider, public authentication: AutenticationProvider) {

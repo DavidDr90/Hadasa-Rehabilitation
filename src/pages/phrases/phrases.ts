@@ -79,4 +79,9 @@ export class PhrasesPage {
     addModal.present();//present the addPhrasePage
   }
 
+  //TODO: enter edit mode
+  edit(){
+    console.log("edit phrase");
+  }
+
 }
