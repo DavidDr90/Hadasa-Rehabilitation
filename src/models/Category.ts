@@ -8,7 +8,7 @@ export class Category extends Item {
 
     constructor(public name: string, //the hebrew name of the category
         public id: string, //the ID of the category on the DB
-        private imageURL: string, //the image url of the category
+        public imageURL: string, //the image url of the category
         private userEmail: string, //the email of the user that have this category
         private parentCategoryID: string, //if not NULL, the ID of the parent category of this sub category
         private views: number, //the number of the times the user clicked the category
