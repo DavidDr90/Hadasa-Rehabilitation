@@ -108,4 +108,9 @@ export class AudioRecordProvider {
     }
   }
 
+  //return the path to the record file
+  getFilePath(){
+    return this.audioFilePath;
+  }
+
 }
