@@ -27,6 +27,7 @@ Please visit our [wiki](https://github.com/daviddr90/Hadasa-Rehabilitation/wiki)
 ### [SDS](../../wiki/Software-Design-Specification)
 ### [ZFR](../../wiki/Iter-0---ZFR)
 ### [MVP](../../wiki/Iter1-MVP-Serve-Side)
+### [Log In & UI](../../wiki/Iter2---Log-In-and-UI)
 
 ### To see our project board, follow this [link](https://github.com/DavidDr90/Lets-Talk/projects/1)
 
