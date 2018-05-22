@@ -1,6 +1,18 @@
-<!-- Generated template for the MyCategoryComponent component -->
-<div id="category">
-    <span id = "star" onclick="onClick()"></span>
-    <h1>{{category.name}}</h1>
+<!-- <div id="category">
+    <!-- <span id = "star" onclick="onClick()"></span> 
+    <!-- <h1>{{category.name}}</h1> --
+    <!-- <img src={{category.imageURL}} /> -
+    <h1>{{category.imageURL}}</h1>
+</div> -->
+
+<ion-card>
+    <!-- the image URL dose not working becase its not a http url -->
+    <!-- TODO: need to change to be like in phrase -->
     <img src={{category.imageURL}} />
-</div>
+    <ion-card-content>
+        <ion-card-title>
+            <ion-title> {{category.name}}</ion-title>
+        </ion-card-title>
+        <span id = "star" onclick="onClick()"></span> 
+    </ion-card-content>
+</ion-card>
