@@ -72,7 +72,7 @@ export class HttpProvider {
   //===================================
   /**JavaScript method for sending GET HTTPrequest.
    * this method sends a GET http request.
-   * @param url, the url to send the request to
+   * @param url the url to send the request to
    * @returns on success the audio file received by the TTS server, or -1 on failure
    */
   private async httpGetAsync(url)
