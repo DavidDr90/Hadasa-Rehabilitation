@@ -1,21 +1,14 @@
 
-<ion-header>
-
-  <ion-navbar>
-    <ion-title>TestingIntroSlider</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
 <ion-content>
 
-    <ion-slides pager="true" >
-      <ion-slide (click)=logIn() style="background-color: rgb(177, 218, 113)">
-        <h1>"ברוכים הבאים לאפליקציית "בוא נדבר</h1>
-        <p style="border:2px black solid">
-            click here to login
-        </p>
+    <ion-slides pager="true">
+      <ion-slide>
+        <h1>ברוכים הבאים</h1>
+        <h2>בואו נדבר</h2>
+        <button ion-button (click)="logIn()" >
+            <ion-icon name="log-in">&nbsp; &nbsp;</ion-icon>
+            התחבר
+        </button>
        </ion-slide>
         <ion-slide style="background-color: yellow" >
           slide2

@@ -5,12 +5,6 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 import { MyApp } from '../../app/app.component';
 
 
-/**
- * Generated class for the IntroSliderPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
