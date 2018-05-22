@@ -32,6 +32,8 @@ export class PhrasesPage {
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase)
   {
+    console.log("in add");
+    console.log(phrase);
     setTimeout(()=>{
       this.phrasesProvider.addPhrase(phrase);
       this.AsyncPhrasesloader()
@@ -69,11 +71,16 @@ export class PhrasesPage {
   */
   openAddPage() {
     let addModal = this.modalCtrl.create('AddPhrasePage',
-    { 'fromWhere': Enums.ADD_OPTIONS.PHRASE, 'categoryName': this.parentCategory.getName });
+    { 'fromWhere': Enums.ADD_OPTIONS.PHRASE, 'categoryName': this.parentCategory.name });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);
         //TOOD: here we should upload the 'item' to the DB using Or & Dor firebaseProvider
+        let newPhrase = 
+        new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
+        console.log("new phrase is:");
+        console.log(newPhrase);
+        this.addPhrase(newPhrase);
       }
     })
     addModal.present();//present the addPhrasePage
