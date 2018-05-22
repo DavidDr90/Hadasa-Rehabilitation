@@ -1,6 +1,6 @@
 phrase{
 
-    div{
+    ion-card{
     width: 100%;
     height: 60px;
     border: solid black 1px;
@@ -14,17 +14,17 @@ phrase{
     margin-top: 2%;
     }
 
-    p{
+    #title{
         font-size: 25px;
-        margin: 10px;
-        float :right;
+        margin: 0px 10px 10px;
+        float : right;
     }
 
     img{
         width: 70px;
         height: 50px;
-        float: left;
-        margin: 5px;
+        float: right;
+        margin: 5px 5px 5px 5px;
     }
 
 

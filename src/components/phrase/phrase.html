@@ -1,4 +1,14 @@
-<div (click)='openPopup();'> <!-- Phrase is clickable -->
+<!-- <div (click)='openPopup();'>
+    <!-- Phrase is clickable 
     <p>{{ phrase.name }}</p>
     <img src={{phrase.imageURL}}>
-</div>
+</div> -->
+    
+<ion-card (click)='openPopup()'>
+    <img src={{phrase.imageURL}} />
+    <ion-card-content>
+        <ion-card-title>
+           <ion-title id ="title"> {{ phrase.name }}</ion-title>
+        </ion-card-title>
+    </ion-card-content>
+</ion-card>
