@@ -19,7 +19,7 @@ declare var cordova: any;
 
 const START_REC = "התחל הקלטה";
 const STOP_REC = "עצור הקלטה";
-const hebrewRegx = "[\u0590-\u05fe]+$";//regex for hebrew chars
+const hebrewRegx = "[\u0590-\u05fe ]+$";//regex for hebrew chars
 
 @IonicPage()
 @Component({
@@ -306,7 +306,7 @@ export class AddPhrasePage {
       } else {
         if (data == true) {
           this.recording = false;
-          this._myForm.patchValue({ 'audioFile': this.fileName });//insert the capture audio file to the form 
+          this._myForm.patchValue({ 'audioFile': this._audioRecordProvider.getFilePath() + this.fileName });//insert the capture audio file to the form 
         } else {
           this.recording = false;
           this.showAlert("Error", "");
