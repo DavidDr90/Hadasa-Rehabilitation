@@ -5,7 +5,8 @@ import { FirebaseProvider } from '../../providers/firebase/firebase'
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { StorageProvider } from '../../providers/storage/storage';
-
+import { TabsPage } from '../tabs/tabs';
+import { IntroSliderPage } from '../../pages/intro-slider/intro-slider'
 
 @Component({
   selector: 'page-home',
@@ -15,7 +16,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 
 export class HomePage {
   addPhrasePage = AddPhrasePage;
-
+   
   user_name = "אורח";
   
   percentage; // Should be implement on uploading 
@@ -34,9 +35,12 @@ export class HomePage {
     
   }
 
-  //TODO: save changes and log out from the system
+  // Called on pressing Log-out button.
+  // Disconnects google authentication and moves the user to the into-slider-page.
   logOut(){
-    console.log("log out");
+    console.log("logging out");
+    this.authentication.toggleSignIn();
+    this.navCtrl.push(IntroSliderPage);
   }
 
   

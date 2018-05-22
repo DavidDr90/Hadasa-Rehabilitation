@@ -27,6 +27,7 @@ export class MyApp {
 
       //check if current user is login, initialize authentication.loggedIn attr.
       // this.authentication.isLoggedIn();
+      this.authentication.initApp();
       //considering authentication.loggedIn set the following page: homePage or loginPage
       this.getRootPage();
     }
