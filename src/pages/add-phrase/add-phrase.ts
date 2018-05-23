@@ -78,10 +78,13 @@ export class AddPhrasePage {
       "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
     });
 
-    if (this.navParams.get('categoryName') == null || this.navParams.get('categoryName') == undefined)
+    let getName = this.navParams.get('categoryName');
+    if ( ( getName == null)
+     || ( getName == undefined) 
+     || ( getName = "") )
       this._myForm.patchValue({ 'categoryID': "null" });//add the 'null' as empty category
     else
-      this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
+      this._myForm.patchValue({ 'categoryID': getName });//add the input category to the form object
 
   }
 
