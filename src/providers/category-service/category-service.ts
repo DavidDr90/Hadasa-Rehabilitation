@@ -31,7 +31,10 @@ export class CategoryServiceProvider {
   }
 
   public getCategoriesByName(n: string){
-    return this.categories.find(cat => cat.name == n)
+      return new Promise(async(resolve, reject) => {
+         await resolve(this.categories.find(cat => cat.name == n))
+         //resolve("work mothefucker bitchhhhhhhhhhhh")
+      });
   }
   public getCategoryById(id: string): Category{
     return this.categories.find(cat => cat.id === id);

@@ -46,8 +46,16 @@ removePhrase(phrase: Phrase){
 }
 
 
-  public GetCategoryName()
-  {
-    return this.categoryName;
-  }
+public getPhraseByName(n: string){
+  return this.phrases.find(phr => phr.name == n)
+}
+
+public getPhraseById(id: string): Category{
+  return this.phrases.find(phr => phr.id === id);
+}
+
+
+
+
+
 }
