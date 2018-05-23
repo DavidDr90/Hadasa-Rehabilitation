@@ -73,7 +73,7 @@ export class AddPhrasePage {
       "text": ['', [Validators.required,
       Validators.pattern(hebrewRegx),//the text must be hebrew text
       Validators.minLength(1)]],//the text must be more the one char
-      "categoryID": ['', Validators.required],//the associated category
+      "categoryID": ['', /*Validators.required*/],//the associated category
       "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
       "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
     });

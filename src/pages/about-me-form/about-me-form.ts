@@ -21,26 +21,37 @@ import { AngularFireAuth } from 'angularfire2/auth';
   templateUrl: 'about-me-form.html',
 })
 export class AboutMeFormPage {
-  myCategory : Category
+  myCategory: Category
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
     public modalCtrl: ModalController,
-    public aAuth: AngularFireAuth ) {
+    public aAuth: AngularFireAuth) {
     this.myCategory = this.categoryProvider.getCategoriesByName('aboutMe');
     //if the aboutMe category is filled skip this page and go to main page
     //else continue on this form page 
-    if (this.myCategory instanceof Category)
+    if (this.myCategory instanceof Category){
+      navCtrl.pop();
       navCtrl.push(TabsPage);
+    }
+      
 
-     this.myCategory = new Category('aboutMe', "", "", this.aAuth.auth.currentUser.email, "", 0, false) 
+    //create new category about-me and add it to db
+    this.myCategory = new Category('aboutMe', "", "", this.aAuth.auth.currentUser.email, "", 0, false)
+    this.categoryProvider.addCategory(this.myCategory);
   }
 
   //clicked the button, play audio
   private clicked() {
-    this.openAddPage(Enums.ADD_OPTIONS.PHRASE)
+    this.openAddPage(Enums.ADD_OPTIONS.PHRASE)//fill phrases and add them to about-me category
+  }
+
+//finished filling about-me cat, go to main page
+  private finish() {
+    //this.navCtrl.pop();
+    this.navCtrl.push(TabsPage);
   }
 
   /**display the addPhrasePage and get the retrun object from the form.
@@ -58,9 +69,9 @@ export class AboutMeFormPage {
           let newPhrase =
             new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
 
-            //upload the new phase to the DB
+          //upload the new phase to the DB
           this.phrasesProvider.addPhrase(newPhrase);
-          
+
         }
 
       }
