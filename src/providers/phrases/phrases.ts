@@ -26,10 +26,7 @@ export class PhrasesProvider {
         resolve(arrayOfPhrases);
       })
     })
-
   }
-
-
 
   public AddNewPhrase(name: string, imageURL: string, id: string, categoryID: string, views: number, audio: string, isFav:boolean)
   {
@@ -45,9 +42,4 @@ removePhrase(phrase: Phrase){
   this.firebaseProvider.removePhrase(phrase);
 }
 
-
-  public GetCategoryName()
-  {
-    return this.categoryName;
-  }
 }
