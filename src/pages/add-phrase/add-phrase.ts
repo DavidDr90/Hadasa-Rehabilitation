@@ -69,29 +69,20 @@ export class AddPhrasePage {
     }
 
     //create the form object depend from where you arrived
-    if (this.isCategory) {
-      //create the form object with the required fileds
-      this._myForm = this._formBuilder.group({
-        "text": ['', [Validators.required,
-        Validators.pattern(hebrewRegx),//the text must be hebrew text
-        Validators.minLength(1)]],//the text must be more the one char
-        "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
-        "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
-      })
-    } else {
-      this._myForm = this._formBuilder.group({
-        "text": ['', [Validators.required,
-        Validators.pattern(hebrewRegx),//the text must be hebrew text
-        Validators.minLength(1)]],//the text must be more the one char
-        "categoryID": ['', Validators.required],//the associated category
-        "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
-        "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
-      })
-      if (this.navParams.get('categoryName') == null || this.navParams.get('categoryName') == undefined)
-        this._myForm.patchValue({ 'categoryID': "null" });//add the 'null' as empty category
-      else
-        this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
-    }
+    this._myForm = this._formBuilder.group({
+      "text": ['', [Validators.required,
+      Validators.pattern(hebrewRegx),//the text must be hebrew text
+      Validators.minLength(1)]],//the text must be more the one char
+      "categoryID": ['', Validators.required],//the associated category
+      "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
+      "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
+    });
+
+    if (this.navParams.get('categoryName') == null || this.navParams.get('categoryName') == undefined)
+      this._myForm.patchValue({ 'categoryID': "null" });//add the 'null' as empty category
+    else
+      this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
+
   }
 
   /** @returns the nikud array
@@ -375,7 +366,7 @@ export class AddPhrasePage {
         console.log("in add phrase page:\n" + data);
         this._myForm.patchValue({ 'audioFile': data });//insert the capture audio file to the form 
       });
-     
+
     }
   }
 

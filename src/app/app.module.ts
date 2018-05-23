@@ -49,6 +49,7 @@ import { GetImageProvider } from '../providers/get-image/get-image';
 import { StorageProvider } from '../providers/storage/storage';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
+import { AppBuilderProvider } from '../providers/app-builder/app-builder';
 
 
 
@@ -114,7 +115,8 @@ import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
     PhrasesProvider,
     FirebaseProvider,
     AutenticationProvider,
-    StorageProvider
+    StorageProvider,
+    AppBuilderProvider
   ]
 })
 

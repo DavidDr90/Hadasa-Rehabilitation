@@ -31,7 +31,7 @@ Please visit our [wiki](https://github.com/daviddr90/Hadasa-Rehabilitation/wiki)
 
 ### To see our project board, follow this [link](https://github.com/DavidDr90/Lets-Talk/projects/1)
 
-### [Prototype](https://lets-talk-90356.firebaseapp.com/)
+### [Live](https://lets-talk-b433e.firebaseapp.com/)
 
 
 ## Disclaimer
