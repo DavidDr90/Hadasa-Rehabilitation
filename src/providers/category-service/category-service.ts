@@ -19,7 +19,7 @@ export class CategoryServiceProvider {
     this.updateCategoriesArray();
   }
 
-  private updateCategoriesArray(){
+  private updateCategoriesArray() {
     this.firebaseProvider.importCategories();
     this.firebaseProvider.getCategoriesObservable.subscribe(a => {
       this.categories = a;
@@ -30,19 +30,22 @@ export class CategoryServiceProvider {
     return this.categories;
   }
 
-  public getCategoriesByName(n: string){
+  public getCategoriesByName(n: string) {
     return this.categories.find(cat => cat.name == n)
   }
-  public getCategoryById(id: string): Category{
+  public getCategoryById(id: string): Category {
     return this.categories.find(cat => cat.id === id);
   }
 
-  public addCategory(category: Category): void {
-      this.firebaseProvider.addCategory(category);
-      this.updateCategoriesArray();
+  public addCategory(category: Category) {
+    //if there is no image provide with the phrase add a defult image
+    if ((category.imageURL == "") || (category.imageURL == null) || (category.imageURL == undefined))
+      category.imageURL = "/assets/imgs/logo.png";//using the app logo for defult image
+    this.firebaseProvider.addCategory(category);
+    this.updateCategoriesArray();
   }
 
-  removeCategory(category: Category){
+  removeCategory(category: Category) {
     this.firebaseProvider.removeCategory(category);
     this.updateCategoriesArray();
   }

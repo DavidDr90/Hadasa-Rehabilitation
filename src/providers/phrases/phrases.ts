@@ -10,7 +10,7 @@ export class PhrasesProvider {
 
   phrases: any;
   categoryName: any;
-  
+
   constructor(public firebaseProvider: FirebaseProvider) {
   }
 
@@ -28,18 +28,20 @@ export class PhrasesProvider {
     })
   }
 
-  public AddNewPhrase(name: string, imageURL: string, id: string, categoryID: string, views: number, audio: string, isFav:boolean)
-  {
-    var phrase = new Phrase(id, name,imageURL, categoryID, views, audio, isFav);
+  public AddNewPhrase(name: string, imageURL: string, id: string, categoryID: string, views: number, audio: string, isFav: boolean) {
+    var phrase = new Phrase(id, name, imageURL, categoryID, views, audio, isFav);
     this.phrases.push(phrase);
   }
-  
-  public addPhrase(phrase: Phrase) {
-    this.firebaseProvider.addPhrase(phrase);
-}
 
-removePhrase(phrase: Phrase){
-  this.firebaseProvider.removePhrase(phrase);
-}
+  public addPhrase(phrase: Phrase) {
+    //if there is no image provide with the phrase add a defult image
+    if((phrase.imageURL == "") || (phrase.imageURL == null) || (phrase.imageURL == undefined))
+      phrase.imageURL = "/assets/imgs/logo.png";//using the app logo for defult image
+    this.firebaseProvider.addPhrase(phrase);
+  }
+
+  removePhrase(phrase: Phrase) {
+    this.firebaseProvider.removePhrase(phrase);
+  }
 
 }

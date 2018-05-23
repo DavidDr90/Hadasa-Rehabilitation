@@ -6,6 +6,8 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Phrase } from '../../models/Phrase';
+import * as Enums from '../../consts/enums';
+
 
 @IonicPage()
 @Component({
@@ -27,7 +29,11 @@ export class AboutMePage {
   ) {
 
     this.aboutMeCategory = this.categoryProvider.getCategoriesByName('aboutMe');
-    // this.AsyncPhrasesloader();
+    if (this.aboutMeCategory instanceof Category)
+      this.AsyncPhrasesloader();
+    else
+      //TODO:error in about me
+      console.log("error in about me page");
   }
 
   //handler that add phrase and update the display 
@@ -72,20 +78,22 @@ export class AboutMePage {
     }
     let addModal = this.modalCtrl.create('AddPhrasePage',
       {
-        'fromWhere': 2,// Enums.ADD_OPTIONS.PHRASE,
-        'categoryName': this.aboutMeCategory.name
+        'fromWhere': Enums.ADD_OPTIONS.PHRASE,
+        'categoryName': this.aboutMeCategory.id
       });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
-        console.log(item);
-        //TOOD: here we should upload the 'item' to the DB using Or & Dor firebaseProvider
+        //create new phrase for the about me category
+        let newPhrase =
+          new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
+        this.addPhrase(newPhrase);//upload the new phase to the DB and refresh the screen
       }
     })
     addModal.present();//present the addPhrasePage
   }
 
   //TODO: enter edit mode
-  edit(){
+  edit() {
     console.log("edit about me");
   }
 

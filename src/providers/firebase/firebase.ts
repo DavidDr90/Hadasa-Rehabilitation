@@ -90,8 +90,8 @@ export class FirebaseProvider {
     return this.categories;
   }
 
-  addCategory(category: Category) {
-     return this.categoriesCollection.add(Category.toObject(category));
+  addCategory(category: Category) {    
+    return this.categoriesCollection.add(Category.toObject(category));
   }
 
   removeCategory(category: Category){
