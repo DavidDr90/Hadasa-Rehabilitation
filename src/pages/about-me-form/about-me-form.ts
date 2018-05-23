@@ -27,12 +27,15 @@ export class AboutMeFormPage {
     public navParams: NavParams,
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
-    public modalCtrl: ModalController, ) {
+    public modalCtrl: ModalController,
+    public aAuth: AngularFireAuth ) {
     this.myCategory = this.categoryProvider.getCategoriesByName('aboutMe');
     //if the aboutMe category is filled skip this page and go to main page
     //else continue on this form page 
     if (this.myCategory instanceof Category)
       navCtrl.push(TabsPage);
+
+     this.myCategory = new Category('aboutMe', "", "", this.aAuth.auth.currentUser.email, "", 0, false) 
   }
 
   //clicked the button, play audio
