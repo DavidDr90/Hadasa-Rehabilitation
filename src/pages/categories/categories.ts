@@ -7,6 +7,7 @@ import { PhrasesPage } from '../phrases/phrases';
 
 import * as Enums from '../../consts/enums';
 import { StorageProvider } from '../../providers/storage/storage';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 const isCategory = true;
@@ -25,7 +26,8 @@ export class CategoriesPage {
     public navParams: NavParams,
     public modalCtrl:ModalController,
     public navCtrl:NavController,
-    public storage:StorageProvider) {
+    public storage:StorageProvider,
+    public aAuth: AngularFireAuth) {
     
   }
 
@@ -45,7 +47,9 @@ export class CategoriesPage {
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);
-        //TOOD: here we should upload the 'item' to the DB using Or & Dor firebaseProvider
+        //create a new cateogry
+        let newCategory = new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, "", 0, false);
+        this.categoryService.addCategory(newCategory);//upload the new category to the DB
       }
     })
     addModal.present();//present the addPhrasePage
