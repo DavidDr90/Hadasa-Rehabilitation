@@ -83,7 +83,8 @@
       "cordova-plugin-filepath": {},
       "cordova-plugin-statusbar": {},
       "cordova-plugin-android-permissions": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-universal-links-plugin": {}
     },
     "platforms": [
       "browser",
