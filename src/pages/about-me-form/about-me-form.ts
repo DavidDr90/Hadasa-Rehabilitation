@@ -29,6 +29,10 @@ export class AboutMeFormPage {
     public modalCtrl: ModalController,
     public aAuth: AngularFireAuth) {
 
+      //TODO: dor will create a function that chack if a user is exsist
+      //if true go to home page
+      //if not go to the about me form
+
     this.myCategory = this.categoryProvider.getCategoriesByName(ABOUT_ME_STRING);//try to get the about me category from the DB
 
     //TODO: for some reason even if there is already about me category on the DB it not enter the next if
