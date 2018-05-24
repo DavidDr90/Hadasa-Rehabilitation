@@ -7,7 +7,6 @@ import { PhrasesPage } from '../phrases/phrases';
 
 import * as Enums from '../../consts/enums';
 import { StorageProvider } from '../../providers/storage/storage';
-import { AngularFireAuth } from 'angularfire2/auth';
 
 
 const isCategory = true;
@@ -26,8 +25,7 @@ export class CategoriesPage {
     public navParams: NavParams,
     public modalCtrl:ModalController,
     public navCtrl:NavController,
-    public storage:StorageProvider,
-    public aAuth: AngularFireAuth) {
+    public storage:StorageProvider,) {
     
   }
 
@@ -43,12 +41,14 @@ export class CategoriesPage {
    * modal and then adds the new item to our data source if the user created one.
    */
   openAddPage() {
-    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': Enums.ADD_OPTIONS.CATEGORY});
+    let addModal = this.modalCtrl.create('AddPhrasePage',  
+    {'fromWhere': Enums.ADD_OPTIONS.CATEGORY, 'categoryID': Enums.ADD_OPTIONS.NO_CATEGORY});
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);
         //create a new cateogry
-        let newCategory = new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, "", 0, false);
+        let newCategory = item;
+        // new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, "", 0, false);
         this.categoryService.addCategory(newCategory);//upload the new category to the DB
       }
     })
