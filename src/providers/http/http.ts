@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HTTP } from '@ionic-native/http';
 import { API_KEYS } from '../../consts/enums';
-import {VOICE_OPTIONS } from '../../consts/enums';
+import { VOICE_OPTIONS } from '../../consts/enums';
+import { LoadingController } from 'ionic-angular';
 
 const TTS_URL = "https://ttsapi.almagu.com/Api/Synth?key=" //the URL header of tts service
 const TTS_ATTRIBUTES_URL = "&sampling=16000&encoding=mp3&rate=0&voice=" //the attributes of the audio from the ttl
@@ -9,8 +10,9 @@ const TTS_ATTRIBUTES_URL = "&sampling=16000&encoding=mp3&rate=0&voice=" //the at
 
 @Injectable()
 export class HttpProvider {
-  
-  constructor(private http: HTTP) { }
+
+  constructor(private http: HTTP,
+    public loadingCtrl: LoadingController) { }
 
 
   //===================================
@@ -41,8 +43,8 @@ export class HttpProvider {
   async textToSpeech(text, voice) {
     let api = API_KEYS.TTS_ofek_API_KEY;//the TTS api of the user
 
-     //validate that the voice and text are not undefined or empty.
-    if(voice!=VOICE_OPTIONS.SIVAN||voice!=VOICE_OPTIONS.GILAD){
+    //  validate that the voice and text are not undefined or empty.
+    if (voice != VOICE_OPTIONS.SIVAN || voice != VOICE_OPTIONS.GILAD) {
       console.log("ERROR not a valid voice entered")
       return -1;
     }
@@ -62,9 +64,11 @@ export class HttpProvider {
     url += voice;
     url += "&text=";
     url += text;
-    
+    console.log(url);
     //send a GET http request to the url.
-    let result = await this.sendGetRequest(url, {}, {})
+    // let result = await this.sendGetRequest(url, {}, {})
+    let result = await this.httpGetAsync(url);//call the JS function
+
     //return the result only when the "sendGetRequest" getting the response from the server
     return result;
   }
@@ -75,28 +79,32 @@ export class HttpProvider {
    * @param url the url to send the request to
    * @returns on success the audio file received by the TTS server, or -1 on failure
    */
-  private async httpGetAsync(url)
-  {
+  private async httpGetAsync(url) {
     console.log("in private func")
     var context = new AudioContext();//decoding the array buffer into audio file
     var audioBuffer = null; //the buffer for the audio
     var request = new XMLHttpRequest(); //the Get HTTP request object
     request.open('GET', url, true);//writing the request
     request.responseType = 'arraybuffer';//the type of the exepted response from the request
-    
-    //this function will be load on case of response.
-    request.onload = function() {
-      //decoding the response into audio file
-        context.decodeAudioData(request.response, function(buffer) {
-          audioBuffer = buffer;
-          return audioBuffer;//return the audio file
-        }, function(){return -1}); //in case of error, return -1.
-    }; 
-    
-    await request.send();//sending the GET request
-  
-  }
 
+    //display loading dialog until the file recived from the server
+    let loading = this.loadingCtrl.create({
+      content: "מייצר הקלטה מהשרת, אנא המתן..."
+    });
+    loading.present();
+
+    //this function will be load on case of response.
+    request.onload = function () {
+      //decoding the response into audio file
+      context.decodeAudioData(request.response, function (buffer) {
+        audioBuffer = buffer;
+        loading.dismiss();//after the file is recived from the server close the loading dialog
+        return audioBuffer;//return the audio file
+      }, function () { return -1 }); //in case of error, return -1.
+    };
+
+    await request.send();//sending the GET request
+  }
 
 }
 
