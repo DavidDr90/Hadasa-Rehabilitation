@@ -97,12 +97,8 @@ export class AddPhrasePage {
     });
 
     let getCategoryID = this.navParams.get('categoryID');//get the state from the previuse page
-    console.log("getID = " + getCategoryID);
     if (getCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
       this._myForm.patchValue({ 'categoryID': getCategoryID });//add the input category to the form object for sub-categorys
-
-    console.log("my form:");
-    console.log(this._myForm.value);
   }
 
   /** @returns the nikud array
