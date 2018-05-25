@@ -25,15 +25,18 @@ export class AboutMePage {
     public auth: AutenticationProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController,
-  ) {
-
-    this.aboutMeCategory = this.categoryProvider.getCategoriesByName('aboutMe');
-    if (this.aboutMeCategory instanceof Category)
+    public modalCtrl: ModalController,) 
+  {
+    //getCategoriesByName return promise object
+    let promise = this.categoryProvider.getCategoriesByName('aboutMe');
+    promise.then((data) =>{
+      this.aboutMeCategory = data;
+      this.aboutMeCategory as Category
       this.AsyncPhrasesloader();
-    else
+    }).catch((e =>{
       //TODO:error in about me
-      console.log("error in about me page");
+      console.log("error import aboutme Category at aboutMe.ts");
+    }))
   }
 
   //handler that add phrase and update the display 
@@ -56,12 +59,9 @@ export class AboutMePage {
   //promise is an Promise object that gets the return value only when its ready (await)
   // from phrase provider.
   //temp is an promise object that help to get the phrases from promis's resolve attr.
-  private async AsyncPhrasesloader() {
-    let promise = await this.phrasesProvider.getPhrases(this.aboutMeCategory);
-    let temp = new Promise((resolve, reject) => {
-      resolve(promise);
-    });
-    temp.then((data) => {
+  private AsyncPhrasesloader() {
+    let promise = this.phrasesProvider.getPhrases(this.aboutMeCategory);
+    promise.then((data) => {
       this.phrases = data;
     })
   }
@@ -91,7 +91,6 @@ export class AboutMePage {
     })
     addModal.present();//present the addPhrasePage
   }
-
   //TODO: enter edit mode
   edit() {
     console.log("edit about me");

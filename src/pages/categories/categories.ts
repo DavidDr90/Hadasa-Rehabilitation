@@ -19,13 +19,15 @@ const isCategory = true;
 export class CategoriesPage {
 
   public phrasesPage: PhrasesPage;
+  private tempCategory
 
   constructor(
     public categoryService: CategoryServiceProvider,
     public navParams: NavParams,
     public modalCtrl:ModalController,
     public navCtrl:NavController,
-    public storage:StorageProvider,) {
+    public storage:StorageProvider,
+    public aAuth: AngularFireAuth,) {
     
   }
 
@@ -54,7 +56,6 @@ export class CategoriesPage {
     })
     addModal.present();//present the addPhrasePage
   }
-
   //TODO: enter edit mode
   edit(){
     console.log("edit category");

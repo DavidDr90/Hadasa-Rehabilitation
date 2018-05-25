@@ -20,29 +20,32 @@ const ABOUT_ME_STRING = 'aboutMe';//TODO: before relese need to change to hebrew
   templateUrl: 'about-me-form.html',
 })
 export class AboutMeFormPage {
-  myCategory: Category
+
+  myCategory : Category
+
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
-    public modalCtrl: ModalController,
-    public aAuth: AngularFireAuth) {
-
-      //TODO: dor will create a function that chack if a user is exsist
-      //if true go to home page
-      //if not go to the about me form
-
-    this.myCategory = this.categoryProvider.getCategoriesByName(ABOUT_ME_STRING);//try to get the about me category from the DB
-
-    //TODO: for some reason even if there is already about me category on the DB it not enter the next if
-    //if the aboutMe category is filled skip this page and go to main page
-    //else continue on this form page 
-    if (this.myCategory instanceof Category) {
-      navCtrl.pop();
-      navCtrl.push(TabsPage);
-    }
-
+    public modalCtrl: ModalController, 
+    public aAuth: AngularFireAuth)  {
+    
+    let promise = this.categoryProvider.getCategoriesByName(ABOUT_ME_STRING);//try to get the about me category from the DB
+    promise.then((data) =>{
+      this.myCategory = data;
+      this.myCategory as Category
+      //if the aboutMe category is filled skip this page and go to main page
+      //else continue on this form page 
+        navCtrl.push(TabsPage);
+    })
+    
+    //when promise activate x = true
+    //Blocker(boolean x){while x == false}
+    //TODO: dor will create a function that chack if a user is exsist
+    //if true go to home page
+    //if not go to the about me form
+    
     //create new category about-me and add it to db
     this.myCategory =
       new Category(ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "", 0, false);

@@ -13,6 +13,8 @@ import { CategoryServiceProvider } from '../category-service/category-service'
 @Injectable()
 export class AppBuilderProvider {
 
+  public tempCategory;
+
   constructor(public categoryProvider:CategoryServiceProvider, public phraseProvider:PhrasesProvider, public user:User) {
   }
 
@@ -23,9 +25,9 @@ export class AppBuilderProvider {
    * @param categoryID, the ID of the category which the phrase belong to
    * @param audio, the URL of the audio file of the phrase.
    */
-  createDefPhrase(name:string, imageURL:string, categoryID:string, audio:string){
-   this.phraseProvider.AddNewPhrase("", name, imageURL, categoryID, 0, audio, false);
-  }
+  // createDefPhrase(name:string, imageURL:string, categoryID:string, audio:string){
+  //  this.phraseProvider.AddNewPhrase("", name, imageURL, categoryID, 0, audio, false);
+  // }
 
    //===================================
   /**this method create and add new category to the user DB.
@@ -33,9 +35,23 @@ export class AppBuilderProvider {
    * @param imageURL, the imageURL of the category's image
    * @param parentCategoryID, the ID of the category which the category belong to
    */
-  createDefCat(name:string, imageURL:string, parentCategoryID:string){
+
+
+   //getCategoryByName return promise object, so need an promise obj handle 
+  async createDefCat(name:string, imageURL:string, parentCategoryID:string){
     let cat=new Category(name, "", imageURL, this.user.getEmail, parentCategoryID, 0, false);
     this.categoryProvider.addCategory(cat);
+
+    let promise = await this.categoryProvider.getCategoriesByName("Holy Moly");
+    let temp = new Promise((resolve, reject) => {
+      resolve(promise);
+    });
+    temp.then((data) => {
+      this.tempCategory = data;
+      this.tempCategory as Category
+      console.log(this.tempCategory.id)
+    })
+
    }
 
 }
