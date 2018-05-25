@@ -37,7 +37,7 @@ export class CategoriesPage {
 
     //for testing, need to delete after using
     public getCategoryByNameHandler(){
-      let promise = this.categoryService.getCategoriesByName("Holy Moly");
+      let promise = this.categoryService.getCategoryByName("Holy Moly");
       promise.then((data) =>{
         this.tempCategory = data;
         this.tempCategory as Category

@@ -58,6 +58,7 @@ export class PhrasesPage {
     let promise = this.phrasesProvider.getPhrases(this.parentCategory);
     promise.then((data) => {
       this.phrases = data;
+      this.phrasesProvider.phrases = data;
     })
   }
 

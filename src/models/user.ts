@@ -1,19 +1,15 @@
+import { Phrase } from "./Phrase";
+
 export class Item{
     public static toObject(item){
         return JSON.parse(JSON.stringify(item));
     }
 }
 
-// public static toHomeStory(json){
-//     let story = Object.create(HomeStory.prototype);
-//     return Object.assign(story, json);
-// }
-
-
 export class User extends Item{
 
     constructor(
-        public email : string = ""
+        public email : string = "",
     )
     {
         super()
