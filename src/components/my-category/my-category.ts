@@ -25,7 +25,7 @@ export class MyCategoryComponent {
 
   displayStar(): boolean {
     if (this.category == undefined) {
-      console.log("category is undefine!");
+      // console.log("category is undefine!");
       return false;
     }
     if (this.category.getIsFav)

@@ -28,11 +28,30 @@ export class PhrasesProvider {
     })
   }
 
-  public AddNewPhrase(name: string, imageURL: string, id: string, categoryID: string, views: number, audio: string, isFav: boolean) {
-    var phrase = new Phrase(id, name, imageURL, categoryID, views, audio, isFav);
-    this.phrases.push(phrase);
+   /**
+   * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted phrase...})"
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @param n name of phrase
+   * @returns Promise object
+   */
+  public getPhraseByName(n: string): Promise<Phrase>{
+    return new Promise((resolve, reject) => {
+        resolve(this.phrases.find(phrs => phrs.name == n));
+    })
   }
-
+  
+  /**
+   * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted phrase...})"
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @param n name of phrase
+   * @returns Promise object
+   */
+  public getPhraseById(id: string): Promise<Phrase>{
+    return new Promise((resolve, reject) => {
+        resolve(this.phrases.find(phrs => phrs.id === id));
+    })
+  }
+  
   public addPhrase(phrase: Phrase) {
     //if there is no image provide with the phrase add a defult image
     if((phrase.imageURL == "") || (phrase.imageURL == null) || (phrase.imageURL == undefined))

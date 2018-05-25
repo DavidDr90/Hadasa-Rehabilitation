@@ -21,18 +21,26 @@ import { AngularFireAuth } from 'angularfire2/auth';
   templateUrl: 'about-me-form.html',
 })
 export class AboutMeFormPage {
+
   myCategory : Category
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
-    public modalCtrl: ModalController, ) {
-    this.myCategory = this.categoryProvider.getCategoriesByName('aboutMe');
-    //if the aboutMe category is filled skip this page and go to main page
-    //else continue on this form page 
-    if (this.myCategory instanceof Category)
-      navCtrl.push(TabsPage);
+    public modalCtrl: ModalController, ) 
+  {
+    let promise = this.categoryProvider.getCategoriesByName('aboutMe');
+    promise.then((data) =>{
+      this.myCategory = data;
+      this.myCategory as Category
+      //if the aboutMe category is filled skip this page and go to main page
+      //else continue on this form page 
+        navCtrl.push(TabsPage);
+    })
+    
+    //when promise activate x = true
+    //Blocker(boolean x){while x == false}
   }
 
   //clicked the button, play audio

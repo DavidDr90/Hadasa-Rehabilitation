@@ -30,7 +30,6 @@ export class PhrasesPage {
   ) {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
-    console.log("perent is = " + this.parentCategory);
     this.AsyncPhrasesloader();
   }
 
@@ -55,12 +54,9 @@ export class PhrasesPage {
   //promise is an Promise object that gets the return value only when its ready (await)
   // from phrase provider.
   //temp is an promise object that help to get the phrases from promis's resolve attr.
-  public async AsyncPhrasesloader() {
-    let promise = await this.phrasesProvider.getPhrases(this.parentCategory);
-    let temp = new Promise((resolve, reject) => {
-      resolve(promise);
-    });
-    temp.then((data) => {
+  public AsyncPhrasesloader() {
+    let promise = this.phrasesProvider.getPhrases(this.parentCategory);
+    promise.then((data) => {
       this.phrases = data;
     })
   }

@@ -20,6 +20,7 @@ const isCategory = true;
 export class CategoriesPage {
 
   public phrasesPage: PhrasesPage;
+  private tempCategory
 
   constructor(
     public categoryService: CategoryServiceProvider,
@@ -27,9 +28,21 @@ export class CategoriesPage {
     public modalCtrl:ModalController,
     public navCtrl:NavController,
     public storage:StorageProvider,
-    public aAuth: AngularFireAuth) {
-    
-  }
+    public aAuth: AngularFireAuth) 
+    {
+      //for testing, need to delete after using
+        this.getCategoryByNameHandler();
+      
+    }
+
+    //for testing, need to delete after using
+    public getCategoryByNameHandler(){
+      let promise = this.categoryService.getCategoriesByName("Holy Moly");
+      promise.then((data) =>{
+        this.tempCategory = data;
+        this.tempCategory as Category
+      })
+    }
 
   //popup the category's phrases's page.
   public openCategoryPhrases(category: Category){
@@ -54,7 +67,6 @@ export class CategoriesPage {
     })
     addModal.present();//present the addPhrasePage
   }
-
   //TODO: enter edit mode
   edit(){
     console.log("edit category");

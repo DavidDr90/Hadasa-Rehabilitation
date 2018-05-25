@@ -30,17 +30,34 @@ export class CategoryServiceProvider {
     return this.categories;
   }
 
-  public getCategoriesByName(n: string) {
-    return this.categories.find(cat => cat.name == n)
+  /**
+   * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @param n name of category
+   * @returns Promise object
+   */
+  public getCategoriesByName(n: string): Promise<Category>{
+    return new Promise((resolve, reject) => {
+        resolve(this.categories.find(cat => cat.name == n));
+    })
   }
-  public getCategoryById(id: string): Category {
-    return this.categories.find(cat => cat.id === id);
+  
+    /**
+   * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @param n id of category, id that given by firebase
+   * @returns Promise object
+   */
+  public getCategoryById(id: string): Promise<Category> {
+    return new Promise((resolve, reject) => {
+      resolve(this.categories.find(cat => cat.id === id));
+    })
   }
 
   public addCategory(category: Category) {
     //if there is no image provide with the phrase add a defult image
-    if ((category.imageURL == "") || (category.imageURL == null) || (category.imageURL == undefined))
-      category.imageURL = "/assets/imgs/logo.png";//using the app logo for defult image
+    // if ((category.imageURL == "") || (category.imageURL == null) || (category.imageURL == undefined))
+    //   category.imageURL = "/assets/imgs/logo.png";//using the app logo for defult image
     this.firebaseProvider.addCategory(category);
     this.updateCategoriesArray();
   }
