@@ -29,6 +29,7 @@ import { PhrasePopupPage } from '../pages/phrase-popup/phrase-popup';
 //import component
 import { PhraseComponent } from '../components/phrase/phrase';
 import { MyCategoryComponent } from '../components/my-category/my-category';
+import { FavoritesComponent } from '../components/favorites/favorites';
 
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
@@ -50,6 +51,8 @@ import { StorageProvider } from '../providers/storage/storage';
 import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
 import { AppBuilderProvider } from '../providers/app-builder/app-builder';
+import { FavoriteProvider } from '../providers/favorite/favorite';
+
 
 
 
@@ -66,7 +69,7 @@ import { AppBuilderProvider } from '../providers/app-builder/app-builder';
     PhraseComponent,
     // TimerComponent,
     TabsPage,
-
+    FavoritesComponent,
     ProgressBarComponent,
     PhrasePopupPage,
     //NumbersPage
@@ -116,7 +119,8 @@ import { AppBuilderProvider } from '../providers/app-builder/app-builder';
     FirebaseProvider,
     AutenticationProvider,
     StorageProvider,
-    AppBuilderProvider
+    AppBuilderProvider,
+    FavoriteProvider
   ]
 })
 
@@ -124,9 +128,11 @@ export class AppModule { }
 [
   CategoryServiceProvider,
   PhrasesProvider,
+  FavoriteProvider,
   FirebaseProvider,
   AutenticationProvider,
-  StorageProvider
+  StorageProvider,
+  AppBuilderProvider
 ]
 
 
