@@ -52,7 +52,8 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
 import { AppBuilderProvider } from '../providers/app-builder/app-builder';
 import { FavoriteProvider } from '../providers/favorite/favorite';
-
+import { AboutMeFormPage } from '../pages/about-me-form/about-me-form';
+import { ErrorProvider } from '../providers/error/error';
 
 
 
@@ -70,6 +71,7 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     // TimerComponent,
     TabsPage,
     FavoritesComponent,
+    AboutMeFormPage,
     ProgressBarComponent,
     PhrasePopupPage,
     //NumbersPage
@@ -96,6 +98,7 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     TabsPage,
     PhrasePopupPage,
     PhrasesPage,
+    AboutMeFormPage
     //NumbersPage
   ],
   providers: [
@@ -120,7 +123,8 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
     AutenticationProvider,
     StorageProvider,
     AppBuilderProvider,
-    FavoriteProvider
+    FavoriteProvider,
+    ErrorProvider
   ]
 })
 

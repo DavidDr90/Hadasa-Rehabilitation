@@ -12,6 +12,8 @@ import { CategoryServiceProvider } from '../category-service/category-service'
 
 @Injectable()
 export class AppBuilderProvider {
+   public tempCategory;
+
 
   constructor(public categoryProvider:CategoryServiceProvider, public phraseProvider:PhrasesProvider) {
   }
@@ -23,15 +25,16 @@ export class AppBuilderProvider {
    * @param categoryID, the ID of the category which the phrase belong to
    * @param audio, the URL of the audio file of the phrase.
    */
+
   createDefPhrase(name:string, imageURL:string, categoryID:string, audio:string){
     let phr=new Phrase("", name, imageURL, categoryID, 0, "", false);
    this.phraseProvider.addPhrase(phr);
-   setTimeout(()=>{
+   /*setTimeout(()=>{
     let x = this.phraseProvider.getPhraseByName(name)
     console.log( x)
     console.log( x.id)
     return x.id;
-  }, 500)
+  }, 500)*/
   }
 
    //===================================
@@ -43,14 +46,14 @@ export class AppBuilderProvider {
    createDefCat(name:string, imageURL:string, parentCategoryID:string){
     let cat=new Category(name, "", imageURL, "ofek1b@gmail.com", parentCategoryID, 0, false);
     this.categoryProvider.addCategory(cat);
-    let temp= new Promise((resolve, reject)=>{
+    /*let temp= new Promise((resolve, reject)=>{
       resolve(this.categoryProvider.getCategoriesByName(name))
     });
     temp.then((data)=>{
       console.log("the answer is... are... is... are:   "+data)
       let returnedValue=data
       return returnedValue;
-    }) 
+    }) */
    }
 
 }

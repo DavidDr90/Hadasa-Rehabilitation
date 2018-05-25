@@ -16,7 +16,7 @@ export class Phrase extends Item {
     private views: number; //the number of the times that the user clicked on the phrase
     public imageURL: string; //the url of the image of the phrase
     //the audio file/url of the phrase.
-    private audio: string;//????? the type need to be changed!!!!!
+    public audio: string;//????? the type need to be changed!!!!!
     private isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
 
     constructor(id: string, name: string, imageURL: string,
@@ -48,7 +48,7 @@ export class Phrase extends Item {
     public getViews() {
         return this.views;
     }
-    public gGetAudio() {
+    public getAudio() {
         return this.audio;
     }
     public getIsFav() {

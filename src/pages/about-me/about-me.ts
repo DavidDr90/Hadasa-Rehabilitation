@@ -6,6 +6,8 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Phrase } from '../../models/Phrase';
+import * as Enums from '../../consts/enums';
+
 
 @IonicPage()
 @Component({
@@ -23,11 +25,18 @@ export class AboutMePage {
     public auth: AutenticationProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController,
-  ) {
-
-    this.aboutMeCategory = this.categoryProvider.getCategoriesByName('aboutMe');
-    // this.AsyncPhrasesloader();
+    public modalCtrl: ModalController,) 
+  {
+    //getCategoriesByName return promise object
+    let promise = this.categoryProvider.getCategoriesByName('aboutMe');
+    promise.then((data) =>{
+      this.aboutMeCategory = data;
+      this.aboutMeCategory as Category
+      this.AsyncPhrasesloader();
+    }).catch((e =>{
+      //TODO:error in about me
+      console.log("error import aboutme Category at aboutMe.ts");
+    }))
   }
 
   //handler that add phrase and update the display 
@@ -50,12 +59,9 @@ export class AboutMePage {
   //promise is an Promise object that gets the return value only when its ready (await)
   // from phrase provider.
   //temp is an promise object that help to get the phrases from promis's resolve attr.
-  private async AsyncPhrasesloader() {
-    let promise = await this.phrasesProvider.getPhrases(this.aboutMeCategory);
-    let temp = new Promise((resolve, reject) => {
-      resolve(promise);
-    });
-    temp.then((data) => {
+  private AsyncPhrasesloader() {
+    let promise = this.phrasesProvider.getPhrases(this.aboutMeCategory);
+    promise.then((data) => {
       this.phrases = data;
     })
   }
@@ -72,20 +78,21 @@ export class AboutMePage {
     }
     let addModal = this.modalCtrl.create('AddPhrasePage',
       {
-        'fromWhere': 2,// Enums.ADD_OPTIONS.PHRASE,
-        'categoryName': this.aboutMeCategory.name
+        'fromWhere': Enums.ADD_OPTIONS.PHRASE,
+        'categoryID': this.aboutMeCategory.id
       });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
-        console.log(item);
-        //TOOD: here we should upload the 'item' to the DB using Or & Dor firebaseProvider
+        //create new phrase for the about me category
+        // let newPhrase =
+        //   new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
+        this.addPhrase(item);//upload the new phase to the DB and refresh the screen
       }
     })
     addModal.present();//present the addPhrasePage
   }
-
   //TODO: enter edit mode
-  edit(){
+  edit() {
     console.log("edit about me");
   }
 

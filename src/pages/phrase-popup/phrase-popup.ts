@@ -35,6 +35,7 @@ export class PhrasePopupPage {
 
     this.phraseName = this.navParams.get("phraseName");
     this.phraseImageURL = this.navParams.get("phraseImageURL");
+    this.phraseAudioURL = this.navParams.get("phraseAudioURL");
 
     //TODO use this when audio is implemented in phrase model
     //this.phraseAudioURL = this.navParams.get("phraseAudioURL");
