@@ -23,7 +23,7 @@ export class PhraseComponent {
       this.navCtrl.push(PhrasePopupPage, {
         phraseName: this.phrase.name,//this.phrase.getName(),
         phraseImageURL: this.phrase.imageURL,
-        phraseAudioURL: this.phrase.gGetAudio()
+        phraseAudioURL: this.phrase.audio
         //this.phrase.getImageURL(), 
         //TODO add audio to phrase model and pass it here 
         //phraseAudioURL: "this.phrase.GetAudioURL"     

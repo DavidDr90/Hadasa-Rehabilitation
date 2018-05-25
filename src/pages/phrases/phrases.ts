@@ -6,7 +6,6 @@ import { Phrase } from '../../models/Phrase';
 
 import * as Enums from '../../consts/enums';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-import { AngularFireAuth } from 'angularfire2/auth';
 
 
 @IonicPage()
@@ -25,11 +24,10 @@ export class PhrasesPage {
     public modalCtrl: ModalController,
     private _actionSheetCtrl: ActionSheetController,
     public categoryService: CategoryServiceProvider,
-    public aAuth: AngularFireAuth,
-
   ) {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
+    console.log("perent is = " + this.parentCategory.id);
     this.AsyncPhrasesloader();
   }
 
@@ -106,19 +104,19 @@ export class PhrasesPage {
   */
   openAddPage(fromWhere) {
     let addModal = this.modalCtrl.create('AddPhrasePage',
-      { 'fromWhere': fromWhere, 'categoryName': this.parentCategory.id });
+      { 'fromWhere': fromWhere, 'categoryID': this.parentCategory.id });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
 
         if (fromWhere == Enums.ADD_OPTIONS.PHRASE) {
           //create new phrase from the output form
-          let newPhrase =
-            new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
-          this.addPhrase(newPhrase);//upload the new phase to the DB and refresh the screen
+          // let newPhrase =
+          //   new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
+          this.addPhrase(item);//upload the new phase to the DB and refresh the screen
         } else if (fromWhere == Enums.ADD_OPTIONS.CATEGORY) {
-          let newSubCategory =
-          new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, item.categoryID, 0, false);
-          this.categoryService.addCategory(newSubCategory);
+          // let newSubCategory =
+          // new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, item.categoryID, 0, false);
+          this.categoryService.addCategory(item);
 
         }
       }

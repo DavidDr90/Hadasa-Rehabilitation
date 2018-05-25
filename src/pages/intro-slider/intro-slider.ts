@@ -5,6 +5,7 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 import { MyApp } from '../../app/app.component';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
+import { AboutMeFormPage } from '../about-me-form/about-me-form';
 
 
 @IonicPage()
@@ -28,7 +29,7 @@ export class IntroSliderPage {
     //if the user logged in already sets 'TabsPage' as main page.
     this.authentication.afAuth.auth.onAuthStateChanged((user) => {
       if (user)
-        this.navCtrl.setRoot(TabsPage);
+        this.navCtrl.setRoot(AboutMeFormPage);
     })
   }
 
