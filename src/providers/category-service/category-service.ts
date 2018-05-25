@@ -30,6 +30,7 @@ export class CategoryServiceProvider {
     return this.categories;
   }
 
+
   /**
    * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
    * for catching error use "promise.then().catch(e){...handling error...}"

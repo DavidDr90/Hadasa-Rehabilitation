@@ -11,7 +11,7 @@ export class Category extends Item {
         public imageURL: string, //the image url of the category
         private userEmail: string, //the email of the user that have this category
         private parentCategoryID: string, //if not NULL, the ID of the parent category of this sub category
-        private views: number, //the number of the times the user clicked the category
+        public views: number, //the number of the times the user clicked the category
         private isFav: boolean// TRUE if this category is one of the user selected favorite categories. else, FALSE.
     ) {
         super()

@@ -59,8 +59,18 @@ export class PhrasesProvider {
     this.firebaseProvider.addPhrase(phrase);
   }
 
+
+public getPhraseByName(n: string){
+  return this.phrases.find(phr => phr.name == n)
+}
+
+public getPhraseById(id: string): Category{
+  return this.phrases.find(phr => phr.id === id);
+}
+
   removePhrase(phrase: Phrase) {
     this.firebaseProvider.removePhrase(phrase);
   }
+
 
 }
