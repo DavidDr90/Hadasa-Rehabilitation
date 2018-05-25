@@ -26,8 +26,7 @@ export class CategoriesPage {
     public navParams: NavParams,
     public modalCtrl:ModalController,
     public navCtrl:NavController,
-    public storage:StorageProvider,
-    public aAuth: AngularFireAuth,) {
+    public storage:StorageProvider,) {
     
   }
 

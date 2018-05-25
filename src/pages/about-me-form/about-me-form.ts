@@ -31,20 +31,22 @@ export class AboutMeFormPage {
     public modalCtrl: ModalController, 
     public aAuth: AngularFireAuth)  {
     
+    //TODO: display loading window
+
     let promise = this.categoryProvider.getCategoriesByName(ABOUT_ME_STRING);//try to get the about me category from the DB
     promise.then((data) =>{
       this.myCategory = data;
       this.myCategory as Category
       //if the aboutMe category is filled skip this page and go to main page
       //else continue on this form page 
+      //TODO: close the loading window before leaving the page
         navCtrl.push(TabsPage);
     })
     
-    //when promise activate x = true
-    //Blocker(boolean x){while x == false}
     //TODO: dor will create a function that chack if a user is exsist
-    //if true go to home page
-    //if not go to the about me form
+    //for now this page move the user to the home page allways
+    //if true go to home page (using promis.then)
+    //if not go to the about me form (using promis.catch)
     
     //create new category about-me and add it to db
     this.myCategory =
