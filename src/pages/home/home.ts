@@ -7,7 +7,7 @@ import { AddPhrasePage } from '../add-phrase/add-phrase';
 import { FavoritesComponent } from '../../components/favorites/favorites';
 import { Favorite } from '../../models/Favorite';
 
-import { FavoriteProvider } from '../../providers/Favorite/Favorite';
+import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { AppBuilderProvider } from '../../providers/app-builder/app-builder';
 import { StorageProvider } from '../../providers/storage/storage';
 import { FirebaseProvider } from '../../providers/firebase/firebase'

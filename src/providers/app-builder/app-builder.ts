@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { Phrase } from '../../models/Phrase'
 import { Category } from '../../models/Category'
 import { User } from '../../models/user'
-import { PhrasesProvider } from '../phrases/phrases'
-import { CategoryServiceProvider } from '../category-service/category-service'
 import { HomePage } from '../../pages/home/home';
+import { PhrasesProvider } from '../phrases/phrases';
+import { CategoryServiceProvider } from '../category-service/category-service';
 
 /**
  * this provider create the defult categorys and phrases when the app is first load
@@ -57,7 +57,7 @@ export class AppBuilderProvider {
      //add feeling category
      this.createDefCat("רגשות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2F%E2%80%8F%E2%80%8Ffeelings.PNG?alt=media&token=921bff5c-c031-41b3-b1d0-efe4c622e542", "", this.userEmail)
      setTimeout(()=>{
-      promise=this.categoryProvider.getCategoriesByName("רגשות");
+      promise=this.categoryProvider.getCategoryByName("רגשות");
       promise.then((data)=>{
         cat=data;
         cat as Category;
@@ -76,7 +76,7 @@ export class AppBuilderProvider {
       //add medicine category
       this.createDefCat("רפואה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%E2%80%8F%E2%80%8Fmadical.PNG?alt=media&token=62e9e247-658e-454d-87aa-6886aa0bab99", "", this.userEmail)
       setTimeout(()=>{
-        promise=this.categoryProvider.getCategoriesByName("רפואה");
+        promise=this.categoryProvider.getCategoryByName("רפואה");
         promise.then((data)=>{
           cat=data;
           cat as Category;
@@ -86,7 +86,7 @@ export class AppBuilderProvider {
           
         this.createDefCat("ראש", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fhead%2Fheadache.PNG?alt=media&token=afedb4f0-fc3a-4f05-96b6-1f0b79db71ca", catId, this.userEmail)
         setTimeout(()=>{
-            promise=this.categoryProvider.getCategoriesByName("ראש");
+            promise=this.categoryProvider.getCategoryByName("ראש");
             promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -100,7 +100,7 @@ export class AppBuilderProvider {
           
         this.createDefCat("בטן", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fstomach%2Fstomach.PNG?alt=media&token=7275b1fd-c78f-4c62-9416-b492be982dce", catId, this.userEmail)
         setTimeout(()=>{
-          promise=this.categoryProvider.getCategoriesByName("בטן"); 
+          promise=this.categoryProvider.getCategoryByName("בטן"); 
           promise.then((data)=>{
             cat=data;
             cat as Category;
@@ -114,7 +114,7 @@ export class AppBuilderProvider {
 
           this.createDefCat("אף אוזן גרון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fotolaryngology%2Fotolaryngology.PNG?alt=media&token=f35024a9-3735-4f95-af28-6b668da2f2bf", catId, this.userEmail)
           setTimeout(()=>{
-            promise=this.categoryProvider.getCategoriesByName("אף אוזן גרון");
+            promise=this.categoryProvider.getCategoryByName("אף אוזן גרון");
             promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -127,7 +127,7 @@ export class AppBuilderProvider {
 
           this.createDefCat("חזה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fchest%2Fchest.PNG?alt=media&token=c4b85e58-d4a9-4d8f-8db8-f56d9eda4893", catId, this.userEmail)
           setTimeout(()=>{
-            promise=this.categoryProvider.getCategoriesByName("חזה");
+            promise=this.categoryProvider.getCategoryByName("חזה");
             promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -139,7 +139,7 @@ export class AppBuilderProvider {
 
           this.createDefCat("מצב נפשי", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fmental%20health%2Fmental_health.PNG?alt=media&token=786e2909-457a-48ec-bc0b-f1da4af93660", catId, this.userEmail)
           setTimeout(()=>{
-            promise=this.categoryProvider.getCategoriesByName("מצב נפשי");
+            promise=this.categoryProvider.getCategoryByName("מצב נפשי");
             promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -154,7 +154,7 @@ export class AppBuilderProvider {
 
           this.createDefCat("רופאים ואנשי מקצוע", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fchest%2Fchest.PNG?alt=media&token=c4b85e58-d4a9-4d8f-8db8-f56d9eda4893", catId, this.userEmail)
           setTimeout(()=>{
-            promise=this.categoryProvider.getCategoriesByName("רופאים ואנשי מקצוע");
+            promise=this.categoryProvider.getCategoryByName("רופאים ואנשי מקצוע");
             promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -170,7 +170,7 @@ export class AppBuilderProvider {
 
           this.createDefCat("בדיקות רפואיות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%2F%E2%80%8F%E2%80%8Fmedica_test.PNG?alt=media&token=52ae7fac-4634-48c0-b5da-de6cd6eb96db", catId, this.userEmail)
           setTimeout(()=>{
-            promise=this.categoryProvider.getCategoriesByName("בדיקות רפואיות");
+            promise=this.categoryProvider.getCategoryByName("בדיקות רפואיות");
             promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -184,7 +184,7 @@ export class AppBuilderProvider {
 
           this.createDefCat("סוגי כאב", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fpain%2Fpain.PNG?alt=media&token=e8b2f4da-cdb3-4068-941b-9d23fd3d3250", catId, this.userEmail)
           setTimeout(()=>{
-            promise=this.categoryProvider.getCategoriesByName("סוגי כאב");
+            promise=this.categoryProvider.getCategoryByName("סוגי כאב");
             promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -199,7 +199,7 @@ export class AppBuilderProvider {
       
       this.createDefCat("חפצים אישיים", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Fpersonal%20stuff.PNG?alt=media&token=bd9ebcf2-edbe-4288-b716-d76f2d57d757", "", this.userEmail)
       setTimeout(()=>{
-        promise=this.categoryProvider.getCategoriesByName("חפצים אישיים");
+        promise=this.categoryProvider.getCategoryByName("חפצים אישיים");
           promise.then((data)=>{
                   cat=data;
                   cat as Category;
@@ -219,7 +219,7 @@ export class AppBuilderProvider {
       
       this.createDefCat("חנויות וקניות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/shopping%2Fshopping.PNG?alt=media&token=8e2dd23f-299b-4249-bd24-24f181d0ef15", "", this.userEmail)
       setTimeout(()=>{
-          promise=this.categoryProvider.getCategoriesByName("חנויות וקניות"); 
+          promise=this.categoryProvider.getCategoryByName("חנויות וקניות"); 
           promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -233,7 +233,7 @@ export class AppBuilderProvider {
         
       this.createDefCat("מסעדות ובתי קפה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/restaurant%2Frestaurant.PNG?alt=media&token=047df647-d0e8-473c-ad9c-539cddde60bb", "", this.userEmail)
       setTimeout(()=>{
-        promise=this.categoryProvider.getCategoriesByName("מסעדות ובתי קפה"); 
+        promise=this.categoryProvider.getCategoryByName("מסעדות ובתי קפה"); 
         promise.then((data)=>{
               cat=data;
               cat as Category;
@@ -251,7 +251,7 @@ export class AppBuilderProvider {
         
       this.createDefCat("אמצעי תחבורה ציבוריים", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fpublic_transport.PNG?alt=media&token=1d88c9c6-74ca-4cd2-af8b-316262066b17", "", this.userEmail)
       setTimeout(()=>{
-        promise=this.categoryProvider.getCategoriesByName("אמצעי תחבורה ציבוריים"); promise.then((data)=>{
+        promise=this.categoryProvider.getCategoryByName("אמצעי תחבורה ציבוריים"); promise.then((data)=>{
               cat=data;
               cat as Category;
               catId=cat.id;
@@ -262,7 +262,7 @@ export class AppBuilderProvider {
 
               this.createDefCat("אוטובוס", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fbus.PNG?alt=media&token=78fcbe9b-c9ac-4a03-89f9-504a18d144a7", catId, this.userEmail)
               setTimeout(()=>{
-                promise=this.categoryProvider.getCategoriesByName("אוטובוס");
+                promise=this.categoryProvider.getCategoryByName("אוטובוס");
                 promise.then((data)=>{
                   cat=data;
                   cat as Category;
@@ -274,7 +274,7 @@ export class AppBuilderProvider {
 
             this.createDefCat("רכבת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftrain.PNG?alt=media&token=3649588a-7674-4428-8935-4de8e024c650", catId, this.userEmail)
               setTimeout(()=>{
-                promise=this.categoryProvider.getCategoriesByName("רכבת");
+                promise=this.categoryProvider.getCategoryByName("רכבת");
                 promise.then((data)=>{
                   cat=data;
                   cat as Category;

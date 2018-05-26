@@ -7,8 +7,8 @@ import { PhrasesPage } from '../phrases/phrases';
 
 import * as Enums from '../../consts/enums';
 import { StorageProvider } from '../../providers/storage/storage';
-import { FavoriteProvider } from '../../providers/Favorite/Favorite';
 import { HomePage } from '../home/home';
+import { FavoriteProvider } from '../../providers/favorite/favorite';
 
 const isCategory = true;
 @IonicPage()

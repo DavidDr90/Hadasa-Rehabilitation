@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
-import {Favorite} from '../../models/Favorite';
-import {Category} from '../../models/Category';
-import {Phrase} from '../../models/Phrase';
+import { Category } from '../../models/Category';
+import { Phrase } from '../../models/Phrase';
+import { Favorite } from '../../models/Favorite';
 
 
 @Component({

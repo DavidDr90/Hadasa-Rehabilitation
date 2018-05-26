@@ -6,7 +6,7 @@ import { Phrase } from '../../models/Phrase';
 
 import * as Enums from '../../consts/enums';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-import { FavoriteProvider } from '../../providers/Favorite/Favorite';
+import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { HomePage } from '../home/home';
 
 
