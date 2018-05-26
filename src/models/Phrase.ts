@@ -12,12 +12,12 @@ export class Phrase extends Item {
 
     public id: string; //the ID of the phrase in the DB
     public name: string; //the hebrew name of the phrase
-    private categoryID: string; //the ID of the category of the phrase in the DB
-    private views: number; //the number of the times that the user clicked on the phrase
+    public categoryID: string; //the ID of the category of the phrase in the DB
+    public views: number; //the number of the times that the user clicked on the phrase
     public imageURL: string; //the url of the image of the phrase
     //the audio file/url of the phrase.
     public audio: string;//????? the type need to be changed!!!!!
-    private isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
+    public isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
 
     constructor(id: string, name: string, imageURL: string,
         categoryID: string, views: number, audio: string, isFav: boolean) {

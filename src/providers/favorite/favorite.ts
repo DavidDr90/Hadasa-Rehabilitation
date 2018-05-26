@@ -11,7 +11,7 @@ export class FavoriteProvider {
   constructor(favorite:Favorite) {
     this.fav=favorite;
   }
-          
+         
 //========================================================================================
           
                         /* ===================================
@@ -26,7 +26,7 @@ export class FavoriteProvider {
   private update_min_cat(){
     var i;
     for(i=0; i<this.fav.common_cat.length; i++)
-      if(this.fav.common_cat[i].getViews<this.fav.common_cat[this.fav.min_cat_index].getViews)
+      if(this.fav.common_cat[i].views<this.fav.common_cat[this.fav.min_cat_index].views)
         this.fav.min_cat_index=i;
   }
           
@@ -36,7 +36,7 @@ export class FavoriteProvider {
   private update_min_phrase(){
     var i;
     for(i=0; i<this.fav.common_phrases.length; i++)
-      if(this.fav.common_phrases[i].getViews<this.fav.common_phrases[this.fav.min_phrases_index].getViews)
+      if(this.fav.common_phrases[i].views<this.fav.common_phrases[this.fav.min_phrases_index].views)
         this.fav.min_phrases_index=i;
   }
           
@@ -45,7 +45,7 @@ export class FavoriteProvider {
   * @param cat, the recently viewed category
   * */      
   addCommonFavCat(cat: Category){
-    console.log( cat)
+    this.update_min_cat();
     for(let i=0; i<this.fav.common_cat.length; i++){
       if (this.fav.common_cat[i].id===cat.id){
         this.fav.common_cat[i]=cat;
@@ -56,24 +56,20 @@ export class FavoriteProvider {
     //if the common categories list not filled, add the category to the list
     if(this.fav.common_cat.length<Enums.NUM_FAVORITES_CAT){
       this.fav.common_cat[this.fav.common_cat.length]=cat;
-        this.update_min_cat();
-    }
-    //if the recently viewed category is the minimum viewes category on the common
-    //category list, update the minimum viewes category on that list.	
-    else if(cat==this.fav.common_cat[this.fav.min_cat_index])
       this.update_min_cat();
+    }
     //if the recently viewed category viewed more times then the minimum viewed
     // category on the common categories list, add the recently viewed category
     // instead of the minimum viewed category on the common categories list
     // and update the minimun viewed category in the comoon_categories list.
-    else if(cat.getViews>this.fav.common_cat[this.fav.min_cat_index].getViews){
+    else if(cat.views>this.fav.common_cat[this.fav.min_cat_index].views){
       this.fav.common_cat[this.fav.min_cat_index]=cat
       this.update_min_cat();
     }
     //if the recently viewed category isn't common category, do nothing
-    else
+    else{
       return;
-    console.log( this.fav.common_cat)
+    }
   }
           
 //===================================
@@ -81,20 +77,24 @@ export class FavoriteProvider {
   * @param phrase, the recently viewed phrase
   * */
   addCommonFavPhrases(phrase: Phrase){
+    this.update_min_phrase();
+    for(let i=0; i<this.fav.common_phrases.length; i++){
+      if (this.fav.common_phrases[i].id===phrase.id){
+        this.fav.common_phrases[i]=phrase;
+        this.update_min_phrase();
+        return;
+      }
+    }
     //if the common phrases list not filled, add the phrase to the list
     if(this.fav.common_phrases.length<Enums.NUM_FAVORITES_PHRASES){
       this.fav.common_phrases[this.fav.common_phrases.length]=phrase;
       this.update_min_phrase();
     }
-    /*if the recently viewed phrase is the minimum viewes phrase on the common
-      phrases list, update the minimum viewes phrase on that list.*/	
-    else if(phrase==this.fav.common_phrases[this.fav.min_phrases_index])
-      this.update_min_phrase();
     /*if the recently viewed phrase viewed more times then the minimum viewed
       phrase on the common phrases list, add the recently viewed phrase
       instead of the minimum viewed phrase on the common phrases list
       and update the minimun viewed phrase in the common phrases list.*/
-    else if(phrase.getViews>this.fav.common_phrases[this.fav.min_phrases_index].getViews){
+    else if(phrase.views>this.fav.common_phrases[this.fav.min_phrases_index].views){
       this.fav.common_phrases[this.fav.min_phrases_index]=phrase
       this.update_min_phrase();
     }
@@ -102,7 +102,39 @@ export class FavoriteProvider {
     else
       return;
   }
-          
+
+  /**remove category from common category list.
+   * example for usage: when delete category from DB, we need to check that this category not exist in the common categories list.
+  * @param cat, the category to be removed from the common categories list
+  * */
+ remove_from_commom_cat(cat:Category){
+  let i;
+  //find the index of category in the categories common list
+  for(i=0; i<this.fav.common_cat.length; i++)
+    if(cat.id===this.fav.common_cat[i].id)
+      break;
+  //if the category exist in the list, delete it.
+  if(i<this.fav.common_cat.length)
+    this.fav.common_cat.splice(i);
+  }
+  
+
+/**remove phrase from common phrase list.
+   * example for usage: when delete phrase from DB, we need to check that this phrase not exist in the common phrases list.
+  * @param phrase, the phrase to be removed from the common categories list
+  * */
+ remove_from_commom_phrases(phrase:Phrase){
+  let i;
+  //find the index of phrase in the phrases common list
+  for(i=0; i<this.fav.common_phrases.length; i++)
+    if(phrase.id===this.fav.common_phrases[i].id)
+      break;
+  //if the phrase exist in the list, delete it.
+  if(i<this.fav.common_phrases.length)
+    this.fav.common_phrases.splice(i);
+  }
+  
+              
 //========================================================================================
           
                         /* ===================================
@@ -122,7 +154,7 @@ export class FavoriteProvider {
       alert("you cant choose more then "+Enums.NUM_FAVORITES_CAT+"favorite categories");//no place, error message to the user
     else{
       this.fav.chosen_fav_cat[this.fav.chosen_fav_cat.length]=cat;//there is a place, category added successfuly.
-      cat.setIsFav(true);
+      cat.isFav=(true);
     }
   }
           
@@ -136,7 +168,7 @@ export class FavoriteProvider {
       alert("you cant choose more then "+Enums.NUM_FAVORITES_PHRASES+"favorite phrases");//no place, error message to the user
     else{
       this.fav.chosen_fav_phrases[this.fav.chosen_fav_phrases.length]=phrase;//there is a place, phrase added successfuly.
-      phrase.setIsFav(true);
+      phrase.isFav=(true);
     }
 }
           
@@ -148,13 +180,13 @@ export class FavoriteProvider {
     let i;
     //find the index of cat in the categories favorite list
     for(i=0; i<this.fav.chosen_fav_cat.length; i++)
-      if(cat==this.fav.chosen_fav_cat[i])
+      if(cat.id===this.fav.chosen_fav_cat[i].id)
         break;
     //check if cat not exist in the categories favorite list
     if(i>=this.fav.chosen_fav_cat.length)
       console.log("ERROR-cannot remove from favorite list\ncategory not exist in the favorite list");
     else{
-      cat.setIsFav(false);
+      cat.isFav=false;
       this.fav.chosen_fav_cat.splice(i);//remove the category from the list
     }              
   }
@@ -167,20 +199,15 @@ export class FavoriteProvider {
     let i;
     //find the index of phrase in the categories favorite list
     for(i=0; i<this.fav.chosen_fav_phrases.length; i++)
-      if(phrase==this.fav.chosen_fav_phrases[i])
+      if(phrase.id===this.fav.chosen_fav_phrases[i].id)
         break;
     //check if phrase not exist in the phrases favorite list
     if(i>=this.fav.chosen_fav_phrases.length)
       console.log("ERROR-cannot remove from favorite list\nphrase not exist in the favorite list");
     else{
-      phrase.setIsFav(false);
+      phrase.isFav=(false);
       this.fav.chosen_fav_phrases.splice(i);
     }
-  }
-          
-          
+  }      
           
 }
-
-
-

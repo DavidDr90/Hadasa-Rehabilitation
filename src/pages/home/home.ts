@@ -26,6 +26,7 @@ export class HomePage {
   addPhrasePage = AddPhrasePage;
    
   user_name = "אורח";
+  static userEmail="email@gmail.com"; //TODO: fill the user email. being used in app-builder constructor.
   
   percentage; // Should be implement on uploading
   
@@ -37,6 +38,7 @@ export class HomePage {
                public authentication: AutenticationProvider,
                public storage : StorageProvider, 
                public categoryProvider: CategoryServiceProvider,
+               public appBuilderProvider:AppBuilderProvider
                ){
     this.percentage = 0;
     
