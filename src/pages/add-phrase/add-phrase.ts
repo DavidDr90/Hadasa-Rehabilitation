@@ -205,6 +205,7 @@ export class AddPhrasePage {
           handler: () => {
             console.log('search on line');
             //  connect to alex's google custom image search with the input text
+            this.showAlert("Hahaha", "Hohoho");
           }
         },
 

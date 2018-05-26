@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, NavPush, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, NavPush, ModalController, AlertController } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Category } from '../../models/Category';
 import { TabsPage } from '../tabs/tabs';
@@ -8,12 +8,12 @@ import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
 import { AngularFireAuth } from 'angularfire2/auth';
 
-/**
- * the user will see this page if he haven't fill his about my section
- */
+
 
 const ABOUT_ME_STRING = 'aboutMe';//TODO: before relese need to change to hebrew form
-
+/**
+ * the user will see this page if he haven't filled his aboutMe section
+ */
 @IonicPage()
 @Component({
   selector: 'page-about-me-form',
@@ -21,11 +21,11 @@ const ABOUT_ME_STRING = 'aboutMe';//TODO: before relese need to change to hebrew
 })
 export class AboutMeFormPage {
 
-  myCategory : Category
-
+  aboutMeCategory : Category
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
+    public alertCtrl: AlertController,
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
     public modalCtrl: ModalController, 
@@ -33,7 +33,11 @@ export class AboutMeFormPage {
     
     //TODO: display loading window
 
-    let promise = this.categoryProvider.getCategoriesByName(ABOUT_ME_STRING);//try to get the about me category from the DB
+    //TODO: dor will create a function that chack if a user is exsist
+    //for now this page move the user to the home page allways
+    //if true go to home page (using promis.then)
+    //if not go to the about me form (using promis.catch)
+    /*let promise = this.categoryProvider.getCategoriesByName(ABOUT_ME_STRING);//try to get the about me category from the DB
     promise.then((data) =>{
       this.myCategory = data;
       this.myCategory as Category
@@ -41,43 +45,50 @@ export class AboutMeFormPage {
       //else continue on this form page 
       //TODO: close the loading window before leaving the page
         navCtrl.push(TabsPage);
-    })
+})*/
+
+    //look for aboutMe category and if its found go to HomepPage 
+    this.navCtrl.push(TabsPage);
+    //this.verifyAboutMeCategory(true);//should be true here 
+
+    //TODO: close the loading window before leaving the page
+
     
-    //TODO: dor will create a function that chack if a user is exsist
-    //for now this page move the user to the home page allways
-    //if true go to home page (using promis.then)
-    //if not go to the about me form (using promis.catch)
-    
-    //create new category about-me and add it to db
-    this.myCategory =
-      new Category(ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "", 0, false);
-    this.categoryProvider.addCategory(this.myCategory);
+
+    //we stay on this page, so we need to create an aboutMe category
+    //create new category aboutMe and add it to DB
+    //this.aboutMeCategory =
+      //new Category(ABOUT_ME_STRING, "666", "", this.aAuth.auth.currentUser.email, "", 0, false);
+    //this.categoryProvider.addCategory(this.aboutMeCategory);
+    console.log("constructor ends")
   }
 
-  //clicked the button, play audio
+  //clicked the button, open add phrase form
   private clicked() {
-    this.openAddPage(Enums.ADD_OPTIONS.PHRASE)//fill phrases and add them to about-me category
+    //fill phrases and add them to about-me category
+    this.openAddPage(Enums.ADD_OPTIONS.PHRASE)
   }
 
-  //finished filling about-me cat, go to main page
+  //finish filling aboutMe forms and go to main page
   private finish() {
     //this.navCtrl.pop();
     this.navCtrl.push(TabsPage);
   }
 
-  /** display the addPhrasePage and get the retrun object from the form.
+  /** display the addPhrasePage and get the return object from the form.
    * Prompt the user to add a new phrase. This shows our AddPhrasePage in a
    * modal and then adds the new item to our data source if the user created one.
-   * @param formWhere whitch page call the add page
+   * @param formWhere which page call the add page
    */
   openAddPage(fromWhere) {
-    //TODO:
-    //need to make sure that the myCategory.id is the new about me category id from th DB
-    //use the getCategoriesByName() function after Dor's change
+    //need to make sure that the aboutMeCategory.id is the new about me category id from th DB
+    //getCategoriesByName return promise object
+    this.verifyAboutMeCategory(false);//should be false here
+    
     let addModal = this.modalCtrl.create('AddPhrasePage',
       {
         'fromWhere': fromWhere,
-        'categoryID': this.myCategory.id
+        'categoryID': "YTpgPHDj9TPI0VBRVxIw" 
       });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
@@ -89,6 +100,31 @@ export class AboutMeFormPage {
   }
 
 
+  /**
+   *  
+   *  Uses categoryProvider and promises to look for aboutMe category
+  and connects it to local aboutMeCategory variable.
+  If navigate is set to true AND aboutMe category was found in DB 
+  will navigate to homepage
+  * @param navigateHome should we go toHomePage if aboutMe category exists
+   */
+  async verifyAboutMeCategory(navigateHome: boolean) {
+    try{
+      let aboutMeCategory = await this.categoryProvider.getCategoryById("YTpgPHDj9TPI0VBRVxIw")//try to get the about me category from the DB
+      console.log("after await");
+      if(aboutMeCategory != undefined){
+        this.aboutMeCategory as Category;
+        console.log(this.aboutMeCategory.getID().toString())
+        if(navigateHome)
+          this.navCtrl.push(TabsPage);
+      }
+      console.log("data undefined");
+    } catch(err) {
+      console.log("aboutMe was not found:" + err)
+    }
+
+
+  }
 
 
 

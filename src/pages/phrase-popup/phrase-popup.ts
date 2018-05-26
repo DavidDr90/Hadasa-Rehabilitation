@@ -5,8 +5,8 @@ import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 
 /**
-This is the page that pops onscreen when phrase is clicked
-has the phrase itself
+This is the page that pops onscreen when phrase is clicked,
+has the phrase itself,
 the image 
 and the audio playable by button click
  */
