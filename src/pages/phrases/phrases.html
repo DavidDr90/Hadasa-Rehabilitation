@@ -1,24 +1,26 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>
-      {{parentCategory.name}}
-    </ion-title>
-    <ion-buttons end>
-        <button ion-button icon-only (click)="edit()">
+    <ion-navbar>
+        <ion-title>
+            {{parentCategory.name}}
+        </ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="edit()">
           <ion-icon name="construct"></ion-icon>
         </button>
-      </ion-buttons>
-    <!-- add button in the end of the nav-bar -->
-    <ion-buttons end>
-      <button ion-button icon-only (click)="presentActionSheet()">
+        </ion-buttons>
+        <!-- add button in the end of the nav-bar -->
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentActionSheet()">
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>
-  </ion-navbar>
+        </ion-buttons>
+    </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
-  <phrase [phrase]="item" *ngFor="let item of phrases"></phrase>
+    <phrase [phrase]="item" *ngFor="let item of phrases"></phrase>
+    <!-- TODO: add click event to onClick function that get the clicked phrase -->
+    <!--THE ON CLICK NOT WORKING!!!!! (click)="onclick(item);" -->
 </ion-content>

@@ -63,33 +63,6 @@ export class PhrasesProvider {
     this.firebaseProvider.removePhrase(phrase);
   }
 
-    //SETTERS + update the db.
-    public setName(phrase: Phrase, newName: string) {
-      phrase.name = newName;
-      this.firebaseProvider.updatePhrase(phrase)
-    }
-    public setImageURL(phrase: Phrase, newURL: string) {
-      phrase.imageURL = newURL;
-      this.firebaseProvider.updatePhrase(phrase)
-    }
-    public setCategoryID(phrase: Phrase, categoryID: string) {
-      phrase.categoryID = categoryID;
-      this.firebaseProvider.updatePhrase(phrase)
-    }
-    public setAudio(phrase: Phrase, audio: string) {
-      phrase.audio = audio;
-      this.firebaseProvider.updatePhrase(phrase)
-    }
-    public setIsFav(phrase: Phrase, isFav: boolean) {
-      phrase.isFav = isFav;
-      this.firebaseProvider.updatePhrase(phrase)
-    }
-
-    //each time a phrase has been chosen, its views increase by 1.
-    public icreaseViews(phrase: Phrase) {
-      phrase.views++;
-      this.firebaseProvider.updatePhrase(phrase)
-    }
 
 
 }

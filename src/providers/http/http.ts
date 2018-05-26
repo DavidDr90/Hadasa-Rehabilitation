@@ -68,7 +68,6 @@ export class HttpProvider {
     //send a GET http request to the url.
     // let result = await this.sendGetRequest(url, {}, {})
     let result = await this.httpGetAsync(url);//call the JS function
-
     //return the result only when the "sendGetRequest" getting the response from the server
     return result;
   }
@@ -80,6 +79,8 @@ export class HttpProvider {
    * @returns on success the audio file received by the TTS server, or -1 on failure
    */
   private async httpGetAsync(url) {
+    //DELETE IT!!! ONLY FOR DEBUGGING USING EXAMPLE URL
+    url="https://ttsapi.almagu.com/Api/Synth?key=998de9b6ffb24a0a95&sampling=16000&encoding=wav&rate=0&voice=Sivan&text=טקסט%20בדיקה%20בעברית";
     console.log("in private func")
     var context = new AudioContext();//decoding the array buffer into audio file
     var audioBuffer = null; //the buffer for the audio

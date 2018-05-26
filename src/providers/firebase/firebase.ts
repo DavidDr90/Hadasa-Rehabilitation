@@ -43,8 +43,12 @@ export class FirebaseProvider {
     }
   }
 
-  //import all categories from DB to Observable object
-  //**note: need to fix: imports of spesific user
+ 
+  /**
+   * import all categories from DB to Observable object
+   * *note: need to fix: imports of spesific user
+   * @returns the categories array
+   */
   public importCategories()
   {
     //Creating the categories collection of the CURRENT USER!!!!!!!! ha ha
@@ -63,8 +67,11 @@ export class FirebaseProvider {
     }
   }
 
-  //import all phrases from DB to observable object.
-  //**note: need to fix: imports of spesific user
+ /**
+   * import all phrases from DB to observable object.
+   * *note: need to fix: imports of spesific user
+   * @returns the phrases array
+   */
   public importPhrases(category: Category)
   {
     try{
@@ -84,6 +91,7 @@ export class FirebaseProvider {
       }
   }
 
+  
   get getUsersObservable() {
     return this.users
   }

@@ -75,7 +75,7 @@ export const enum VOICE_OPTIONS{
 
 
 //const value for number of favorite categories & phrases
-export const enum NUM_FAVORITES{
-    CAT=5,
-    PHRASES=10
-}
+export const NUM_FAVORITES_CAT=5
+export const NUM_FAVORITES_PHRASES=10
+
+
