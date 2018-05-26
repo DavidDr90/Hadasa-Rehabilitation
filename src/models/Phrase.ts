@@ -55,29 +55,5 @@ export class Phrase extends Item {
         return this.isFav;
     }
 
-    //SETTERS
-    public setID(id: string) {
-        this.id = id;
-    }
-    public setName(newName: string) {
-        this.name = newName;
-    }
-    public setImageURL(newURL: string) {
-        this.imageURL = newURL;
-    }
-    public setCategoryID(categoryID: string) {
-        this.categoryID = categoryID;
-    }
-    public setAudio(audio: string) {
-        this.audio = audio;
-    }
-    public setIsFav(isFav: boolean) {
-        this.isFav = isFav;
-    }
-
-    //each time a phrase has been chosen, its views increase by 1.
-    public icreaseViews() {
-        this.views++;
-    }
 
 }

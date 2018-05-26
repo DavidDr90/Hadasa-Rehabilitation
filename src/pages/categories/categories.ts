@@ -30,6 +30,7 @@ export class CategoriesPage {
     
     this.favProvider=new FavoriteProvider(HomePage.favClass); 
     
+
   }
 
   //popup the category's phrases's page.

@@ -45,29 +45,17 @@ export class Category extends Item {
         return this.parentCategoryID;
     }
 
-    //SETTERS
-    public setName(t: string) {
-        this.name = t;
-    }
-    public setUrl(u: string) {
-        this.imageURL = u;
-    }
-    public setID(id: string) {
-        this.id = id;
-    }
-    public setUserEmail(email: string) {
-        this.userEmail = email;
-    }
-    public setParentCategoryID(categoryParent: string) {
-        this.parentCategoryID = categoryParent;
-    }
-    public setIsFav(isFav: boolean) {
-        this.isFav = isFav;
+
+    public toString(): string {
+        return "category: \n" +
+            "name: " + this.getName + "\n" +
+            "id: " + this.getID + "\n" +
+            "imageURL: " + this.imageURL + "\n" +
+            "userEmail: " + this.getUserEmail + "\n" +
+            "parentCategoryID: " + this.getParentCategoryId + "\n" +
+            "views: " + this.getViews + "\n" +
+            "isFav: " + this.getIsFav + "\n";
     }
 
-    //each time a category has chosen, her views increase by 1.
-    public increaseViews() {
-        this.views++;
-    }
 }
 
