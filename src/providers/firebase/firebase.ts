@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
 import { User } from '../../models/user'
 import { Category } from '../../models/Category';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
@@ -14,19 +14,26 @@ export class FirebaseProvider {
 
   categoriesCollection: AngularFirestoreCollection<Category>;
   categories: Observable<Category[]> = new Observable<Category[]>()
+  categoryDoc: AngularFirestoreDocument<Category>;
+  category: Observable<Category>;
 
   phrasesCollection: AngularFirestoreCollection<Phrase>;
   phrases: Observable<Phrase[]> = new Observable<Phrase[]>()
+  phraseDoc: AngularFirestoreDocument<Phrase>;
+  phrase: Observable<Phrase>;
 
   constructor(public afs: AngularFirestore, public authentication: AutenticationProvider) {
+    //first import the users collection , mainly to get the current users's attrs.
+    this.importUsers()
+  }
 
-    //Creating the users collection.
+   //import all users from DB to Observable object
+  public importUsers(){
     try{
-      this.usersCollection = afs.collection<User>('users', ref => ref.orderBy('email', 'desc'));
+      this.usersCollection = this.afs.collection<User>('users', ref => ref.orderBy('email', 'desc'));
       this.users = this.usersCollection.snapshotChanges().map(result => {
       return result.map(a => {
           let temp = a.payload.doc.data() as User;
-          // temp.id = a.payload.doc.id;
           return temp;
         });
       });
@@ -40,7 +47,6 @@ export class FirebaseProvider {
   //**note: need to fix: imports of spesific user
   public importCategories()
   {
-
     //Creating the categories collection of the CURRENT USER!!!!!!!! ha ha
     try{
       this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.where('userEmail', '==', this.authentication.user.email));
@@ -117,4 +123,23 @@ export class FirebaseProvider {
       console.error("Error removing document: ", error);
   });
   }
+
+    /**
+   * Update fields of a document without overwriting the entire document.
+   * @param phrase, the phrase with a new properties
+   */
+  updatePhrase(phrase: Phrase){
+    this.phraseDoc = this.afs.doc<Phrase>('phrases/${phrase.id}');
+    this.phrase = this.phraseDoc.valueChanges();
+  }
+
+    /**
+   * Update fields of a document without overwriting the entire document.
+   * @param category, the category with a new properties
+   */
+  updateCategory(category: Category){
+    this.categoryDoc = this.afs.doc<Category>('categories/${category.id}');
+    this.category = this.categoryDoc.valueChanges();
+  }
+
 }

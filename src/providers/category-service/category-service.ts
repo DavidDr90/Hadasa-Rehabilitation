@@ -36,7 +36,7 @@ export class CategoryServiceProvider {
    * @param n name of category
    * @returns Promise object
    */
-  public getCategoriesByName(n: string): Promise<Category>{
+  public getCategoryByName(n: string): Promise<Category>{
     return new Promise((resolve, reject) => {
         resolve(this.categories.find(cat => cat.name == n));
     })
@@ -65,6 +65,30 @@ export class CategoryServiceProvider {
   removeCategory(category: Category) {
     this.firebaseProvider.removeCategory(category);
     this.updateCategoriesArray();
+  }
+
+
+  //SETTERS
+  public setName(category:Category, newName: string) {
+    category.name = newName;
+    this.firebaseProvider.updateCategory(category)
+  }
+  public setUrl(category:Category, newURL: string) {
+    category.imageURL = newURL;
+    this.firebaseProvider.updateCategory(category)
+  }
+  public setParentCategoryID(category:Category, newCategoryParent: string) {
+    category.parentCategoryID = newCategoryParent;
+    this.firebaseProvider.updateCategory(category)
+  }
+  public setIsFav(category:Category, isFav: boolean) {
+    category.isFav = isFav;
+    this.firebaseProvider.updateCategory(category)
+  }
+  //each time a category has chosen, her views increase by 1.
+  public increaseViews(category:Category) {
+    category.views++;
+    this.firebaseProvider.updateCategory(category)
   }
 
 }

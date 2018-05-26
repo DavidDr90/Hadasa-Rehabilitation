@@ -26,8 +26,10 @@ export class CategoriesPage {
     public navParams: NavParams,
     public modalCtrl:ModalController,
     public navCtrl:NavController,
-    public storage:StorageProvider,) {
-    
+    public storage:StorageProvider,
+    public aAuth: AngularFireAuth) 
+    {
+
   }
 
   //popup the category's phrases's page.
