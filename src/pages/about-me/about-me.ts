@@ -79,14 +79,14 @@ export class AboutMePage {
     let addModal = this.modalCtrl.create('AddPhrasePage',
       {
         'fromWhere': Enums.ADD_OPTIONS.PHRASE,
-        'categoryName': this.aboutMeCategory.id
+        'categoryID': this.aboutMeCategory.id
       });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         //create new phrase for the about me category
-        let newPhrase =
-          new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
-        this.addPhrase(newPhrase);//upload the new phase to the DB and refresh the screen
+        // let newPhrase =
+        //   new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
+        this.addPhrase(item);//upload the new phase to the DB and refresh the screen
       }
     })
     addModal.present();//present the addPhrasePage

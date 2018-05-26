@@ -7,7 +7,6 @@ import { PhrasesPage } from '../phrases/phrases';
 
 import * as Enums from '../../consts/enums';
 import { StorageProvider } from '../../providers/storage/storage';
-import { AngularFireAuth } from 'angularfire2/auth';
 
 
 const isCategory = true;
@@ -30,19 +29,8 @@ export class CategoriesPage {
     public storage:StorageProvider,
     public aAuth: AngularFireAuth) 
     {
-      //for testing, need to delete after using
-        this.getCategoryByNameHandler();
-      
-    }
 
-    //for testing, need to delete after using
-    public getCategoryByNameHandler(){
-      let promise = this.categoryService.getCategoryByName("Holy Moly");
-      promise.then((data) =>{
-        this.tempCategory = data;
-        this.tempCategory as Category
-      })
-    }
+  }
 
   //popup the category's phrases's page.
   public openCategoryPhrases(category: Category){
@@ -56,12 +44,14 @@ export class CategoriesPage {
    * modal and then adds the new item to our data source if the user created one.
    */
   openAddPage() {
-    let addModal = this.modalCtrl.create('AddPhrasePage',  {'fromWhere': Enums.ADD_OPTIONS.CATEGORY});
+    let addModal = this.modalCtrl.create('AddPhrasePage',  
+    {'fromWhere': Enums.ADD_OPTIONS.CATEGORY, 'categoryID': Enums.ADD_OPTIONS.NO_CATEGORY});
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
         console.log(item);
         //create a new cateogry
-        let newCategory = new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, "", 0, false);
+        let newCategory = item;
+        // new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, "", 0, false);
         this.categoryService.addCategory(newCategory);//upload the new category to the DB
       }
     })

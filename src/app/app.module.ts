@@ -51,6 +51,8 @@ import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
 import { AppBuilderProvider } from '../providers/app-builder/app-builder';
 import { UsersProvider } from '../providers/users/users';
+import { AboutMeFormPage } from '../pages/about-me-form/about-me-form';
+import { ErrorProvider } from '../providers/error/error';
 
 
 
@@ -67,6 +69,7 @@ import { UsersProvider } from '../providers/users/users';
     PhraseComponent,
     // TimerComponent,
     TabsPage,
+    AboutMeFormPage,
 
     ProgressBarComponent,
     PhrasePopupPage,
@@ -94,6 +97,7 @@ import { UsersProvider } from '../providers/users/users';
     TabsPage,
     PhrasePopupPage,
     PhrasesPage,
+    AboutMeFormPage
     //NumbersPage
   ],
   providers: [
@@ -118,7 +122,9 @@ import { UsersProvider } from '../providers/users/users';
     AutenticationProvider,
     StorageProvider,
     AppBuilderProvider,
-    UsersProvider
+    UsersProvider,
+    ErrorProvider
+
   ]
 })
 

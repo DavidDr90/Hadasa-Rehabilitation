@@ -13,13 +13,30 @@ import { FilePath } from '@ionic-native/file-path';
 import { HttpProvider } from '../../providers/http/http';
 import { StorageProvider } from '../../providers/storage/storage';
 import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
+import { Category } from '../../models/Category';
+import { Phrase } from '../../models/Phrase';
+import { AngularFireAuth } from 'angularfire2/auth';
 
+
+/** This page is a form to create Phrase or Category objects
+ * Phrase will have the following fileds:
+ *    text
+ *    imagePath
+ *    audioFile
+ *    categoryID
+ * Category will have the following fields:
+ *    text
+ *    imagePath
+ *    categoryIC (is this is a perant category this field will be 'null')
+ * @param navParams.get('fromWhere') the form recive from the previuse page a variable state the object to be created
+ * @returns on dissmis the form return a new object depent on the caller to the form.
+ */
 
 declare var cordova: any;
 
 const START_REC = "התחל הקלטה";
 const STOP_REC = "עצור הקלטה";
-const hebrewRegx = "[\u0590-\u05fe ]+$";//regex for hebrew chars
+const hebrewRegx = "[\u0590-\u05fe 0-9/\//ig.?!,/\\\\/ig@#$%^&*()]+$";//regex for hebrew chars
 
 @IonicPage()
 @Component({
@@ -60,11 +77,12 @@ export class AddPhrasePage {
     private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
+    public aAuth: AngularFireAuth
   ) {
 
 
     //if we gote here from some categroy page and we want to add new phrase
-    if (this.navParams.get('fromWhere') == 2) {
+    if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
       this.isCategory = false;
     }
 
@@ -73,16 +91,14 @@ export class AddPhrasePage {
       "text": ['', [Validators.required,
       Validators.pattern(hebrewRegx),//the text must be hebrew text
       Validators.minLength(1)]],//the text must be more the one char
-      "categoryID": ['', Validators.required],//the associated category
+      "categoryID": ['', /*Validators.required*/],//the associated category
       "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
       "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
     });
 
-    if (this.navParams.get('categoryName') == null || this.navParams.get('categoryName') == undefined)
-      this._myForm.patchValue({ 'categoryID': "null" });//add the 'null' as empty category
-    else
-      this._myForm.patchValue({ 'categoryID': this.navParams.get('categoryName') });//add the input category to the form object
-
+    let getCategoryID = this.navParams.get('categoryID');//get the state from the previuse page
+    if (getCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
+      this._myForm.patchValue({ 'categoryID': getCategoryID });//add the input category to the form object for sub-categorys
   }
 
   /** @returns the nikud array
@@ -140,8 +156,17 @@ export class AddPhrasePage {
   onSubmit() {
     // use the form object to create new phares object and add it to the server
     if (!this._myForm.valid) { return; }
-    this._viewCtrl.dismiss(this._myForm.value);//return the new object
+    let returnObject;//can be Category or Phrase
+    if (this.isCategory) {
+      returnObject = new Category(this._myForm.controls['text'].value, "",
+        this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email, "", 0, false);
+    } else {
+      returnObject = new Phrase("", this._myForm.controls['text'].value,
+        this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
+        0, this._myForm.controls['audioFile'].value, false);
+    }
     this._myForm.reset();//reset the form
+    this._viewCtrl.dismiss(returnObject);//return the new object
   }
 
   /**present Action Sheet when press the add button
@@ -180,6 +205,7 @@ export class AddPhrasePage {
           handler: () => {
             console.log('search on line');
             //  connect to alex's google custom image search with the input text
+            this.showAlert("Hahaha", "Hohoho");
           }
         },
 
