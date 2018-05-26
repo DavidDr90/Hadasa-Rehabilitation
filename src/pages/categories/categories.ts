@@ -7,6 +7,8 @@ import { PhrasesPage } from '../phrases/phrases';
 
 import * as Enums from '../../consts/enums';
 import { StorageProvider } from '../../providers/storage/storage';
+import { FavoriteProvider } from '../../providers/Favorite/Favorite';
+import { HomePage } from '../home/home';
 
 
 const isCategory = true;
@@ -19,14 +21,16 @@ const isCategory = true;
 export class CategoriesPage {
 
   public phrasesPage: PhrasesPage;
-  private tempCategory
+  favProvider:FavoriteProvider;
+  private tempCategory;
 
-  constructor(
-    public categoryService: CategoryServiceProvider,
-    public navParams: NavParams,
-    public modalCtrl:ModalController,
-    public navCtrl:NavController,
-    public storage:StorageProvider,) {
+  constructor(public categoryService: CategoryServiceProvider,
+              public navParams: NavParams,
+              public modalCtrl:ModalController,
+              public navCtrl:NavController,
+              public storage:StorageProvider) {
+    
+    this.favProvider=new FavoriteProvider(HomePage.favClass); 
     
   }
 
@@ -59,4 +63,12 @@ export class CategoriesPage {
   edit(){
     console.log("edit category");
   }
+
+/**on click method when the user click on a category*/
+  public catOnClick(cat:Category){
+    cat.views++;
+    this.favProvider.addCommonFavCat(cat);
+  }
+
 }
+
