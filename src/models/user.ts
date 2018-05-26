@@ -1,4 +1,3 @@
-import { Phrase } from "./Phrase";
 
 export class Item{
     public static toObject(item){

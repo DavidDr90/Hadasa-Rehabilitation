@@ -28,7 +28,7 @@ export class AboutMePage {
     public modalCtrl: ModalController,) 
   {
     //getCategoriesByName return promise object
-    let promise = this.categoryProvider.getCategoriesByName('aboutMe');
+    let promise = this.categoryProvider.getCategoryByName('aboutMe');
     promise.then((data) =>{
       this.aboutMeCategory = data;
       this.aboutMeCategory as Category

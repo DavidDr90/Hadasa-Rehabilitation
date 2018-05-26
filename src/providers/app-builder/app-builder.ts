@@ -42,7 +42,7 @@ export class AppBuilderProvider {
     let cat=new Category(name, "", imageURL, this.user.getEmail, parentCategoryID, 0, false);
     this.categoryProvider.addCategory(cat);
 
-    let promise = await this.categoryProvider.getCategoriesByName("Holy Moly");
+    let promise = await this.categoryProvider.getCategoryByName("Holy Moly");
     let temp = new Promise((resolve, reject) => {
       resolve(promise);
     });
