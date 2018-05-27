@@ -6,9 +6,6 @@ import { Phrase } from '../../models/Phrase';
 
 import * as Enums from '../../consts/enums';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-import { FavoriteProvider } from '../../providers/favorite/favorite';
-import { HomePage } from '../home/home';
-
 
 @IonicPage()
 @Component({
@@ -19,7 +16,6 @@ export class PhrasesPage {
 
   public parentCategory: Category;
   public phrases;
-  favProvider:FavoriteProvider;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,7 +29,6 @@ export class PhrasesPage {
     console.log("perent is = " + this.parentCategory.id);
     this.AsyncPhrasesloader();
 
-    this.favProvider=new FavoriteProvider(HomePage.favClass);
   }
 
 
@@ -41,16 +36,11 @@ export class PhrasesPage {
    * the method check if to add the phrase to the common phrases list.
    * @param phrase the phrase that clicked
   */
-  public phraseOnClick(phrase:Phrase){
+  /*public phraseOnClick(phrase:Phrase){
     phrase.views++;
     this.favProvider.addCommonFavPhrases(phrase);
-  }
-
-  onclick(phrase:Phrase){
-    phrase.views++;
-    this.favProvider.addCommonFavPhrases(phrase);
-  }
-
+  }*/
+  //WAS MOVED to phrase.ts component which is clickable
 
 
   //handler that add phrase and update the display 
