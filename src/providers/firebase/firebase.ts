@@ -46,7 +46,6 @@ export class FirebaseProvider {
  
   /**
    * import all categories from DB to Observable object
-   * *note: need to fix: imports of spesific user
    * @returns the categories array
    */
   public importCategories()
@@ -69,7 +68,6 @@ export class FirebaseProvider {
 
  /**
    * import all phrases from DB to observable object.
-   * *note: need to fix: imports of spesific user
    * @returns the phrases array
    */
   public importPhrases(category: Category)
@@ -121,6 +119,7 @@ export class FirebaseProvider {
   }
 
   addPhrase(phrase: Phrase) {
+    console.log("before add is firebase.ts"); 
     return this.phrasesCollection.add(Phrase.toObject(phrase));
   }
 
