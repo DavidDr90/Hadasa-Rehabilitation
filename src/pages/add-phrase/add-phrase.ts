@@ -16,6 +16,7 @@ import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
 import { AngularFireAuth } from 'angularfire2/auth';
+import { ErrorProvider } from '../../providers/error/error';
 
 
 /** This page is a form to create Phrase or Category objects
@@ -46,6 +47,8 @@ const hebrewRegx = "[\u0590-\u05fe 0-9/\//ig.?!,/\\\\/ig@#$%^&*()]+$";//regex fo
 export class AddPhrasePage {
   @ViewChild('myTimer') timer;
 
+
+
   private duration: any;
   private isCategory: boolean = true;
   private _myForm: FormGroup;
@@ -54,6 +57,15 @@ export class AddPhrasePage {
 
   lastImage: string = null;
   micText = START_REC;
+
+  //for the radio button sections
+  sentenceOrNoun;
+  categoryColor;
+  colorList = Enums.COLOR_LIST;
+
+
+  parentCategoryID;
+
 
   //varibales for the record
   recording: boolean = false;
@@ -77,7 +89,8 @@ export class AddPhrasePage {
     private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
-    public aAuth: AngularFireAuth
+    public aAuth: AngularFireAuth,
+    public errorProvider: ErrorProvider,
   ) {
 
 
@@ -88,36 +101,41 @@ export class AddPhrasePage {
 
     //create the form object depend from where you arrived
     this._myForm = this._formBuilder.group({
-      "text": ['', [Validators.required,
-      Validators.pattern(hebrewRegx),//the text must be hebrew text
-      Validators.minLength(1)]],//the text must be more the one char
+      "text": ['', [Validators.required, Validators.minLength(1)]],//the text must be more the one char
       "categoryID": ['', /*Validators.required*/],//the associated category
       "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
       "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
     });
 
-    let getCategoryID = this.navParams.get('categoryID');//get the state from the previuse page
-    if (getCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
-      this._myForm.patchValue({ 'categoryID': getCategoryID });//add the input category to the form object for sub-categorys
+    this.parentCategoryID = this.navParams.get('categoryID');//get the state from the previuse page
+    if (this.parentCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
+      this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
   }
+
+
+  /** check the value of sentece or nuon from the radio button list
+   * patch the right value to the category ID
+   * if this is a sentence the function retrive the sub category of the input category
+   * if this is a noun patch the input category ID.
+   */
+  private checkSentenceOrNoun() {
+    if (this.sentenceOrNoun == "sentence") {
+      console.log("you chooose sentence");
+      //TODO: Dor need to create the getSubCategoryID() method;
+      // let subCategory = getSubCategoryID(this.parentCategoryID);
+      // this._myForm.patchValue({ 'categoryID': subCategory });//add the input category to the form object for sub-categorys
+    } else if (this.sentenceOrNoun == "noun") {
+      console.log("you choose noun");
+      this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
+    }
+  }
+
+
 
   /** @returns the nikud array
    */
   public get getNikud() {
     return this._nikudArray;
-  }
-
-  /** display and alert on the screen with the input valuse
-   * @param headLine the head line for the alert display
-   * @param message the message that will display
-   */
-  showAlert(headLine: string, message: string) {
-    let alert = this._alertCtrl.create({
-      title: headLine,
-      subTitle: message,
-      buttons: ['אישור']
-    });
-    alert.present();
   }
 
   /**this function tack the input text from the 'text' input and add to it the proper 'nikud'
@@ -156,6 +174,10 @@ export class AddPhrasePage {
   onSubmit() {
     // use the form object to create new phares object and add it to the server
     if (!this._myForm.valid) { return; }
+
+
+    this.checkSentenceOrNoun();
+
     let returnObject;//can be Category or Phrase
     if (this.isCategory) {
       returnObject = new Category(this._myForm.controls['text'].value, "",
@@ -205,7 +227,6 @@ export class AddPhrasePage {
           handler: () => {
             console.log('search on line');
             //  connect to alex's google custom image search with the input text
-            this.showAlert("Hahaha", "Hohoho");
           }
         },
 
@@ -254,7 +275,7 @@ export class AddPhrasePage {
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
       }
     }, (err) => {
-      this.showAlert("לא הצלחנו לבחור תמונה....", err);
+      this.errorProvider.alert("לא הצלחנו לבחור תמונה....", err);
     });
   }
 
@@ -271,7 +292,7 @@ export class AddPhrasePage {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
     }, error => {
-      this.showAlert("לא הצלחנו לשמור את התמונה....", error);
+      this.errorProvider.alert("לא הצלחנו לשמור את התמונה....", error);
     });
   }
 
@@ -301,7 +322,7 @@ export class AddPhrasePage {
     if (data instanceof Error) {
       this.recording = false;
       this.micText = START_REC;
-      this.showAlert("לא הצלחנו לבצע הקלטה....", data.message);
+      this.errorProvider.alert("לא הצלחנו לבצע הקלטה....", data.message);
     } else {
       this.fileName = data;
     }
@@ -319,14 +340,14 @@ export class AddPhrasePage {
 
       if (data instanceof Error) {
         this.recording = false;
-        this.showAlert(data.message, "");
+        this.errorProvider.simpleTosat(data.message);
       } else {
         if (data == true) {
           this.recording = false;
           this._myForm.patchValue({ 'audioFile': this._audioRecordProvider.getFilePath() + this.fileName });//insert the capture audio file to the form 
         } else {
           this.recording = false;
-          this.showAlert("Error", "");
+          this.errorProvider.simpleTosat("קרתה תקלה");
         }
       }
     }
@@ -359,7 +380,7 @@ export class AddPhrasePage {
 
 
     if (data instanceof Error)
-      this.showAlert("לא הצלחנו להשמיע את ההקלטה....", data.message);
+      this.errorProvider.alert("לא הצלחנו להשמיע את ההקלטה....", data.message);
   }
 
   //stop the file in the current posision
@@ -367,80 +388,57 @@ export class AddPhrasePage {
     this.playing = !this.playing;
     let data = this._audioRecordProvider.stopAudio(this.fileName);
     if (data instanceof Error) {
-      this.showAlert("לא הצלחנו לעצור את ההקלטה....", data.message);
+      this.errorProvider.alert("לא הצלחנו לעצור את ההקלטה....", data.message);
       return;
     }
   }
 
-  //TODO:
   //use the http provider to get the audio file from the TTS server
   getAudioFromTTS() {
-    if (this._myForm.controls['text'].value == "" || !this.isHebrew(this._myForm.controls['text'].value)) {
-      this.showAlert("לא הוכנס משפט", null);
-    } else {
-       /* let tts_promise = new Promise((resolve, reject) => {
-        resolve(this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN)); // Yay! Everything went well!
-      });*/
-     
-     
-       /*tts_promise is the promise that make sure that we using the real recieved data from the TTS server
-        and not the promise object that the "get" HTTP request returns until the real data arive from the server.*/
-      let tts_promise=this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
-     //let "data" be the real data recieved from the TTS server- the audio file.
-      tts_promise.then((data) => {
-        /*TODO: "data" is the recieved audio file from the TTS server
-          after waiting to the tts_promise to be solved.
-        */
-        console.log("in add phrase page:\n" + data);
-        this._myForm.patchValue({ 'audioFile': data });//insert the capture audio file to the form 
-      })
+    this.errorProvider.toastWithButton("האופציה הזאת לא עובדת בגרסה הנוכחית", "");
+    return;
 
-    }
-  }
+    // // Deprecaed for this versoin
+    // if (this._myForm.controls['text'].value == "" || (this._myForm.controls['text'].value == undefined)) {
+    //   this.showAlert("לא הוכנס משפט", null);
+    // } else {
+    //    /* let tts_promise = new Promise((resolve, reject) => {
+    //     resolve(this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN)); // Yay! Everything went well!
+    //   });*/
 
-  /**check if a given text is in hebrew chars
-   * @param str - input text to check
-   * @returns - true if the input string is hebrew
-   *            false if not
-   */
-  private isHebrew(str): boolean {
-    let re = new RegExp(hebrewRegx);
-    if (re.test(str)) {
-      return true
-    } else {
-      return false;
-    }
+
+    //    /*tts_promise is the promise that make sure that we using the real recieved data from the TTS server
+    //     and not the promise object that the "get" HTTP request returns until the real data arive from the server.*/
+    //   let tts_promise=this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
+    //  //let "data" be the real data recieved from the TTS server- the audio file.
+    //   tts_promise.then((data) => {
+    //     /*TODO: "data" is the recieved audio file from the TTS server
+    //       after waiting to the tts_promise to be solved.
+    //     */
+    //     console.log("in add phrase page:\n" + data);
+    //     this._myForm.patchValue({ 'audioFile': data });//insert the capture audio file to the form 
+    //   })
+
+    // }
   }
 
 
   /********** Deprecaed ********************/
 
-  /*askForIneternetPermissions() {
-    this.androidPermissions.checkPermission(this.androidPermissions.PERMISSION.INTERNET)
-      .then((result) => {
-        if (result.hasPermission)
-          console.log('Has permission?', result.hasPermission);
-        else {
-          console.log("in else");
-          this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.INTERNET)
-        }
-      }).catch((err) => {
-        this.androidPermissions.requestPermission(this.androidPermissions.PERMISSION.INTERNET)
-      });
-  }
-
-  private saveFileToStorage() {
-    let savePath;
-    let name = this._audioRecordProvider.generateFileName();
-    console.log("tts file name is = " + name);
-    if (this.platform.is('ios')) {
-      savePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + name;
-    } else if (this.platform.is('android')) {
-      savePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + name;
-    }
-    this.audio = this.media.create(savePath);
-    console.log("save path is = " + savePath);
-  }*/
+  /*
+ 
+   private saveFileToStorage() {
+     let savePath;
+     let name = this._audioRecordProvider.generateFileName();
+     console.log("tts file name is = " + name);
+     if (this.platform.is('ios')) {
+       savePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + name;
+     } else if (this.platform.is('android')) {
+       savePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + name;
+     }
+     this.audio = this.media.create(savePath);
+     console.log("save path is = " + savePath);
+   }*/
 
 
 
