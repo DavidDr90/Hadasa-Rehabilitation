@@ -19,6 +19,17 @@
 
 </ion-header>
 
-<ion-content padding>
-  <phrase [phrase]="item" *ngFor="let item of phrases"></phrase>
-</ion-content>
+<ion-list>
+
+  <ion-item padding> 
+      <my-category (click)="openCategoryPhrases(item)" (press)= "removeSubCategory(item)"
+      [category] = "item" *ngFor = "let item of this.subCategories"> </my-category>
+    </ion-item>
+
+  <!-- the "press" event is just for debugging -->
+  <ion-item padding>
+    <phrase [phrase]="item" *ngFor="let item of phrases" (press)= "this.removePhrase(item)"></phrase>
+  </ion-item>
+
+  
+</ion-list>

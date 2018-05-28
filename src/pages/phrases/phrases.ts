@@ -6,6 +6,8 @@ import { Phrase } from '../../models/Phrase';
 
 import * as Enums from '../../consts/enums';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
+import { CategoriesPage } from '../categories/categories';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @IonicPage()
@@ -17,6 +19,7 @@ export class PhrasesPage {
 
   public parentCategory: Category;
   public phrases;
+  public subCategories;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -28,9 +31,38 @@ export class PhrasesPage {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
     console.log("perent is = " + this.parentCategory.id);
-    this.AsyncPhrasesloader();
+    this.AsyncPhrasesloader()
   }
 
+  //initial phrases array for ngFor and sub-categories array for ngFor
+  //promise is an Promise object that gets the return value only when its ready (await)
+  // from phrase provider.
+  //temp is an promise object that help to get the phrases from promis's resolve attr.
+  public AsyncPhrasesloader() {
+    let promise = this.phrasesProvider.getPhrases(this.parentCategory);
+    promise.then((data) => {
+      this.phrases = data;
+      this.phrasesProvider.phrases = data;
+    })
+    
+    let promise1 = this.categoryService.updateCategoriesArray();
+    promise1.then((data)=> {
+      this.subCategories = data.filter(cat => cat.parentCategoryID == this.parentCategory.id);
+    })
+  }
+
+  public removeSubCategory(category: Category){
+    this.categoryService.removeCategory(category);
+    this.AsyncPhrasesloader()
+  }
+
+  //popup the category's phrases's page, using for sub-catergories
+  public openCategoryPhrases(category: Category){
+    this.navCtrl.push(PhrasesPage, {
+      parentCategory: category
+    }); 
+  }
+  
 
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
@@ -47,19 +79,6 @@ export class PhrasesPage {
       this.AsyncPhrasesloader()
     }, 500)
   }
-
-  //initial phrases array for ngFor
-  //promise is an Promise object that gets the return value only when its ready (await)
-  // from phrase provider.
-  //temp is an promise object that help to get the phrases from promis's resolve attr.
-  public AsyncPhrasesloader() {
-    let promise = this.phrasesProvider.getPhrases(this.parentCategory);
-    promise.then((data) => {
-      this.phrases = data;
-      this.phrasesProvider.phrases = data;
-    })
-  }
-
 
   /**present Action Sheet when press the add button
    * let the user choose what he wants to add
@@ -119,6 +138,8 @@ export class PhrasesPage {
           // new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, item.categoryID, 0, false);
           this.categoryService.addCategory(item);
 
+          //refreshing the sub-categories in phrases page.
+          this.AsyncPhrasesloader()
         }
       }
     })

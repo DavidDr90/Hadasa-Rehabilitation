@@ -37,21 +37,21 @@ export class AppBuilderProvider {
    */
 
 
-   //getCategoryByName return promise object, so need an promise obj handle 
-  async createDefCat(name:string, imageURL:string, parentCategoryID:string){
-    let cat=new Category(name, "", imageURL, this.user.getEmail, parentCategoryID, 0, false);
-    this.categoryProvider.addCategory(cat);
+  //  //getCategoryByName return promise object, so need an promise obj handle 
+  // async createDefCat(name:string, imageURL:string, parentCategoryID:string){
+  //   let cat=new Category(name, "", imageURL, this.user.getEmail, parentCategoryID, 0, false);
+  //   this.categoryProvider.addCategory(cat);
 
-    let promise = await this.categoryProvider.getCategoriesByName("Holy Moly");
-    let temp = new Promise((resolve, reject) => {
-      resolve(promise);
-    });
-    temp.then((data) => {
-      this.tempCategory = data;
-      this.tempCategory as Category
-      console.log(this.tempCategory.id)
-    })
+  //   let promise = await this.categoryProvider.getCategoryByName("Holy Moly");
+  //   let temp = new Promise((resolve, reject) => {
+  //     resolve(promise);
+  //   });
+  //   temp.then((data) => {
+  //     this.tempCategory = data;
+  //     this.tempCategory as Category
+  //     console.log(this.tempCategory.id)
+  //   })
 
-   }
+  //  }
 
 }

@@ -7,6 +7,7 @@ import { PhrasesPage } from '../phrases/phrases';
 
 import * as Enums from '../../consts/enums';
 import { StorageProvider } from '../../providers/storage/storage';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 
 const isCategory = true;

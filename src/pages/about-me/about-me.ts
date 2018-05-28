@@ -28,7 +28,7 @@ export class AboutMePage {
     public modalCtrl: ModalController,) 
   {
     //getCategoriesByName return promise object
-    let promise = this.categoryProvider.getCategoriesByName('aboutMe');
+    let promise = this.categoryProvider.getCategoryByName('aboutMe');
     promise.then((data) =>{
       this.aboutMeCategory = data;
       this.aboutMeCategory as Category
@@ -38,6 +38,24 @@ export class AboutMePage {
       console.log("error import aboutme Category at aboutMe.ts");
     }))
   }
+
+  //fire each time this page is entered.
+  //
+  ionViewDidEnter() {
+    this.AsyncPhrasesloader();
+  }
+
+  //initial phrases array for ngFor
+  //promise is an Promise object that gets the return value only when its ready (await)
+  // from phrase provider.
+  //temp is an promise object that help to get the phrases from promis's resolve attr.
+  private AsyncPhrasesloader() {
+    let promise = this.phrasesProvider.getPhrases(this.aboutMeCategory);
+    promise.then((data) => {
+      this.phrases = data;
+    })
+  }
+
 
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
@@ -53,17 +71,6 @@ export class AboutMePage {
       this.phrasesProvider.removePhrase(phrase);
       this.AsyncPhrasesloader()
     }, 500)
-  }
-
-  //initial phrases array for ngFor
-  //promise is an Promise object that gets the return value only when its ready (await)
-  // from phrase provider.
-  //temp is an promise object that help to get the phrases from promis's resolve attr.
-  private AsyncPhrasesloader() {
-    let promise = this.phrasesProvider.getPhrases(this.aboutMeCategory);
-    promise.then((data) => {
-      this.phrases = data;
-    })
   }
 
   /**display the addPhrasePage and get the retrun object from the form.
