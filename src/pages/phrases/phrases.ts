@@ -19,6 +19,7 @@ export class PhrasesPage {
   public parentCategory: Category;
   public phrases;
   public subCategories;
+  public hasSubCategories:boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -48,6 +49,8 @@ export class PhrasesPage {
     let promise1 = this.categoryService.updateCategoriesArray();
     promise1.then((data)=> {
       this.subCategories = data.filter(cat => cat.parentCategoryID == this.parentCategory.id);
+      //dispaly the sub categories section only if there is at least one sub category
+      this.hasSubCategories = (this.subCategories.length > 0) ? true : false;//check if there is a sub category
     })
   }
 
@@ -91,27 +94,19 @@ export class PhrasesPage {
     }, 500)
   }
 
-
-  //initial phrases array for ngFor
-  //promise is an Promise object that gets the return value only when its ready (await)
-  // from phrase provider.
-  //temp is an promise object that help to get the phrases from promis's resolve attr.
-  public AsyncPhrasesloader() {
-    let promise = this.phrasesProvider.getPhrases(this.parentCategory);
-    promise.then((data) => {
-      this.phrases = data;
-      this.phrasesProvider.phrases = data;
-    })
-  }
-
+  /** When the add button pressed in a phrases page it can be in two different version
+   *  if this is a normal category the user can add phrase or sub-category
+   *  if this is a sub category the user can add only a phrase
+   * 
+   *  we check if this is a sub category by checking the parentCategoryID field in the category object
+   *  if there is a value there it means that this is a sub category 
+   *  if not this is a normal category
+   */
   addButtonPressed() {
-    debugger
     if (this.parentCategory.parentCategoryID == "")
       this.presentActionSheet();
     else
-      this.openAddPage(Enums.ADD_OPTIONS.CATEGORY);
-
-
+      this.openAddPage(Enums.ADD_OPTIONS.PHRASE);
   }
 
 
