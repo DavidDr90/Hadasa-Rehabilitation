@@ -7,6 +7,7 @@ import { FirebaseProvider } from '../../providers/firebase/firebase';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
+import { PhrasesPage } from '../phrases/phrases';
 
 
 @IonicPage()
@@ -18,6 +19,8 @@ export class AboutMePage {
 
   public aboutMeCategory: Category
   public phrases;
+  public subCategories;
+  public hasSubCategories: boolean = false
 
   constructor(public categoryProvider: CategoryServiceProvider,
     public db: FirebaseProvider,
@@ -25,15 +28,14 @@ export class AboutMePage {
     public auth: AutenticationProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController,) 
-  {
+    public modalCtrl: ModalController, ) {
     //getCategoriesByName return promise object
     let promise = this.categoryProvider.getCategoryByName('aboutMe');
-    promise.then((data) =>{
+    promise.then((data) => {
       this.aboutMeCategory = data;
       this.aboutMeCategory as Category
       this.AsyncPhrasesloader();
-    }).catch((e =>{
+    }).catch((e => {
       //TODO:error in about me
       console.log("error import aboutme Category at aboutMe.ts");
     }))
@@ -53,9 +55,23 @@ export class AboutMePage {
     let promise = this.phrasesProvider.getPhrases(this.aboutMeCategory);
     promise.then((data) => {
       this.phrases = data;
+      this.phrasesProvider.phrases = data;
+    })
+
+    let promise1 = this.categoryProvider.updateCategoriesArray();
+    promise1.then((data) => {
+      this.subCategories = data.filter(cat => cat.parentCategoryID == this.aboutMeCategory.id);
+      //dispaly the sub categories section only if there is at least one sub category
+      this.hasSubCategories = (this.subCategories.length > 0) ? true : false;//check if there is a sub category
     })
   }
-
+  
+  //popup the category's phrases's page, using for sub-catergories
+  public openCategoryPhrases(category: Category) {
+    this.navCtrl.push(PhrasesPage, {
+      parentCategory: category
+    });
+  }
 
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
