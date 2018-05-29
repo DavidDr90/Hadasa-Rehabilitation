@@ -1,27 +1,27 @@
- <ion-header>
+<ion-header>
 
-  <ion-navbar>
-    <ion-title>קטגוריות</ion-title>
+    <ion-navbar>
+        <ion-title>קטגוריות</ion-title>
 
-    <ion-buttons end>
-        <button ion-button icon-only (click)="edit()">
+        <ion-buttons end>
+            <button ion-button icon-only (click)="edit()">
           <ion-icon name="construct"></ion-icon>
         </button>
-      </ion-buttons>
-    <!-- add button in the end of the nav-bar -->
-    <ion-buttons end>
-      <button ion-button icon-only (click)="openAddPage()">
+        </ion-buttons>
+        <!-- add button in the end of the nav-bar -->
+        <ion-buttons end>
+            <button ion-button icon-only (click)="openAddPage()">
         <ion-icon name="add"></ion-icon>
       </button>
-    </ion-buttons>
+        </ion-buttons>
 
-  </ion-navbar>
-</ion-header> 
+    </ion-navbar>
+</ion-header>
 
 <!-- the "press" event is just for debugging -->
 <ion-content padding class="categories">
-    <my-category (click)="openCategoryPhrases(item)" (press)= "categoryService.removeCategory(item)"
+    <my-category (click)="openCategoryPhrases(item); catOnClick(item);" (press)= "categoryService.removeCategory(item)"
     [category] = "item" *ngFor = "let item of categoryService.getCategories"> </my-category>
+      <!-- <ion-checkbox (ionChange)="onClickStar(item)"></ion-checkbox> -->
+
 </ion-content>
-
-

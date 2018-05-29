@@ -9,7 +9,6 @@ import { CategoryServiceProvider } from '../../providers/category-service/catego
 import { CategoriesPage } from '../categories/categories';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
-
 @IonicPage()
 @Component({
   selector: 'page-phrases',
@@ -31,7 +30,8 @@ export class PhrasesPage {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
     console.log("perent is = " + this.parentCategory.id);
-    this.AsyncPhrasesloader()
+    this.AsyncPhrasesloader();
+
   }
 
   //initial phrases array for ngFor and sub-categories array for ngFor
@@ -64,6 +64,17 @@ export class PhrasesPage {
   }
   
 
+  /**on click method when the user click on a phrase
+   * the method check if to add the phrase to the common phrases list.
+   * @param phrase the phrase that clicked
+  */
+  /*public phraseOnClick(phrase:Phrase){
+    phrase.views++;
+    this.favProvider.addCommonFavPhrases(phrase);
+  }*/
+  //WAS MOVED to phrase.ts component which is clickable
+
+
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
     setTimeout(() => {
@@ -79,6 +90,30 @@ export class PhrasesPage {
       this.AsyncPhrasesloader()
     }, 500)
   }
+
+
+  //initial phrases array for ngFor
+  //promise is an Promise object that gets the return value only when its ready (await)
+  // from phrase provider.
+  //temp is an promise object that help to get the phrases from promis's resolve attr.
+  public AsyncPhrasesloader() {
+    let promise = this.phrasesProvider.getPhrases(this.parentCategory);
+    promise.then((data) => {
+      this.phrases = data;
+      this.phrasesProvider.phrases = data;
+    })
+  }
+
+  addButtonPressed() {
+    debugger
+    if (this.parentCategory.parentCategoryID == "")
+      this.presentActionSheet();
+    else
+      this.openAddPage(Enums.ADD_OPTIONS.CATEGORY);
+
+
+  }
+
 
   /**present Action Sheet when press the add button
    * let the user choose what he wants to add

@@ -19,7 +19,6 @@ export class Phrase extends Item {
     public audio: string;//????? the type need to be changed!!!!!
     public isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
 
-
     constructor(id: string, name: string, imageURL: string,
         categoryID: string, views: number, audio: string, isFav: boolean) {
         

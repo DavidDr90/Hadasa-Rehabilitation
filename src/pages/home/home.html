@@ -21,4 +21,11 @@
     <input type="file" (change)="storage.uploadFile($event)" /> {{storage.uploadPercentage}}
     <progress-bar [progress]="storage.uploadPercentage"> </progress-bar>
 
+    <!-- <favorites ></favorites> -->
+    <div>
+        <button (click)="this.appBuilderProvider.fillDB()">
+            click here to fill DB
+            </button>
+    </div>
+
 </ion-content>

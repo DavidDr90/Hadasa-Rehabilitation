@@ -48,7 +48,11 @@ export class FirebaseProvider {
     }
   }
 
-  //import all categories from DB to Observable object
+
+  /**
+   * import all categories from DB to Observable object
+   * @returns the categories array
+   */
   public importCategories()
   {
     //Creating the categories collection of the CURRENT USER!!!!!!!! ha ha
@@ -67,7 +71,12 @@ export class FirebaseProvider {
     }
   }
 
-  //import all phrases from DB to observable object.
+
+ /**
+   * import all phrases from DB to observable object.
+   * @returns the phrases array
+   */
+
   public importPhrases(category: Category)
   {
     try{
@@ -87,6 +96,7 @@ export class FirebaseProvider {
       }
   }
 
+  
   get getUsersObservable() {
     return this.users
   }
@@ -116,6 +126,7 @@ export class FirebaseProvider {
   }
 
   addPhrase(phrase: Phrase) {
+    console.log("before add is firebase.ts"); 
     return this.phrasesCollection.add(Phrase.toObject(phrase));
   }
 
