@@ -16,6 +16,7 @@
   </ion-navbar>
 </ion-header>
 
+<!-- the "press" event is just for debugging -->
 <ion-content padding>
-  <phrase [phrase]="item" *ngFor="let item of phrases"></phrase>
+  <phrase [phrase]="item" *ngFor="let item of phrases" (press)= "this.removePhrase(item)" > </phrase>
 </ion-content>

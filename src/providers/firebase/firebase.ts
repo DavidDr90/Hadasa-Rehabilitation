@@ -17,6 +17,11 @@ export class FirebaseProvider {
   categoryDoc: AngularFirestoreDocument<Category>;
   category: Observable<Category>;
 
+  // subCategoriesCollection: AngularFirestoreCollection<Category>;
+  // subCategories: Observable<Category[]> = new Observable<Category[]>()
+  // subCategoryDoc: AngularFirestoreDocument<Category>;
+  // subCategory: Observable<Category>;
+
   phrasesCollection: AngularFirestoreCollection<Phrase>;
   phrases: Observable<Phrase[]> = new Observable<Phrase[]>()
   phraseDoc: AngularFirestoreDocument<Phrase>;
@@ -43,7 +48,7 @@ export class FirebaseProvider {
     }
   }
 
- 
+
   /**
    * import all categories from DB to Observable object
    * @returns the categories array
@@ -66,10 +71,12 @@ export class FirebaseProvider {
     }
   }
 
+
  /**
    * import all phrases from DB to observable object.
    * @returns the phrases array
    */
+
   public importPhrases(category: Category)
   {
     try{

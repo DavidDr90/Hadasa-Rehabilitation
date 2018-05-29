@@ -18,9 +18,10 @@
     </ion-navbar>
 </ion-header>
 
-
-
+<!-- the "press" event is just for debugging -->
 <ion-content padding class="categories">
-    <my-category (click)="openCategoryPhrases(item); catOnClick(item);" [category]="item" *ngFor="let item of categoryService.getCategories"> </my-category>
-    <!-- <ion-checkbox (ionChange)="onClickStar(item)"></ion-checkbox> -->
+    <my-category (click)="openCategoryPhrases(item); catOnClick(item);" (press)= "categoryService.removeCategory(item)"
+    [category] = "item" *ngFor = "let item of categoryService.getCategories"> </my-category>
+      <!-- <ion-checkbox (ionChange)="onClickStar(item)"></ion-checkbox> -->
+
 </ion-content>

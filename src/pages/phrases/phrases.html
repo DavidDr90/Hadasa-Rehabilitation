@@ -20,6 +20,23 @@
 </ion-header>
 
 <ion-content padding>
-    <phrase [phrase]="item" *ngFor="let item of phrases"></phrase>
-    <!--onClick is in phrase.ts component, should work-->
+
+<ion-list>
+
+  <ion-item padding> 
+      <my-category (click)="openCategoryPhrases(item)" (press)= "removeSubCategory(item)"
+      [category] = "item" *ngFor = "let item of this.subCategories"> </my-category>
+    </ion-item>
+
+  <!-- the "press" event is just for debugging -->
+  <ion-item padding>
+    <phrase [phrase]="item" *ngFor="let item of phrases" (press)= "this.removePhrase(item)"></phrase>
+        <!--onClick is in phrase.ts component, should work-->
+
+  </ion-item>
+
+  
+</ion-list>
+
 </ion-content>
+

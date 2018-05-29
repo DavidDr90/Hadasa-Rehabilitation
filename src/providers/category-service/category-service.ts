@@ -13,21 +13,57 @@ import { FirebaseProvider } from '../firebase/firebase';
 export class CategoryServiceProvider {
 
   private categories = [];
+  
+  //categories that have parent category, and shown only at there parentCategory's page (next the phrases)
+  private subCategories = []
 
   //import categories collection from db and initialize categories attr.
   constructor(public firebaseProvider: FirebaseProvider) {
     this.updateCategoriesArray();
   }
 
-  private updateCategoriesArray() {
+  //updating the categories local arraies and refreshing the page. 
+  public updateCategoriesArray(): Promise<Category[]> {
     this.firebaseProvider.importCategories();
+    return new Promise((resolve, reject) => {
     this.firebaseProvider.getCategoriesObservable.subscribe(a => {
-      this.categories = a;
-    });
+        this.categories = a.filter(cat => cat.parentCategoryID == "");
+        resolve(this.subCategories = a.filter(cat => cat.parentCategoryID != ""))
+      })
+    })
   }
+  
 
   public get getCategories() {
     return this.categories;
+  }
+
+  // public getSubCategories(parentCategory: Category) {
+  //   return this.subCategories.filter(cat => cat.parentCategoryID == parentCategory.id);
+  // }
+
+    /**
+   * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @param n name of category
+   * @returns Promise object
+   */
+  public getSubCategoryByName(n: string): Promise<Category>{
+    return new Promise((resolve, reject) => {
+        resolve(this.subCategories.find(cat => cat.name == n));
+    })
+  }
+
+    /**
+   * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @param n name of category
+   * @returns Promise object
+   */
+  public getSubCategoryById(id: string): Promise<Category> {
+    return new Promise((resolve, reject) => {
+      resolve(this.subCategories.find(cat => cat.id === id));
+    })
   }
 
 
