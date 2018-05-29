@@ -71,6 +71,16 @@ export class PhrasesPage {
     })
   }
 
+  addButtonPressed() {
+    debugger
+    if (this.parentCategory.parentCategoryID == "")
+      this.presentActionSheet();
+    else
+      this.openAddPage(Enums.ADD_OPTIONS.CATEGORY);
+
+
+  }
+
 
   /**present Action Sheet when press the add button
    * let the user choose what he wants to add
