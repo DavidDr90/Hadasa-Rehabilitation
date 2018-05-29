@@ -81,8 +81,9 @@
       </ion-list>
     </div>
 
-    <div id="radioButtonForPhrase" *ngIf="!isCategory">
-      <ion-list radio-group [(ngModel)]="sentenceOrNoun" [ngModelOptions]="{standalone: true}">
+    <div id="radioButtonForPhrase" *ngIf="!isCategory" >
+      <ion-list radio-group [(ngModel)]="sentenceOrNoun" [ngModelOptions]="{standalone: true}" 
+      (ionChange)="checkSentenceOrNoun()">
         <ion-item>
           <ion-label>
             <ion-icon name="book"></ion-icon>

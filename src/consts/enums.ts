@@ -83,4 +83,6 @@ export const enum VOICE_OPTIONS {
 export const NUM_FAVORITES_CAT = 5
 export const NUM_FAVORITES_PHRASES = 10
 
+export const SENTENCES = "משפטים";
+export const NOUN = "שם עצם";
 

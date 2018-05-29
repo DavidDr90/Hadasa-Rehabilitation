@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { IonicPage, ActionSheetController, ViewController, NavParams } from 'ionic-angular';
+import { IonicPage, ActionSheetController, ViewController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
@@ -17,6 +17,7 @@ import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ErrorProvider } from '../../providers/error/error';
+import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 
 
 /** This page is a form to create Phrase or Category objects
@@ -47,10 +48,10 @@ const hebrewRegx = "[\u0590-\u05fe 0-9/\//ig.?!,/\\\\/ig@#$%^&*()]+$";//regex fo
 export class AddPhrasePage {
   @ViewChild('myTimer') timer;
 
-
+  private pleaseWaitLoadingWindow:any;
+  private isCategory: boolean = true;
 
   private duration: any;
-  private isCategory: boolean = true;
   private _myForm: FormGroup;
   private _curserPosition;
   private _nikudArray = Enums.NIKUD;
@@ -91,14 +92,20 @@ export class AddPhrasePage {
     public navParams: NavParams,
     public aAuth: AngularFireAuth,
     public errorProvider: ErrorProvider,
+    public categoryProvaider: CategoryServiceProvider,
+    public loadingCtrl: LoadingController,
   ) {
+    //create a loading window
+    this.pleaseWaitLoadingWindow = this.loadingCtrl.create({
+      content: 'אנא המתן...'
+    });
 
 
     //if we gote here from some categroy page and we want to add new phrase
     if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
       this.isCategory = false;
     }
-    
+
     //create the form object depend from where you arrived
     this._myForm = this._formBuilder.group({
       "text": ['', [Validators.required, Validators.minLength(1)]],//the text must be more the one char
@@ -117,15 +124,36 @@ export class AddPhrasePage {
    * patch the right value to the category ID
    * if this is a sentence the function retrive the sub category of the input category
    * if this is a noun patch the input category ID.
+   * @default categoryID if the user choose 'sentence' the phrase will automaticly be in the 'sentece' sub category
    */
   private checkSentenceOrNoun() {
     if (this.sentenceOrNoun == "sentence") {
-      console.log("you chooose sentence");
-      //TODO: Dor need to create the getSubCategoryID() method;
-      // let subCategory = getSubCategoryID(this.parentCategoryID);
-      // this._myForm.patchValue({ 'categoryID': subCategory });//add the input category to the form object for sub-categorys
+      let subCategory;
+      let promise = this.categoryProvaider.getSubCategoryByName(Enums.SENTENCES);//search for the 'משפטים' sub category
+      promise.then((data) => {
+        if (data == undefined) {
+          this.pleaseWaitLoadingWindow.present();//presnet the loading window
+          //create new 'משפטים' sub category
+          let newSentencesCategory = new Category(
+            Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
+            this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false);
+
+          this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
+          
+          setTimeout(()=> {
+            this.checkSentenceOrNoun();//reactived this function, now the data should have the new sentences category
+          }, 3000);
+          
+        } else {
+          subCategory = data.id;
+        }
+        if(subCategory){
+          this._myForm.patchValue({ 'categoryID': subCategory });//add the input category to the form object for sub-categorys
+          this.pleaseWaitLoadingWindow.dismiss();//close the loading window
+        }
+      });
+      
     } else if (this.sentenceOrNoun == "noun") {
-      console.log("you choose noun");
       this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
     }
   }
@@ -175,17 +203,15 @@ export class AddPhrasePage {
     // use the form object to create new phares object and add it to the server
     if (!this._myForm.valid) { return; }
 
-
-    this.checkSentenceOrNoun();
-
     let returnObject;//can be Category or Phrase
     if (this.isCategory) {
       returnObject = new Category(this._myForm.controls['text'].value, "",
-        this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,this._myForm.controls['categoryID'].value , 0, false);
+        this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
+          this._myForm.controls['categoryID'].value, 0, false);
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
-        0, this._myForm.controls['audioFile'].value, false);
+          0, this._myForm.controls['audioFile'].value, false);
     }
     this._myForm.reset();//reset the form
     this._viewCtrl.dismiss(returnObject);//return the new object
