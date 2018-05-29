@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { User } from '../../models/user';
+import { User } from '@firebase/auth-types';
+
 
 
 @Injectable()
 export class AutenticationProvider {
 
   user : User;
+
   loggedIn: boolean
   
   constructor(public afAuth: AngularFireAuth) {
@@ -39,33 +41,23 @@ export class AutenticationProvider {
     })
 }
 
-async signIn(user: User)
+async signIn(email, password)
 {
   try{
-    const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email,user.password).then(   
-    ok => {
-      console.log("email/pass sign in success", ok);
-  },
-  error => {
-      console.log("email/pass sign in error", error);
-  })
-
+    const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    console.log(result);
   }
   catch(e){
     console.log(e);
   }
 }
 
-async registerNewUser(user: User)
+async registerNewUser(email, password)
 {
   try{
-    const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password).then(   
-   ok => {
-      console.log("email/pass sign in success", ok);
-  },
-  error => {
-      console.log("email/pass sign in error", error);
-  });
+    
+    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    console.log(result);
   }
   catch(e){
     console.log(e);

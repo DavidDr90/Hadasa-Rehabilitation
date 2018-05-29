@@ -39,12 +39,13 @@ export class IntroSliderPage {
     // this.loading_sign = true;
     // The function toggleSignIn will connect the user with redirect-auth.
     // let promise = this.authentication.toggleSignIn(this.user);
-    this.authentication.signIn(this.user);
+    let logged_in = await this.authentication.signIn(this.user.email, this.user.password);
+
   }
 
   public register()
   {
-    this.authentication.registerNewUser(this.user);
+    this.authentication.registerNewUser(this.user.email, this.user.password);
   }
 }
 
