@@ -98,7 +98,7 @@ export class AddPhrasePage {
     if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
       this.isCategory = false;
     }
-
+    
     //create the form object depend from where you arrived
     this._myForm = this._formBuilder.group({
       "text": ['', [Validators.required, Validators.minLength(1)]],//the text must be more the one char
