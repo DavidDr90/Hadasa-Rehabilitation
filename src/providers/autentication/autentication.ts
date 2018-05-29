@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
-import { User } from '@firebase/auth-types';
+import { User } from '../../models/user';
+
 
 @Injectable()
 export class AutenticationProvider {
@@ -16,7 +17,7 @@ export class AutenticationProvider {
    * If the user not connected already it redirects him to the google-auth. (log-in).
    * If the user connected already this function will disconnect him (log-out).
   */
-  toggleSignIn() 
+  toggleSignIn(user) 
   {
     return new Promise((resolve,reject) => 
     {
@@ -24,20 +25,58 @@ export class AutenticationProvider {
       {
         console.log("Authentication not found !");
         var provider = new firebase.auth.GoogleAuthProvider();
-        
-        firebase.auth().signInWithRedirect(provider).then(()=>
+        firebase.auth().signInWithEmailAndPassword(user.email,user.password).then(()=>
         {
           resolve(true);
         })
       }
       else 
       {
-        console.log("Authentication found !");
+        console.log("Authentication found ]!");
         firebase.auth().signOut();
         resolve(false);
       }
     })
 }
+
+async signIn(user: User)
+{
+  try{
+    const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email,user.password).then(   
+    ok => {
+      console.log("email/pass sign in success", ok);
+  },
+  error => {
+      console.log("email/pass sign in error", error);
+  })
+
+  }
+  catch(e){
+    console.log(e);
+  }
+}
+
+async registerNewUser(user: User)
+{
+  try{
+    const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password).then(   
+   ok => {
+      console.log("email/pass sign in success", ok);
+  },
+  error => {
+      console.log("email/pass sign in error", error);
+  });
+  }
+  catch(e){
+    console.log(e);
+  }
+}
+
+async logOut()
+{
+  firebase.auth().signOut();
+}
+
 
   //OLD VERSION - KEEP IT ON COMMENT (ASK OR BEFORE DELETE IT).
 

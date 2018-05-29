@@ -46,7 +46,8 @@ export class HomePage {
     this.favoriteProvider=new FavoriteProvider(HomePage.favClass);
     
     //Sets the display name of the logged-in user
-    this.user_name = authentication.user.displayName;
+    // this.user_name = authentication.user.displayName;
+    this.user_name = authentication.user.getEmail;
     
   }
 
@@ -54,7 +55,8 @@ export class HomePage {
   // Disconnects google authentication and moves the user to the into-slider-page.
   logOut(){
     console.log("logging out");
-    this.authentication.toggleSignIn();
+    // this.authentication.toggleSignIn();
+    this.authentication.logOut()
     this.navCtrl.push(IntroSliderPage);
   }
 
