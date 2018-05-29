@@ -16,6 +16,9 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 })
 export class PhrasesPage {
 
+  //TODO: get the backgound color from the category object
+  backgroundColor = "black";
+
   public parentCategory: Category;
   public phrases;
   public subCategories;
@@ -33,6 +36,10 @@ export class PhrasesPage {
     console.log("perent is = " + this.parentCategory.id);
     this.AsyncPhrasesloader();
 
+  }
+
+  ionViewDidLoad(){
+    document.getElementById("content").style.backgroundColor = this.backgroundColor;//set the backgound color
   }
 
   //initial phrases array for ngFor and sub-categories array for ngFor

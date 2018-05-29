@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, Input } from '@angular/core';
 import { IonicPage, ActionSheetController, ViewController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
@@ -47,6 +47,7 @@ const hebrewRegx = "[\u0590-\u05fe 0-9/\//ig.?!,/\\\\/ig@#$%^&*()]+$";//regex fo
 })
 export class AddPhrasePage {
   @ViewChild('myTimer') timer;
+  @Input() backgroundColor;
 
   private pleaseWaitLoadingWindow:any;
   private isCategory: boolean = true;

@@ -60,9 +60,14 @@ export const NIKUD = [
 ];
 
 // TODO: add some colors from the client
+// please notice! if you add new color to this array make sure to updage the color section in cariables.scss
 export const COLOR_LIST = [
-    { "name": "שחור" },
-    { "name": "אדום" },
+    { "hebrewName": "שחור", "englishName": "black", "hexNumber": "#000000" },
+    { "hebrewName": "אדום", "englishName": "red", "hexNumber": "#FF0000" },
+    { "hebrewName": "ירוק", "englishName": "green", "hexNumber": "#008000" },
+    { "hebrewName": "כחול", "englishName": "blue", "hexNumber": "#0000FF" },
+    { "hebrewName": "צהוב", "englishName": "yellow", "hexNumber": "#FFFF00" },
+    { "hebrewName": "כתוב", "englishName": "orange", "hexNumber": "#FFA500" },
 ]
 
 //option for the addPhrasePage
