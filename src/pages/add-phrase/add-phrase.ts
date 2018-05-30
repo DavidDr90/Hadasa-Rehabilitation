@@ -49,7 +49,7 @@ export class AddPhrasePage {
   @ViewChild('myTimer') timer;
   @Input() backgroundColor;
 
-  private pleaseWaitLoadingWindow:any;
+  private pleaseWaitLoadingWindow: any;
   private isCategory: boolean = true;
 
   private duration: any;
@@ -140,20 +140,20 @@ export class AddPhrasePage {
             this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR);
 
           this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
-          
-          setTimeout(()=> {
+
+          setTimeout(() => {
             this.checkSentenceOrNoun();//reactived this function, now the data should have the new sentences category
           }, 3000);
-          
+
         } else {
           subCategory = data.id;
         }
-        if(subCategory){
+        if (subCategory) {
           this._myForm.patchValue({ 'categoryID': subCategory });//add the input category to the form object for sub-categorys
           this.pleaseWaitLoadingWindow.dismiss();//close the loading window
         }
       });
-      
+
     } else if (this.sentenceOrNoun == "noun") {
       this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
     }
@@ -206,13 +206,21 @@ export class AddPhrasePage {
 
     let returnObject;//can be Category or Phrase
     if (this.isCategory) {
+      //get the input color that the user choose, if the user didn't choose it set to defualt
+      if (this.categoryColor === undefined)
+        this.categoryColor = Enums.DEFUALT_CATEGORY_COLOR;
+      else {
+        this.categoryColor = Enums.COLOR_LIST.find((item) => item.hebrewName == this.categoryColor);//look for the right object in the colors array
+        this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
+      }
       returnObject = new Category(this._myForm.controls['text'].value, "",
         this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
-          this._myForm.controls['categoryID'].value, 0, false, Enums.DEFUALT_CATEGORY_COLOR);
+        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor);
+      
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
-          0, this._myForm.controls['audioFile'].value, false);
+        0, this._myForm.controls['audioFile'].value, false);
     }
     this._myForm.reset();//reset the form
     this._viewCtrl.dismiss(returnObject);//return the new object
