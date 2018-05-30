@@ -92,6 +92,6 @@ export const SENTENCES = "משפטים";
 export const NOUN = "שם עצם";
 
 export const DEFUALT_CATEGORY_COLOR = { "hebrewName": "לבן", 
-                                        "englishName": "white",
+                                        "englishName": "red",
                                         "hexNumber": "#FFFFFF" };
 

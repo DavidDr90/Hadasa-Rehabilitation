@@ -17,7 +17,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class PhrasesPage {
 
   //TODO: get the backgound color from the category object
-  backgroundColor = "black";
+  public backgroundColor: any;
 
   public parentCategory: Category;
   public phrases;
@@ -34,8 +34,8 @@ export class PhrasesPage {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
     console.log("perent is = " + this.parentCategory.id);
+    this.backgroundColor = this.parentCategory.color.englishName;
     this.AsyncPhrasesloader();
-
   }
 
   ionViewDidLoad(){
@@ -73,18 +73,6 @@ export class PhrasesPage {
     }); 
   }
   
-
-  /**on click method when the user click on a phrase
-   * the method check if to add the phrase to the common phrases list.
-   * @param phrase the phrase that clicked
-  */
-  /*public phraseOnClick(phrase:Phrase){
-    phrase.views++;
-    this.favProvider.addCommonFavPhrases(phrase);
-  }*/
-  //WAS MOVED to phrase.ts component which is clickable
-
-
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
     setTimeout(() => {
