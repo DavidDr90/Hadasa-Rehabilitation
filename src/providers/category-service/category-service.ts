@@ -57,8 +57,8 @@ export class CategoryServiceProvider {
         resolve(temp1)
       }
       catch(e){
-        console.log(e)
-        this.error.simpleTosat(e)
+        reject(undefined);
+        console.log(e);
       }
       })
   }
@@ -146,8 +146,8 @@ export class CategoryServiceProvider {
 
   public addCategory(category: Category) {
     //if there is no image provide with the phrase add a defult image
-    // if ((category.imageURL == "") || (category.imageURL == null) || (category.imageURL == undefined))
-    //   category.imageURL = "/assets/imgs/logo.png";//using the app logo for defult image
+    if ((category.imageURL == "") || (category.imageURL == null) || (category.imageURL == undefined))
+      category.imageURL = "/assets/imgs/logo.png";//using the app logo for defult image
     this.firebaseProvider.addCategory(category);
     this.updateCategoriesArray();
   }
