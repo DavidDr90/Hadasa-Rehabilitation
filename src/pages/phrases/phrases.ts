@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, LoadingController } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
@@ -30,12 +30,11 @@ export class PhrasesPage {
     public modalCtrl: ModalController,
     private _actionSheetCtrl: ActionSheetController,
     public categoryService: CategoryServiceProvider,
+    public loadingCtrl: LoadingController,
   ) {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
-    console.log("perent is = " + this.parentCategory.id);
     this.AsyncPhrasesloader();
-
   }
 
   ionViewDidLoad(){
@@ -52,7 +51,6 @@ export class PhrasesPage {
       this.phrases = data;
       this.phrasesProvider.phrases = data;
     })
-    
     let promise1 = this.categoryService.updateCategoriesArray();
     promise1.then((data)=> {
       this.subCategories = data.filter(cat => cat.parentCategoryID == this.parentCategory.id);
