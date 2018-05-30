@@ -45,6 +45,7 @@ export class Category extends Item {
         return this.parentCategoryID;
     }
 
+
     public toString(): string {
         return "category: \n" +
             "name: " + this.getName + "\n" +

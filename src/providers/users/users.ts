@@ -1,14 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FirebaseProvider } from '../firebase/firebase';
 import { User } from '@firebase/auth-types';
 
-/*
-  Generated class for the UsersProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class UsersProvider {
 

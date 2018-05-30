@@ -15,7 +15,7 @@ export const enum API_KEYS {
         https://developers.google.com/url-shortener/v1/getting_started
     */
     GOOGLE_URL_SHORTER_API_KEY = "",
-    
+
     /**
      * To enter the TTS system follow and sign-in in this link:
      * https://ttsapi.almagu.com/Account/Login?ReturnUrl=%2F
@@ -32,7 +32,7 @@ export const enum API_KEYS {
      */
     TTS_API_KEY = "998de9b6ffb24a0a95", //David's API
     TTS_ofek_API_KEY = "20199999a6ef42b8ba" //ofek's API
-    
+
 }
 
 
@@ -45,37 +45,49 @@ export const enum API_KEYS {
  * https://www.unicode.org/charts/PDF/U0590.pdf
  */
 export const NIKUD = [
-    { "name": "QAMATZ", "uniCode": "\u05B8" },
-    { "name": "SHEVA", "uniCode": "\u05B0" },
-    { "name": "DAGESH", "uniCode": "\u05BC" },
-    { "name": "PATAH", "uniCode": "\u05B7" },
-    { "name": "SEGOL", "uniCode": "\u05B6" },
-    { "name": "HATAF_PATAH", "uniCode": "\u05B2" },
-    { "name": "SHIN", "uniCode": "\u05C1" },
-    { "name": "SIN", "uniCode": "\u05C2" },
-    { "name": "TSERE", "uniCode": "\u05B5" },
-    { "name": "HOLAM", "uniCode": "\u05B9" },
-    { "name": "HIRIQ", "uniCode": "\u05B4" },
-    { "name": "QUBUTS", "uniCode": "\u05BB" }
+    { "name": "QAMATZ", "uniCode": "\u05B8", 'hebrewName': "קמץ" },
+    { "name": "SHEVA", "uniCode": "\u05B0", 'hebrewName': "שווא" },
+    { "name": "DAGESH", "uniCode": "\u05BC", 'hebrewName': "דגש" },
+    { "name": "PATAH", "uniCode": "\u05B7", 'hebrewName': "פתח" },
+    { "name": "SEGOL", "uniCode": "\u05B6", 'hebrewName': "סגול" },
+    // { "name": "HATAF_PATAH", "uniCode": "\u05B2", 'hebrewName': "חטף פתח" },
+    { "name": "SHIN", "uniCode": "\u05C1", 'hebrewName': "ש\u05C1ין" },
+    { "name": "SIN", "uniCode": "\u05C2", 'hebrewName': "ש\u05C2ין" },
+    { "name": "TSERE", "uniCode": "\u05B5", 'hebrewName': "צירי" },
+    { "name": "HOLAM", "uniCode": "\u05B9", 'hebrewName': "חולם" },
+    { "name": "HIRIQ", "uniCode": "\u05B4", 'hebrewName': "חיריק" },
+    { "name": "QUBUTS", "uniCode": "\u05BB", 'hebrewName': "קובוץ" }
 ];
 
+// TODO: add some colors from the client
+// please notice! if you add new color to this array make sure to updage the color section in cariables.scss
+export const COLOR_LIST = [
+    { "hebrewName": "שחור", "englishName": "black", "hexNumber": "#000000" },
+    { "hebrewName": "אדום", "englishName": "red", "hexNumber": "#FF0000" },
+    { "hebrewName": "ירוק", "englishName": "green", "hexNumber": "#008000" },
+    { "hebrewName": "כחול", "englishName": "blue", "hexNumber": "#0000FF" },
+    { "hebrewName": "צהוב", "englishName": "yellow", "hexNumber": "#FFFF00" },
+    { "hebrewName": "כתוב", "englishName": "orange", "hexNumber": "#FFA500" },
+]
 
 //option for the addPhrasePage
-export const enum ADD_OPTIONS{
+export const enum ADD_OPTIONS {
     CATEGORY = 1,
     PHRASE,
     NO_CATEGORY
 }
 
 //option for the TTS server
-export const enum VOICE_OPTIONS{
+export const enum VOICE_OPTIONS {
     SIVAN = "Sivan",
     GILAD = "Gilad-legacy",
 }
 
 
 //const value for number of favorite categories & phrases
-export const enum NUM_FAVORITES{
-    CAT=5,
-    PHRASES=10
-}
+export const NUM_FAVORITES_CAT = 5
+export const NUM_FAVORITES_PHRASES = 10
+
+export const SENTENCES = "משפטים";
+export const NOUN = "שם עצם";
+

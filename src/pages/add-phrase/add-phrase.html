@@ -45,9 +45,10 @@
     <ion-grid *ngIf="_needNikud">
       <ion-row>
         <ion-col col-auto *ngFor="let nikud of getNikud">
-          <button ion-button (click)="addNikudToText(nikud.uniCode)">
+          <button ion-button large (click)="addNikudToText(nikud.uniCode)">
             {{ nikud.uniCode }}
           </button>
+          <ion-title> {{ nikud.hebrewName }} </ion-title>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -77,6 +78,36 @@
             <ion-icon name="pause"></ion-icon>
           </button>
         </ion-item>
+      </ion-list>
+    </div>
+
+    <div id="radioButtonForPhrase" *ngIf="!isCategory">
+      <ion-list radio-group [(ngModel)]="sentenceOrNoun" [ngModelOptions]="{standalone: true}" (ionChange)="checkSentenceOrNoun()">
+        <ion-item>
+          <ion-label>
+            <ion-icon name="book"></ion-icon>
+            &nbsp; משפט
+          </ion-label>
+          <ion-radio value="sentence" color="secondary" checked="true"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <ion-icon name="rose"></ion-icon>
+            &nbsp; שם עצם
+          </ion-label>
+          <ion-radio value="noun" color="green"></ion-radio>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div id="radioButtonForCategories" *ngIf="isCategory">
+      <ion-list no-lines radio-group [(ngModel)]="categoryColor" [ngModelOptions]="{standalone: true}">
+        <!-- the backgound color will be in the same color has the name -->
+        <ion-item *ngFor="let color of colorList" color={{color.englishName}}>
+          <ion-label> {{color.hebrewName}}</ion-label>
+          <ion-radio value={{color.hebrewName}}></ion-radio>
+        </ion-item>
+
       </ion-list>
     </div>
 

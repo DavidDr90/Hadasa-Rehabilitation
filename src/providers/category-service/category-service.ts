@@ -78,6 +78,7 @@ export class CategoryServiceProvider {
     })
   }
 
+
   /**
    * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
    * for catching error use "promise.then().catch(e){...handling error...}"
