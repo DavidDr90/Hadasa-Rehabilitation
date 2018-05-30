@@ -130,7 +130,7 @@ export class AddPhrasePage {
   private checkSentenceOrNoun() {
     if (this.sentenceOrNoun == "sentence") {
       let subCategory;
-      let promise = this.categoryProvaider.getSubCategoryByName(Enums.SENTENCES);//search for the 'משפטים' sub category
+      let promise = this.categoryProvaider.getSubCategoryByName(this.parentCategoryID,Enums.SENTENCES);//search for the 'משפטים' sub category
       promise.then((data) => {
         if (data == undefined) {
           this.pleaseWaitLoadingWindow.present();//presnet the loading window

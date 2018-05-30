@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Category } from '../../models/Category';
 import { FirebaseProvider } from '../firebase/firebase';
 import { ErrorProvider } from '../error/error';
+import { UnsubscriptionError } from 'rxjs';
 
 /*
   Generated class for the CategoryServiceProvider provider.
@@ -23,7 +24,12 @@ export class CategoryServiceProvider {
     this.updateCategoriesArray();
   }
 
-  //updating the categories local arraies and refreshing the page. 
+   
+  /**
+   * updating the categories local arraies and refreshing the page, the method return a Promise object"
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @returns Promise object
+   */
   public updateCategoriesArray(): Promise<Category[]> {
     this.firebaseProvider.importCategories();
     return new Promise((resolve, reject) => {
@@ -34,50 +40,71 @@ export class CategoryServiceProvider {
     })
   }
   
+  /**
+   * get sub-category of specific category by its name, the method return a Promise object.
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @param parentCategory parent category id of the wanted sub-category
+   * @param name name of the wanted sub-category
+   * @returns Promise object
+   */
+  public getSubCategoryByName(parentCategoryID: string, name:string): Promise<Category>{
+    return new Promise((resolve, reject) => {
+      try{
+        let temp = this.subCategories.filter(cat => cat.parentCategoryID == parentCategoryID)
+        let temp1 = temp.find(cat => cat.name == name);
+        if(temp1 == undefined)
+          throw("The wanted category doesn't exist")
+        resolve(temp1)
+      }
+      catch(e){
+        console.log(e)
+        this.error.simpleTosat(e)
+      }
+      })
+  }
 
   public get getCategories() {
     return this.categories;
   }
 
-    /**
-   * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
-   * for catching error use "promise.then().catch(e){...handling error...}"
-   * @param n name of category
-   * @returns Promise object
-   */
-  public getSubCategoryByName(n: string): Promise<Category>{
-    return new Promise((resolve, reject) => {
-      try{
-        let temp = this.subCategories.find(cat => cat.name == n)
-        resolve(temp);
-      }
-      catch(e){
-        console.log(e)
-        this.error.simpleTosat("The wanted sub-category doesn't exist")
-      }
+  //   /**
+  //  * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
+  //  * for catching error use "promise.then().catch(e){...handling error...}"
+  //  * @param n name of category
+  //  * @returns Promise object
+  //  */
+  // public getSubCategoryByName(n: string): Promise<Category>{
+  //   return new Promise((resolve, reject) => {
+  //     try{
+  //       let temp = this.subCategories.find(cat => cat.name == n)
+  //       resolve(temp);
+  //     }
+  //     catch(e){
+  //       console.log(e)
+  //       this.error.simpleTosat("The wanted sub-category doesn't exist")
+  //     }
 
-    })
-  }
+  //   })
+  // }
 
-    /**
-   * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
-   * for catching error use "promise.then().catch(e){...handling error...}"
-   * @param n name of category
-   * @returns Promise object
-   */
-  public getSubCategoryById(id: string): Promise<Category> {
-    return new Promise((resolve, reject) => {
-      try{
-        let temp = this.subCategories.find(cat => cat.id === id);
-        resolve(temp);
-      }
-      catch(e){
-        console.log(e)
-        this.error.simpleTosat("The wanted sub-category doesn't exist")
-      }
-    })
-  }
-
+  //   /**
+  //  * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
+  //  * for catching error use "promise.then().catch(e){...handling error...}"
+  //  * @param n name of category
+  //  * @returns Promise object
+  //  */
+  // public getSubCategoryById(id: string): Promise<Category> {
+  //   return new Promise((resolve, reject) => {
+  //     try{
+  //       let temp = this.subCategories.find(cat => cat.id === id);
+  //       resolve(temp);
+  //     }
+  //     catch(e){
+  //       console.log(e)
+  //       this.error.simpleTosat("The wanted sub-category doesn't exist")
+  //     }
+  //   })
+  // }
 
   /**
    * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
