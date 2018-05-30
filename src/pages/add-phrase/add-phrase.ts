@@ -130,36 +130,31 @@ export class AddPhrasePage {
   private checkSentenceOrNoun() {
     if (this.sentenceOrNoun == "sentence") {
       let subCategory;
-      let promise = this.categoryProvaider.getSubCategoryByName(this.parentCategoryID,Enums.SENTENCES);//search for the 'משפטים' sub category
+      let promise = this.categoryProvaider.getSubCategoryByName(this.parentCategoryID, Enums.SENTENCES);//search for the 'משפטים' sub category
       promise.then((data) => {
-        if (data == undefined) {
-          this.pleaseWaitLoadingWindow.present();//presnet the loading window
-          //create new 'משפטים' sub category
-          let newSentencesCategory = new Category(
-            Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
-            this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR);
-
-          this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
-
-          setTimeout(() => {
-            this.checkSentenceOrNoun();//reactived this function, now the data should have the new sentences category
-          }, 3000);
-
-        } else {
-          subCategory = data.id;
-        }
+        subCategory = data.id;
         if (subCategory) {
           this._myForm.patchValue({ 'categoryID': subCategory });//add the input category to the form object for sub-categorys
           this.pleaseWaitLoadingWindow.dismiss();//close the loading window
         }
+      }).catch(() => {
+        this.pleaseWaitLoadingWindow.present();//presnet the loading window
+        //create new 'משפטים' sub category
+        let newSentencesCategory = new Category(
+          Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
+          this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR);
+
+        this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
+
+        setTimeout(() => {
+          this.checkSentenceOrNoun();//reactived this function, now the data should have the new sentences category
+        }, 1000);
       });
 
     } else if (this.sentenceOrNoun == "noun") {
       this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
     }
   }
-
-
 
   /** @returns the nikud array
    */
@@ -216,7 +211,7 @@ export class AddPhrasePage {
       returnObject = new Category(this._myForm.controls['text'].value, "",
         this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
         this._myForm.controls['categoryID'].value, 0, false, this.categoryColor);
-      
+
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,

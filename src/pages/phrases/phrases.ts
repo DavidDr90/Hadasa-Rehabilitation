@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, Loading } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
@@ -38,6 +38,7 @@ export class PhrasesPage {
     this.AsyncPhrasesloader();
   }
 
+  //TODO:fix the background color
   ionViewDidLoad(){
     document.getElementById("content").style.backgroundColor = this.backgroundColor;//set the backgound color
   }
@@ -51,6 +52,7 @@ export class PhrasesPage {
     promise.then((data) => {
       this.phrases = data;
       this.phrasesProvider.phrases = data;
+      
     })
     
     let promise1 = this.categoryService.updateCategoriesArray();
@@ -159,10 +161,7 @@ export class PhrasesPage {
           //   new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
           this.addPhrase(item);//upload the new phase to the DB and refresh the screen
         } else if (fromWhere == Enums.ADD_OPTIONS.CATEGORY) {
-          // let newSubCategory =
-          // new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, item.categoryID, 0, false);
           this.categoryService.addCategory(item);
-
           //refreshing the sub-categories in phrases page.
           this.AsyncPhrasesloader()
         }
