@@ -59,7 +59,7 @@ export class AboutMeFormPage {
     //create new category aboutMe and add it to DB
     this.aboutMeCategory =
       new Category(ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "", 0, false);
-    this.categoryProvider.addCategory(this.aboutMeCategory);
+    // this.categoryProvider.addCategory(this.aboutMeCategory);
     console.log("constructor ends")
   }
 
