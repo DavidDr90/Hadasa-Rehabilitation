@@ -43,14 +43,14 @@ export class CategoryServiceProvider {
   /**
    * get sub-category of specific category by its name, the method return a Promise object.
    * for catching error use "promise.then().catch(e){...handling error...}"
-   * @param parentCategory parent category of the wanted sub-category
+   * @param parentCategory parent category id of the wanted sub-category
    * @param name name of the wanted sub-category
    * @returns Promise object
    */
-  public getSubCategory(parentCategory: Category, name:string): Promise<Category>{
+  public getSubCategoryByName(parentCategoryID: string, name:string): Promise<Category>{
     return new Promise((resolve, reject) => {
       try{
-        let temp = this.subCategories.filter(cat => cat.parentCategoryID == parentCategory.id)
+        let temp = this.subCategories.filter(cat => cat.parentCategoryID == parentCategoryID)
         let temp1 = temp.find(cat => cat.name == name);
         if(temp1 == undefined)
           throw("The wanted category doesn't exist")
