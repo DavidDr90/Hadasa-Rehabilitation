@@ -5,6 +5,7 @@ import { Category } from '../../models/Category';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { Observable } from 'rxjs/Observable';
 import { Phrase } from '../../models/Phrase';
+import { ErrorProvider } from '../error/error';
 
 @Injectable()
 export class FirebaseProvider {
@@ -17,17 +18,12 @@ export class FirebaseProvider {
   categoryDoc: AngularFirestoreDocument<Category>;
   category: Observable<Category>;
 
-  // subCategoriesCollection: AngularFirestoreCollection<Category>;
-  // subCategories: Observable<Category[]> = new Observable<Category[]>()
-  // subCategoryDoc: AngularFirestoreDocument<Category>;
-  // subCategory: Observable<Category>;
-
   phrasesCollection: AngularFirestoreCollection<Phrase>;
   phrases: Observable<Phrase[]> = new Observable<Phrase[]>()
   phraseDoc: AngularFirestoreDocument<Phrase>;
   phrase: Observable<Phrase>;
 
-  constructor(public afs: AngularFirestore, public authentication: AutenticationProvider) {
+  constructor(public afs: AngularFirestore, public authentication: AutenticationProvider, public error: ErrorProvider) {
     //first import the users collection , mainly to get the current users's attrs.
     this.importUsers()
   }
@@ -45,6 +41,7 @@ export class FirebaseProvider {
     }
     catch(e){
       console.log(e.message)
+      this.error.simpleTosat("Connection error");
     }
   }
 
@@ -68,6 +65,7 @@ export class FirebaseProvider {
     }
     catch(e){
       console.log(e.message)
+      this.error.simpleTosat("Connection error");
     }
   }
 
@@ -93,6 +91,7 @@ export class FirebaseProvider {
     }
       catch(e){
         console.log(e.message)
+        this.error.simpleTosat("Connection error");
       }
   }
 
@@ -110,14 +109,20 @@ export class FirebaseProvider {
   }
 
   addCategory(category: Category) {    
-    return this.categoriesCollection.add(Category.toObject(category));
+    return this.categoriesCollection.add(Category.toObject(category)).then(function(){
+      console.log("Document successfully added");
+    }).catch(function(e){
+      console.error("Error adding document: ", e);
+      this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
+    })
   }
 
   removeCategory(category: Category){
     this.categoriesCollection.doc(category.id ).delete().then(function() {
       console.log("Document successfully deleted!");
-  }).catch(function(error) {
-      console.error("Error removing document: ", error);
+  }).catch(function(e) {
+      console.error("Error removing document: ", e);
+      this.error.simpleTosat("מחיקה נכשלה, בעיית התחברות");
   });
   }
 
@@ -126,15 +131,21 @@ export class FirebaseProvider {
   }
 
   addPhrase(phrase: Phrase) {
-    console.log("before add is firebase.ts"); 
-    return this.phrasesCollection.add(Phrase.toObject(phrase));
+    return this.phrasesCollection.add(Phrase.toObject(phrase)).then(function(){
+      console.log("Document successfully added");
+    }).catch(function(e){
+      console.error("Error adding document: ", e);
+      this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
+    })
+
   }
 
   removePhrase(phrase: Phrase){
     this.phrasesCollection.doc(phrase.id).delete().then(function() {
       console.log("Document successfully deleted!");
-  }).catch(function(error) {
-      console.error("Error removing document: ", error);
+  }).catch(function(e) {
+      console.error("Error removing document: ", e);
+      this.error.simpleTosat("מחיקה נכשלה, בעיית התחברות");
   });
   }
 
@@ -143,8 +154,13 @@ export class FirebaseProvider {
    * @param phrase, the phrase with a new properties
    */
   updatePhrase(phrase: Phrase){
-    this.phraseDoc = this.afs.doc<Phrase>('phrases/${phrase.id}');
-    this.phrase = this.phraseDoc.valueChanges();
+    try{
+      this.phraseDoc = this.afs.doc<Phrase>('phrases/${phrase.id}');
+      this.phrase = this.phraseDoc.valueChanges();
+    }
+    catch(e){
+      console.error("Error updating document: ", e);
+    }
   }
 
     /**
@@ -152,8 +168,13 @@ export class FirebaseProvider {
    * @param category, the category with a new properties
    */
   updateCategory(category: Category){
+    try{
     this.categoryDoc = this.afs.doc<Category>('categories/${category.id}');
     this.category = this.categoryDoc.valueChanges();
+    }
+  catch(e){
+    console.error("Error updating document: ", e);
+  }
   }
 
 }

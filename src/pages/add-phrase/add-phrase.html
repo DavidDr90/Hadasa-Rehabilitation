@@ -82,7 +82,7 @@
     </div>
 
     <div id="radioButtonForPhrase" *ngIf="!isCategory">
-      <ion-list radio-group [(ngModel)]="sentenceOrNoun" [ngModelOptions]="{standalone: true}">
+      <ion-list radio-group [(ngModel)]="sentenceOrNoun" [ngModelOptions]="{standalone: true}" (ionChange)="checkSentenceOrNoun()">
         <ion-item>
           <ion-label>
             <ion-icon name="book"></ion-icon>
@@ -100,13 +100,14 @@
       </ion-list>
     </div>
 
-    <!-- TODO: make the backgound color same has the color name -->
     <div id="radioButtonForCategories" *ngIf="isCategory">
-      <ion-list radio-group [(ngModel)]="categoryColor" [ngModelOptions]="{standalone: true}">
-        <ion-item *ngFor="let color of colorList">
-          <ion-label> {{color.name}}</ion-label>
-          <ion-radio value={{color.name}} color={{color.name}}></ion-radio>
+      <ion-list no-lines radio-group [(ngModel)]="categoryColor" [ngModelOptions]="{standalone: true}">
+        <!-- the backgound color will be in the same color has the name -->
+        <ion-item *ngFor="let color of colorList" color={{color.englishName}}>
+          <ion-label> {{color.hebrewName}}</ion-label>
+          <ion-radio value={{color.hebrewName}}></ion-radio>
         </ion-item>
+
       </ion-list>
     </div>
 

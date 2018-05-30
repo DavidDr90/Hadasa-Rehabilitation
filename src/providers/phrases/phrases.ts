@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Phrase } from '../../models/Phrase';
 import { FirebaseProvider } from '../firebase/firebase';
 import { Category } from '../../models/Category';
+import { ErrorProvider } from '../error/error';
 
 
 @Injectable()
@@ -11,7 +12,7 @@ export class PhrasesProvider {
   phrases: any;
   categoryName: any;
 
-  constructor(public firebaseProvider: FirebaseProvider) {
+  constructor(public firebaseProvider: FirebaseProvider,public error: ErrorProvider) {
   }
 
   //first,calling import of all category's phrases.
@@ -36,7 +37,14 @@ export class PhrasesProvider {
    */
   public getPhraseByName(n: string): Promise<Phrase>{
     return new Promise((resolve, reject) => {
-        resolve(this.phrases.find(phrs => phrs.name == n));
+      try{
+        let temp = this.phrases.find(phrs => phrs.name == n);
+        resolve(temp)
+      }
+      catch(e){
+        console.log(e)
+        this.error.simpleTosat("The wanted category doesn't exist")
+      }
     })
   }
   
@@ -48,7 +56,14 @@ export class PhrasesProvider {
    */
   public getPhraseById(id: string): Promise<Phrase>{
     return new Promise((resolve, reject) => {
-        resolve(this.phrases.find(phrs => phrs.id === id));
+      try{
+        let temp = this.phrases.find(phrs => phrs.id === id)
+        resolve(temp)
+      }
+      catch(e){
+        console.log(e)
+        this.error.simpleTosat("The wanted category doesn't exist")
+      }
     })
   }
   
@@ -64,6 +79,32 @@ export class PhrasesProvider {
     this.firebaseProvider.removePhrase(phrase);
   }
 
-
+   //SETTERS
+   public setName(phrase:Phrase, newName: string) {
+    phrase.name = newName;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public setImageUrl(phrase:Phrase, newURL: string) {
+    phrase.imageURL = newURL;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public setAudioUrl(phrase:Phrase, newURL: string) {
+    phrase.audio = newURL;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public setCategoryID(phrase:Phrase, newCategoryParent: string) {
+    phrase.categoryID = newCategoryParent;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public setIsFav(phrase:Phrase, isFav: boolean) {
+    phrase.isFav = isFav;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  //each time a category has chosen, her views increase by 1.
+  public increaseViews(phrase:Phrase) {
+    phrase.views++;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  
 
 }

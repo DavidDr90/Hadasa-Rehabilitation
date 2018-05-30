@@ -5,6 +5,7 @@ import { User } from '../../models/user'
 import { HomePage } from '../../pages/home/home';
 import { PhrasesProvider } from '../phrases/phrases';
 import { CategoryServiceProvider } from '../category-service/category-service';
+import * as Enums from '../../consts/enums';
 
 /**
  * this provider create the defult categorys and phrases when the app is first load
@@ -42,7 +43,7 @@ export class AppBuilderProvider {
    * @returns the new category ID.
    */
   createDefCat(name:string, imageURL:string, parentCategoryID:string, userEmail:string){
-    let cat=new Category(name, "", imageURL, userEmail, parentCategoryID, 0, false);
+    let cat=new Category(name, "", imageURL, userEmail, parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR);
     this.categoryProvider.addCategory(cat);
    }
 

@@ -53,10 +53,7 @@ export class CategoriesPage {
     });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
-        console.log(item);
-        //create a new cateogry
-        let newCategory = item;
-        this.categoryService.addCategory(newCategory);//upload the new category to the DB
+        this.categoryService.addCategory(item);//upload the new category to the DB
       }
     })
     addModal.present();//present the addPhrasePage

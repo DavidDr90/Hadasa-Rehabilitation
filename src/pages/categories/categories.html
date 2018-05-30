@@ -1,8 +1,6 @@
 <ion-header>
-
     <ion-navbar>
         <ion-title>קטגוריות</ion-title>
-
         <ion-buttons end>
             <button ion-button icon-only (click)="edit()">
           <ion-icon name="construct"></ion-icon>
@@ -14,14 +12,14 @@
         <ion-icon name="add"></ion-icon>
       </button>
         </ion-buttons>
-
     </ion-navbar>
 </ion-header>
 
 <!-- the "press" event is just for debugging -->
 <ion-content padding class="categories">
-    <my-category (click)="openCategoryPhrases(item); catOnClick(item);" (press)= "categoryService.removeCategory(item)"
-    [category] = "item" *ngFor = "let item of categoryService.getCategories"> </my-category>
+    <div *ngFor = "let item of categoryService.getCategories">
+        <my-category *ngIf = "item.name != 'aboutMe'" [category] = "item" (click)="openCategoryPhrases(item); catOnClick(item);" (press)= "categoryService.removeCategory(item)"></my-category>
+    </div>
       <!-- <ion-checkbox (ionChange)="onClickStar(item)"></ion-checkbox> -->
 
 </ion-content>
