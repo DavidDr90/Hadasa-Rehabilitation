@@ -12,7 +12,8 @@ export class Category extends Item {
         public userEmail: string, //the email of the user that have this category
         public parentCategoryID: string, //if not NULL, the ID of the parent category of this sub category
         public views: number, //the number of the times the user clicked the category
-        public isFav: boolean// TRUE if this category is one of the user selected favorite categories. else, FALSE.
+        public isFav: boolean, // TRUE if this category is one of the user selected favorite categories. else, FALSE.
+        public color: any, //the background color for the category
     ) {
         super()
     }

@@ -67,7 +67,7 @@ export const COLOR_LIST = [
     { "hebrewName": "ירוק", "englishName": "green", "hexNumber": "#008000" },
     { "hebrewName": "כחול", "englishName": "blue", "hexNumber": "#0000FF" },
     { "hebrewName": "צהוב", "englishName": "yellow", "hexNumber": "#FFFF00" },
-    { "hebrewName": "כתוב", "englishName": "orange", "hexNumber": "#FFA500" },
+    { "hebrewName": "כתום", "englishName": "orange", "hexNumber": "#FFA500" },
 ]
 
 //option for the addPhrasePage
@@ -90,4 +90,8 @@ export const NUM_FAVORITES_PHRASES = 10
 
 export const SENTENCES = "משפטים";
 export const NOUN = "שם עצם";
+
+export const DEFUALT_CATEGORY_COLOR = { "hebrewName": "לבן", 
+                                        "englishName": "white",
+                                        "hexNumber": "#FFFFFF" };
 
