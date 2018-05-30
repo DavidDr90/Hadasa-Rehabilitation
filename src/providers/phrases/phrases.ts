@@ -79,6 +79,32 @@ export class PhrasesProvider {
     this.firebaseProvider.removePhrase(phrase);
   }
 
-
+   //SETTERS
+   public setName(phrase:Phrase, newName: string) {
+    phrase.name = newName;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public setImageUrl(phrase:Phrase, newURL: string) {
+    phrase.imageURL = newURL;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public setAudioUrl(phrase:Phrase, newURL: string) {
+    phrase.audio = newURL;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public setCategoryID(phrase:Phrase, newCategoryParent: string) {
+    phrase.categoryID = newCategoryParent;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public setIsFav(phrase:Phrase, isFav: boolean) {
+    phrase.isFav = isFav;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  //each time a category has chosen, her views increase by 1.
+  public increaseViews(phrase:Phrase) {
+    phrase.views++;
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  
 
 }
