@@ -7,9 +7,9 @@ export class Item{
 
 export class User extends Item{
 
-    constructor(
-        public email : string = "",
-    )
+    email: string;
+    password: string;
+    constructor()
     {
         super()
     }
@@ -19,13 +19,16 @@ export class User extends Item{
         return this.email;
     }
 
-    public static copy(obj): User{
-        return new User(obj.email)
+
+    SetEmail(new_email)
+    {
+        this.email = new_email
     }
 
-    public Clone()
+    
+    SetPassword(new_password)
     {
-        return new User(this.email);
+        this.password = new_password
     }
 
     public toString()
