@@ -47,7 +47,7 @@ export class HomePage {
     
     //Sets the display name of the logged-in user
     // this.user_name = authentication.user.displayName;
-    this.user_name = authentication.user.getEmail;
+    this.user_name = authentication.user.email;
     
   }
 
