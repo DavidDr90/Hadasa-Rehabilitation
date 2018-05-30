@@ -58,7 +58,7 @@ export class AboutMeFormPage {
     //we stay on this page, so we need to create an aboutMe category
     //create new category aboutMe and add it to DB
     this.aboutMeCategory =
-      new Category(ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "", 0, false);
+      new Category(ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR);
     // this.categoryProvider.addCategory(this.aboutMeCategory);
     console.log("constructor ends")
   }
