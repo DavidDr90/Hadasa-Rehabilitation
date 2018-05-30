@@ -108,7 +108,6 @@ import { ErrorProvider } from '../providers/error/error';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     NativeAudio,
-    CategoryServiceProvider,
     PhrasesProvider,
     HTTP,
     Media,
