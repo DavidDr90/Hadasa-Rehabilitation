@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Category } from '../../models/Category';
 import { FirebaseProvider } from '../firebase/firebase';
+import { ErrorProvider } from '../error/error';
 
 /*
   Generated class for the CategoryServiceProvider provider.
@@ -18,7 +19,7 @@ export class CategoryServiceProvider {
   private subCategories = []
 
   //import categories collection from db and initialize categories attr.
-  constructor(public firebaseProvider: FirebaseProvider) {
+  constructor(public firebaseProvider: FirebaseProvider, public error: ErrorProvider) {
     this.updateCategoriesArray();
   }
 
@@ -38,10 +39,6 @@ export class CategoryServiceProvider {
     return this.categories;
   }
 
-  // public getSubCategories(parentCategory: Category) {
-  //   return this.subCategories.filter(cat => cat.parentCategoryID == parentCategory.id);
-  // }
-
     /**
    * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
    * for catching error use "promise.then().catch(e){...handling error...}"
@@ -50,7 +47,15 @@ export class CategoryServiceProvider {
    */
   public getSubCategoryByName(n: string): Promise<Category>{
     return new Promise((resolve, reject) => {
-        resolve(this.subCategories.find(cat => cat.name == n));
+      try{
+        let temp = this.subCategories.find(cat => cat.name == n)
+        resolve(temp);
+      }
+      catch(e){
+        console.log(e)
+        this.error.simpleTosat("The wanted sub-category doesn't exist")
+      }
+
     })
   }
 
@@ -62,7 +67,14 @@ export class CategoryServiceProvider {
    */
   public getSubCategoryById(id: string): Promise<Category> {
     return new Promise((resolve, reject) => {
-      resolve(this.subCategories.find(cat => cat.id === id));
+      try{
+        let temp = this.subCategories.find(cat => cat.id === id);
+        resolve(temp);
+      }
+      catch(e){
+        console.log(e)
+        this.error.simpleTosat("The wanted sub-category doesn't exist")
+      }
     })
   }
 
@@ -75,7 +87,14 @@ export class CategoryServiceProvider {
    */
   public getCategoryByName(n: string): Promise<Category>{
     return new Promise((resolve, reject) => {
-        resolve(this.categories.find(cat => cat.name == n));
+    try{
+        let temp = this.categories.find(cat => cat.name == n);
+        resolve(temp);
+    }
+    catch(e){
+      console.log(e)
+      this.error.simpleTosat("The wanted category doesn't exist")
+    }
     })
   }
   
@@ -87,7 +106,14 @@ export class CategoryServiceProvider {
    */
   public getCategoryById(id: string): Promise<Category> {
     return new Promise((resolve, reject) => {
-      resolve(this.categories.find(cat => cat.id === id));
+      try{
+        let temp = this.categories.find(cat => cat.id === id)
+        resolve(temp)
+      }
+      catch(e){
+        console.log(e)
+        this.error.simpleTosat("The wanted category doesn't exist")
+      }
     })
   }
 
