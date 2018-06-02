@@ -147,29 +147,42 @@ export class FavoriteProvider {
 //===================================
 /**add new category to favorites.
   * @param cat, the category that the user wants to add to the favorite categories list
+  * @returns 0 in case of success, -1 in case of failure
   * */
   add_fav_cat(cat){
+    console.log("in add fav cat")
     // check if there is a free place for the category on the favorites categories list
-    if(this.fav.chosen_fav_cat.length==Enums.NUM_FAVORITES_CAT)
+    if(this.fav.chosen_fav_cat.length==Enums.NUM_FAVORITES_CAT){
       alert("you cant choose more then "+Enums.NUM_FAVORITES_CAT+"favorite categories");//no place, error message to the user
+      return -1;
+    }
+      
     else{
       this.fav.chosen_fav_cat[this.fav.chosen_fav_cat.length]=cat;//there is a place, category added successfuly.
-      cat.isFav=(true);
+      cat.isFav=true;
     }
+    console.log("phrase fav list:")
+    console.log(this.fav.chosen_fav_cat)
+    return 0;
   }
           
 //===================================
 /**add new phrase to favorites.
   * @param phrase, the phrase that the user wants to add to the favorite phrases list
+  * @returns 0 in case of success, -1 if the list is full.
   * */
   add_fav_phrase(phrase){
     //check if there is a free place for the phrase on the favorites phrases list
-    if(this.fav.chosen_fav_phrases.length==Enums.NUM_FAVORITES_PHRASES)
+    if(this.fav.chosen_fav_phrases.length==Enums.NUM_FAVORITES_PHRASES){
       alert("you cant choose more then "+Enums.NUM_FAVORITES_PHRASES+"favorite phrases");//no place, error message to the user
+      return -1;
+
+    }
     else{
       this.fav.chosen_fav_phrases[this.fav.chosen_fav_phrases.length]=phrase;//there is a place, phrase added successfuly.
       phrase.isFav=(true);
     }
+    return 0;
 }
           
 //===================================
@@ -178,6 +191,7 @@ export class FavoriteProvider {
   * */
   remove_fav_cat(cat){
     let i;
+    console.log("in remove fav cat")
     //find the index of cat in the categories favorite list
     for(i=0; i<this.fav.chosen_fav_cat.length; i++)
       if(cat.id===this.fav.chosen_fav_cat[i].id)
@@ -187,8 +201,9 @@ export class FavoriteProvider {
       console.log("ERROR-cannot remove from favorite list\ncategory not exist in the favorite list");
     else{
       cat.isFav=false;
-      this.fav.chosen_fav_cat.splice(i);//remove the category from the list
-    }              
+      this.fav.chosen_fav_cat.splice(i, 1);//remove the category from the list
+    } 
+    console.log(this.fav.chosen_fav_cat)             
   }
           
 //===================================
@@ -206,7 +221,7 @@ export class FavoriteProvider {
       console.log("ERROR-cannot remove from favorite list\nphrase not exist in the favorite list");
     else{
       phrase.isFav=(false);
-      this.fav.chosen_fav_phrases.splice(i);
+     this.fav.chosen_fav_phrases.splice(i, 1);
     }
   }      
           

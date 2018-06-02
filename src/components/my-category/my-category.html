@@ -9,12 +9,12 @@
     <!-- the image URL dose not working becase its not a http url -->
     <!-- TODO: need to change to be like in phrase -->
     <img src={{category.imageURL}} />
-    <ion-card-content>
+    <ion-card-content (click)="catOnClick()">
         <ion-card-title>
             <ion-title> {{category.name}}</ion-title>
         </ion-card-title>
-        <!--<span id="star" (click)="onClickStar(category)">
-                <img src="https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/special%20pages%20logo%2Fyellow_star.png?alt=media&token=595f4e48-5bc5-4660-9960-71bcd5d7a658\"/>
-        </span>-->
     </ion-card-content>
+    <button [ngClass]="category.isFav ? 'favStar' : 'star'">
+        <span (click)="updateIsFav()">☆</span>
+        </button>
 </ion-card>

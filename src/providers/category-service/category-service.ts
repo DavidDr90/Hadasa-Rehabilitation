@@ -109,23 +109,28 @@ export class CategoryServiceProvider {
   public setName(category:Category, newName: string) {
     category.name = newName;
     this.firebaseProvider.updateCategory(category)
+    this.updateCategoriesArray();
   }
   public setUrl(category:Category, newURL: string) {
     category.imageURL = newURL;
     this.firebaseProvider.updateCategory(category)
+    this.updateCategoriesArray();
   }
   public setParentCategoryID(category:Category, newCategoryParent: string) {
     category.parentCategoryID = newCategoryParent;
     this.firebaseProvider.updateCategory(category)
+    this.updateCategoriesArray();
   }
   public setIsFav(category:Category, isFav: boolean) {
     category.isFav = isFav;
     this.firebaseProvider.updateCategory(category)
+    this.updateCategoriesArray();
   }
   //each time a category has chosen, her views increase by 1.
   public increaseViews(category:Category) {
     category.views++;
     this.firebaseProvider.updateCategory(category)
+    this.updateCategoriesArray();
   }
 
 }
