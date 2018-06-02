@@ -81,7 +81,7 @@ export class AddPhrasePage {
   constructor(private _formBuilder: FormBuilder,
     private _actionSheetCtrl: ActionSheetController,
     private _viewCtrl: ViewController,
-    private _alertCtrl: AlertController,
+    public alertCtrl: AlertController,
     private camera: Camera,
     private _audioRecordProvider: AudioRecordProvider,
     /* media provider for the record methods */
@@ -98,7 +98,8 @@ export class AddPhrasePage {
   ) {
     //create a loading window
     this.pleaseWaitLoadingWindow = this.loadingCtrl.create({
-      content: 'אנא המתן...'
+      content: 'אנא המתן...',
+      dismissOnPageChange: true//close the loading window when close the page
     });
 
 
@@ -119,15 +120,19 @@ export class AddPhrasePage {
     if (this.parentCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
       this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
   }
-
-
+  private n: number = 0;
   /** check the value of sentece or nuon from the radio button list
    * patch the right value to the category ID
    * if this is a sentence the function retrive the sub category of the input category
    * if this is a noun patch the input category ID.
    * @default categoryID if the user choose 'sentence' the phrase will automaticly be in the 'sentece' sub category
    */
-  private checkSentenceOrNoun() {
+  private checkSentenceOrNoun(n) {
+    //to evoid endless recursion
+    if (n == 10) {
+      this.errorProvider.simpleTosat("לא הצלחנו ליצור את קטגורית 'משפטים'");
+      return;
+    }
     if (this.sentenceOrNoun == "sentence") {
       let subCategory;
       let promise = this.categoryProvaider.getSubCategoryByName(this.parentCategoryID, Enums.SENTENCES);//search for the 'משפטים' sub category
@@ -147,7 +152,7 @@ export class AddPhrasePage {
         this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
         setTimeout(() => {
-          this.checkSentenceOrNoun();//reactived this function, now the data should have the new sentences category
+          this.checkSentenceOrNoun(n++);//reactived this function, now the data should have the new sentences category
         }, 1000);
       });
 
@@ -205,13 +210,14 @@ export class AddPhrasePage {
       if (this.categoryColor === undefined)
         this.categoryColor = Enums.DEFUALT_CATEGORY_COLOR;
       else {
+        this.categoryColor = this.categoryColor.replace(/\s/g,"");//remove white spacess
         this.categoryColor = Enums.COLOR_LIST.find((item) => item.hebrewName == this.categoryColor);//look for the right object in the colors array
         this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
         this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
         this._myForm.controls['categoryID'].value, 0, false, this.categoryColor);
-
+      debugger
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
