@@ -28,7 +28,7 @@ Please visit our [wiki](https://github.com/daviddr90/Hadasa-Rehabilitation/wiki)
 ### [Iteration 0 - ZFR](../../wiki/Iter-0---ZFR)
 ### [Iteration 1 - MVP](../../wiki/Iter1-MVP-Serve-Side)
 ### [Iteration 2 - Log In & UI](../../wiki/Iter2---Log-In-and-UI)
-### [Iteration 3 - Edit Mode & Error Handler](../../wiki/ter3---Edit-Mode)
+### [Iteration 3 - Edit Mode & Error Handler](../../wiki/Iter3---Edit-Mode)
 
 ### To see our project board, follow this [link](https://github.com/DavidDr90/Lets-Talk/projects/1)
 
