@@ -11,7 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 
-const isCategory = true;
+
 @IonicPage()
 @Component({
   selector: 'page-categories',
@@ -30,7 +30,7 @@ export class CategoriesPage {
               public storage:StorageProvider) {
     
     this.favProvider=new FavoriteProvider(HomePage.favClass); 
-    
+  
 
   }
 
