@@ -39,6 +39,7 @@ export class StorageProvider {
  {   
    try
    {
+     debugger
       const file = event.target.files;
       var folder_name = ""
       //Gets the type of the file (images or audio)
