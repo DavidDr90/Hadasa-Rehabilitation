@@ -161,6 +161,8 @@ export const NUM_FAVORITES_PHRASES = 10
 export const SENTENCES = "משפטים";
 export const NOUN = "שם עצם";
 
+export const ABOUT_ME_STRING = 'aboutMe';//TODO: before relese need to change to hebrew form
+
 export const DEFUALT_CATEGORY_COLOR: Color = {
     "hebrewName": "לבן",
     "englishName": "white",
