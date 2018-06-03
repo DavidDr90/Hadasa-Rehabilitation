@@ -11,7 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 
-const isCategory = true;
+
 @IonicPage()
 @Component({
   selector: 'page-categories',
@@ -30,7 +30,6 @@ export class CategoriesPage {
               public storage:StorageProvider) {
     
     this.favProvider=new FavoriteProvider(HomePage.favClass); 
-    
 
   }
 
@@ -63,30 +62,7 @@ export class CategoriesPage {
     console.log("edit category");
   }
 
-/**on click method when the user click on a category
-   * the method check if to add the category to the common categories list.
-   * @param cat the category that clicked
-  */
-  public catOnClick(cat:Category){
-    cat.views++;
-    this.favProvider.addCommonFavCat(cat);
-  }
-
   
-  
-  /**on clock function when the user click on the star of category to add/remove it from the favorite.
-   * @param cat the category to be add/remove from the favorite list
-  */
-  public onClickStar(cat:Category) {
-    console.log("click! change favorite star!");
-    //update the favorite categories list
-    if(cat.isFav===true)
-      this.favProvider.remove_fav_cat(cat)
-    else
-      this.favProvider.add_fav_cat(cat)
-    //update the category itself
-    cat.isFav=(!cat.isFav);
-  }
 
 }
 

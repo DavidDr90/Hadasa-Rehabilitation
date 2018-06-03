@@ -1,10 +1,11 @@
-
-    
 <ion-card (click)='openPopup()'>
     <img src={{phrase.imageURL}} />
     <ion-card-content>
         <ion-card-title>
-           <ion-title id ="title"> {{ phrase.name }}</ion-title>
+            <ion-title id="title"> {{ phrase.name }}</ion-title>
         </ion-card-title>
+        <button [ngClass]="phrase.isFav ? 'favStar' : 'star'">
+            <span (click)="updateIsFav()">☆</span>
+            </button>
     </ion-card-content>
 </ion-card>

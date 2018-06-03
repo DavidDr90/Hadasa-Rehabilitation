@@ -30,7 +30,7 @@ export class AboutMePage {
     public navParams: NavParams,
     public modalCtrl: ModalController, ) {
     //getCategoriesByName return promise object
-    let promise = this.categoryProvider.getCategoryByName('aboutMe');
+    let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);
     promise.then((data) => {
       this.aboutMeCategory = data;
       this.aboutMeCategory as Category

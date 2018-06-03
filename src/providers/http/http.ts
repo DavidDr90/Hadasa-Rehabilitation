@@ -64,7 +64,6 @@ export class HttpProvider {
     url += voice;
     url += "&text=";
     url += text;
-    console.log(url);
     //send a GET http request to the url.
     // let result = await this.sendGetRequest(url, {}, {})
     let result = await this.httpGetAsync(url);//call the JS function
@@ -81,7 +80,6 @@ export class HttpProvider {
   private async httpGetAsync(url) {
     //DELETE IT!!! ONLY FOR DEBUGGING USING EXAMPLE URL
     url="https://ttsapi.almagu.com/Api/Synth?key=998de9b6ffb24a0a95&sampling=16000&encoding=wav&rate=0&voice=Sivan&text=טקסט%20בדיקה%20בעברית";
-    console.log("in private func")
     var context = new AudioContext();//decoding the array buffer into audio file
     var audioBuffer = null; //the buffer for the audio
     var request = new XMLHttpRequest(); //the Get HTTP request object
