@@ -68,7 +68,7 @@ export class AddPhrasePage {
 
   parentCategoryID;
 
-
+  percentage; // Should be implement on uploading
   //varibales for the record
   recording: boolean = false;
   playing: boolean = false;
@@ -254,7 +254,7 @@ export class AddPhrasePage {
             console.log('gallery');
             // this.getPicture(ImageOptions.GALLERY);
             const pic = this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-            this.storageProvider.uploadFile(pic);
+            // this.storageProvider.uploadFile(pic);
           }
         },
         {

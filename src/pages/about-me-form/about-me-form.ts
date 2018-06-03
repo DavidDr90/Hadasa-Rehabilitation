@@ -59,6 +59,7 @@ export class AboutMeFormPage {
     this.aboutMeCategory =
       new Category(Enums.ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "",
        0, false, Enums.DEFUALT_CATEGORY_COLOR, 1);
+//     this.categoryProvider.updateCategoriesArray();
     // this.categoryProvider.addCategory(this.aboutMeCategory);
     console.log("constructor ends")
   }

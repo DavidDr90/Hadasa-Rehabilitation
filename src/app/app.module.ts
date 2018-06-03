@@ -48,7 +48,7 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { StorageProvider } from '../providers/storage/storage';
-import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+// import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
 import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
 import { AppBuilderProvider } from '../providers/app-builder/app-builder';
 import { FavoriteProvider } from '../providers/favorite/favorite';
@@ -73,7 +73,7 @@ import { ErrorProvider } from '../providers/error/error';
     TabsPage,
     FavoritesComponent,
     AboutMeFormPage,
-    ProgressBarComponent,
+    // ProgressBarComponent,
     PhrasePopupPage,
     //NumbersPage
   ],
@@ -108,7 +108,6 @@ import { ErrorProvider } from '../providers/error/error';
     SplashScreen,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     NativeAudio,
-    CategoryServiceProvider,
     PhrasesProvider,
     HTTP,
     Media,

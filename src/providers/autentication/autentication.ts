@@ -46,9 +46,11 @@ async signIn(email, password)
   try{
     const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
     console.log(result);
+    return result;
   }
   catch(e){
     console.log(e);
+    return(e)
   }
 }
 
@@ -57,10 +59,13 @@ async registerNewUser(email, password)
   try{
     
     const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-    console.log(result);
+    let temp = result.resolve()
+    console.log(temp);
+    return temp;
   }
   catch(e){
     console.log(e);
+    return(e)
   }
 }
 

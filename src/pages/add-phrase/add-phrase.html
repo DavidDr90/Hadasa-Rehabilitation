@@ -16,7 +16,8 @@
   <form [formGroup]="_myForm">
     <!-- deal with the image choosing procces -->
     <!-- connect the file choose to the html elemnt -->
-    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="processWebImage($event)" />
+    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="storageProvider.uploadFile($event)" />
+    <progress-bar [progress]="storageProvider.uploadPercentage"> </progress-bar>
     <div class="profile-image-wrapper" (click)="presentActionSheet()">
       <!-- display circle with '+' symbol for adding an image -->
       <div class="profile-image-placeholder" [hidden]="lastImage !== null">
