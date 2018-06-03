@@ -33,12 +33,14 @@ export class AppBuilderProvider {
      * @returns the ID of the added category in the DB.
      */
     add_new_cat_to_db(category:Category, phrases:Phrase[], subCat:Category[], subPhrases:Phrase[][], subFlag:number){
+     debugger;
       let catId:string;
       this.categoryProvider.addCategory(category);
       let promise;
       setTimeout(()=>{
-        if(subFlag==1)
-          promise=this.categoryProvider.getSubCategoryByName(category.name)
+        if(subFlag==1){
+          promise=this.categoryProvider.getSubCategoryByName(category.parentCategoryID, category.name)
+        }
         else
           promise=this.categoryProvider.getCategoryByName(category.name);
         promise.then((data)=>{
