@@ -137,7 +137,6 @@ export class FirebaseProvider {
       console.error("Error adding document: ", e);
       this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
     })
-
   }
 
   removePhrase(phrase: Phrase){

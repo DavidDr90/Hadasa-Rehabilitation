@@ -1,8 +1,11 @@
 <ion-card id="cat" color={{category.color.englishName}}>
     <img src={{category.imageURL}} />
-    <ion-card-content>
+    <ion-card-content (click)="catOnClick()">
         <ion-card-title>
             <ion-title> {{category.name}}</ion-title>
         </ion-card-title>
     </ion-card-content>
+    <button [ngClass]="category.isFav ? 'favStar' : 'star'">
+        <span (click)="updateIsFav()">☆</span>
+        </button>
 </ion-card>

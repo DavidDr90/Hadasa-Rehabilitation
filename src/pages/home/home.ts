@@ -13,6 +13,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 import { FirebaseProvider } from '../../providers/firebase/firebase'
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
+import { PhrasesProvider } from '../../providers/phrases/phrases';
 
 
 
@@ -32,22 +33,27 @@ export class HomePage {
   
   static favClass:Favorite
   public favoriteProvider: FavoriteProvider
+  public appBuilderProvider: AppBuilderProvider
 
   constructor(public navCtrl: NavController,
                public firebaseProvider: FirebaseProvider,
                public authentication: AutenticationProvider,
                public storage : StorageProvider, 
                public categoryProvider: CategoryServiceProvider,
-               public appBuilderProvider:AppBuilderProvider
+               public phrasesProvider: PhrasesProvider
                ){
     this.percentage = 0;
+    HomePage.userEmail=authentication.user.email;
     
     HomePage.favClass=new Favorite();
     this.favoriteProvider=new FavoriteProvider(HomePage.favClass);
+
+   this.appBuilderProvider=new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);
     
     //Sets the display name of the logged-in user
     // this.user_name = authentication.user.displayName;
     this.user_name = authentication.user.email;
+
     
   }
 
@@ -58,6 +64,21 @@ export class HomePage {
     // this.authentication.toggleSignIn();
     this.authentication.logOut()
     this.navCtrl.push(IntroSliderPage);
+  }
+
+  showFav(){
+    console.log("==============================")
+    console.log("FAVORITE")
+    console.log(HomePage.favClass)
+    console.log("common_cat")
+    console.log(HomePage.favClass.common_cat)
+    console.log("common_phrases")
+    console.log(HomePage.favClass.common_phrases)
+    console.log("chosen_fav_cat")
+    console.log(HomePage.favClass.chosen_fav_cat)
+    console.log("chosen_fav_phrases")
+    console.log(HomePage.favClass.chosen_fav_phrases)
+    console.log("==============================")
   }
 
   
