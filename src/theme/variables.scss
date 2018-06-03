@@ -21,13 +21,9 @@ $app-direction: rtl;
 // to match your app's branding. Ionic uses a Sass map of
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
-<<<<<<< HEAD
-$colors: ( primary: #488aff, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222, black: #000000, red: #FF0000, green: #008000, blue: #0000FF, yellow: #FFFF00, orange: #FFA500);
-=======
 $colors: ( primary: #488aff, secondary: #32db64, danger: #f53d3d, light: #f4f4f4, dark: #222,
 black: #000000 ,red: #FF0000 ,green: #008000 ,blue: #0000FF, yellow: #FFFF00 ,orange: #FFA500,
 white: #FFFFFF);
->>>>>>> 5e360db1f7ae4185f17928af1e8f6d1a7d6969ef
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
@@ -56,11 +52,7 @@ white: #FFFFFF);
 //==============================
 //=         Ofeki's SCSS       =
 //==============================
-<<<<<<< HEAD
 // //the application font and the colors.
-=======
-//the application font and the colors.
->>>>>>> 5e360db1f7ae4185f17928af1e8f6d1a7d6969ef
 // $app-font:arial,
 // sans-serif;
 // $dark-color: #5c065c;
@@ -71,27 +63,15 @@ white: #FFFFFF);
 //     height: 200px;
 //     width: 180px;
 // }
-<<<<<<< HEAD
-=======
-
->>>>>>> 5e360db1f7ae4185f17928af1e8f6d1a7d6969ef
 // //================================
 // //to locate two divs next to each other
 // .wrapper {
 //     display: flex;
 //     justify-content: center;
 // }
-<<<<<<< HEAD
 // .wrapped-item {
 //     display: inline-block;
 // }
-=======
-
-// .wrapped-item {
-//     display: inline-block;
-// }
-
->>>>>>> 5e360db1f7ae4185f17928af1e8f6d1a7d6969ef
 // //================================
 // //general design for items&categories on the main screen
 // %item-on-screen {
@@ -118,18 +98,10 @@ white: #FFFFFF);
 //         float: left;
 //     }
 // }
-<<<<<<< HEAD
-=======
-
->>>>>>> 5e360db1f7ae4185f17928af1e8f6d1a7d6969ef
 // //item design
 // my-item {
 //     @extend %item-on-screen;
 // }
-<<<<<<< HEAD
-=======
-
->>>>>>> 5e360db1f7ae4185f17928af1e8f6d1a7d6969ef
 // //category design
 // my-category {
 //     @extend %item-on-screen;
