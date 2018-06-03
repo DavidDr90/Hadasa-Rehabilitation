@@ -126,7 +126,6 @@ export class FirebaseProvider {
   }
 
   addPhrase(phrase: Phrase) {
-    console.log("before add is firebase.ts"); 
     return this.phrasesCollection.add(Phrase.toObject(phrase));
   }
 

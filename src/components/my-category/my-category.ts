@@ -23,8 +23,6 @@ export class MyCategoryComponent {
    * update the "isFav" field in the DB of the category
    */
   public updateIsFav(){
-    console.log("before add cat to fav")
-    console.log(this.category)
     this.category as Category;
     if(this.category.isFav==false){
       let flag=this.favProvider.add_fav_cat(this.category) //add favorite category
@@ -38,8 +36,6 @@ export class MyCategoryComponent {
       this.category.isFav=false;
     }
     this.categoryProvider.setIsFav(this.category, this.category.isFav);//update DB
-    console.log("after add cat to fav")
-    console.log(this.category)
   }
 
   /**on click method when the user click on a category

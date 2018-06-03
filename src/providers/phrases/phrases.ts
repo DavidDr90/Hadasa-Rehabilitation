@@ -70,7 +70,6 @@ export class PhrasesProvider {
     //if there is no image provide with the phrase add a defult image
     if((phrase.imageURL == "") || (phrase.imageURL == null) || (phrase.imageURL == undefined))
       phrase.imageURL = "/assets/imgs/logo.png";//using the app logo for defult image
-    console.log("before addPhrase is Phrase.ts"); 
     this.firebaseProvider.addPhrase(phrase);
   }
 

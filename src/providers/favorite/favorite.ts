@@ -150,7 +150,6 @@ export class FavoriteProvider {
   * @returns 0 in case of success, -1 in case of failure
   * */
   add_fav_cat(cat){
-    console.log("in add fav cat")
     // check if there is a free place for the category on the favorites categories list
     if(this.fav.chosen_fav_cat.length==Enums.NUM_FAVORITES_CAT){
       alert("you cant choose more then "+Enums.NUM_FAVORITES_CAT+"favorite categories");//no place, error message to the user
@@ -161,8 +160,6 @@ export class FavoriteProvider {
       this.fav.chosen_fav_cat[this.fav.chosen_fav_cat.length]=cat;//there is a place, category added successfuly.
       cat.isFav=true;
     }
-    console.log("phrase fav list:")
-    console.log(this.fav.chosen_fav_cat)
     return 0;
   }
           
@@ -191,7 +188,6 @@ export class FavoriteProvider {
   * */
   remove_fav_cat(cat){
     let i;
-    console.log("in remove fav cat")
     //find the index of cat in the categories favorite list
     for(i=0; i<this.fav.chosen_fav_cat.length; i++)
       if(cat.id===this.fav.chosen_fav_cat[i].id)
@@ -202,8 +198,7 @@ export class FavoriteProvider {
     else{
       cat.isFav=false;
       this.fav.chosen_fav_cat.splice(i, 1);//remove the category from the list
-    } 
-    console.log(this.fav.chosen_fav_cat)             
+    }             
   }
           
 //===================================

@@ -44,7 +44,6 @@ export class HomePage {
                ){
     this.percentage = 0;
     HomePage.userEmail=authentication.user.email;
-    console.log("in home page: "+HomePage.userEmail)
     
     HomePage.favClass=new Favorite();
     this.favoriteProvider=new FavoriteProvider(HomePage.favClass);
