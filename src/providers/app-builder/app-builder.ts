@@ -5,6 +5,7 @@ import { User } from '../../models/user'
 import { HomePage } from '../../pages/home/home';
 import { PhrasesProvider } from '../phrases/phrases';
 import { CategoryServiceProvider } from '../category-service/category-service';
+import * as Enums from '../../consts/enums';
 
 /**
  * this provider create the defult categorys and phrases when the app is first load
@@ -60,6 +61,7 @@ export class AppBuilderProvider {
 
   
    //===================================
+
   /**this method fill the DB for the user with the default categories&phrases
   */
   fillDB(){

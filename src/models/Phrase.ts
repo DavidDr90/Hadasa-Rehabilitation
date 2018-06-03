@@ -18,10 +18,11 @@ export class Phrase extends Item {
     //the audio file/url of the phrase.
     public audio: string;//????? the type need to be changed!!!!!
     public isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
-    public order:number//the # of the category in the list
-
+    public order:number//the # of the phrase in the category
+  
     constructor(id: string, name: string, imageURL: string, categoryID: string, views: number, audio: string, isFav: boolean, order:number) {
         super();
+
         this.id = id;
         this.imageURL = imageURL;
         this.name = name;
