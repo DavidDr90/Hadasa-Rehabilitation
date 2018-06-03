@@ -27,13 +27,20 @@ export class AppBuilderProvider {
     /**This method adds the category& his phrases to the DB.
      * @param category the category to be added to the DB.
      * @param phrases the array of the phrases of this category.
+     * @param subCat the array of the sub categories of this category.
+     * @param subPhrases the array of the arrays of the phrases each per sub category.
+     * @param subFlag 1 if the category is a sub category and there is need to use "findSubCategoryByID".
      * @returns the ID of the added category in the DB.
      */
-    add_new_cat_to_db(category:Category, phrases:Phrase[], subCat:Category[], subPhrases:Phrase[][]){
+    add_new_cat_to_db(category:Category, phrases:Phrase[], subCat:Category[], subPhrases:Phrase[][], subFlag:number){
       let catId:string;
       this.categoryProvider.addCategory(category);
+      let promise;
       setTimeout(()=>{
-        let promise=this.categoryProvider.getCategoryByName(category.name);
+        if(subFlag==1)
+          promise=this.categoryProvider.getSubCategoryByName(category.name)
+        else
+          promise=this.categoryProvider.getCategoryByName(category.name);
         promise.then((data)=>{
           let cat=data;
           cat as Category;
@@ -46,7 +53,7 @@ export class AppBuilderProvider {
           for(let i=0; i<subCat.length; i++){
             subCat[i].order=i;
             subCat[i].parentCategoryID=catId;
-            this.add_new_cat_to_db(subCat[i], subPhrases[i], [], [])
+            this.add_new_cat_to_db(subCat[i], subPhrases[i], [], [], 1)
           }
         })  },  this.time);
 
@@ -124,7 +131,7 @@ export class AppBuilderProvider {
                         new Phrase("", "זבד הבת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", "", 0, "", false, 0),
                         new Phrase("", "יום הולדת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", "", 0, "", false, 0)]
                     ];
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
     
     //PLACES CATEGORY
     cat= new Category("מקומות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false,Enums.DEFUALT_CATEGORY_COLOR, 2)
@@ -159,7 +166,7 @@ export class AppBuilderProvider {
                         new Phrase("", "טעים מאוד", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/restaurant%2Ftasty.PNG?alt=media&token=3417a74d-d4a3-4135-a7dc-4cf3755d7a91", "", 0, "", false, 0),
                         new Phrase("", "לא טעים לי", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/restaurant%2Fnot%20tasty.PNG?alt=media&token=b929f780-b095-4bdb-8f1e-aa336950df93", "", 0, "", false, 0) ]
                     ];
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
 
      //TRAVEL CATEGORY
@@ -190,7 +197,7 @@ export class AppBuilderProvider {
                          new Phrase("", "תוכל להפעיל מונה בבקשה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftaxi.PNG?alt=media&token=a4422fb9-00f8-4b75-84c3-aadc353ee915", "", 0, "", false, 0),
                          new Phrase("", "אצטרך עצירה נוספת בדרך", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftaxi.PNG?alt=media&token=a4422fb9-00f8-4b75-84c3-aadc353ee915", "", 0, "", false, 0) ]
                      ];
-     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases);
+     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
 
      //FOOD CATEGORY
@@ -249,7 +256,7 @@ export class AppBuilderProvider {
                     new Phrase("", "ממרח שוקולד", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", "", 0, "", false, 0),
                     new Phrase("", "מלח ופלפל שחור", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", "", 0, "", false, 0)]
                      ];
-     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases);
+     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
     
      //FEELINGS CATEGORY
      cat= new Category("רגשות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2F%E2%80%8F%E2%80%8Ffeelings.PNG?alt=media&token=921bff5c-c031-41b3-b1d0-efe4c622e542", this.userEmail, "", 0, false,Enums.DEFUALT_CATEGORY_COLOR, 3)
@@ -262,7 +269,7 @@ export class AppBuilderProvider {
               new Phrase("","בהלה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2Ffreaking_out.PNG?alt=media&token=2f35b76c-89d6-49d9-b676-e751d8391f1e", "", 0, "", false, 0),
               new Phrase("", "אדישות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2F%E2%80%8F%E2%80%8Fapathetic.PNG?alt=media&token=9880b9ee-7a16-4c52-a9f6-787e9b52b4fc", "", 0, "", false, 0)];
     
-    this.add_new_cat_to_db(cat, phrases, [], []);
+    this.add_new_cat_to_db(cat, phrases, [], [], 0);
 
     //PERSONAL STUFF CATEGORY
     cat= new Category("חפצים אישיים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Fpersonal%20stuff.PNG?alt=media&token=bd9ebcf2-edbe-4288-b716-d76f2d57d757", this.userEmail, "", 0, false,Enums.DEFUALT_CATEGORY_COLOR, 4)
@@ -275,7 +282,7 @@ export class AppBuilderProvider {
              new Phrase("","ארנק", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2F%E2%80%8F%E2%80%8Fwallet.PNG?alt=media&token=b197d718-8f9d-4055-8136-a316746338a8", "", 0, "", false, 0),
              new Phrase("", "כסף", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Fmoney.PNG?alt=media&token=63622875-4e2a-496d-ad71-646f00960058", "", 0, "", false, 0)];
    
-   this.add_new_cat_to_db(cat, phrases, [], []);
+   this.add_new_cat_to_db(cat, phrases, [], [], 0);
 
  //MEDICINE CATEGORY
     cat= new Category("רפואה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%E2%80%8F%E2%80%8Fmadical.PNG?alt=media&token=62e9e247-658e-454d-87aa-6886aa0bab99", this.userEmail, "", 0, false,Enums.DEFUALT_CATEGORY_COLOR, 5)
@@ -332,7 +339,7 @@ export class AppBuilderProvider {
                     new Phrase("", "שורף", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fpain%2Fburning_pain.PNG?alt=media&token=ed1c5a18-7d0a-4635-9fbf-e4bd769869b6", "", 0, "", false, 0),
                     new Phrase("", "דוקר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fpain%2Fstabbing_pain.PNG?alt=media&token=8d32bd24-cc3f-4f23-80fc-ff4ba4cd8a03", "", 0, "", false, 0)]
                     ];
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
     
     this.categoryProvider.updateCategoriesArray();
 
