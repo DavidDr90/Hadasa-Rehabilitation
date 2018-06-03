@@ -108,29 +108,28 @@ export class CategoryServiceProvider {
   //SETTERS
   public setName(category:Category, newName: string) {
     category.name = newName;
-    this.firebaseProvider.updateCategory(category)
-    this.updateCategoriesArray();
+    this.firebaseProvider.updateCategory(category,'name',newName)
   }
   public setUrl(category:Category, newURL: string) {
     category.imageURL = newURL;
-    this.firebaseProvider.updateCategory(category)
-    this.updateCategoriesArray();
+    this.firebaseProvider.updateCategory(category,'imageURL',newURL)
   }
   public setParentCategoryID(category:Category, newCategoryParent: string) {
     category.parentCategoryID = newCategoryParent;
-    this.firebaseProvider.updateCategory(category)
-    this.updateCategoriesArray();
+    this.firebaseProvider.updateCategory(category,'parentCategoryID',newCategoryParent)
   }
   public setIsFav(category:Category, isFav: boolean) {
     category.isFav = isFav;
-    this.firebaseProvider.updateCategory(category)
-    this.updateCategoriesArray();
+    this.firebaseProvider.updateCategory(category,'cisFav',""+isFav)
   }
   //each time a category has chosen, her views increase by 1.
   public increaseViews(category:Category) {
     category.views++;
-    this.firebaseProvider.updateCategory(category)
-    this.updateCategoriesArray();
+    this.firebaseProvider.updateCategory(category,'views',""+category.views)
   }
+  // public setOrder(category:Category, order: string) {
+  //   category.order = order;
+  //   this.firebaseProvider.updateCategory(category,'order',""+order);
+  // }
 
 }

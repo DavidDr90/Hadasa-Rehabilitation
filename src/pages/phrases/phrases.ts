@@ -33,9 +33,7 @@ export class PhrasesPage {
   ) {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
-    console.log("perent is = " + this.parentCategory.id);
     this.AsyncPhrasesloader();
-
   }
 
   ionViewDidLoad(){
