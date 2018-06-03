@@ -33,7 +33,6 @@ export class AppBuilderProvider {
      * @returns the ID of the added category in the DB.
      */
     add_new_cat_to_db(category:Category, phrases:Phrase[], subCat:Category[], subPhrases:Phrase[][], subFlag:number){
-     debugger;
       let catId:string;
       this.categoryProvider.addCategory(category);
       let promise;

@@ -22,7 +22,8 @@ export class MyCategoryComponent {
   /** this function works when the user try to add/remove category to favoriets.
    * update the "isFav" field in the DB of the category
    */
-  public updateIsFav(){
+  public updateIsFav(event){
+    event.stopPropagation();
     this.category as Category;
     if(this.category.isFav==false){
       let flag=this.favProvider.add_fav_cat(this.category) //add favorite category
@@ -42,7 +43,8 @@ export class MyCategoryComponent {
    * the method check if to add the category to the common categories list.
    * @param cat the category that clicked
   */
- public catOnClick(){
+ public catOnClick(event){
+  event.stopPropagation();
   // this.category as Category;
   this.category.views++;// update the category views field
   this.categoryProvider.increaseViews(this.category)// update the category views field in the DB
