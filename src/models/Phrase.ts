@@ -20,7 +20,8 @@ export class Phrase extends Item {
     public isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
     public order:number//the # of the phrase in the category
   
-    constructor(id: string, name: string, imageURL: string, categoryID: string, views: number, audio: string, isFav: boolean, order:number) {
+    constructor(id: string, name: string, imageURL: string, 
+        categoryID: string, views: number, audio: string, isFav: boolean, order:number) {
         super();
 
         this.id = id;

@@ -18,7 +18,7 @@
 <!-- the "press" event is just for debugging -->
 <ion-content padding class="categories">
     <div *ngFor="let item of categoryService.getCategories">
-        <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item); catOnClick(item);"
+        <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);"
             (press)="categoryService.removeCategory(item)"></my-category>
     </div>
 </ion-content>
