@@ -217,7 +217,6 @@ export class AddPhrasePage {
       returnObject = new Category(this._myForm.controls['text'].value, "",
         this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
         this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1);
-      debugger
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,

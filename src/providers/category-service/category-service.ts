@@ -6,12 +6,7 @@ import { ErrorProvider } from '../error/error';
 import { UnsubscriptionError } from 'rxjs';
 import { AutenticationProvider } from '../autentication/autentication';
 
-/*
-  Generated class for the CategoryServiceProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class CategoryServiceProvider {
 
