@@ -15,13 +15,9 @@ export class FirebaseProvider {
 
   categoriesCollection: AngularFirestoreCollection<Category>;
   categories: Observable<Category[]> = new Observable<Category[]>()
-  categoryDoc: AngularFirestoreDocument<Category>;
-  category: Observable<Category>;
 
   phrasesCollection: AngularFirestoreCollection<Phrase>;
   phrases: Observable<Phrase[]> = new Observable<Phrase[]>()
-  phraseDoc: AngularFirestoreDocument<Phrase>;
-  phrase: Observable<Phrase>;
 
   constructor(public afs: AngularFirestore, public authentication: AutenticationProvider, public error: ErrorProvider) {
     //first import the users collection , mainly to get the current users's attrs.
@@ -150,30 +146,22 @@ export class FirebaseProvider {
 
     /**
    * Update fields of a document without overwriting the entire document.
-   * @param phrase, the phrase with a new properties
+   * @param phrase, the phrase, want to update
+   * @param property, the phrase property to update.
+   * @param value, the the new property value to change with.  
    */
-  updatePhrase(phrase: Phrase){
-    try{
-      this.phraseDoc = this.afs.doc<Phrase>('phrases/${phrase.id}');
-      this.phrase = this.phraseDoc.valueChanges();
-    }
-    catch(e){
-      console.error("Error updating document: ", e);
-    }
+  updatePhrase(phrase: Phrase,property: string, value: string){
+    this.afs.doc('phrases/' + phrase.id).update({property :value});
   }
 
     /**
    * Update fields of a document without overwriting the entire document.
-   * @param category, the category with a new properties
+   * @param phrase, the phrase, want to update
+   * @param property, the phrase property to update.
+   * @param value, the the new property value to change with.  
    */
-  updateCategory(category: Category){
-    try{
-    this.categoryDoc = this.afs.doc<Category>('categories/${category.id}');
-    this.category = this.categoryDoc.valueChanges();
-    }
-  catch(e){
-    console.error("Error updating document: ", e);
-  }
+  updateCategory(category: Category,property: string, value: string){
+    this.afs.doc('categories/' + category.id).update({property :value});
   }
 
 }

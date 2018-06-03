@@ -80,30 +80,33 @@ export class PhrasesProvider {
    //SETTERS
    public setName(phrase:Phrase, newName: string) {
     phrase.name = newName;
-    this.firebaseProvider.updatePhrase(phrase)
+    this.firebaseProvider.updatePhrase(phrase,'name',newName)
   }
   public setImageUrl(phrase:Phrase, newURL: string) {
     phrase.imageURL = newURL;
-    this.firebaseProvider.updatePhrase(phrase)
+    this.firebaseProvider.updatePhrase(phrase,'imageURL',newURL)
   }
   public setAudioUrl(phrase:Phrase, newURL: string) {
     phrase.audio = newURL;
-    this.firebaseProvider.updatePhrase(phrase)
+    this.firebaseProvider.updatePhrase(phrase,'audio',newURL)
   }
   public setCategoryID(phrase:Phrase, newCategoryParent: string) {
     phrase.categoryID = newCategoryParent;
-    this.firebaseProvider.updatePhrase(phrase)
+    this.firebaseProvider.updatePhrase(phrase,'categoryID',newCategoryParent)
   }
   public setIsFav(phrase:Phrase, isFav: boolean) {
     phrase.isFav = isFav;
-    this.firebaseProvider.updatePhrase(phrase)
+      this.firebaseProvider.updatePhrase(phrase,'isFave',""+isFav);
   }
   //each time a category has chosen, her views increase by 1.
   public increaseViews(phrase:Phrase) {
     phrase.views++;
-    this.firebaseProvider.updatePhrase(phrase)
+    this.firebaseProvider.updatePhrase(phrase,'views',""+phrase.views)
   }
-  
+  // public setOrder(phrase:Phrase, order: string) {
+  //   phrase.order = order;
+  //   this.firebaseProvider.updatePhrase(phrase,'order',""+order);
+  // }
 
 }
 
