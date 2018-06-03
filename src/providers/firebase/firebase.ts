@@ -5,6 +5,7 @@ import { Category } from '../../models/Category';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { Observable } from 'rxjs/Observable';
 import { Phrase } from '../../models/Phrase';
+import { ErrorProvider } from '../error/error';
 
 @Injectable()
 export class FirebaseProvider {
@@ -18,7 +19,7 @@ export class FirebaseProvider {
   phrasesCollection: AngularFirestoreCollection<Phrase>;
   phrases: Observable<Phrase[]> = new Observable<Phrase[]>()
 
-  constructor(public afs: AngularFirestore, public authentication: AutenticationProvider) {
+  constructor(public afs: AngularFirestore, public authentication: AutenticationProvider, public error: ErrorProvider) {
     //first import the users collection , mainly to get the current users's attrs.
     this.importUsers()
   }
@@ -36,6 +37,7 @@ export class FirebaseProvider {
     }
     catch(e){
       console.log(e.message)
+      this.error.simpleTosat("Connection error");
     }
   }
 
@@ -59,6 +61,7 @@ export class FirebaseProvider {
     }
     catch(e){
       console.log(e.message)
+      this.error.simpleTosat("Connection error");
     }
   }
 
@@ -84,6 +87,7 @@ export class FirebaseProvider {
     }
       catch(e){
         console.log(e.message)
+        this.error.simpleTosat("Connection error");
       }
   }
 
@@ -101,14 +105,20 @@ export class FirebaseProvider {
   }
 
   addCategory(category: Category) {    
-    return this.categoriesCollection.add(Category.toObject(category));
+    return this.categoriesCollection.add(Category.toObject(category)).then(function(){
+      console.log("Document successfully added");
+    }).catch(function(e){
+      console.error("Error adding document: ", e);
+      this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
+    })
   }
 
   removeCategory(category: Category){
     this.categoriesCollection.doc(category.id ).delete().then(function() {
       console.log("Document successfully deleted!");
-  }).catch(function(error) {
-      console.error("Error removing document: ", error);
+  }).catch(function(e) {
+      console.error("Error removing document: ", e);
+      this.error.simpleTosat("מחיקה נכשלה, בעיית התחברות");
   });
   }
 
@@ -117,14 +127,20 @@ export class FirebaseProvider {
   }
 
   addPhrase(phrase: Phrase) {
-    return this.phrasesCollection.add(Phrase.toObject(phrase));
+    return this.phrasesCollection.add(Phrase.toObject(phrase)).then(function(){
+      console.log("Document successfully added");
+    }).catch(function(e){
+      console.error("Error adding document: ", e);
+      this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
+    })
   }
 
   removePhrase(phrase: Phrase){
     this.phrasesCollection.doc(phrase.id).delete().then(function() {
       console.log("Document successfully deleted!");
-  }).catch(function(error) {
-      console.error("Error removing document: ", error);
+  }).catch(function(e) {
+      console.error("Error removing document: ", e);
+      this.error.simpleTosat("מחיקה נכשלה, בעיית התחברות");
   });
   }
 
@@ -144,7 +160,6 @@ export class FirebaseProvider {
    * @param property, the phrase property to update.
    * @param value, the the new property value to change with.  
    */
-
   updateCategory(category: Category,property: string, value: string){
     this.afs.doc('categories/' + category.id).update({property :value});
   }

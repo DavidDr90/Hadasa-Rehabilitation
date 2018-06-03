@@ -18,7 +18,7 @@ export class PhrasesProvider {
   //then, create a Promise object that active only when arrayOfPhrases filled up once.
   //Promise return to an async function that handle with him.
   //subscribe listen to the db while the app is alive.
-  //note that there is no relation between Promise object to subscribe method. 
+  //note that there is no relation between Promise object to  method. 
   public getPhrases(category: Category) {
     this.firebaseProvider.importPhrases(category);
     return new Promise((resolve, reject) => {
@@ -70,7 +70,6 @@ export class PhrasesProvider {
     //if there is no image provide with the phrase add a defult image
     if((phrase.imageURL == "") || (phrase.imageURL == null) || (phrase.imageURL == undefined))
       phrase.imageURL = "/assets/imgs/logo.png";//using the app logo for defult image
-    console.log("before addPhrase is Phrase.ts"); 
     this.firebaseProvider.addPhrase(phrase);
   }
 
@@ -110,3 +109,4 @@ export class PhrasesProvider {
   // }
 
 }
+

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ActionSheetController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, LoadingController } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
@@ -17,7 +17,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 export class PhrasesPage {
 
   //TODO: get the backgound color from the category object
-  backgroundColor = "black";
+  public backgroundColor: any;
 
   public parentCategory: Category;
   public phrases;
@@ -30,12 +30,15 @@ export class PhrasesPage {
     public modalCtrl: ModalController,
     private _actionSheetCtrl: ActionSheetController,
     public categoryService: CategoryServiceProvider,
+    public loadingCtrl: LoadingController,
   ) {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
+    this.backgroundColor = this.parentCategory.color.englishName;
     this.AsyncPhrasesloader();
   }
 
+  //TODO:fix the background color
   ionViewDidLoad(){
     document.getElementById("content").style.backgroundColor = this.backgroundColor;//set the backgound color
   }
@@ -49,8 +52,8 @@ export class PhrasesPage {
     promise.then((data) => {
       this.phrases = data;
       this.phrasesProvider.phrases = data;
+      
     })
-    
     let promise1 = this.categoryService.updateCategoriesArray();
     promise1.then((data)=> {
       this.subCategories = data.filter(cat => cat.parentCategoryID == this.parentCategory.id);
@@ -71,18 +74,6 @@ export class PhrasesPage {
     }); 
   }
   
-
-  /**on click method when the user click on a phrase
-   * the method check if to add the phrase to the common phrases list.
-   * @param phrase the phrase that clicked
-  */
-  /*public phraseOnClick(phrase:Phrase){
-    phrase.views++;
-    this.favProvider.addCommonFavPhrases(phrase);
-  }*/
-  //WAS MOVED to phrase.ts component which is clickable
-
-
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
     setTimeout(() => {
@@ -169,10 +160,7 @@ export class PhrasesPage {
           //   new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
           this.addPhrase(item);//upload the new phase to the DB and refresh the screen
         } else if (fromWhere == Enums.ADD_OPTIONS.CATEGORY) {
-          // let newSubCategory =
-          // new Category(item.text, "", item.imagePath, this.aAuth.auth.currentUser.email, item.categoryID, 0, false);
           this.categoryService.addCategory(item);
-
           //refreshing the sub-categories in phrases page.
           this.AsyncPhrasesloader()
         }

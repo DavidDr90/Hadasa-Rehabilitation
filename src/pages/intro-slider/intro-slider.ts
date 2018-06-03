@@ -6,6 +6,8 @@ import { MyApp } from '../../app/app.component';
 import { HomePage } from '../home/home';
 import * as firebase from 'firebase/app';
 import { AboutMeFormPage } from '../about-me-form/about-me-form';
+import { User } from '../../models/user';
+import { ErrorProvider } from '../../providers/error/error';
 
 
 @IonicPage()
@@ -17,9 +19,9 @@ export class IntroSliderPage {
   tabsPage = TabsPage;
   appPage = MyApp
   loading_sign = false;
+  user = {} as User;
 
-
-  constructor(public navCtrl: NavController, public navParams: NavParams, public authentication: AutenticationProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public authentication: AutenticationProvider, private errorProvider: ErrorProvider) {
     // this.checkIfDataLoaded();
     this.loading_sign = false;
   }
@@ -35,9 +37,19 @@ export class IntroSliderPage {
 
   // This function called by clicking login-button.
   public async logIn() {
-    this.loading_sign = true;
+    // this.loading_sign = true;
     // The function toggleSignIn will connect the user with redirect-auth.
-    let promise = this.authentication.toggleSignIn();
+    // let promise = this.authentication.toggleSignIn(this.user);
+    let logged_in = await this.authentication.signIn(this.user.email, this.user.password);
+    if(!this.authentication.afAuth.auth.currentUser)
+    this.errorProvider.simpleTosat(logged_in)
+  }
+
+  public register()
+  {
+    let registered =this.authentication.registerNewUser(this.user.email, this.user.password);
+    if(!this.authentication.afAuth.auth.currentUser)
+    this.errorProvider.simpleTosat(registered)
   }
 }
 

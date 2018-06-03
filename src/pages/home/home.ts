@@ -44,7 +44,6 @@ export class HomePage {
                ){
     this.percentage = 0;
     HomePage.userEmail=authentication.user.email;
-    console.log("in home page: "+HomePage.userEmail)
     
     HomePage.favClass=new Favorite();
     this.favoriteProvider=new FavoriteProvider(HomePage.favClass);
@@ -52,7 +51,8 @@ export class HomePage {
    this.appBuilderProvider=new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);
     
     //Sets the display name of the logged-in user
-    this.user_name = authentication.user.displayName;
+    // this.user_name = authentication.user.displayName;
+    this.user_name = authentication.user.email;
 
     
   }
@@ -61,7 +61,8 @@ export class HomePage {
   // Disconnects google authentication and moves the user to the into-slider-page.
   logOut(){
     console.log("logging out");
-    this.authentication.toggleSignIn();
+    // this.authentication.toggleSignIn();
+    this.authentication.logOut()
     this.navCtrl.push(IntroSliderPage);
   }
 

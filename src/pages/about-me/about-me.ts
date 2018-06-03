@@ -30,7 +30,7 @@ export class AboutMePage {
     public navParams: NavParams,
     public modalCtrl: ModalController, ) {
     //getCategoriesByName return promise object
-    let promise = this.categoryProvider.getCategoryByName('aboutMe');
+    let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);
     promise.then((data) => {
       this.aboutMeCategory = data;
       this.aboutMeCategory as Category
@@ -44,7 +44,6 @@ export class AboutMePage {
   //fire each time this page is entered.
   //
   ionViewDidEnter() {
-    this.AsyncPhrasesloader();
   }
 
   //initial phrases array for ngFor
@@ -65,7 +64,7 @@ export class AboutMePage {
       this.hasSubCategories = (this.subCategories.length > 0) ? true : false;//check if there is a sub category
     })
   }
-  
+
   //popup the category's phrases's page, using for sub-catergories
   public openCategoryPhrases(category: Category) {
     this.navCtrl.push(PhrasesPage, {

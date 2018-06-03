@@ -3,10 +3,13 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
 import { User } from '@firebase/auth-types';
 
+
+
 @Injectable()
 export class AutenticationProvider {
 
   user : User;
+
   loggedIn: boolean
   
   constructor(public afAuth: AngularFireAuth) {
@@ -16,7 +19,7 @@ export class AutenticationProvider {
    * If the user not connected already it redirects him to the google-auth. (log-in).
    * If the user connected already this function will disconnect him (log-out).
   */
-  toggleSignIn() 
+  toggleSignIn(user) 
   {
     return new Promise((resolve,reject) => 
     {
@@ -24,20 +27,53 @@ export class AutenticationProvider {
       {
         console.log("Authentication not found !");
         var provider = new firebase.auth.GoogleAuthProvider();
-        
-        firebase.auth().signInWithRedirect(provider).then(()=>
+        firebase.auth().signInWithEmailAndPassword(user.email,user.password).then(()=>
         {
           resolve(true);
         })
       }
       else 
       {
-        console.log("Authentication found !");
+        console.log("Authentication found ]!");
         firebase.auth().signOut();
         resolve(false);
       }
     })
 }
+
+async signIn(email, password)
+{
+  try{
+    const result = await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+    console.log(result);
+    return result;
+  }
+  catch(e){
+    console.log(e);
+    return(e)
+  }
+}
+
+async registerNewUser(email, password)
+{
+  try{
+    
+    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
+    let temp = result.resolve()
+    console.log(temp);
+    return temp;
+  }
+  catch(e){
+    console.log(e);
+    return(e)
+  }
+}
+
+async logOut()
+{
+  firebase.auth().signOut();
+}
+
 
   //OLD VERSION - KEEP IT ON COMMENT (ASK OR BEFORE DELETE IT).
 

@@ -1,3 +1,5 @@
+import { Color, Nikud } from "../models/SmallClass";
+
 /**
  * Enum class to hold all the API's keys for outside providers
  * to use this enums in any class use the following:
@@ -44,30 +46,98 @@ export const enum API_KEYS {
  * and this pdf file:
  * https://www.unicode.org/charts/PDF/U0590.pdf
  */
-export const NIKUD = [
-    { "name": "QAMATZ", "uniCode": "\u05B8", 'hebrewName': "קמץ" },
-    { "name": "SHEVA", "uniCode": "\u05B0", 'hebrewName': "שווא" },
-    { "name": "DAGESH", "uniCode": "\u05BC", 'hebrewName': "דגש" },
-    { "name": "PATAH", "uniCode": "\u05B7", 'hebrewName': "פתח" },
-    { "name": "SEGOL", "uniCode": "\u05B6", 'hebrewName': "סגול" },
+export const NIKUD: Nikud[] = [
+    {
+        "name": "QAMATZ",
+        "uniCode": "\u05B8",
+        'hebrewName': "קמץ"
+    },
+    {
+        "name": "SHEVA",
+        "uniCode": "\u05B0",
+        'hebrewName': "שווא"
+    },
+    {
+        "name": "DAGESH",
+        "uniCode": "\u05BC",
+        'hebrewName': "דגש"
+    },
+    {
+        "name": "PATAH",
+        "uniCode": "\u05B7",
+        'hebrewName': "פתח"
+    },
+    {
+        "name": "SEGOL",
+        "uniCode": "\u05B6",
+        'hebrewName': "סגול"
+    },
     // { "name": "HATAF_PATAH", "uniCode": "\u05B2", 'hebrewName': "חטף פתח" },
-    { "name": "SHIN", "uniCode": "\u05C1", 'hebrewName': "ש\u05C1ין" },
-    { "name": "SIN", "uniCode": "\u05C2", 'hebrewName': "ש\u05C2ין" },
-    { "name": "TSERE", "uniCode": "\u05B5", 'hebrewName': "צירי" },
-    { "name": "HOLAM", "uniCode": "\u05B9", 'hebrewName': "חולם" },
-    { "name": "HIRIQ", "uniCode": "\u05B4", 'hebrewName': "חיריק" },
-    { "name": "QUBUTS", "uniCode": "\u05BB", 'hebrewName': "קובוץ" }
+    {
+        "name": "SHIN",
+        "uniCode": "\u05C1",
+        'hebrewName': "ש\u05C1ין"
+    },
+    {
+        "name": "SIN",
+        "uniCode": "\u05C2",
+        'hebrewName': "ש\u05C2ין"
+    },
+    {
+        "name": "TSERE",
+        "uniCode": "\u05B5",
+        'hebrewName': "צירי"
+    },
+    {
+        "name": "HOLAM",
+        "uniCode": "\u05B9",
+        'hebrewName': "חולם"
+    },
+    {
+        "name": "HIRIQ",
+        "uniCode": "\u05B4",
+        'hebrewName': "חיריק"
+    },
+    {
+        "name": "QUBUTS",
+        "uniCode": "\u05BB",
+        'hebrewName': "קובוץ"
+    }
 ];
 
 // TODO: add some colors from the client
 // please notice! if you add new color to this array make sure to updage the color section in cariables.scss
-export const COLOR_LIST = [
-    { "hebrewName": "שחור", "englishName": "black", "hexNumber": "#000000" },
-    { "hebrewName": "אדום", "englishName": "red", "hexNumber": "#FF0000" },
-    { "hebrewName": "ירוק", "englishName": "green", "hexNumber": "#008000" },
-    { "hebrewName": "כחול", "englishName": "blue", "hexNumber": "#0000FF" },
-    { "hebrewName": "צהוב", "englishName": "yellow", "hexNumber": "#FFFF00" },
-    { "hebrewName": "כתוב", "englishName": "orange", "hexNumber": "#FFA500" },
+export const COLOR_LIST: Color[] = [
+    {
+        "hebrewName": "שחור",
+        "englishName": "black",
+        "hexNumber": "#000000"
+    },
+    {
+        "hebrewName": "אדום",
+        "englishName": "red",
+        "hexNumber": "#FF0000"
+    },
+    {
+        "hebrewName": "ירוק",
+        "englishName": "green",
+        "hexNumber": "#008000"
+    },
+    {
+        "hebrewName": "כחול",
+        "englishName": "blue",
+        "hexNumber": "#0000FF"
+    },
+    {
+        "hebrewName": "צהוב",
+        "englishName": "yellow",
+        "hexNumber": "#FFFF00"
+    },
+    {
+        "hebrewName": "כתום",
+        "englishName": "orange",
+        "hexNumber": "#FFA500"
+    },
 ]
 
 //option for the addPhrasePage
@@ -90,4 +160,12 @@ export const NUM_FAVORITES_PHRASES = 10
 
 export const SENTENCES = "משפטים";
 export const NOUN = "שם עצם";
+
+export const ABOUT_ME_STRING = 'aboutMe';//TODO: before relese need to change to hebrew form
+
+export const DEFUALT_CATEGORY_COLOR: Color = {
+    "hebrewName": "לבן",
+    "englishName": "white",
+    "hexNumber": "#FFFFFF"
+};
 

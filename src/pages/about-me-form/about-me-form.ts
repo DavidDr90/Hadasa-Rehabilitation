@@ -10,7 +10,6 @@ import { AngularFireAuth } from 'angularfire2/auth';
 
 
 
-const ABOUT_ME_STRING = 'aboutMe';//TODO: before relese need to change to hebrew form
 /**
  * the user will see this page if he haven't filled his aboutMe section
  */
@@ -57,15 +56,18 @@ export class AboutMeFormPage {
 
     //we stay on this page, so we need to create an aboutMe category
     //create new category aboutMe and add it to DB
-    this.aboutMeCategory =
-      new Category(ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "", 0, false);
-    this.categoryProvider.addCategory(this.aboutMeCategory);
+    //TODO: broken, throw cnanot read 'email' of undefine
+    // this.aboutMeCategory =
+    //   new Category(Enums.ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "",
+    //    0, false, Enums.DEFUALT_CATEGORY_COLOR, 1);
+//     this.categoryProvider.updateCategoriesArray();
+    // this.categoryProvider.addCategory(this.aboutMeCategory);
     console.log("constructor ends")
   }
 
   //clicked the button, open add phrase form
   private clicked() {
-    let promise = this.categoryProvider.getCategoryByName(ABOUT_ME_STRING);//try to get the about me category from the DB
+    let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
     promise.then((data) =>{
       this.aboutMeCategory = data;
       this.aboutMeCategory as Category;
@@ -122,7 +124,7 @@ export class AboutMeFormPage {
    */
   async verifyAboutMeCategory(navigateHome: boolean) {
     try{
-      let aboutMeCategory = await this.categoryProvider.getCategoryByName(ABOUT_ME_STRING);//try to get the about me category from the DB
+      let aboutMeCategory = await this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
       console.log("after await");
       if(aboutMeCategory != undefined){
         this.aboutMeCategory as Category;
