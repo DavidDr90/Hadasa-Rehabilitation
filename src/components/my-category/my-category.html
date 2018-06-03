@@ -1,13 +1,4 @@
-<!-- <div id="category">
-    <!-- <span id = "star" onclick="onClick()"></span> 
-    <!-- <h1>{{category.name}}</h1> --
-    <!-- <img src={{category.imageURL}} /> -
-    <h1>{{category.imageURL}}</h1>
-</div> -->
-
-<ion-card id="cat">
-    <!-- the image URL dose not working becase its not a http url -->
-    <!-- TODO: need to change to be like in phrase -->
+<ion-card id="cat" color={{category.color.englishName}}>
     <img src={{category.imageURL}} />
     <ion-card-content (click)="catOnClick()">
         <ion-card-title>

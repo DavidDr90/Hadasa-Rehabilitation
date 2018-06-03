@@ -1,8 +1,7 @@
-export class Item {
-    public static toObject(item) {
-        return JSON.parse(JSON.stringify(item));
-    }
-}
+import { Item, Color } from "./SmallClass";
+
+
+
 
 export class Category extends Item {
 
@@ -14,6 +13,7 @@ export class Category extends Item {
         public views: number, //the number of the times the user clicked the category
         public isFav: boolean,// TRUE if this category is one of the user selected favorite categories. else, FALSE.
         public order:number//the # of the category in the list
+        public color: Color, //the background color for the category
     ) {
         super()
     }
