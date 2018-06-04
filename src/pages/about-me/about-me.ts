@@ -8,6 +8,7 @@ import { CategoryServiceProvider } from '../../providers/category-service/catego
 import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
 import { PhrasesPage } from '../phrases/phrases';
+import { ErrorProvider } from '../../providers/error/error';
 
 
 @IonicPage()
@@ -28,7 +29,8 @@ export class AboutMePage {
     public auth: AutenticationProvider,
     public navCtrl: NavController,
     public navParams: NavParams,
-    public modalCtrl: ModalController, ) {
+    public modalCtrl: ModalController,
+    public errorProvider: ErrorProvider ) {
     //getCategoriesByName return promise object
     let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);
     promise.then((data) => {
@@ -94,8 +96,7 @@ export class AboutMePage {
    */
   openAddPage() {
     if (this.aboutMeCategory == undefined) {
-      //TODO: handle the error
-      console.log("error in getCategoriesByName()");
+      this.errorProvider.simpleTosat("על עצמי לא מוגדר");
       return;
     }
     let addModal = this.modalCtrl.create('AddPhrasePage',
