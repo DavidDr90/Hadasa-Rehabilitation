@@ -16,7 +16,8 @@
   <form [formGroup]="_myForm">
     <!-- deal with the image choosing procces -->
     <!-- connect the file choose to the html elemnt -->
-    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="storageProvider.uploadFile($event)" />
+    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="storageProvider.uploadFile($event)"
+    />
     <progress-bar [progress]="storageProvider.uploadPercentage"> </progress-bar>
     <div class="profile-image-wrapper" (click)="presentActionSheet()">
       <!-- display circle with '+' symbol for adding an image -->
@@ -101,26 +102,14 @@
       </ion-list>
     </div>
 
-    <div id="radioButtonForCategories" *ngIf="isCategory">
-
-      <!--<ion-list no-lines radio-group [(ngModel)]="categoryColor" [ngModelOptions]="{standalone: true}">
-        <!-- the backgound color will be in the same color has the name --
-        <ion-item *ngFor="let color of colorList" color={{color.englishName}}>
-          <ion-label> {{color.hebrewName}}</ion-label>
-          <ion-radio value={{color.hebrewName}}></ion-radio>
-        </ion-item>
-      </ion-list>-->
-
+    <ion-row class="colorselect color_{{color.slice(1,7)}}" *ngIf="isCategory">
       <ion-item>
-        <ion-label>צבע</ion-label>
-        <ion-select placeholder="בחר צבע" interface="popover" okText="" cancelText=""
-         [(ngModel)]="categoryColor" [ngModelOptions]="{standalone: true}">
-          <ion-option *ngFor="let color of colorList">
-            {{color.hebrewName}}
-          </ion-option>
+        <ion-label class="primarylabel">צבע</ion-label>
+        <ion-select (click)="prepareColorSelector()" (ionChange)="setColor(this.color)" [ngModelOptions]="{standalone: true}" [(ngModel)]="color">
+          <ion-option (ionSelect)="selectColor(optioncolor)" *ngFor="let optioncolor of colors" [value]="optioncolor">{{optioncolor}}</ion-option>
         </ion-select>
       </ion-item>
-    </div>
+    </ion-row>
 
     <!-- show the object that create from the inputs -->
     <p>{{ _myForm.value | json }}</p>

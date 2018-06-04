@@ -63,8 +63,6 @@ export class AddPhrasePage {
   //for the radio button sections
   sentenceOrNoun;
   categoryColor;
-  colorList = Enums.COLOR_LIST;
-
 
   parentCategoryID;
 
@@ -210,7 +208,7 @@ export class AddPhrasePage {
       if (this.categoryColor === undefined)
         this.categoryColor = Enums.DEFUALT_CATEGORY_COLOR;
       else {
-        this.categoryColor = this.categoryColor.replace(/\s/g,"");//remove white spacess
+        this.categoryColor = this.categoryColor.replace(/\s/g, "");//remove white spacess
         this.categoryColor = Enums.COLOR_LIST.find((item) => item.hebrewName == this.categoryColor);//look for the right object in the colors array
         this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
       }
@@ -326,6 +324,23 @@ export class AddPhrasePage {
   private copyFileToLocalDir(namePath, currentName, newFileName) {
     this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
+
+      this.file.listDir(cordova.file.dataDirectory, '').then(
+        (files) => {
+          console.log("files:");
+          console.log(files);
+          files.forEach(curFile => {
+            if (curFile.name == this.lastImage) {
+              console.log(curFile);
+              this.storageProvider.uploadFile(curFile);
+            }
+          });
+        }
+      ).catch(
+        (err) => {
+          // do something
+        }
+      );
     }, error => {
       this.errorProvider.alert("לא הצלחנו לשמור את התמונה....", error);
     });
@@ -458,22 +473,85 @@ export class AddPhrasePage {
   }
 
 
-  /********** Deprecaed ********************/
+  /********** Colors Select Function ********************/
+  /** This functions create a select with colors 
+   *  please notic that this section is releted to the scss file
+   *  any change in this section will cause a change in the scss file
+   *  and in the variable.scss file
+   */
 
-  /*
- 
-   private saveFileToStorage() {
-     let savePath;
-     let name = this._audioRecordProvider.generateFileName();
-     console.log("tts file name is = " + name);
-     if (this.platform.is('ios')) {
-       savePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + name;
-     } else if (this.platform.is('android')) {
-       savePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + name;
-     }
-     this.audio = this.media.create(savePath);
-     console.log("save path is = " + savePath);
-   }*/
+
+  // string array for the colors in the select
+  private colors: Array<string> =
+    [
+      '#ffffff', '#d435a2', '#a834bf', '#6011cf',
+      '#0d0e81', '#0237f1', '#0d8bcd', '#16aca4',
+      '#3c887e', '#157145', '#57a773', '#88aa3d',
+      '#b7990d', '#fcbf55', '#ff8668', '#ff5c6a',
+      '#c2454c', '#c2183f', '#d8226b', '#8f2d56',
+      '#482971', '#000000', '#561f37', '#433835',
+      '#797979', '#819595'
+    ];
+  
+  // base color of the select
+  private color: string = this.colors[0];
+
+  /** create the select element with the color from the colors array
+   * each line in the select element is with another color
+   */
+  private prepareColorSelector() {
+    setTimeout(() => {
+      let buttonElements = document.querySelectorAll('div.alert-radio-group button');
+      if (!buttonElements.length) {
+        this.prepareColorSelector();
+      } else {
+        for (let index = 0; index < buttonElements.length; index++) {
+          let buttonElement = buttonElements[index];
+          let optionLabelElement = buttonElement.querySelector('.alert-radio-label');
+          let color = optionLabelElement.innerHTML.trim();
+
+          if (this.isHexColor(color)) {
+            buttonElement.classList.add('colorselect', 'color_' + color.slice(1, 7));
+            if (color == this.color) {
+              buttonElement.classList.add('colorselected');
+            }
+          }
+        }
+      }
+    }, 100);
+  }
+
+  /** this function check if an input string is a hex number
+   * @param color a string to check
+   * @returns true if the string is hex number
+   */
+  private isHexColor(color) {
+    let hexColorRegEx = /^#(?:[0-9a-fA-F]{3}){1,2}$/;
+    return hexColorRegEx.test(color);
+  }
+
+  /** change the check mark to the selected color
+   * @param color the clicked color
+   */
+  private selectColor(color) {
+    let buttonElements = document.querySelectorAll('div.alert-radio-group button.colorselect');
+    for (let index = 0; index < buttonElements.length; index++) {
+      let buttonElement = buttonElements[index];
+      buttonElement.classList.remove('colorselected');
+      if (buttonElement.classList.contains('color_' + color.slice(1, 7))) {
+        buttonElement.classList.add('colorselected');
+      }
+    }
+  }
+
+  /** set the choosen color to the category background color
+   * @param color the choosen color 
+   */
+  private setColor(color) {
+    this.categoryColor = color;
+  }
+
+
 
 
 
