@@ -23,8 +23,8 @@ export class PhraseComponent {
   
   /*open the phrase popup page and pass to it
    current phrase , image, audio*/
-  public openPopup(){
-
+  public openPopup(event){
+    event.stopPropagation();
   /**on click method when the user click on a phrase
    * the method check if to add the phrase to the common phrases list.*/
     this.phrase.views++;
@@ -56,7 +56,8 @@ export class PhraseComponent {
 /** update isFav when the user try to add/remove phrase from favoriets.
  * update the DB also.
  */
-public updateIsFav(){
+public updateIsFav(event){
+  event.stopPropagation();
   this.phrase as Phrase;
   if(this.phrase.isFav==false){
     let flag= this.favProvider.add_fav_phrase(this.phrase)//add phrase from favorite
