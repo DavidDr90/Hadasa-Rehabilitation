@@ -94,6 +94,8 @@ export class AddPhrasePage {
     public categoryProvaider: CategoryServiceProvider,
     public loadingCtrl: LoadingController,
   ) {
+
+    this.getColorsFromList();
     //create a loading window
     this.pleaseWaitLoadingWindow = this.loadingCtrl.create({
       content: 'אנא המתן...',
@@ -201,7 +203,7 @@ export class AddPhrasePage {
   onSubmit() {
     // use the form object to create new phares object and add it to the server
     if (!this._myForm.valid) { return; }
-
+    
     let returnObject;//can be Category or Phrase
     if (this.isCategory) {
       //get the input color that the user choose, if the user didn't choose it set to defualt
@@ -209,7 +211,7 @@ export class AddPhrasePage {
         this.categoryColor = Enums.DEFUALT_CATEGORY_COLOR;
       else {
         this.categoryColor = this.categoryColor.replace(/\s/g, "");//remove white spacess
-        this.categoryColor = Enums.COLOR_LIST.find((item) => item.hebrewName == this.categoryColor);//look for the right object in the colors array
+        this.categoryColor = Enums.COLOR_LIST.find((item) => item.hexNumber == this.categoryColor);//look for the right object in the colors array
         this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
@@ -482,20 +484,21 @@ export class AddPhrasePage {
 
 
   // string array for the colors in the select
-  private colors: Array<string> =
-    [
-      '#ffffff', '#d435a2', '#a834bf', '#6011cf',
-      '#0d0e81', '#0237f1', '#0d8bcd', '#16aca4',
-      '#3c887e', '#157145', '#57a773', '#88aa3d',
-      '#b7990d', '#fcbf55', '#ff8668', '#ff5c6a',
-      '#c2454c', '#c2183f', '#d8226b', '#8f2d56',
-      '#482971', '#000000', '#561f37', '#433835',
-      '#797979', '#819595'
-    ];
-  
+  private colors: Array<string>;
   // base color of the select
-  private color: string = this.colors[0];
+  private color: string;
 
+  /** get all the colors from the const array in Enums.ts
+   *  the local colors array will hold the hex numbers string
+   */
+  private getColorsFromList(){
+    this.colors = new Array<string>();
+    Enums.COLOR_LIST.forEach((item)=>{
+      this.colors.push(item.hexNumber);
+    });
+    this.color = this.colors[0];
+  }
+  
   /** create the select element with the color from the colors array
    * each line in the select element is with another color
    */

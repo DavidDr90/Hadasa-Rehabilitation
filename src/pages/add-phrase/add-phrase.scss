@@ -67,12 +67,9 @@ page-add-phrase {
     }
 
     // should be the same as the color array in the ts file
-    $colorsToSelect: "#ffffff" "#d435a2" "#a834bf" "#6011cf" "#0d0e81"
-                     "#0237f1" "#0d8bcd" "#16aca4" "#3c887e" "#157145"
-                     "#57a773" "#88aa3d" "#b7990d" "#fcbf55" "#ff8668"
-                     "#ff5c6a" "#c2454c" "#c2183f" "#d8226b" "#8f2d56"
-                     "#482971" "#000000" "#561f37" "#433835" "#797979"
-                     "#819595";
+    $colorsToSelect: "#000000" "#FF0000" "#008000" "#0000FF" "#FFFF00" "#FFA500" "#0080c0" "#0080c0" "#ff15ff"
+                        "#c993ff" "#005bb7" "#006200" "#5f00bd" "#ffbdbd" "#fc1b37" "#ff80c0" "#00ac2c"
+                        "#6ccfff" "#bf6000" "#04ffff" "#a4a4a4" "#bf00bf" "#d20069" "#ff8000" "#e30000";
 
     @each $colorOption in $colorsToSelect {
             $colorWithoutHash: str-slice($colorOption, 2, 7);

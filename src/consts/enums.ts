@@ -138,11 +138,106 @@ export const COLOR_LIST: Color[] = [
         "englishName": "orange",
         "hexNumber": "#FFA500"
     },
+    {
+        "hebrewName": "על עצמי",
+        "englishName": "aboutMe",
+        "hexNumber": "#0080c0"
+    },
+    {
+        "hebrewName": "זמנים",
+        "englishName": "time",
+        "hexNumber": "#0080c0"
+    },
+    {
+        "hebrewName": "אירועים",
+        "englishName": "events",
+        "hexNumber": "#ff15ff"
+    },
+    {
+        "hebrewName": "מקומות",
+        "englishName": "places",
+        "hexNumber": "#c993ff"
+    },
+    {
+        "hebrewName": "חדרים",
+        "englishName": "rooms",
+        "hexNumber": "#005bb7"
+    },
+    {
+        "hebrewName": "חופשה",
+        "englishName": "holidays",
+        "hexNumber": "#006200"
+    },
+    {
+        "hebrewName": "אישי",
+        "englishName": "personalStuff",
+        "hexNumber": "#5f00bd"
+    },
+    {
+        "hebrewName": "גוף",
+        "englishName": "body",
+        "hexNumber": "#ffbdbd"
+    },
+    {
+        "hebrewName": "רגשות",
+        "englishName": "feelings",
+        "hexNumber": "#fc1b37"
+    },
+    {
+        "hebrewName": "אישי",
+        "englishName": "personal",
+        "hexNumber": "#ff80c0"
+    },
+    {
+        "hebrewName": "טיולים",
+        "englishName": "travels",
+        "hexNumber": "#00ac2c"
+    },
+    {
+        "hebrewName": "רופא",
+        "englishName": "doctor",
+        "hexNumber": "#6ccfff"
+    },
+    {
+        "hebrewName": "מסעדות",
+        "englishName": "restaurant",
+        "hexNumber": "#bf6000"
+    },
+    {
+        "hebrewName": "קניות",
+        "englishName": "shopping",
+        "hexNumber": "#04ffff"
+    },
+    {
+        "hebrewName": "בנק",
+        "englishName": "bank",
+        "hexNumber": "#a4a4a4"
+    },
+    {
+        "hebrewName": "מקומות אליהם אני הולך",
+        "englishName": "placesIGo",
+        "hexNumber": "#bf00bf"
+    },
+    {
+        "hebrewName": "בילויים",
+        "englishName": "biluim",
+        "hexNumber": "#d20069"
+    },
+    {
+        "hebrewName": "אנשים",
+        "englishName": "people",
+        "hexNumber": "#ff8000"
+    },
+    {
+        "hebrewName": "אוכל",
+        "englishName": "food",
+        "hexNumber": "#e30000"
+    },
 ]
 
 //option for the addPhrasePage
 export const enum ADD_OPTIONS {
-    CATEGORY = 1,
+    CATEGORY,
     PHRASE,
     NO_CATEGORY
 }
