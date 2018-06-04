@@ -16,19 +16,17 @@
   <form [formGroup]="_myForm">
     <!-- deal with the image choosing procces -->
     <!-- connect the file choose to the html elemnt -->
-    <input type="file" #fileInput style="visibility: hidden; height: 0px" name="files[]" (change)="storageProvider.uploadFile($event)"
-    />
     <progress-bar [progress]="storageProvider.uploadPercentage"> </progress-bar>
     <div class="profile-image-wrapper" (click)="presentActionSheet()">
       <!-- display circle with '+' symbol for adding an image -->
-      <div class="profile-image-placeholder" [hidden]="lastImage !== null">
+      <div class="profile-image-placeholder" [hidden]="imageURL !== null">
         <ion-icon name="add"></ion-icon>
         <div>
           הוספת תמונה
         </div>
       </div>
       <!-- display the choosen image -->
-      <img src="{{pathForImage(lastImage)}}" style="width: 100%" [hidden]="lastImage === null">
+      <img src={{imageURL}} style="width: 100%" [hidden]="imageURL === null">
     </div>
 
     <!-- deal with the user input fileds -->
@@ -55,23 +53,18 @@
       </ion-row>
     </ion-grid>
 
+
     <ion-item id="recordDiv" *ngIf="!isCategory">
-      <button ion-button primary (touchstart)="startRecord()" (touchend)="stopRecord()">
-        <ion-icon name="mic" *ngIf="!recording"></ion-icon>
-        <ion-icon name="mic-off" *ngIf="recording"></ion-icon>
-        &nbsp;&nbsp; {{ micText }}
+
+      <button ion-button large (click)="startRecord()" *ngIf="!recording">
+        התחל הקלטה
+      </button>
+      <button ion-button large (click)="stopRecord()" *ngIf="recording">
+        עצור הקלטה
       </button>
 
-      <!-- TODO: ask eran about how to reactived the component -->
-      <div [hidden]="!recording">
-        <timer #myTimer></timer>
-      </div>
-
-      <button ion-button primary (click)="getAudioFromTTS()" *ngIf="!recording">
-        <ion-icon name="radio"></ion-icon>&nbsp;&nbsp; יצר הקלטה</button>
-
       <ion-list>
-        <ion-item *ngIf="fileName != null && !recording">
+        <ion-item *ngIf="audioFileURL != null && !recording">
           <p>{{fileName}}</p>
           <button ion-button clear item-end large (click)="playAudio()" *ngIf="!playing">
             <ion-icon name="play"></ion-icon>
@@ -82,6 +75,24 @@
         </ion-item>
       </ion-list>
     </ion-item>
+
+    <!-- <ion-item id="recordDiv" *ngIf="!isCategory">
+      <button ion-button primary (touchstart)="startRecord()" (touchend)="stopRecord()">
+        <ion-icon name="mic" *ngIf="!recording"></ion-icon>
+        <ion-icon name="mic-off" *ngIf="recording"></ion-icon>
+        &nbsp;&nbsp; {{ micText }}
+      </button>
+
+      <!-- TODO: ask eran about how to reactived the component --
+      <div [hidden]="!recording">
+        <timer #myTimer></timer>
+      </div>
+
+      <button ion-button primary (click)="getAudioFromTTS()" *ngIf="!recording">
+        <ion-icon name="radio"></ion-icon>&nbsp;&nbsp; יצר הקלטה</button>
+
+      
+    </ion-item> -->
 
     <div id="radioButtonForPhrase" *ngIf="!isCategory">
       <ion-list radio-group [(ngModel)]="sentenceOrNoun" [ngModelOptions]="{standalone: true}" (ionChange)="checkSentenceOrNoun()">

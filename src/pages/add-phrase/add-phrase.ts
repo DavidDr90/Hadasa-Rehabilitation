@@ -4,10 +4,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
 import { AlertController } from 'ionic-angular';
+import * as firebase from 'firebase';
+import { Base64 } from '@ionic-native/base64';
+import { NativeAudio } from '@ionic-native/native-audio';
 
 //for the recorder functions
 import { Platform } from 'ionic-angular';
-import { MediaObject } from '@ionic-native/media';
+import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
 import { HttpProvider } from '../../providers/http/http';
@@ -35,6 +38,7 @@ import { CategoryServiceProvider } from '../../providers/category-service/catego
  */
 
 declare var cordova: any;
+declare var window: any;
 
 const START_REC = "התחל הקלטה";
 const STOP_REC = "עצור הקלטה";
@@ -58,7 +62,9 @@ export class AddPhrasePage {
   private _nikudArray = Enums.NIKUD;
 
   lastImage: string = null;
+  imageURL: string = null;
   micText = START_REC;
+  audioFileURL;
 
   //for the radio button sections
   sentenceOrNoun;
@@ -93,6 +99,9 @@ export class AddPhrasePage {
     public errorProvider: ErrorProvider,
     public categoryProvaider: CategoryServiceProvider,
     public loadingCtrl: LoadingController,
+    public media: Media,
+    public base64: Base64,
+    public nativeAudio: NativeAudio,
   ) {
 
     this.getColorsFromList();
@@ -121,7 +130,7 @@ export class AddPhrasePage {
     if (this.parentCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
       this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
   }
-  
+
   private n: number = 0;
   /** check the value of sentece or nuon from the radio button list
    * patch the right value to the category ID
@@ -203,7 +212,7 @@ export class AddPhrasePage {
   onSubmit() {
     // use the form object to create new phares object and add it to the server
     if (!this._myForm.valid) { return; }
-    
+
     let returnObject;//can be Category or Phrase
     if (this.isCategory) {
       //get the input color that the user choose, if the user didn't choose it set to defualt
@@ -285,33 +294,37 @@ export class AddPhrasePage {
    * @param sourceType - from where to get the image, the camera or the gallery
    * dispaly an error window on fialure
    */
-  public takePicture(sourceType) {
-    // Create options for the Camera Dialog
-    var options = {
-      quality: 100,
-      sourceType: sourceType,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    };
+  async takePicture(sourceType) {
+    try {
+      // Create options for the Camera Dialog
+      var options = {
+        quality: 100,
+        sourceType: sourceType,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        mediaType: this.camera.MediaType.PICTURE,
+        encodingType: this.camera.EncodingType.JPEG,
+        saveToPhotoAlbum: false,
+        correctOrientation: true
+      };
 
-    // Get the data of an image
-    this.camera.getPicture(options).then((imagePath) => {
-      // Special handling for Android library
-      if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
-        this.filePath.resolveNativePath(imagePath)
-          .then(filePath => {
-            let correctPath = filePath.substr(0, filePath.lastIndexOf('/') + 1);
-            let currentName = imagePath.substring(imagePath.lastIndexOf('/') + 1, imagePath.lastIndexOf('?'));
-            this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-          });
-      } else {
-        var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-        var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-      }
-    }, (err) => {
+      let user = this.aAuth.auth.currentUser.email;
+      const imageFolder = "/images/";
+      const result = await this.camera.getPicture(options);//get the path to the image
+
+      const image = 'data:image/jpeg;base64,' + result;
+
+      let path = user + imageFolder + this.createFileName();//create the path on the storage
+
+      const pictures = firebase.storage().ref(path);
+      pictures.putString(image, "data_url").then(url => {
+        //TODO: connect the progress bar
+        this.imageURL = url.downloadURL;
+        console.log(this.imageURL);
+        this._myForm.patchValue({ 'imagePath': this.imageURL });//insert the capture image path to the form 
+      })
+    } catch (err) {
       this.errorProvider.alert("לא הצלחנו לבחור תמונה....", err);
-    });
+    }
   }
 
   // Create a new name for the image from the current time
@@ -322,52 +335,44 @@ export class AddPhrasePage {
     return newFileName;
   }
 
-  // Copy the image to a local folder
-  private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-      this.lastImage = newFileName;
-
-      this.file.listDir(cordova.file.dataDirectory, '').then(
-        (files) => {
-          console.log("files:");
-          console.log(files);
-          files.forEach(curFile => {
-            if (curFile.name == this.lastImage) {
-              console.log(curFile);
-              this.storageProvider.uploadFile(curFile);
-            }
-          });
-        }
-      ).catch(
-        (err) => {
-          // do something
-        }
-      );
-    }, error => {
-      this.errorProvider.alert("לא הצלחנו לשמור את התמונה....", error);
-    });
-  }
-
-  /** add the path to the form filed 
-   * @param img - the path to the image 
-   * @returns the path to the image to display on the screen
-   */
-  public pathForImage(img) {
-    if (img === null) {
-      return '';
-    } else {
-      this._myForm.patchValue({ 'imagePath': cordova.file.dataDirectory + img });//insert the capture image path to the form 
-      return cordova.file.dataDirectory + img;
-    }
-  }
-
   /********* The following are the voice record handler functions ************/
   /*  all the record function should be tested on an android or iOS emulator or device */
+
+  /**
+  * @returns file name from the current time and data
+  */
+  private generateFileName() {
+    return 'record' +
+      new Date().getDate() +
+      new Date().getMonth() +
+      new Date().getFullYear() +
+      new Date().getHours() +
+      new Date().getMinutes() +
+      new Date().getSeconds() +
+      '.mp3';
+  }
 
   //start the record
   startRecord() {
     this.micText = STOP_REC;
     this.recording = true;
+
+    try {
+      this.fileName = this.generateFileName();
+      if (this.platform.is('ios')) {
+        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+        this.audio = this.media.create(this.audioFilePath);
+      } else if (this.platform.is('android')) {
+        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+        this.audio = this.media.create(this.audioFilePath);
+      }
+      this.audio.startRecord();
+    }
+    catch (error) {
+      console.log(error);
+    }
+
+    /*
     this.timer.startTimer();
     let data = this._audioRecordProvider.startRecord();
 
@@ -377,30 +382,42 @@ export class AddPhrasePage {
       this.errorProvider.alert("לא הצלחנו לבצע הקלטה....", data.message);
     } else {
       this.fileName = data;
-    }
+    }*/
   }
 
   //stop the record and save the audio file on local variable
   stopRecord() {
     if (this.recording) {
       this.micText = START_REC;
-      let data = this._audioRecordProvider.stopRecord();
+      this.recording = !this.recording;
+      let user = this.aAuth.auth.currentUser.email;
+      const audioFolder = "/audio/";
 
-      this.duration = this.timer.getTime();
+      this.audio.stopRecord();
+      // save the new audio file to the storage
+      try {
 
-      // this.timer.destroy();
+        // encode the media object file to base64 file
+        this.base64.encodeFile(this.audioFilePath).then((base64File: string) => {
+          // fix the encoding
+          const newBase = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
 
-      if (data instanceof Error) {
-        this.recording = false;
-        this.errorProvider.simpleTosat(data.message);
-      } else {
-        if (data == true) {
-          this.recording = false;
-          this._myForm.patchValue({ 'audioFile': this._audioRecordProvider.getFilePath() + this.fileName });//insert the capture audio file to the form 
-        } else {
-          this.recording = false;
-          this.errorProvider.simpleTosat("קרתה תקלה");
-        }
+          const audioData = 'data:audio/mp3;base64,' + newBase;
+
+          let path = user + audioFolder + this.fileName;//create the path on the storage
+
+          const audios = firebase.storage().ref(path).putString(audioData, "data_url")
+            .then(url => {
+              //TODO: connect the progress bar
+              this.audioFileURL = url.downloadURL;
+              console.log(this.audioFileURL);
+              this._myForm.patchValue({ 'audioFile': url.downloadURL });//insert the capture image path to the form 
+            });
+        }, (err) => {
+          console.log(err);
+        });
+      } catch (err) {
+        console.log(err);
       }
     }
   }
@@ -417,32 +434,18 @@ export class AddPhrasePage {
   playAudio() {
     this.playing = !this.playing;
 
-    let data = this._audioRecordProvider.playAudio(this.fileName, this.firstTime);
-    this.firstTime = false;
-
-    let durationInt = this.calcDuration(this.duration);
-    //if the record file duration is bigger then 0
-    if (durationInt > 0) {
-      //after the file ended switch the buttons
-      let durationInteravle = setInterval(() => {
-        this.playing = !this.playing;
-        clearInterval(durationInteravle);//after using the interavl reset it
-      }, durationInt);
-    }
-
-
-    if (data instanceof Error)
-      this.errorProvider.alert("לא הצלחנו להשמיע את ההקלטה....", data.message);
+    /* DONT work for now
+    this.nativeAudio.preloadComplex(this.fileName, this.audioFileURL, 1, 1, 0).
+      then(onSuccess =>
+        console.log("playing"),
+        onError => console.log(onError));
+        */
   }
 
   //stop the file in the current posision
   stopAudio() {
     this.playing = !this.playing;
-    let data = this._audioRecordProvider.stopAudio(this.fileName);
-    if (data instanceof Error) {
-      this.errorProvider.alert("לא הצלחנו לעצור את ההקלטה....", data.message);
-      return;
-    }
+
   }
 
   //use the http provider to get the audio file from the TTS server
@@ -491,14 +494,14 @@ export class AddPhrasePage {
   /** get all the colors from the const array in Enums.ts
    *  the local colors array will hold the hex numbers string
    */
-  private getColorsFromList(){
+  private getColorsFromList() {
     this.colors = new Array<string>();
-    Enums.COLOR_LIST.forEach((item)=>{
+    Enums.COLOR_LIST.forEach((item) => {
       this.colors.push(item.hexNumber);
     });
     this.color = this.colors[0];
   }
-  
+
   /** create the select element with the color from the colors array
    * each line in the select element is with another color
    */

@@ -55,6 +55,7 @@ import { FavoriteProvider } from '../providers/favorite/favorite';
 import { UsersProvider } from '../providers/users/users';
 import { AboutMeFormPage } from '../pages/about-me-form/about-me-form';
 import { ErrorProvider } from '../providers/error/error';
+import { Base64 } from '@ionic-native/base64';
 
 
 
@@ -125,7 +126,8 @@ import { ErrorProvider } from '../providers/error/error';
     AppBuilderProvider,
     FavoriteProvider,
     UsersProvider,
-    ErrorProvider
+    ErrorProvider,
+    Base64
 
   ]
 })
