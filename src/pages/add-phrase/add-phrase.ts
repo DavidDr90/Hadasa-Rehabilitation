@@ -96,6 +96,7 @@ export class AddPhrasePage {
   ) {
 
     this.getColorsFromList();
+
     //create a loading window
     this.pleaseWaitLoadingWindow = this.loadingCtrl.create({
       content: 'אנא המתן...',
@@ -120,6 +121,7 @@ export class AddPhrasePage {
     if (this.parentCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
       this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
   }
+  
   private n: number = 0;
   /** check the value of sentece or nuon from the radio button list
    * patch the right value to the category ID
@@ -190,9 +192,7 @@ export class AddPhrasePage {
     this._curserPosition = e.target.selectionStart;//save the curser place in the text
   }
 
-  /**
-  * The user cancelled, so we dismiss without sending data back.
-  */
+  // The user cancelled, so we dismiss without sending data back
   cancel() {
     this._viewCtrl.dismiss();
   }
@@ -553,9 +553,4 @@ export class AddPhrasePage {
   private setColor(color) {
     this.categoryColor = color;
   }
-
-
-
-
-
 }
