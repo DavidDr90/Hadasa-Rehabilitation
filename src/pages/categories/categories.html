@@ -20,9 +20,11 @@
 <ion-content padding class="categories">
     <!-- for normal mode -->
     <div *ngIf="!editFlag">
-        <ion-item *ngFor="let item of categoryService.getCategories">
-            <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)"></my-category>
-        </ion-item>
+        <ion-list no-lines>
+            <ion-item *ngFor="let item of categoryService.getCategories">
+                <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)"></my-category>
+            </ion-item>
+        </ion-list>
     </div>
 
     <!-- for edit mode, enable reorder and swiping -->
@@ -33,10 +35,20 @@
                     <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)"></my-category>
                 </ion-item>
                 <ion-item-options side="right">
-                    <button ion-button (click)="editCategory(item)">ערוך קטגוריה</button>
+                    <button ion-button (click)="editCategory(item)">
+                        <ion-icon name="create"></ion-icon>
+                        ערוך
+                    </button>
+                    <button ion-button (click)="changeVisibility(item)">
+                        <ion-icon name="eye"></ion-icon>
+                        הצג או הסתר
+                    </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button expandable (click)="deleteCategory(item)">מחק קטגוריה</button>
+                    <button ion-button expandable (click)="deleteCategory(item)">
+                        <ion-icon name="trash"></ion-icon>
+                        מחק
+                    </button>
                 </ion-item-options>
             </ion-item-sliding>
         </ion-list>

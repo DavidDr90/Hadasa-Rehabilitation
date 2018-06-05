@@ -247,26 +247,21 @@ export class AddPhrasePage {
       title: 'בחר מקור לתמונה',
       buttons: [
         {
-          text: '\xa0\xa0 מצלמה',
+          text: '\xa0 מצלמה',
           icon: 'camera',
           handler: () => {
-            console.log('camera');
-            // this.getPicture(ImageOptions.CAMERA);
             this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
-          text: '\xa0\xa0גלריה',
+          text: '\xa0 גלריה',
           icon: 'images',
-          handler: () => {
-            console.log('gallery');
-            // this.getPicture(ImageOptions.GALLERY);
-            const pic = this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-            // this.storageProvider.uploadFile(pic);
+          handler: () => {           
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
-          text: '\xa0\xa0חיפוש ברשת',
+          text: '\xa0 חיפוש ברשת',
           icon: 'logo-google',
           handler: () => {
             console.log('search on line');
