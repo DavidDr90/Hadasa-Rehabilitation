@@ -138,6 +138,111 @@ export const COLOR_LIST: Color[] = [
         "englishName": "orange",
         "hexNumber": "#FFA500"
     },
+    {
+        "hebrewName": "לבן",
+        "englishName": "white",
+        "hexNumber": "#FFFFFF"
+    },
+    {
+        "hebrewName": "כוכב",
+        "englishName": "star",
+        "hexNumber": "#ffce00"
+    },
+    {
+        "hebrewName": "על עצמי",
+        "englishName": "aboutMe",
+        "hexNumber": "#0080c0"
+    },
+    {
+        "hebrewName": "זמן",
+        "englishName": "time",
+        "hexNumber": "#0080c0"
+    },
+    {
+        "hebrewName": "אירועים",
+        "englishName": "events",
+        "hexNumber": "#ff15ff"
+    },
+    {
+        "hebrewName": "מקומות",
+        "englishName": "places",
+        "hexNumber": "#c993ff"
+    },
+    {
+        "hebrewName": "אוכל",
+        "englishName": "food",
+        "hexNumber": "#e30000"
+    },
+    {
+        "hebrewName": "אנשים",
+        "englishName": "people",
+        "hexNumber": "#ff8000"
+    },
+    {
+        "hebrewName": "בילויים",
+        "englishName": "biluim",
+        "hexNumber": "#d20069"
+    },
+    {
+        "hebrewName": "מקומות שאני הולך אליהם",
+        "englishName": "placesIGo",
+        "hexNumber": "#bf00bf"
+    },
+    {
+        "hebrewName": "בנק",
+        "englishName": "bank",
+        "hexNumber": "#a4a4a4"
+    },
+    {
+        "hebrewName": "קניות",
+        "englishName": "shopping",
+        "hexNumber": "#04ffff"
+    },
+    {
+        "hebrewName": "מסעדות ובתי קפה",
+        "englishName": "restaurant",
+        "hexNumber": "#bf6000"
+    },
+    {
+        "hebrewName": "רופאים ואנשי מקצוע",
+        "englishName": "doctor",
+        "hexNumber": "#6ccfff"
+    },
+    {
+        "hebrewName": "נסיעות",
+        "englishName": "travels",
+        "hexNumber": "#00ac2c"
+    },
+    {
+        "hebrewName": "אישי",
+        "englishName": "personal",
+        "hexNumber": "#ff80c0"
+    },
+    {
+        "hebrewName": "רגשות",
+        "englishName": "feelings",
+        "hexNumber": "#fc1b37"
+    },
+    {
+        "hebrewName": "חלקי גוף",
+        "englishName": "body",
+        "hexNumber": "#ffbdbd"
+    },
+    {
+        "hebrewName": "חפצים אישיים",
+        "englishName": "personalStuff",
+        "hexNumber": "#5f00bd"
+    },
+    {
+        "hebrewName": "חגים",
+        "englishName": "holidays",
+        "hexNumber": "#006200"
+    },
+    {
+        "hebrewName": "חדרים בבית",
+        "englishName": "rooms",
+        "hexNumber": "#005bb7"
+    },
 ]
 
 //option for the addPhrasePage
