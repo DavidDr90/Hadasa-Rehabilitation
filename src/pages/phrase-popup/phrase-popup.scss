@@ -1,10 +1,24 @@
 page-phrase-popup {
-    .img {
-        height: auto ;
-        width: auto ;
-        align-content: center !important;
-        align-items: center !important;
-        align-self: center !important; 
-        };
- 
+    img {
+        margin-top: 5%;
+        height: 50%;
+        width: 90%;
+        // align-content: center !important;
+        // align-items: center !important;
+        // align-self: center !important;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    h1 {
+        text-align: center;
+        font-size: 300%;
+        font-weight: bold;
+    }
+    .buttonDiv {
+        margin-top: 10%;
+    }
+    .titleDiv {
+        margin-top: 20%;
+    }
 }
