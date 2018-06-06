@@ -13,6 +13,7 @@ import { Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
+import { HttpProvider } from '../../providers/http/http';
 import { StorageProvider } from '../../providers/storage/storage';
 import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
 import { Category } from '../../models/Category';
@@ -91,9 +92,9 @@ export class AddPhrasePage {
     public platform: Platform,
     private file: File,
     private filePath: FilePath,
+    private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
-    public authentication: AutenticationProvider,
     public aAuth: AngularFireAuth,
     public errorProvider: ErrorProvider,
     public categoryProvaider: CategoryServiceProvider,
@@ -157,7 +158,7 @@ export class AddPhrasePage {
         //create new 'משפטים' sub category
         let newSentencesCategory = new Category(
           Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
-          this.authentication.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
+          this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
 
         this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
@@ -223,7 +224,7 @@ export class AddPhrasePage {
         this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
-        this._myForm.controls['imagePath'].value, this.authentication.user.email,
+        this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
         this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1, true);
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
@@ -255,7 +256,7 @@ export class AddPhrasePage {
         {
           text: '\xa0 גלריה',
           icon: 'images',
-          handler: () => {
+          handler: () => {           
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
@@ -301,21 +302,13 @@ export class AddPhrasePage {
         correctOrientation: true
       };
 
-      let user = this.authentication.user.email;
+      let user = this.aAuth.auth.currentUser.email;
       const imageFolder = "/images/";
-      const result = await this.camera.getPicture(options);//get the path to the image
+      const im_path = await this.camera.getPicture(options);//get the path to the image
+      debugger
+      const im_type = 'data:image/jpeg;base64,';
+      this.storageProvider.uploadFileByPath(im_path,im_type ,this)
 
-      const image = 'data:image/jpeg;base64,' + result;
-
-      let path = user + imageFolder + this.createFileName();//create the path on the storage
-
-      const pictures = firebase.storage().ref(path);
-      pictures.putString(image, "data_url").then(url => {
-        //TODO: connect the progress bar
-        this.imageURL = url.downloadURL;
-        console.log(this.imageURL);
-        this._myForm.patchValue({ 'imagePath': this.imageURL });//insert the capture image path to the form 
-      })
     } catch (err) {
       this.errorProvider.alert("לא הצלחנו לבחור תמונה....", err);
     }
@@ -381,36 +374,29 @@ export class AddPhrasePage {
 
   //stop the record and save the audio file on local variable
   stopRecord() {
-    try {
-      if (this.recording) {
-        this.micText = START_REC;
-        this.recording = !this.recording;
-        let user = this.authentication.user.email;
-        const audioFolder = "/audio/";
+    if (this.recording) {
+      this.micText = START_REC;
+      this.recording = !this.recording;
+      let user = this.aAuth.auth.currentUser.email;
+      const audioFolder = "/audio/";
 
-        this.audio.stopRecord();
+      this.audio.stopRecord();
+      // save the new audio file to the storage
+      try {
 
-        // save the new audio file to the storage
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then((base64File: string) => {
           // fix the encoding
-          const newBase = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
-
-          const audioData = 'data:audio/mp3;base64,' + newBase;
-
-          let path = user + audioFolder + this.fileName;//create the path on the storage
-
-          const audios = firebase.storage().ref(path).putString(audioData, "data_url")
-            .then(url => {
-              //TODO: connect the progress bar
-              this.audioFileURL = url.downloadURL;
-              console.log(this.audioFileURL);
-              this._myForm.patchValue({ 'audioFile': url.downloadURL });//insert the capture image path to the form 
-            });
+          debugger
+          const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
+          const audio_type = 'data:audio/mp3;base64,'
+          this.storageProvider.uploadFileByPath(audio_path,audio_type,this)
+        }, (err) => {
+          console.log(err);
         });
+      } catch (err) {
+        console.log(err);
       }
-    } catch (err) {
-      console.log(err);
     }
   }
 
