@@ -78,20 +78,15 @@ export class AddPhrasePage {
   audioFilePath: string;
   fileName: string;
   audio: MediaObject;
-  audioFile: any;
   firstTime: boolean = true;
 
   constructor(private _formBuilder: FormBuilder,
     private _actionSheetCtrl: ActionSheetController,
     private _viewCtrl: ViewController,
-    public alertCtrl: AlertController,
     private camera: Camera,
-    private _audioRecordProvider: AudioRecordProvider,
     /* media provider for the record methods */
     public platform: Platform,
     private file: File,
-    private filePath: FilePath,
-    private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
     public authentication: AutenticationProvider,
@@ -100,7 +95,6 @@ export class AddPhrasePage {
     public loadingCtrl: LoadingController,
     public media: Media,
     public base64: Base64,
-    public nativeAudio: NativeAudio,
   ) {
 
     this.getColorsFromList();
@@ -422,12 +416,14 @@ export class AddPhrasePage {
     }
     if (this.firstTime) {
       this.audio = this.media.create(url);
+      this.firstTime = !this.firstTime;
     }
     this.audio.onStatusUpdate.subscribe(status => {
       if (status.toString() == "4") { // player end running
         console.log("player stopped");
         this.audio.release();//free audio resources after playback (android)
         this.playing = !this.playing;
+        this.firstTime = !this.firstTime;
       }
     });
 
