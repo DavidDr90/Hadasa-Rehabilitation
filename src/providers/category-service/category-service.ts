@@ -57,17 +57,11 @@ export class CategoryServiceProvider {
    */
   public getSubCategoryByName(parentCategoryID: string, name:string): Promise<Category>{
     return new Promise((resolve, reject) => {
-      try{
-        let temp = this.subCategories.filter(cat => cat.parentCategoryID == parentCategoryID)
+        let temp = this.subCategories.filter(cat => cat.parentCategoryID == parentCategoryID);
         let temp1 = temp.find(cat => cat.name == name);
         if(temp1 == undefined)
-          throw("The wanted category doesn't exist")
-        resolve(temp1)
-      }
-      catch(e){
-        console.log(e)
-        this.error.simpleTosat(e)
-      }
+          console.log("category is undefined");
+        resolve(temp1);
       })
   }
 

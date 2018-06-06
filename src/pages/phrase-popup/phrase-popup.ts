@@ -31,7 +31,7 @@ export class PhrasePopupPage {
       /* media providers for playing audio */
       private media: Media,
       public platform: Platform,
-      private file: File){
+      private file: MediaObject){
 
     this.phraseName = this.navParams.get("phraseName");
     this.phraseImageURL = this.navParams.get("phraseImageURL");
@@ -44,35 +44,55 @@ export class PhrasePopupPage {
   
   //clicked the button, play audio
   private clicked(){
+    console.log("button clicked"); 
     this.playAudio(this.phraseAudioURL);   
   }
 
     /** play the input file on the device speakers
-   * @param file - an input audio file to play
+   * @param url - an input audio file to play
    */
-   private playAudio(file) {
-    try {
-      if (this.firstTime) {//enter this if only the first time
-        if (this.platform.is('ios')) {
-          this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + file;
-          this.audio = this.media.create(this.audioFilePath);
-        } else if (this.platform.is('android')) {
-          this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + file;
-          this.audio = this.media.create(this.audioFilePath);
-        }
-      }
-      this.firstTime = false;
-      this.playing = true;
-      this.audio.play();
-      this.audio.setVolume(0.8);
-    } catch (error) {
-      let alert = this.alertCtrl.create({
-        title: 'problem with audio',
-        subTitle: error,
-        buttons: ['sorry']
-      });
-      alert.present();
+   private playAudio(url) {
+
+    //if we have no audio, whait few sec and pop
+    if(url == null || url.toString.empty()){
+      console.log("url is empty");  
+      setTimeout( 
+        this.navCtrl.pop(),
+        3000
+      )
     }
+
+
+    //this.memoMedia = this.media.create(path);
+    this.audio = this.media.create(url);
+
+    this.audio.onStatusUpdate.subscribe(status => 
+      { 
+
+        if (status.toString()=="1") { //player start
+          console.log("start playing"); 
+
+        }
+
+      if (status.toString()=="4") { // player end running
+        console.log("player stopped"); 
+          this.navCtrl.pop();
+             
+          
+      }
+
+  }); 
+
+  try {
+    this.audio.play()
+  }
+  catch (ex){
+    console.log("errrrrror");
+    console.error(ex);
+  }
+  
+
+    //TODO file.release() to free audio resources after playback (android)
   }
 
 }
