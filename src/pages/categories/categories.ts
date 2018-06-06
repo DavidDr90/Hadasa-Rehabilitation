@@ -60,6 +60,7 @@ export class CategoriesPage {
 
   /*******************  Edit Mode section ****************/
 
+  visible:boolean = true;
   editFlag: boolean = false;
   editButtonName: string = "עריכה";
 

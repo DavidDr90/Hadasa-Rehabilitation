@@ -51,15 +51,19 @@
                         <ion-icon name="create"></ion-icon>
                         ערוך
                     </button>
-                    <button ion-button (click)="changeSubVisibility(item)">
-                        <ion-icon name="eye"></ion-icon>
-                        הצג או הסתר
+                    <button ion-button color="red" (click)="deleteSubCategory(item)">
+                        <ion-icon name="trash"></ion-icon>
+                        מחק
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button expandable (click)="deleteSubCategory(item)">
-                        <ion-icon name="trash"></ion-icon>
-                        מחק
+                    <button ion-button *ngIf="!Svisible" (click)="changeSubVisibility(item)">
+                        <ion-icon name="eye"></ion-icon>
+                        הצג
+                    </button>
+                    <button ion-button *ngIf="Svisible" (click)="changeSubVisibility(item)">
+                        <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
+                        הסתר
                     </button>
                 </ion-item-options>
             </ion-item-sliding>
@@ -77,15 +81,19 @@
                         <ion-icon name="create"></ion-icon>
                         ערוך
                     </button>
-                    <button ion-button (click)="changeVisibility(item)">
-                        <ion-icon name="eye"></ion-icon>
-                        הצג או הסתר
+                    <button ion-button color="red" (click)="deletePhrase(item)">
+                        <ion-icon name="trash"></ion-icon>
+                        מחק
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button expandable (click)="deletePhrase(item)">
-                        <ion-icon name="trash"></ion-icon>
-                        מחק
+                    <button ion-button *ngIf="!Pvisible" (click)="changeVisibility(item)">
+                        <ion-icon name="eye"></ion-icon>
+                        הצג
+                    </button>
+                    <button ion-button *ngIf="Pvisible" (click)="changeVisibility(item)">
+                        <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
+                        הסתר
                     </button>
                 </ion-item-options>
             </ion-item-sliding>

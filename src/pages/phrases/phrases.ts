@@ -172,6 +172,8 @@ export class PhrasesPage {
 
   /*******************  Edit Mode section ****************/
 
+  Pvisible:boolean = true;
+  Svisible:boolean = true;
   editFlag: boolean = false;
   editButtonName: string = "עריכה";
 
