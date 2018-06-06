@@ -1,4 +1,10 @@
 <!--This is the page that pops onscreen when phrase is clicked-->
+<ion-header *ngIf="isIOS">
+    <ion-navbar>
+        <ion-title> {{phraseName}} </ion-title>
+    </ion-navbar>
+</ion-header>
+
 
 <ion-content padding>
     <div class="titleDiv">
