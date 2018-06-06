@@ -16,7 +16,7 @@
   <form [formGroup]="_myForm">
     <!-- deal with the image choosing procces -->
     <!-- connect the file choose to the html elemnt -->
-    <progress-bar [progress]="storageProvider.uploadPercentage"> </progress-bar>
+    <progress-bar [progress]="storageProvider.getImagePercentage()"> </progress-bar>
     <div class="profile-image-wrapper" (click)="presentActionSheet()">
       <!-- display circle with '+' symbol for adding an image -->
       <div class="profile-image-placeholder" [hidden]="imageURL !== null">
@@ -75,6 +75,7 @@
         </ion-item>
       </ion-list>
     </ion-item>
+    <progress-bar [progress]="storageProvider.getAudioPercentage()"> </progress-bar>
 
     <!-- <ion-item id="recordDiv" *ngIf="!isCategory">
       <button ion-button primary (touchstart)="startRecord()" (touchend)="stopRecord()">

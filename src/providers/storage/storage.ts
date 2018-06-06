@@ -1,6 +1,7 @@
 import {AngularFireStorage} from 'angularfire2/storage';
 import { Injectable } from '@angular/core';
 import { AutenticationProvider } from '../autentication/autentication';
+import * as firebase from 'firebase';
 
 /*
   Generated class for the StorageProvider provider.
@@ -12,11 +13,17 @@ import { AutenticationProvider } from '../autentication/autentication';
 export class StorageProvider {
 
   //float of uploaded percentage.
-  public uploadPercentage;
-  public downloadURL;
+  public imageUploadPercentage;
+  public audioUploadPercentage;
+
+  public image_ref; 
+  public imageDownloadURL;
+  public audioDownloadURL
 
   constructor(private storage: AngularFireStorage, private auth : AutenticationProvider) {
-    this.uploadPercentage = 0;
+    this.imageUploadPercentage = 0;
+    this.audioUploadPercentage = 0;
+
   }
 
   /* This function called from file browser with an event of calling
@@ -35,58 +42,93 @@ export class StorageProvider {
    * 
    * TODO: Should add error-dialog and percentage bar to the user.
   */
- public uploadFile(event)
- {   
-   try
+
+ /* This function called from the add-phrase form (you can use it from different pages also).
+  * The functions gets:
+  * path: The native path of the fine on the device.
+  * type: The type of the file (Example: 'data:audio/mp3;base64' for audio file)
+  * form: form object (Not nessecary if you dont want to use). - default is NULL.
+  * The form value just updates the file object string.
+  * 
+  * How does it work?
+  * This function checks if the type is image, if it is then it uploads it to
+  * <email>/images/<name_of_file>.jpg on the storage.
+  * same with audio file.
+  * 
+  * This function also updates the progress of the upload 
+  * for each image and audio seperatly.
+  */
+ public uploadFileByPath(path,type, form = null)
+ {
+
+   let user = this.auth.afAuth.auth.currentUser.email
+
+   //if the file is an image file
+   if(type.includes("image"))
    {
-      const file = event.target.files;
-      var folder_name = ""
-      //Gets the type of the file (images or audio)
-      const type = file.item(0).type 
+     this.imageUploadPercentage = 0
+    const imageFolder = "/images/";
+    let storage_path = user + imageFolder + this.createFileName() +".jpg";//create the path on the storage
 
-      if(type.startsWith("image/"))
-            folder_name = "/images/"
-      
-      else if(type.startsWith("audio/"))
-            folder_name = "/audios/"
+    this.image_ref = firebase.storage().ref(storage_path);
+   
+    let task = this.image_ref.putString(type+path, "data_url").then(url => {
+    this.imageDownloadURL = url.task.snapshot.downloadURL;
+    console.log(this.imageDownloadURL);
+    if(form)
+      form._myForm.patchValue({ 'imagePath': this.imageDownloadURL });//insert the capture image path to the form 
+    //Updates the image-progress
+    
+    let current_percent = (url.task.snapshot.bytesTransferred/url.task.snapshot.totalBytes)*100;
+    this.imageUploadPercentage = Math.round(+current_percent)
+    
+   })
 
-      //If the file is not image or audio file 
-      else
-      {
-        console.log("File not supported "); 
-        return ""
-      }
-
-      const storage_path =  this.auth.user.email + folder_name + file.item(0).name
-      const task = this.storage.upload(storage_path ,file.item(0));
-      task.percentageChanges().subscribe( a =>
-        {
-          
-          this.uploadPercentage = Math.round(a);
-
-          if (this.uploadPercentage == 100)
-          {
-            return task.downloadURL().subscribe(URL => {
-              console.log("Uploaded successfully, can be found at: "+URL);
-              return URL;
-              // return URL;
-            });
-         
-          }
-        });
+  }
+  //if the file is an audio file
+  else if( type.includes("audio"))
+  {
+    this.audioUploadPercentage = 0
+    const audioFolder = "/audio/";
   
-     }
+    let storage_path = user + audioFolder + this.createFileName()+".mp3";//create the path on the storage
 
-  catch(e)
-   {
-      console.log("Uploading file failed: ",e.message);
-      return ""
-   }
+    const task = firebase.storage().ref(storage_path).putString(type + path, "data_url")
+      .then(url => {
+        this.audioDownloadURL = url.task.snapshot.downloadURL   
+        console.log(this.audioDownloadURL);
+        if(form)
+          form._myForm.patchValue({ 'audioFile': this.audioDownloadURL });//insert the capture image path to the form 
+        //Updates the audio-progress
+        let current_percent = (url.task.snapshot.bytesTransferred/url.task.snapshot.totalBytes)*100;
+        this.audioUploadPercentage = Math.round(+current_percent)
+      });
+
+  }
+  
+  else{
+    console.log("ERROR UPLOADING - UNKNOWN TYPE OF FILE");
+
+ }
+}
+   
+ //this function creates random file-name (without extention) based on time.
+ private createFileName() {
+   var d = new Date(),
+     n = d.getTime(),
+     newFileName = n;
+   return newFileName;
  }
 
- public getPercentage()
+
+ public getImagePercentage()
  {
-   return this.uploadPercentage;
+   return this.imageUploadPercentage;
+ }
+
+ public getAudioPercentage()
+ {
+   return this.audioUploadPercentage;
  }
 
 }
