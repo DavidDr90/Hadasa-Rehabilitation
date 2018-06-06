@@ -44,8 +44,7 @@ export class MyCategoryComponent {
    * @param cat the category that clicked
   */
  public catOnClick(event){
-  this.category as Category;
-  this.category.views++;// update the category views field
+  event.stopPropagation();
   this.categoryProvider.increaseViews(this.category)// update the category views field in the DB
   this.favProvider.addCommonFavCat(this.category); //check if the category is common category
 }

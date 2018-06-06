@@ -50,7 +50,7 @@ export class FirebaseProvider {
   {
     //Creating the categories collection of the CURRENT USER!!!!!!!! ha ha
     try{
-      this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.where('userEmail', '==', this.authentication.user.email));
+      this.categoriesCollection = this.afs.collection<Category>('categories', ref => ref.orderBy('order','asc').where('userEmail', '==', this.authentication.user.email));
       this.categories = this.categoriesCollection.snapshotChanges().map(result => {
         return result.map(a => {
           let temp = a.payload.doc.data() as Category;
@@ -75,8 +75,8 @@ export class FirebaseProvider {
   {
     try{
       //Creating the phrases collection of specific category of current user
-      this.phrasesCollection = this.afs.collection<Phrase>('phrases', ref => ref.where('categoryID','==',category.id));
-      //this.phrasesCollection = this.afs.collection<Phrase>('phrases', ref => ref.orderBy('name', 'desc'));
+      this.phrasesCollection = this.afs.collection<Phrase>('phrases', ref => ref.orderBy('order','asc').where('categoryID','==',category.id));
+      //this.phrasesCollection = this.afs.collection<Phrase>('phrases', ref => ref.orderBy('name', 'asc'));
       this.phrases = this.phrasesCollection.snapshotChanges().map(result => {
         return result.map(a => {
           let temp = a.payload.doc.data() as Phrase;
@@ -146,22 +146,18 @@ export class FirebaseProvider {
 
     /**
    * Update fields of a document without overwriting the entire document.
-   * @param phrase, the phrase, want to update
-   * @param property, the phrase property to update.
-   * @param value, the the new property value to change with.  
+   * @param phrase, the updated local phrase, to update the db
    */
-  updatePhrase(phrase: Phrase,property: string, value: string){
-    this.afs.doc('phrases/' + phrase.id).update({property :value});
+  updatePhrase(phrase: Phrase){
+    this.afs.doc('phrases/' + phrase.id).update(phrase);
   }
 
     /**
    * Update fields of a document without overwriting the entire document.
-   * @param phrase, the phrase, want to update
-   * @param property, the phrase property to update.
-   * @param value, the the new property value to change with.  
+   * @param category, the updated local category, to update the db
    */
-  updateCategory(category: Category,property: string, value: string){
-    this.afs.doc('categories/' + category.id).update({property :value});
+  updateCategory(category: Category){
+    this.afs.doc('categories/' + category.id).update(category);
   }
 
 }

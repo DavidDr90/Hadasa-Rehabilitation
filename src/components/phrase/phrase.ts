@@ -27,7 +27,6 @@ export class PhraseComponent {
     event.stopPropagation();
   /**on click method when the user click on a phrase
    * the method check if to add the phrase to the common phrases list.*/
-    this.phrase.views++;
     this.phraseProvider.increaseViews(this.phrase);//update DB
     this.favProvider.addCommonFavPhrases(this.phrase);
     try{

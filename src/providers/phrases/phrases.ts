@@ -19,7 +19,7 @@ export class PhrasesProvider {
   //Promise return to an async function that handle with him.
   //subscribe listen to the db while the app is alive.
   //note that there is no relation between Promise object to  method. 
-  public getPhrases(category: Category) {
+  public getPhrases(category: Category):Promise<Phrase[]> {
     this.firebaseProvider.importPhrases(category);
     return new Promise((resolve, reject) => {
       this.firebaseProvider.getPhrasesObservable.subscribe(arrayOfPhrases => {
@@ -80,33 +80,33 @@ export class PhrasesProvider {
    //SETTERS
    public setName(phrase:Phrase, newName: string) {
     phrase.name = newName;
-    this.firebaseProvider.updatePhrase(phrase,'name',newName)
+    this.firebaseProvider.updatePhrase(phrase)
   }
   public setImageUrl(phrase:Phrase, newURL: string) {
     phrase.imageURL = newURL;
-    this.firebaseProvider.updatePhrase(phrase,'imageURL',newURL)
+    this.firebaseProvider.updatePhrase(phrase)
   }
   public setAudioUrl(phrase:Phrase, newURL: string) {
     phrase.audio = newURL;
-    this.firebaseProvider.updatePhrase(phrase,'audio',newURL)
+    this.firebaseProvider.updatePhrase(phrase)
   }
   public setCategoryID(phrase:Phrase, newCategoryParent: string) {
     phrase.categoryID = newCategoryParent;
-    this.firebaseProvider.updatePhrase(phrase,'categoryID',newCategoryParent)
+    this.firebaseProvider.updatePhrase(phrase)
   }
   public setIsFav(phrase:Phrase, isFav: boolean) {
     phrase.isFav = isFav;
-      this.firebaseProvider.updatePhrase(phrase,'isFave',""+isFav);
+    this.firebaseProvider.updatePhrase(phrase);
   }
   //each time a category has chosen, her views increase by 1.
   public increaseViews(phrase:Phrase) {
     phrase.views++;
-    this.firebaseProvider.updatePhrase(phrase,'views',""+phrase.views)
+    this.firebaseProvider.updatePhrase(phrase)
   }
-  // public setOrder(phrase:Phrase, order: string) {
-  //   phrase.order = order;
-  //   this.firebaseProvider.updatePhrase(phrase,'order',""+order);
-  // }
+  public setOrder(phrase:Phrase, order: number) {
+    phrase.order = order;
+    this.firebaseProvider.updatePhrase(phrase);
+  }
 
 }
 

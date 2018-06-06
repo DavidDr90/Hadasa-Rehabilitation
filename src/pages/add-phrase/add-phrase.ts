@@ -13,7 +13,6 @@ import { Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
-import { HttpProvider } from '../../providers/http/http';
 import { StorageProvider } from '../../providers/storage/storage';
 import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
 import { Category } from '../../models/Category';
@@ -92,7 +91,6 @@ export class AddPhrasePage {
     public platform: Platform,
     private file: File,
     private filePath: FilePath,
-    private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
     public aAuth: AngularFireAuth,
@@ -256,7 +254,7 @@ export class AddPhrasePage {
         {
           text: '\xa0 גלריה',
           icon: 'images',
-          handler: () => {           
+          handler: () => {
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
@@ -382,16 +380,16 @@ export class AddPhrasePage {
 
   //stop the record and save the audio file on local variable
   stopRecord() {
-    if (this.recording) {
-      this.micText = START_REC;
-      this.recording = !this.recording;
-      let user = this.aAuth.auth.currentUser.email;
-      const audioFolder = "/audio/";
+    try {
+      if (this.recording) {
+        this.micText = START_REC;
+        this.recording = !this.recording;
+        let user = this.aAuth.auth.currentUser.email;
+        const audioFolder = "/audio/";
 
-      this.audio.stopRecord();
-      // save the new audio file to the storage
-      try {
+        this.audio.stopRecord();
 
+        // save the new audio file to the storage
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then((base64File: string) => {
           // fix the encoding
@@ -408,12 +406,10 @@ export class AddPhrasePage {
               console.log(this.audioFileURL);
               this._myForm.patchValue({ 'audioFile': url.downloadURL });//insert the capture image path to the form 
             });
-        }, (err) => {
-          console.log(err);
         });
-      } catch (err) {
-        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
     }
   }
 

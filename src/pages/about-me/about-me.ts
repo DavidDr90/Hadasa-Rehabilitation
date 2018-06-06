@@ -46,6 +46,7 @@ export class AboutMePage {
   //fire each time this page is entered.
   //
   ionViewDidEnter() {
+    //this.AsyncPhrasesloader()
   }
 
   //initial phrases array for ngFor
