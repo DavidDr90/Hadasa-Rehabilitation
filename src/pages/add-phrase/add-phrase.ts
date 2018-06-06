@@ -95,7 +95,7 @@ export class AddPhrasePage {
     private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
-    public aAuth: AngularFireAuth,
+    public auth: AutenticationProvider,
     public errorProvider: ErrorProvider,
     public categoryProvaider: CategoryServiceProvider,
     public loadingCtrl: LoadingController,
@@ -158,7 +158,7 @@ export class AddPhrasePage {
         //create new 'משפטים' sub category
         let newSentencesCategory = new Category(
           Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
-          this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
+          this.auth.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
 
         this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
@@ -224,7 +224,7 @@ export class AddPhrasePage {
         this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
-        this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
+        this._myForm.controls['imagePath'].value, this.auth.user.email,
         this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1, true);
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
@@ -302,7 +302,7 @@ export class AddPhrasePage {
         correctOrientation: true
       };
 
-      let user = this.aAuth.auth.currentUser.email;
+      let user = this.auth.user.email
       const imageFolder = "/images/";
       const im_path = await this.camera.getPicture(options);//get the path to the image
       debugger
@@ -377,7 +377,7 @@ export class AddPhrasePage {
     if (this.recording) {
       this.micText = START_REC;
       this.recording = !this.recording;
-      let user = this.aAuth.auth.currentUser.email;
+      let user = this.auth.user.email;
       const audioFolder = "/audio/";
 
       this.audio.stopRecord();

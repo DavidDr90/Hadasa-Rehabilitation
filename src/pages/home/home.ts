@@ -15,13 +15,10 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 
-
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-
 
 export class HomePage {
   addPhrasePage = AddPhrasePage;
