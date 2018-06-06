@@ -37,13 +37,13 @@ export class CategoryServiceProvider {
    */
   public updateCategoriesArray(): Promise<Category[]> {
     let loading = this.loadingCtrl.create({});
-    loading.present();
+    //loading.present();
     this.firebaseProvider.importCategories();
     return new Promise((resolve, reject) => {
     this.firebaseProvider.getCategoriesObservable.subscribe(a => {
         this.categories = a.filter(cat => cat.parentCategoryID == "");
         resolve(this.subCategories = a.filter(cat => cat.parentCategoryID != ""))
-        loading.dismiss();
+        //loading.dismiss();
       })
     })
   }
