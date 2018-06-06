@@ -1,4 +1,6 @@
 import { Item, Color } from "./SmallClass";
+import { COLOR_LIST } from "../consts/enums";
+import * as Enums from '../consts/enums';
 
 
 
@@ -27,9 +29,16 @@ export class Category extends Item {
         this.parentCategoryID = parentCategoryID;
         this.views = views;
         this.isFav = isFav;
-        this.color = color;
         this.order = order;
         this.visibility = visibility;
+        if(color==null){
+            let colorName = COLOR_LIST.find(color=>color.hebrewName==name);
+            this.color = (colorName == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : colorName;
+        }
+         else
+            this.color=color;
+       
+        console.log(this);
     }
 
 
