@@ -73,13 +73,13 @@ export class AppBuilderProvider {
     let subPhrases;
 
     //TIMES CATEGORY
-    cat = new Category("זמן", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true)
+    cat = new Category("זמן", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", this.userEmail, "", 0, false, null, 1, true)
     phrases = [];
-    subCats = [new Category("ימות השבוע", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fday.PNG?alt=media&token=2c07b9c2-1b88-4e00-9f84-7012b6f76150", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 0, true),
-    new Category("חודשים עבריים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fmonth.PNG?alt=media&token=5ffe95f6-d34a-4cfd-8f3e-e6b2611b846f", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true),
-    new Category("חודשים לועזיים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fmonth.PNG?alt=media&token=5ffe95f6-d34a-4cfd-8f3e-e6b2611b846f", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true),
-    new Category("חגים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("אירועים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 4, true)]
+    subCats = [new Category("ימות השבוע", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fday.PNG?alt=media&token=2c07b9c2-1b88-4e00-9f84-7012b6f76150", this.userEmail, "", 0, false, null, 0, true),
+    new Category("חודשים עבריים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fmonth.PNG?alt=media&token=5ffe95f6-d34a-4cfd-8f3e-e6b2611b846f", this.userEmail, "", 0, false, null, 1, true),
+    new Category("חודשים לועזיים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fmonth.PNG?alt=media&token=5ffe95f6-d34a-4cfd-8f3e-e6b2611b846f", this.userEmail, "", 0, false, null, 2, true),
+    new Category("חגים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", this.userEmail, "", 0, false, null, 3, true),
+    new Category("אירועים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", this.userEmail, "", 0, false, null, 4, true)]
 
     subPhrases = [[new Phrase("", "ראשון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fday.PNG?alt=media&token=2c07b9c2-1b88-4e00-9f84-7012b6f76150", "", 0, "", false, 0, true),
     new Phrase("", "שני", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fday.PNG?alt=media&token=2c07b9c2-1b88-4e00-9f84-7012b6f76150", "", 0, "", false, 0, true),
@@ -136,12 +136,12 @@ export class AppBuilderProvider {
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
     //PLACES CATEGORY  
-    cat = new Category("מקומות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true)
+    cat = new Category("מקומות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, null, 2, true)
     phrases = [];
-    subCats = [new Category("חדרים בבית", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 0, true),
-    new Category("בנק", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true),
-    new Category("קניות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/shopping%2Fshopping.PNG?alt=media&token=8e2dd23f-299b-4249-bd24-24f181d0ef15", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true),
-    new Category("מסעדות ובתי קפה", "", "", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true)]
+    subCats = [new Category("חדרים בבית", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, null, 0, true),
+    new Category("בנק", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, null, 1, true),
+    new Category("קניות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/shopping%2Fshopping.PNG?alt=media&token=8e2dd23f-299b-4249-bd24-24f181d0ef15", this.userEmail, "", 0, false, null, 2, true),
+    new Category("מסעדות ובתי קפה", "", "", this.userEmail, "", 0, false, null, 3, true)]
 
     subPhrases = [[new Phrase("", "סלון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
     new Phrase("", "מטבח", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
@@ -172,15 +172,15 @@ export class AppBuilderProvider {
 
 
     //TRAVEL CATEGORY
-    cat = new Category("נסיעות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fpublic_transport.PNG?alt=media&token=1d88c9c6-74ca-4cd2-af8b-316262066b17", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true)
+    cat = new Category("נסיעות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fpublic_transport.PNG?alt=media&token=1d88c9c6-74ca-4cd2-af8b-316262066b17", this.userEmail, "", 0, false, null, 2, true)
 
     phrases = [new Phrase("", "כיצד מגיעים ליעד?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fdestination.PNG?alt=media&token=5d304751-75b8-433d-a4fd-866c7744b818", "", 0, "", false, 0, true),
     new Phrase("", "כמה עולה הנסיעה?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fcost.PNG?alt=media&token=de24f054-5144-4b80-9a03-40c468259268", "", 0, "", false, 0, true)];
 
-    subCats = [new Category("רכב פרטי", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fpublic_transport.PNG?alt=media&token=1d88c9c6-74ca-4cd2-af8b-316262066b17", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 0, true),
-    new Category("אוטובוס", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fbus.PNG?alt=media&token=78fcbe9b-c9ac-4a03-89f9-504a18d144a7", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true),
-    new Category("רכבת", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftrain.PNG?alt=media&token=3649588a-7674-4428-8935-4de8e024c650", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true),
-    new Category("מונית", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftaxi.PNG?alt=media&token=a4422fb9-00f8-4b75-84c3-aadc353ee915", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true)]
+    subCats = [new Category("רכב פרטי", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fpublic_transport.PNG?alt=media&token=1d88c9c6-74ca-4cd2-af8b-316262066b17", this.userEmail, "", 0, false, null, 0, true),
+    new Category("אוטובוס", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fbus.PNG?alt=media&token=78fcbe9b-c9ac-4a03-89f9-504a18d144a7", this.userEmail, "", 0, false, null, 1, true),
+    new Category("רכבת", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftrain.PNG?alt=media&token=3649588a-7674-4428-8935-4de8e024c650", this.userEmail, "", 0, false, null, 2, true),
+    new Category("מונית", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftaxi.PNG?alt=media&token=a4422fb9-00f8-4b75-84c3-aadc353ee915", this.userEmail, "", 0, false, null, 3, true)]
 
     subPhrases = [[new Phrase("", "היכן תחנת הדלק הקרובה?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fpublic_transport.PNG?alt=media&token=1d88c9c6-74ca-4cd2-af8b-316262066b17", "", 0, "", false, 0, true),
     new Phrase("", "צריך טרמפ?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fpublic_transport.PNG?alt=media&token=1d88c9c6-74ca-4cd2-af8b-316262066b17", "", 0, "", false, 0, true),
@@ -203,20 +203,20 @@ export class AppBuilderProvider {
 
 
     //FOOD CATEGORY
-    cat = new Category("אוכל", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true)
+    cat = new Category("אוכל", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 2, true)
 
     phrases = [new Phrase("", "אני רוצה לאכול", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", "", 0, "", false, 0, true),
     new Phrase("", "להכין לך אוכל?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", "", 0, "", false, 0, true),
     new Phrase("", "סיימתי לאכול", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", "", 0, "", false, 0, true)];
 
-    subCats = [new Category("מוצרי חלב", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 0, true),
-    new Category("מוצרי בשר", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true),
-    new Category("מאכלים כללים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true),
-    new Category("קינוחים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("משקאות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("ירקות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("פירות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("רטבים ממרחים ותבלינים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true)]
+    subCats = [new Category("מוצרי חלב", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 0, true),
+    new Category("מוצרי בשר", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 1, true),
+    new Category("מאכלים כללים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 2, true),
+    new Category("קינוחים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 3, true),
+    new Category("משקאות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 3, true),
+    new Category("ירקות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 3, true),
+    new Category("פירות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 3, true),
+    new Category("רטבים ממרחים ותבלינים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", this.userEmail, "", 0, false, null, 3, true)]
 
     subPhrases = [[new Phrase("", "גבינה צהובה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", "", 0, "", false, 0, true),
     new Phrase("", "גבינה בולגרית", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/food%2Ffood.PNG?alt=media&token=eb93a91d-bc79-442c-bcd3-7284ff5ed6a6", "", 0, "", false, 0, true),
@@ -261,7 +261,7 @@ export class AppBuilderProvider {
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
     //FEELINGS CATEGORY
-    cat = new Category("רגשות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2F%E2%80%8F%E2%80%8Ffeelings.PNG?alt=media&token=921bff5c-c031-41b3-b1d0-efe4c622e542", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true)
+    cat = new Category("רגשות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2F%E2%80%8F%E2%80%8Ffeelings.PNG?alt=media&token=921bff5c-c031-41b3-b1d0-efe4c622e542", this.userEmail, "", 0, false, null, 3, true)
 
     phrases = [new Phrase("", "עצב", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2Fsad.PNG?alt=media&token=8a4bdf52-f492-484d-ba11-6ccbb9f66cc0", "", 0, "", false, 0, true),
     new Phrase("", "צחוק", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2Flaugh.PNG?alt=media&token=f576ff92-73f0-42dd-85dc-8a297d451e82", "", 0, "", false, 0, true),
@@ -273,7 +273,7 @@ export class AppBuilderProvider {
     this.add_new_cat_to_db(cat, phrases, [], [], 0);
 
     //PERSONAL STUFF CATEGORY
-    cat = new Category("חפצים אישיים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Fpersonal%20stuff.PNG?alt=media&token=bd9ebcf2-edbe-4288-b716-d76f2d57d757", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 4, true)
+    cat = new Category("חפצים אישיים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Fpersonal%20stuff.PNG?alt=media&token=bd9ebcf2-edbe-4288-b716-d76f2d57d757", this.userEmail, "", 0, false, null, 4, true)
 
     phrases = [new Phrase("", "פלאפון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Ftelephone.PNG?alt=media&token=8facc469-58e1-4cbf-97c8-58e35ef03f98", "", 0, "", false, 0, true),
     new Phrase("", "מפתחות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Fkeys.PNG?alt=media&token=6d1e23a0-3d1b-491d-8cad-06d3933c2991", "", 0, "", false, 0, true),
@@ -286,20 +286,20 @@ export class AppBuilderProvider {
     this.add_new_cat_to_db(cat, phrases, [], [], 0);
 
     //MEDICINE CATEGORY
-    cat = new Category("רפואה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%E2%80%8F%E2%80%8Fmadical.PNG?alt=media&token=62e9e247-658e-454d-87aa-6886aa0bab99", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 5, true)
+    cat = new Category("רפואה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%E2%80%8F%E2%80%8Fmadical.PNG?alt=media&token=62e9e247-658e-454d-87aa-6886aa0bab99", this.userEmail, "", 0, false, null, 5, true)
 
     phrases = [new Phrase("", "סקלת כאב", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fpain%20scale.PNG?alt=media&token=383577d6-fcda-4e1f-99be-8663747010ec", "", 0, "", false, 0, true),
     new Phrase("", "אני רוצה להזמין תור לרופא", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%E2%80%8F%E2%80%8Fmadical.PNG?alt=media&token=62e9e247-658e-454d-87aa-6886aa0bab99", "", 0, "", false, 0, true),
     new Phrase("", "אני רוצה לקבל הפנייה למיון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%E2%80%8F%E2%80%8Fmadical.PNG?alt=media&token=62e9e247-658e-454d-87aa-6886aa0bab99", "", 0, "", false, 0, true)];
 
-    subCats = [new Category("ראש", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fhead%2Fheadache.PNG?alt=media&token=afedb4f0-fc3a-4f05-96b6-1f0b79db71ca", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 0, true),
-    new Category("בטן", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fstomach%2Fstomach.PNG?alt=media&token=7275b1fd-c78f-4c62-9416-b492be982dce", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true),
-    new Category("אף אוזן גרון", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fotolaryngology%2Fotolaryngology.PNG?alt=media&token=f35024a9-3735-4f95-af28-6b668da2f2bf", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true),
-    new Category("חזה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fchest%2Fchest.PNG?alt=media&token=c4b85e58-d4a9-4d8f-8db8-f56d9eda4893", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("מצב נפשי", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fmental%20health%2Fmental_health.PNG?alt=media&token=786e2909-457a-48ec-bc0b-f1da4af93660", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("רופאים ואנשי מקצוע", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fdoctors%2Fdoctors.PNG?alt=media&token=b52be6c0-cc95-44d2-ac5b-0c18b595de23", " ", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("בדיקות רפואיות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%2F%E2%80%8F%E2%80%8Fmedica_test.PNG?alt=media&token=52ae7fac-4634-48c0-b5da-de6cd6eb96db", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true),
-    new Category("סוגי כאב", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fpain%2Fpain.PNG?alt=media&token=e8b2f4da-cdb3-4068-941b-9d23fd3d3250", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 3, true)]
+    subCats = [new Category("ראש", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fhead%2Fheadache.PNG?alt=media&token=afedb4f0-fc3a-4f05-96b6-1f0b79db71ca", this.userEmail, "", 0, false, null, 0, true),
+    new Category("בטן", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fstomach%2Fstomach.PNG?alt=media&token=7275b1fd-c78f-4c62-9416-b492be982dce", this.userEmail, "", 0, false, null, 1, true),
+    new Category("אף אוזן גרון", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fotolaryngology%2Fotolaryngology.PNG?alt=media&token=f35024a9-3735-4f95-af28-6b668da2f2bf", this.userEmail, "", 0, false, null, 2, true),
+    new Category("חזה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fchest%2Fchest.PNG?alt=media&token=c4b85e58-d4a9-4d8f-8db8-f56d9eda4893", this.userEmail, "", 0, false, null, 3, true),
+    new Category("מצב נפשי", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fmental%20health%2Fmental_health.PNG?alt=media&token=786e2909-457a-48ec-bc0b-f1da4af93660", this.userEmail, "", 0, false, null, 3, true),
+    new Category("רופאים ואנשי מקצוע", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fdoctors%2Fdoctors.PNG?alt=media&token=b52be6c0-cc95-44d2-ac5b-0c18b595de23", " ", this.userEmail, "", 0, false, null, 3, true),
+    new Category("בדיקות רפואיות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%2F%E2%80%8F%E2%80%8Fmedica_test.PNG?alt=media&token=52ae7fac-4634-48c0-b5da-de6cd6eb96db", this.userEmail, "", 0, false, null, 3, true),
+    new Category("סוגי כאב", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fpain%2Fpain.PNG?alt=media&token=e8b2f4da-cdb3-4068-941b-9d23fd3d3250", this.userEmail, "", 0, false, null, 3, true)]
 
     subPhrases = [[new Phrase("", "כאב ראש", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fhead%2Fheadache.PNG?alt=media&token=afedb4f0-fc3a-4f05-96b6-1f0b79db71ca", "", 0, "", false, 0, true),
     new Phrase("", "סחרחורת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2Fhead%2Fdizziness.PNG?alt=media&token=9cbb1c67-b3f8-4f05-8c94-bd559ff2768c", "", 0, "", false, 0, true),
