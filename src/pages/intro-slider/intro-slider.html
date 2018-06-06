@@ -1,9 +1,5 @@
-<ion-content padding>
-
-    <h1>תמונה של לוגו האפלקיציה</h1>
-    <img src="/assets/imgs/logo.png" width="50%" />
-    <h1>ברוכים הבאים</h1>
-    <h2>בואו נדבר</h2>
+<ion-content padding class="center">
+    <img src="/assets/imgs/logo.png" />
 
     <ion-item>
         <ion-label floating>Email Address</ion-label>
@@ -14,7 +10,6 @@
         <ion-label floating>password</ion-label>
         <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
-
 
     <button ion-button (click)="logIn(user)"> התחבר</button>
     <button ion-button (click)="register()"> הירשם</button>
