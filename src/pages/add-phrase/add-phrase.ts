@@ -57,7 +57,6 @@ export class AddPhrasePage {
   private pleaseWaitLoadingWindow: any;
   private isCategory: boolean = true;
 
-  private duration: any;
   private _myForm: FormGroup;
   private _curserPosition;
   private _nikudArray = Enums.NIKUD;
@@ -399,14 +398,6 @@ export class AddPhrasePage {
         console.log(err);
       }
     }
-  }
-
-  /** calculate the record file's duration
-   * @param duration object with the seconds, minutes and hours that was record
-   * @returns the duration in millisconds format
-   */
-  private calcDuration(duration): number {
-    return ((+duration.seconds) + (+duration.minutes * 60)) * 1000;//the first '+' is to tall the JS that this is numbers
   }
 
   // play the input file on the device speakers

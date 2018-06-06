@@ -30,8 +30,7 @@ export class PhrasePopupPage {
       private alertCtrl: AlertController,
       /* media providers for playing audio */
       private media: Media,
-      public platform: Platform,
-      private file: MediaObject){
+      public platform: Platform){
 
     this.phraseName = this.navParams.get("phraseName");
     this.phraseImageURL = this.navParams.get("phraseImageURL");
@@ -54,7 +53,7 @@ export class PhrasePopupPage {
    private playAudio(url) {
 
     //if we have no audio, whait few sec and pop
-    if(url == null || url.toString.empty()){
+    if(url == null || url == ""){
       console.log("url is empty");  
       setTimeout( 
         this.navCtrl.pop(),

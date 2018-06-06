@@ -209,7 +209,7 @@ export const COLOR_LIST: Color[] = [
         "hexNumber": "#bf6000"
     },
     {
-        "hebrewName": "רופאים ואנשי מקצוע",
+        "hebrewName": "רפואה",
         "englishName": "doctor",
         "hexNumber": "#6ccfff"
     },
