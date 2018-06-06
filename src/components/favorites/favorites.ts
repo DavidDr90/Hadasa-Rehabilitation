@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
-import { Category } from '../../models/Category';
-import { Phrase } from '../../models/Phrase';
+import { Component } from '@angular/core';
 import { Favorite } from '../../models/Favorite';
+import { HomePage } from '../../pages/home/home';
 
 
 @Component({
@@ -9,10 +8,10 @@ import { Favorite } from '../../models/Favorite';
   templateUrl: 'favorites.html'
 })
 export class FavoritesComponent {
-	@Input() favorite: Favorite;
+	favorite: Favorite;
 
 	constructor() {
-	
+		this.favorite=HomePage.favClass;
 	}
 
 }
