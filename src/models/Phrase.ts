@@ -18,10 +18,11 @@ export class Phrase extends Item {
     //the audio file/url of the phrase.
     public audio: string;//????? the type need to be changed!!!!!
     public isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
-    public order:number//the # of the phrase in the category
-  
-    constructor(id: string, name: string, imageURL: string, 
-        categoryID: string, views: number, audio: string, isFav: boolean, order:number) {
+    public order: number//the # of the phrase in the category
+    public visibility: boolean;//TRUE if the category is visible to the user
+
+    constructor(id: string, name: string, imageURL: string,
+        categoryID: string, views: number, audio: string, isFav: boolean, order: number, visibility: boolean) {
         super();
 
         this.id = id;
@@ -31,14 +32,15 @@ export class Phrase extends Item {
         this.views = views;
         this.audio = audio;
         this.isFav = isFav;
-        this.order=order;
+        this.order = order;
+        this.visibility = visibility;
     }
 
     //GETTERS
     public getID() {
         return this.id;
     }
-     getName() {
+    getName() {
         return this.name;
     }
     public getImageURL() {
@@ -55,6 +57,9 @@ export class Phrase extends Item {
     }
     public getIsFav() {
         return this.isFav;
+    }
+    public getVisibility(){
+        return this.visibility;
     }
 
 

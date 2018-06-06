@@ -2,7 +2,8 @@
     <ion-navbar>
         <ion-title>קטגוריות</ion-title>
         <ion-buttons end>
-            <button ion-button icon-only (click)="edit()">
+            <button ion-button clear (click)="edit()">
+                {{editButtonName}} &nbsp;
                 <ion-icon name="construct"></ion-icon>
             </button>
         </ion-buttons>
@@ -17,7 +18,43 @@
 
 <!-- the "press" event is just for debugging -->
 <ion-content class="categories">
-    <div *ngFor="let item of categoryService.getCategories">
-        <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)"></my-category>
+    <!-- for normal mode -->
+    <div *ngIf="!editFlag">
+        <ion-list no-lines>
+            <ion-item *ngFor="let item of categoryService.getCategories">
+                <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)"></my-category>
+            </ion-item>
+        </ion-list>
+    </div>
+
+    <!-- for edit mode, enable reorder and swiping -->
+    <div *ngIf="editFlag">
+        <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderItem($event)">
+            <ion-item-sliding *ngFor="let item of categoryService.getCategories">
+                <ion-item>
+                    <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)"></my-category>
+                </ion-item>
+                <ion-item-options side="right">
+                    <button ion-button (click)="editCategory(item)">
+                        <ion-icon name="create"></ion-icon>
+                        ערוך
+                    </button>
+                    <button ion-button color="red" (click)="deleteCategory(item)">
+                        <ion-icon name="trash"></ion-icon>
+                        מחק
+                    </button>
+                </ion-item-options>
+                <ion-item-options side="left">
+                    <button ion-button *ngIf="!visible" (click)="changeVisibility(item)">
+                        <ion-icon name="eye"></ion-icon>
+                        הצג
+                    </button>
+                    <button ion-button *ngIf="visible" (click)="changeVisibility(item)">
+                        <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
+                        הסתר
+                    </button>
+                </ion-item-options>
+            </ion-item-sliding>
+        </ion-list>
     </div>
 </ion-content>

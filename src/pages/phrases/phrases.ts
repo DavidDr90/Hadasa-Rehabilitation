@@ -117,14 +117,14 @@ export class PhrasesPage {
       title: 'בחר מה להוסיף',
       buttons: [
         {
-          text: '\xa0\xa0 הוספת ביטוי',
+          text: '\xa0 הוספת ביטוי',
           icon: 'camera',
           handler: () => {
             this.openAddPage(Enums.ADD_OPTIONS.PHRASE);
           }
         },
         {
-          text: '\xa0\xa0 הוספת תת-קטגוריה',
+          text: '\xa0 הוספת תת-קטגוריה',
           icon: 'images',
           handler: () => {
             this.openAddPage(Enums.ADD_OPTIONS.CATEGORY);
@@ -169,9 +169,97 @@ export class PhrasesPage {
     addModal.present();//present the addPhrasePage
   }
 
-  //TODO: enter edit mode
+
+  /*******************  Edit Mode section ****************/
+
+  Pvisible:boolean = true;
+  Svisible:boolean = true;
+  editFlag: boolean = false;
+  editButtonName: string = "עריכה";
+
   edit() {
+    if( this.editFlag){
+      this.editFlag = false;
+      this.editButtonName = "עריכה";
+      /**TODO:
+       * after the user press the "סיים" button
+       * save the local array changes in the DB array
+       */
+    }else{
+      this.editFlag = true;
+      this.editButtonName = "סיים";
+
+    }
+    
+  }
+
+  reorderItem(index){
+    let element = this.categoryService.getCategories[index.from];//save the draged category
+    /**TODO:
+     * change the array of ctegories as follow:
+     * categpriesArrya.splice(index.from, 1);
+     * categpriesArrya.splice(index.to, 1);
+     */
+  }
+
+  editSubCategory(item){
+    /**TODO:
+     * enter the add phrase page with the clicked item
+     * then allow the user to change any filed
+     * in the end save the changes and update all the arrays and DB
+     */
+    console.log("edit sub");
+    console.log(item);
+  }
+
+  deleteSubCategory(item){
+    /**TODO:
+     * use dor's function and delete the category 
+     * and all the sub categories and phrases 
+     * update the view
+     */
+    console.log("delete sub");
+    console.log(item);
+  }
+  
+  changeSubVisibility(item){
+    /**TODO:
+     * change the visibility status when clicked
+     * the unvisibale categories should by in a different style then the visible on
+     * the user can see the unvisibale categories only in 'edit mode'
+     */
+    console.log("visibility sub");
+    console.log(item);
+  }
+
+  editPhrase(item){
+    /**TODO:
+     * enter the add phrase page with the clicked item
+     * then allow the user to change any filed
+     * in the end save the changes and update all the arrays and DB
+     */
     console.log("edit phrase");
+    console.log(item);
+  }
+
+  deletePhrase(item){
+    /**TODO:
+     * use dor's function and delete the category 
+     * and all the sub categories and phrases 
+     * update the view
+     */
+    console.log("delete phrase");
+    console.log(item);
+  }
+  
+  changeVisibility(item){
+    /**TODO:
+     * change the visibility status when clicked
+     * the unvisibale categories should by in a different style then the visible on
+     * the user can see the unvisibale categories only in 'edit mode'
+     */
+    console.log("visibility phrase");
+    console.log(item);
   }
 
 }

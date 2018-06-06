@@ -108,7 +108,7 @@ export const NIKUD: Nikud[] = [
 // TODO: add some colors from the client
 // please notice! if you add new color to this array make sure to updage the color section in cariables.scss
 export const COLOR_LIST: Color[] = [
-    {
+ {
         "hebrewName": "שחור",
         "englishName": "black",
         "hexNumber": "#000000"
@@ -247,7 +247,7 @@ export const COLOR_LIST: Color[] = [
 
 //option for the addPhrasePage
 export const enum ADD_OPTIONS {
-    CATEGORY = 1,
+    CATEGORY,
     PHRASE,
     NO_CATEGORY
 }
