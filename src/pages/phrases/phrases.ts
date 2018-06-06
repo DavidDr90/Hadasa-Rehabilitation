@@ -156,8 +156,6 @@ export class PhrasesPage {
 
         if (fromWhere == Enums.ADD_OPTIONS.PHRASE) {
           //create new phrase from the output form
-          // let newPhrase =
-          //   new Phrase("", item.text, item.imagePath, item.categoryID, 0, item.audioFile, false);
           this.addPhrase(item);//upload the new phase to the DB and refresh the screen
         } else if (fromWhere == Enums.ADD_OPTIONS.CATEGORY) {
           this.categoryService.addCategory(item);

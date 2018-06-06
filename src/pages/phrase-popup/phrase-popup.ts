@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 //for the recorder functions
 import { Media, MediaObject } from '@ionic-native/media';
-import { File } from '@ionic-native/file';
+import { ErrorProvider } from '../../providers/error/error';
 
 /**
 This is the page that pops onscreen when phrase is clicked,
@@ -19,79 +19,67 @@ export class PhrasePopupPage {
   private phraseName: string;
   private phraseImageURL: string;
   private phraseAudioURL: string;
-  //varibales for the record
-  private playing: boolean = false;
-  private audioFilePath: string;
   private audio: MediaObject;
-  private firstTime: boolean = true;
+  private windowClosed: boolean = false;
 
-  constructor(public navCtrl: NavController, 
-      public navParams: NavParams, 
-      private alertCtrl: AlertController,
-      /* media providers for playing audio */
-      private media: Media,
-      public platform: Platform){
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private errorProvider: ErrorProvider,
+    /* media providers for playing audio */
+    private media: Media, ) {
 
     this.phraseName = this.navParams.get("phraseName");
     this.phraseImageURL = this.navParams.get("phraseImageURL");
     this.phraseAudioURL = this.navParams.get("phraseAudioURL");
 
-    //TODO use this when audio is implemented in phrase model
-    //this.phraseAudioURL = this.navParams.get("phraseAudioURL");
-    this.phraseAudioURL = "../assets/audio/Holidays/kipor.mp3"//for testing
-  } 
-  
-  //clicked the button, play audio
-  private clicked(){
-    console.log("button clicked"); 
-    this.playAudio(this.phraseAudioURL);   
+    this.playAudio(this.phraseAudioURL);
   }
 
-    /** play the input file on the device speakers
-   * @param url - an input audio file to play
-   */
-   private playAudio(url) {
+  /** play the input file on the device speakers
+ * @param url - an input audio file to play
+ */
+  private playAudio(url) {
 
     //if we have no audio, whait few sec and pop
-    if(url == null || url == ""){
-      console.log("url is empty");  
-      setTimeout( 
+    if (url == null || url == "") {
+      setTimeout(
         this.navCtrl.pop(),
         3000
       )
     }
 
-
-    //this.memoMedia = this.media.create(path);
     this.audio = this.media.create(url);
 
-    this.audio.onStatusUpdate.subscribe(status => 
-      { 
-
-        if (status.toString()=="1") { //player start
-          console.log("start playing"); 
-
-        }
-
-      if (status.toString()=="4") { // player end running
-        console.log("player stopped"); 
-          this.navCtrl.pop();
-             
-          
+    this.audio.onStatusUpdate.subscribe(status => {
+      if (status.toString() == "1") { //player start
+        console.log("start playing");
       }
+      if (status.toString() == "4") { // player end running
+        console.log("player stopped");
+        if (!this.windowClosed) {
+          console.log("in closed if");
+          this.audio.release();//free audio resources after playback (android)
+          this.navCtrl.pop();
+        }
+      }
+    });
 
-  }); 
-
-  try {
-    this.audio.play()
+    try {
+      this.audio.play()
+    }
+    catch (ex) {
+      this.errorProvider.simpleTosat(ex);
+      this.audio.release();//free audio resources after playback (android)
+      this.navCtrl.pop();
+    }
   }
-  catch (ex){
-    console.log("errrrrror");
-    console.error(ex);
-  }
-  
 
-    //TODO file.release() to free audio resources after playback (android)
+  //make sure to close the audio when the page is closed
+  ionViewDidLeave() {
+    this.windowClosed = true;
+    this.audio.pause();
+    this.audio.release();
   }
 
 }

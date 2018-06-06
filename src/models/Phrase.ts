@@ -15,8 +15,7 @@ export class Phrase extends Item {
     public categoryID: string; //the ID of the category of the phrase in the DB
     public views: number; //the number of the times that the user clicked on the phrase
     public imageURL: string; //the url of the image of the phrase
-    //the audio file/url of the phrase.
-    public audio: string;//????? the type need to be changed!!!!!
+    public audio: string;//a url link to the audio file in the storage
     public isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
     public order: number//the # of the phrase in the category
     public visibility: boolean;//TRUE if the category is visible to the user

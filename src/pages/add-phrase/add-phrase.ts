@@ -400,22 +400,40 @@ export class AddPhrasePage {
     }
   }
 
-  // play the input file on the device speakers
-  playAudio() {
+  /** play the input file on the device speakers
+  * @param url an input audio file to play
+  */
+  playAudio(url) {
     this.playing = !this.playing;
 
-    /* DONT work for now
-    this.nativeAudio.preloadComplex(this.fileName, this.audioFileURL, 1, 1, 0).
-      then(onSuccess =>
-        console.log("playing"),
-        onError => console.log(onError));
-        */
+    //if we have no audio, whait few sec and pop
+    if (url == null || url == "") {
+      this.errorProvider.simpleTosat("לא הצלחנו להקליט");
+    }
+    if (this.firstTime) {
+      this.audio = this.media.create(url);
+    }
+    this.audio.onStatusUpdate.subscribe(status => {
+      if (status.toString() == "4") { // player end running
+        console.log("player stopped");
+        this.audio.release();//free audio resources after playback (android)
+        this.playing = !this.playing;
+      }
+    });
+
+    try {
+      this.audio.play()
+    }
+    catch (ex) {
+      this.errorProvider.simpleTosat(ex);
+      this.audio.release();//free audio resources after playback (android)
+    }
   }
 
-  //stop the file in the current posision
-  stopAudio() {
+  //pause the file in the current posision
+  pauseAudio() {
     this.playing = !this.playing;
-
+    this.audio.pause();
   }
 
   //use the http provider to get the audio file from the TTS server
