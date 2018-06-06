@@ -151,7 +151,7 @@ export const COLOR_LIST: Color[] = [
     {
         "hebrewName": "זמנים",
         "englishName": "time",
-        "hexNumber": "#0080c0"
+        "hexNumber": "#FFFF80"
     },
     {
         "hebrewName": "אירועים",
