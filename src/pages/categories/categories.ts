@@ -58,6 +58,9 @@ export class CategoriesPage {
     addModal.present();//present the addPhrasePage
   }
 
+  /*******************  Edit Mode section ****************/
+
+  visible:boolean = true;
   editFlag: boolean = false;
   editButtonName: string = "עריכה";
 
@@ -87,12 +90,32 @@ export class CategoriesPage {
   }
 
   editCategory(item){
+    /**TODO:
+     * enter the add phrase page with the clicked item
+     * then allow the user to change any filed
+     * in the end save the changes and update all the arrays and DB
+     */
     console.log("edit");
     console.log(item);
   }
 
   deleteCategory(item){
+    /**TODO:
+     * use dor's function and delete the category 
+     * and all the sub categories and phrases 
+     * update the view
+     */
     console.log("delete ");
+    console.log(item);
+  }
+  
+  changeVisibility(item){
+    /**TODO:
+     * change the visibility status when clicked
+     * the unvisibale categories should by in a different style then the visible on
+     * the user can see the unvisibale categories only in 'edit mode'
+     */
+    console.log("visibility");
     console.log(item);
   }
 

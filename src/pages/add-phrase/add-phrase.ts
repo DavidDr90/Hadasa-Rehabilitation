@@ -13,7 +13,6 @@ import { Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
 import { FilePath } from '@ionic-native/file-path';
-import { HttpProvider } from '../../providers/http/http';
 import { StorageProvider } from '../../providers/storage/storage';
 import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
 import { Category } from '../../models/Category';
@@ -92,7 +91,6 @@ export class AddPhrasePage {
     public platform: Platform,
     private file: File,
     private filePath: FilePath,
-    private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
     public aAuth: AngularFireAuth,
@@ -158,7 +156,7 @@ export class AddPhrasePage {
         //create new 'משפטים' sub category
         let newSentencesCategory = new Category(
           Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
-          this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1);
+          this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
 
         this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
@@ -225,11 +223,11 @@ export class AddPhrasePage {
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
         this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
-        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1);
+        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1, true);
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
-        0, this._myForm.controls['audioFile'].value, false, 1);
+        0, this._myForm.controls['audioFile'].value, false, 1, true);
     }
     this._myForm.reset();//reset the form
     this._viewCtrl.dismiss(returnObject);//return the new object
@@ -247,26 +245,21 @@ export class AddPhrasePage {
       title: 'בחר מקור לתמונה',
       buttons: [
         {
-          text: '\xa0\xa0 מצלמה',
+          text: '\xa0 מצלמה',
           icon: 'camera',
           handler: () => {
-            console.log('camera');
-            // this.getPicture(ImageOptions.CAMERA);
             this.takePicture(this.camera.PictureSourceType.CAMERA);
           }
         },
         {
-          text: '\xa0\xa0גלריה',
+          text: '\xa0 גלריה',
           icon: 'images',
           handler: () => {
-            console.log('gallery');
-            // this.getPicture(ImageOptions.GALLERY);
-            const pic = this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-            // this.storageProvider.uploadFile(pic);
+            this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
         {
-          text: '\xa0\xa0חיפוש ברשת',
+          text: '\xa0 חיפוש ברשת',
           icon: 'logo-google',
           handler: () => {
             console.log('search on line');
@@ -387,16 +380,16 @@ export class AddPhrasePage {
 
   //stop the record and save the audio file on local variable
   stopRecord() {
-    if (this.recording) {
-      this.micText = START_REC;
-      this.recording = !this.recording;
-      let user = this.aAuth.auth.currentUser.email;
-      const audioFolder = "/audio/";
+    try {
+      if (this.recording) {
+        this.micText = START_REC;
+        this.recording = !this.recording;
+        let user = this.aAuth.auth.currentUser.email;
+        const audioFolder = "/audio/";
 
-      this.audio.stopRecord();
-      // save the new audio file to the storage
-      try {
+        this.audio.stopRecord();
 
+        // save the new audio file to the storage
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then((base64File: string) => {
           // fix the encoding
@@ -413,12 +406,10 @@ export class AddPhrasePage {
               console.log(this.audioFileURL);
               this._myForm.patchValue({ 'audioFile': url.downloadURL });//insert the capture image path to the form 
             });
-        }, (err) => {
-          console.log(err);
         });
-      } catch (err) {
-        console.log(err);
       }
+    } catch (err) {
+      console.log(err);
     }
   }
 

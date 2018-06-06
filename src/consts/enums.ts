@@ -109,6 +109,11 @@ export const NIKUD: Nikud[] = [
 // please notice! if you add new color to this array make sure to updage the color section in cariables.scss
 export const COLOR_LIST: Color[] = [
     {
+        "hebrewName": "לבן",
+        "englishName": "white",
+        "hexNumber": "#FFFFFF"
+    },
+    {
         "hebrewName": "שחור",
         "englishName": "black",
         "hexNumber": "#000000"
@@ -139,12 +144,22 @@ export const COLOR_LIST: Color[] = [
         "hexNumber": "#FFA500"
     },
     {
+        "hebrewName": "לבן",
+        "englishName": "white",
+        "hexNumber": "#FFFFFF"
+    },
+    {
+        "hebrewName": "כוכב",
+        "englishName": "star",
+        "hexNumber": "#ffce00"
+    },
+    {
         "hebrewName": "על עצמי",
         "englishName": "aboutMe",
         "hexNumber": "#0080c0"
     },
     {
-        "hebrewName": "זמנים",
+        "hebrewName": "זמן",
         "englishName": "time",
         "hexNumber": "#0080c0"
     },
@@ -159,69 +174,9 @@ export const COLOR_LIST: Color[] = [
         "hexNumber": "#c993ff"
     },
     {
-        "hebrewName": "חדרים",
-        "englishName": "rooms",
-        "hexNumber": "#005bb7"
-    },
-    {
-        "hebrewName": "חופשה",
-        "englishName": "holidays",
-        "hexNumber": "#006200"
-    },
-    {
-        "hebrewName": "אישי",
-        "englishName": "personalStuff",
-        "hexNumber": "#5f00bd"
-    },
-    {
-        "hebrewName": "גוף",
-        "englishName": "body",
-        "hexNumber": "#ffbdbd"
-    },
-    {
-        "hebrewName": "רגשות",
-        "englishName": "feelings",
-        "hexNumber": "#fc1b37"
-    },
-    {
-        "hebrewName": "אישי",
-        "englishName": "personal",
-        "hexNumber": "#ff80c0"
-    },
-    {
-        "hebrewName": "טיולים",
-        "englishName": "travels",
-        "hexNumber": "#00ac2c"
-    },
-    {
-        "hebrewName": "רופא",
-        "englishName": "doctor",
-        "hexNumber": "#6ccfff"
-    },
-    {
-        "hebrewName": "מסעדות",
-        "englishName": "restaurant",
-        "hexNumber": "#bf6000"
-    },
-    {
-        "hebrewName": "קניות",
-        "englishName": "shopping",
-        "hexNumber": "#04ffff"
-    },
-    {
-        "hebrewName": "בנק",
-        "englishName": "bank",
-        "hexNumber": "#a4a4a4"
-    },
-    {
-        "hebrewName": "מקומות אליהם אני הולך",
-        "englishName": "placesIGo",
-        "hexNumber": "#bf00bf"
-    },
-    {
-        "hebrewName": "בילויים",
-        "englishName": "biluim",
-        "hexNumber": "#d20069"
+        "hebrewName": "אוכל",
+        "englishName": "food",
+        "hexNumber": "#e30000"
     },
     {
         "hebrewName": "אנשים",
@@ -229,9 +184,69 @@ export const COLOR_LIST: Color[] = [
         "hexNumber": "#ff8000"
     },
     {
-        "hebrewName": "אוכל",
-        "englishName": "food",
-        "hexNumber": "#e30000"
+        "hebrewName": "בילויים",
+        "englishName": "biluim",
+        "hexNumber": "#d20069"
+    },
+    {
+        "hebrewName": "מקומות שאני הולך אליהם",
+        "englishName": "placesIGo",
+        "hexNumber": "#bf00bf"
+    },
+    {
+        "hebrewName": "בנק",
+        "englishName": "bank",
+        "hexNumber": "#a4a4a4"
+    },
+    {
+        "hebrewName": "קניות",
+        "englishName": "shopping",
+        "hexNumber": "#04ffff"
+    },
+    {
+        "hebrewName": "מסעדות ובתי קפה",
+        "englishName": "restaurant",
+        "hexNumber": "#bf6000"
+    },
+    {
+        "hebrewName": "רופאים ואנשי מקצוע",
+        "englishName": "doctor",
+        "hexNumber": "#6ccfff"
+    },
+    {
+        "hebrewName": "נסיעות",
+        "englishName": "travels",
+        "hexNumber": "#00ac2c"
+    },
+    {
+        "hebrewName": "אישי",
+        "englishName": "personal",
+        "hexNumber": "#ff80c0"
+    },
+    {
+        "hebrewName": "רגשות",
+        "englishName": "feelings",
+        "hexNumber": "#fc1b37"
+    },
+    {
+        "hebrewName": "חלקי גוף",
+        "englishName": "body",
+        "hexNumber": "#ffbdbd"
+    },
+    {
+        "hebrewName": "חפצים אישיים",
+        "englishName": "personalStuff",
+        "hexNumber": "#5f00bd"
+    },
+    {
+        "hebrewName": "חגים",
+        "englishName": "holidays",
+        "hexNumber": "#006200"
+    },
+    {
+        "hebrewName": "חדרים בבית",
+        "englishName": "rooms",
+        "hexNumber": "#005bb7"
     },
 ]
 

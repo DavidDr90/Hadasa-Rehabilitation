@@ -1,22 +1,23 @@
-
 <!--This is the page that pops onscreen when phrase is clicked-->
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>phrasePopup</ion-title>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title>phrasePopup</ion-title>
+    </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-    <h1  style="text-align:center">{{phraseName}}</h1>
+    <div class="titleDiv">
+        <h1>{{phraseName}}</h1>
+    </div>
     <img src={{phraseImageURL}}>
-    <div>
-      <button ion-button round icon-start block (click)='clicked();'>
+    <div class="buttonDiv">
+        <button ion-button round icon-start block (click)='clicked();'>
         <ion-icon name="play"></ion-icon>
         PLAY
       </button>
     </div>
- 
+
 </ion-content>
