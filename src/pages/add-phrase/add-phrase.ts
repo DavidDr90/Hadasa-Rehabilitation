@@ -20,6 +20,7 @@ import { Phrase } from '../../models/Phrase';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { ErrorProvider } from '../../providers/error/error';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
+import { AutenticationProvider } from '../../providers/autentication/autentication';
 
 
 /** This page is a form to create Phrase or Category objects
@@ -93,6 +94,7 @@ export class AddPhrasePage {
     private filePath: FilePath,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
+    public authentication: AutenticationProvider,
     public aAuth: AngularFireAuth,
     public errorProvider: ErrorProvider,
     public categoryProvaider: CategoryServiceProvider,
@@ -156,7 +158,7 @@ export class AddPhrasePage {
         //create new 'משפטים' sub category
         let newSentencesCategory = new Category(
           Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
-          this.aAuth.auth.currentUser.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
+          this.authentication.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
 
         this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
@@ -222,9 +224,8 @@ export class AddPhrasePage {
         this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
-        this._myForm.controls['imagePath'].value, this.aAuth.auth.currentUser.email,
+        this._myForm.controls['imagePath'].value, this.authentication.user.email,
         this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1, true);
-    } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
         0, this._myForm.controls['audioFile'].value, false, 1, true);
@@ -300,7 +301,7 @@ export class AddPhrasePage {
         correctOrientation: true
       };
 
-      let user = this.aAuth.auth.currentUser.email;
+      let user = this.authentication.user.email;
       const imageFolder = "/images/";
       const result = await this.camera.getPicture(options);//get the path to the image
 
@@ -384,7 +385,7 @@ export class AddPhrasePage {
       if (this.recording) {
         this.micText = START_REC;
         this.recording = !this.recording;
-        let user = this.aAuth.auth.currentUser.email;
+        let user = this.authentication.user.email;
         const audioFolder = "/audio/";
 
         this.audio.stopRecord();
