@@ -61,8 +61,7 @@ export class AddPhrasePage {
   private _curserPosition;
   private _nikudArray = Enums.NIKUD;
 
-  lastImage: string = null;
-  imageURL: string = null;
+  imageURL;
   micText = START_REC;
   audioFileURL;
 
@@ -95,7 +94,7 @@ export class AddPhrasePage {
     private httpProvider: HttpProvider,
     private storageProvider: StorageProvider,
     public navParams: NavParams,
-    public auth: AutenticationProvider,
+    public authentication: AutenticationProvider,
     public errorProvider: ErrorProvider,
     public categoryProvaider: CategoryServiceProvider,
     public loadingCtrl: LoadingController,
@@ -158,7 +157,7 @@ export class AddPhrasePage {
         //create new 'משפטים' sub category
         let newSentencesCategory = new Category(
           Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
-          this.auth.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
+          this.authentication.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
 
         this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
@@ -224,7 +223,7 @@ export class AddPhrasePage {
         this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
-        this._myForm.controls['imagePath'].value, this.auth.user.email,
+        this._myForm.controls['imagePath'].value, this.authentication.user.email,
         this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1, true);
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
@@ -256,7 +255,7 @@ export class AddPhrasePage {
         {
           text: '\xa0 גלריה',
           icon: 'images',
-          handler: () => {           
+          handler: () => {
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
           }
         },
@@ -302,12 +301,18 @@ export class AddPhrasePage {
         correctOrientation: true
       };
 
-      let user = this.auth.user.email
+      let user = this.authentication.user.email;
       const imageFolder = "/images/";
       const im_path = await this.camera.getPicture(options);//get the path to the image
-      debugger
+      
       const im_type = 'data:image/jpeg;base64,';
-      this.storageProvider.uploadFileByPath(im_path,im_type ,this)
+      let res = this.storageProvider.uploadFileByPath(im_path, im_type);
+      console.log("image url in add:");
+      console.log(res);
+
+
+      this.imageURL = res;
+      this._myForm.patchValue({ 'imagePath': this.imageURL });//insert the capture image path to the form 
 
     } catch (err) {
       this.errorProvider.alert("לא הצלחנו לבחור תמונה....", err);
@@ -377,7 +382,7 @@ export class AddPhrasePage {
     if (this.recording) {
       this.micText = START_REC;
       this.recording = !this.recording;
-      let user = this.auth.user.email;
+      let user = this.authentication.user.email;
       const audioFolder = "/audio/";
 
       this.audio.stopRecord();
@@ -387,10 +392,15 @@ export class AddPhrasePage {
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then((base64File: string) => {
           // fix the encoding
-          debugger
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
           const audio_type = 'data:audio/mp3;base64,'
-          this.storageProvider.uploadFileByPath(audio_path,audio_type,this)
+          
+          let res = this.storageProvider.uploadFileByPath(audio_path, audio_type);
+          console.log("audio path in add");
+          console.log(res);
+
+          this.audioFileURL = res;
+          this._myForm.patchValue({ 'imagePath': this.audioFileURL });//insert the recorded audio file path to the form 
         }, (err) => {
           console.log(err);
         });
