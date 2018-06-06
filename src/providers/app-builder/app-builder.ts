@@ -116,7 +116,7 @@ export class AppBuilderProvider {
     new Phrase("", "דצמבר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2F%E2%80%8F%E2%80%8Fmonth.PNG?alt=media&token=5ffe95f6-d34a-4cfd-8f3e-e6b2611b846f", "", 0, "", false, 0, true)],
 
     [new Phrase("", "ראש השנה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", "", 0, "", false, 0, true),
-    new Phrase("", "כיפור", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", "", 0, "", false, 0, true),
+    new Phrase("", "יום כיפור", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", "", 0, "", false, 0, true),
     new Phrase("", "סוכות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", "", 0, "", false, 0, true),
     new Phrase("", "חנוכה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", "", 0, "", false, 0, true),
     new Phrase("", "טו בשבט", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/times%2Ftimes.PNG?alt=media&token=62f83829-73c0-438c-bbe7-a94443f0731a", "", 0, "", false, 0, true),
@@ -135,7 +135,7 @@ export class AppBuilderProvider {
     ];
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
-    //PLACES CATEGORY
+    //PLACES CATEGORY  
     cat = new Category("מקומות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 2, true)
     phrases = [];
     subCats = [new Category("חדרים בבית", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, Enums.DEFUALT_CATEGORY_COLOR, 0, true),
@@ -151,10 +151,10 @@ export class AppBuilderProvider {
     new Phrase("", "חדר ילדים", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true)],
 
     [new Phrase("", "היכן הכספומט הקרוב?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
-    new Phrase("", "ברצוני למשוך כסף מהחשבון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
-    new Phrase("", "ברצוני להפקיד כסף בחשבון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
-    new Phrase("", "ברצוני לפתוח חשבון בנק", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
-    new Phrase("", "ברצוני לקבל שירות מבנקאי/ת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true)],
+    new Phrase("", "אני רוצה למשוך כסף מהחשבון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
+    new Phrase("", "אני רוצה להפקיד כסף בחשבון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
+    new Phrase("", "אני רוצה לפתוח חשבון בנק", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true),
+    new Phrase("", "אני רוצה לקבל שירות מבנקאי/ת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", "", 0, "", false, 0, true)],
 
     [new Phrase("", "אפשר למדוד?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/shopping%2Ftry_on.PNG?alt=media&token=e074d980-5013-4864-89f3-950c73d57a02", "", 0, "", false, 0, true),
     new Phrase("", "היכן תאי המדידה?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/shopping%2Ffitting_room.PNG?alt=media&token=4ff29a91-15b9-48e6-b82d-f2466cdb1459", "", 0, "", false, 0, true),
@@ -188,11 +188,11 @@ export class AppBuilderProvider {
     new Phrase("", "היכן המוסך הקרוב?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fpublic_transport.PNG?alt=media&token=1d88c9c6-74ca-4cd2-af8b-316262066b17", "", 0, "", false, 0, true)],
 
     [new Phrase("", "היכן תחנת האוטובוס?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fstation.PNG?alt=media&token=0457acca-663b-45c1-9811-99d3980e12f3", "", 0, "", false, 0, true),
-    new Phrase("", "מתי הרכבת הבאה צריכה להגיע?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fclock.PNG?alt=media&token=522355b8-099d-462c-99a9-efeef1f774f9", "", 0, "", false, 0, true),
+    new Phrase("", "מתי האוטובוס הבא צריך להגיע?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fclock.PNG?alt=media&token=522355b8-099d-462c-99a9-efeef1f774f9", "", 0, "", false, 0, true),
     new Phrase("", "באיזו תחנה לרדת?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fdestination.PNG?alt=media&token=5d304751-75b8-433d-a4fd-866c7744b818", "", 0, "", false, 0, true)],
 
     [new Phrase("", "היכן תחנת הרכבת?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftrain_station.PNG?alt=media&token=c3b523c3-d65f-4809-87bb-e313cefa7871", "", 0, "", false, 0, true),
-    new Phrase("", "היכן תאי המדידה?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/shopping%2Ffitting_room.PNG?alt=media&token=4ff29a91-15b9-48e6-b82d-f2466cdb1459", "", 0, "", false, 0, true),
+    new Phrase("", "מתי הרכבת הבאה צריכה להגיע?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fclock.PNG?alt=media&token=522355b8-099d-462c-99a9-efeef1f774f9", "", 0, "", false, 0, true),
     new Phrase("", "באיזו תחנה לרדת?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Fdestination.PNG?alt=media&token=5d304751-75b8-433d-a4fd-866c7744b818", "", 0, "", false, 0, true)],
 
     [new Phrase("", "ברצוני להזמין מונית", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/public%20transport%2Ftaxi.PNG?alt=media&token=a4422fb9-00f8-4b75-84c3-aadc353ee915", "", 0, "", false, 0, true),
@@ -270,7 +270,6 @@ export class AppBuilderProvider {
     new Phrase("", "שמחה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2Fhappy.PNG?alt=media&token=bfe22262-b0c3-4f0c-883a-c61be196d1d7", "", 0, "", false, 0, true),
     new Phrase("", "בהלה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2Ffreaking_out.PNG?alt=media&token=2f35b76c-89d6-49d9-b676-e751d8391f1e", "", 0, "", false, 0, true),
     new Phrase("", "אדישות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2F%E2%80%8F%E2%80%8Fapathetic.PNG?alt=media&token=9880b9ee-7a16-4c52-a9f6-787e9b52b4fc", "", 0, "", false, 0, true)];
-
     this.add_new_cat_to_db(cat, phrases, [], [], 0);
 
     //PERSONAL STUFF CATEGORY
