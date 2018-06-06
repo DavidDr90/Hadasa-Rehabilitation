@@ -76,7 +76,10 @@ export class StorageProvider {
     this.imageDownloadURL = url.task.snapshot.downloadURL;
     console.log(this.imageDownloadURL);
     if(form)
+    {
       form._myForm.patchValue({ 'imagePath': this.imageDownloadURL });//insert the capture image path to the form 
+      form.imageURL = this.imageDownloadURL
+    } 
     //Updates the image-progress
     
     let current_percent = (url.task.snapshot.bytesTransferred/url.task.snapshot.totalBytes)*100;
