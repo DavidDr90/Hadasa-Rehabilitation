@@ -66,10 +66,10 @@
       <ion-list>
         <ion-item *ngIf="audioFileURL != null && !recording">
           <p>{{fileName}}</p>
-          <button ion-button clear item-end large (click)="playAudio()" *ngIf="!playing">
+          <button ion-button clear item-end large (click)="playAudio(audioFileURL)" *ngIf="!playing">
             <ion-icon name="play"></ion-icon>
           </button>
-          <button ion-button clear item-end large (click)="stopAudio()" *ngIf="playing">
+          <button ion-button clear item-end large (click)="pauseAudio()" *ngIf="playing">
             <ion-icon name="pause"></ion-icon>
           </button>
         </ion-item>
