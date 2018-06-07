@@ -17,23 +17,14 @@
 <ion-content padding>
     <h1> ברוכים הבאים! </h1>
 
-    <!-- Just for upload testing - the two lines below can be deleted when merging. -->
-    <!-- <input type="file" (change)="storage.uploadFile($event)" /> {{storage.uploadPercentage}} -->
-    <!-- <progress-bar [progress]="storage.uploadPercentage"> </progress-bar> -->
+    <button ion-button (click)="this.appBuilderProvider.fillDB()">
+        click here to fill DB
+    </button>
 
-
-    <div>
-        <button (click)="this.appBuilderProvider.fillDB()">
-            click here to fill DB
-            </button>
-    </div>
-
-    <div>
-        <button (click)="showFav()">
-            click here to see favorite
-            </button>
-    </div>
+    <button ion-button (click)="showFav()">
+        click here to see favorite
+    </button>
+    
     <favorites></favorites>
-
-
+    
 </ion-content>
