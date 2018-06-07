@@ -36,7 +36,7 @@
     "angular-module-core": "^1.2.19",
     "angularfire2": "^5.0.0-rc.6.0",
     "com-badrit-base64": "^0.2.0",
-    "cordova-android": "^7.1.0",
+    "cordova-android": "7.1.0",
     "cordova-browser": "5.0.3",
     "cordova-plugin-advanced-http": "^1.11.1",
     "cordova-plugin-android-permissions": "^1.0.0",

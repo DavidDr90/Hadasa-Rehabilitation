@@ -6,7 +6,7 @@ import { TabsPage } from '../tabs/tabs';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AutenticationProvider } from '../../providers/autentication/autentication';
 
 
 
@@ -28,7 +28,7 @@ export class AboutMeFormPage {
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
     public modalCtrl: ModalController, 
-    public aAuth: AngularFireAuth)  {
+    public auth: AutenticationProvider)  {
     
     //TODO: display loading window
 
@@ -58,7 +58,7 @@ export class AboutMeFormPage {
     //create new category aboutMe and add it to DB
     //TODO: broken, throw cnanot read 'email' of undefine
     // this.aboutMeCategory =
-    //   new Category(Enums.ABOUT_ME_STRING, "", "", this.aAuth.auth.currentUser.email, "",
+    //   new Category(Enums.ABOUT_ME_STRING, "", "", this.auth.currentUser.email, "",
     //    0, false, Enums.DEFUALT_CATEGORY_COLOR, 1);
 //     this.categoryProvider.updateCategoriesArray();
     // this.categoryProvider.addCategory(this.aboutMeCategory);

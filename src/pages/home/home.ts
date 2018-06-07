@@ -15,58 +15,55 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 
-
-
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 
-
 export class HomePage {
   addPhrasePage = AddPhrasePage;
-   
+
   user_name = "אורח";
-  static userEmail="email@gmail.com"; //TODO: fill the user email. being used in app-builder constructor.
-  
+  static userEmail;
+
   percentage; // Should be implement on uploading
-  
-  static favClass:Favorite
+
+  static favClass: Favorite
   public favoriteProvider: FavoriteProvider
   public appBuilderProvider: AppBuilderProvider
 
   constructor(public navCtrl: NavController,
-               public firebaseProvider: FirebaseProvider,
-               public authentication: AutenticationProvider,
-               public storage : StorageProvider, 
-               public categoryProvider: CategoryServiceProvider,
-               public phrasesProvider: PhrasesProvider
-               ){
+    public firebaseProvider: FirebaseProvider,
+    public authentication: AutenticationProvider,
+    public storage: StorageProvider,
+    public categoryProvider: CategoryServiceProvider,
+    public phrasesProvider: PhrasesProvider
+  ) {
     this.percentage = 0;
-    HomePage.userEmail=authentication.user.email;
-    
-    HomePage.favClass=new Favorite();
-    this.favoriteProvider=new FavoriteProvider(HomePage.favClass);
+    HomePage.userEmail = authentication.user.email;//fill the user email. being used in app-builder constructor.
 
-   this.appBuilderProvider=new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);
-    
+    HomePage.favClass = new Favorite();
+    this.favoriteProvider = new FavoriteProvider(HomePage.favClass);
+
+    this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);
+
     //Sets the display name of the logged-in user
     // this.user_name = authentication.user.displayName;
     this.user_name = authentication.user.email;
 
-    
+
   }
 
   // Called on pressing Log-out button.
   // Disconnects google authentication and moves the user to the into-slider-page.
-  logOut(){
+  logOut() {
     console.log("logging out");
     // this.authentication.toggleSignIn();
     this.authentication.logOut()
     this.navCtrl.push(IntroSliderPage);
   }
 
-  showFav(){
+  showFav() {
     console.log("==============================")
     console.log("FAVORITE")
     console.log(HomePage.favClass)
@@ -81,7 +78,7 @@ export class HomePage {
     console.log("==============================")
   }
 
-  
+
   /* old home - can be deleted???
   constructor(public navCtrl: NavController,
               public firebaseProvider: FirebaseProvider, public authentication: AutenticationProvider) {
