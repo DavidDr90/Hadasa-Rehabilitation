@@ -23,6 +23,8 @@ export class PhrasesPage {
   public phrases;
   public subCategories;
   public hasSubCategories:boolean = false;
+  public showPhrases:boolean=false;
+  public hasPhrases:boolean=false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -52,7 +54,9 @@ export class PhrasesPage {
     promise.then((data) => {
       this.phrases = data;
       this.phrasesProvider.phrases = data;
-      
+      if(this.phrases!=undefined)
+        if(this.phrases.length>0)
+          this.hasPhrases=true;
     })
     let promise1 = this.categoryService.updateCategoriesArray();
     promise1.then((data)=> {
@@ -259,5 +263,15 @@ export class PhrasesPage {
     console.log("visibility phrase");
     console.log(item);
   }
+
+  /**
+   * on click for the "show/hide phrases" button
+   */
+  public onClickShowPhrases(){
+    console.log(this.showPhrases)
+    this.showPhrases=!this.showPhrases;
+  }
+
+  
 
 }
