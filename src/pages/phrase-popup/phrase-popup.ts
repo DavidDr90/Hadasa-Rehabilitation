@@ -80,7 +80,8 @@ export class PhrasePopupPage {
         if (status.toString() == "4") { // player end running
           console.log("player stopped");
           if (!this.windowClosed) {
-            this.audio.release();//free audio resources after playback (android)
+            if (this.platform.is('android'))
+              this.audio.release();//free audio resources after playback (android)
             this.navCtrl.pop();
           }
         }
@@ -94,7 +95,8 @@ export class PhrasePopupPage {
     }
     catch (ex) {
       this.errorProvider.simpleTosat(ex);
-      this.audio.release();//free audio resources after playback (android)
+      if (this.platform.is('android'))
+        this.audio.release();//free audio resources after playback (android)
       this.navCtrl.pop();
     }
   }
@@ -104,7 +106,8 @@ export class PhrasePopupPage {
     this.windowClosed = true;
     if (!this.audioUrlIsEmpty) {
       this.audio.pause();
-      this.audio.release();
+      if (this.platform.is('android'))
+        this.audio.release();
     }
   }
 
