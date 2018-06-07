@@ -23,6 +23,7 @@ export class PhrasesPage {
   public phrases;
   public subCategories;
   public hasSubCategories:boolean = false;
+  public showPhrases:boolean=false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -258,6 +259,11 @@ export class PhrasesPage {
      */
     console.log("visibility phrase");
     console.log(item);
+  }
+
+  public onClickShowPhrases(){
+    console.log(this.showPhrases)
+    this.showPhrases=!this.showPhrases;
   }
 
 }
