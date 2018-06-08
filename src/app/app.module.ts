@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -56,7 +55,11 @@ import { UsersProvider } from '../providers/users/users';
 import { AboutMeFormPage } from '../pages/about-me-form/about-me-form';
 import { ErrorProvider } from '../providers/error/error';
 import { Base64 } from '@ionic-native/base64';
+import { CustomErrorHandler } from '../models/CustomErrorHandler';
 
+
+// use our custom fatel error handler in production, and the ionic error handler on devlopment
+const ERROR_HANDLER = ((<any>window)['IonicDevServer'] == undefined) ? CustomErrorHandler : IonicErrorHandler;
 
 
 @NgModule({
@@ -107,7 +110,7 @@ import { Base64 } from '@ionic-native/base64';
     CategoryServiceProvider,
     StatusBar,
     SplashScreen,
-    { provide: ErrorHandler, useClass: IonicErrorHandler },
+    { provide: ErrorHandler, useClass: ERROR_HANDLER },
     NativeAudio,
     PhrasesProvider,
     HTTP,
