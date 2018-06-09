@@ -1,29 +1,30 @@
-<ion-card>
+<!-- <ion-card>
     <ion-card-content>
         קטגוריות מועדפות
         <my-category [category]="item" *ngFor="let item of favorite.getCatArray()">
         </my-category>
+
         <br/> משפטים מועדפים
         <phrase [phrase]="item" *ngFor="let item of favorite.getPhrasesArray()">
         </phrase>
     </ion-card-content>
-</ion-card>
+</ion-card> -->
 
 
 <!-- TODO: ofek please consiter this design -->
-<!-- <ion-content>
+<ion-content>
     <ion-item-group>
-        <ion-item-divider color="red"> קטגוריות מועדפות </ion-item-divider>
+        <ion-item-divider color="primary"> קטגוריות מועדפות </ion-item-divider>
         <ion-item>
-            <my-category [category]="item" *ngFor="let item of favorite.getCatArray()">
+            <my-category [category]="item" *ngFor="let item of favorite.getCatArray()" (click)="openCategoryPhrases(item);">
             </my-category>
         </ion-item>
     </ion-item-group>
     <ion-item-group>
-        <ion-item-divider color="blue"> משפטים מועדפים </ion-item-divider>
+        <ion-item-divider color="primary"> משפטים מועדפים </ion-item-divider>
         <ion-item>
             <phrase [phrase]="item" *ngFor="let item of favorite.getPhrasesArray()">
             </phrase>
         </ion-item>
     </ion-item-group>
-</ion-content> -->
+</ion-content>
