@@ -61,9 +61,9 @@ export class AddPhrasePage {
   private _curserPosition;
   private _nikudArray = Enums.NIKUD;
 
-  imageURL;
+  imageURL: string = null;
   micText = START_REC;
-  audioFileURL;
+  audioFileURL: string = null;
 
   //for the radio button sections
   sentenceOrNoun;
@@ -295,24 +295,23 @@ export class AddPhrasePage {
         correctOrientation: true
       };
 
-      let user = this.authentication.user.email;
-      const imageFolder = "/images/";
+
       const im_path = await this.camera.getPicture(options);//get the path to the image
-      
+
       const im_type = 'data:image/jpeg;base64,';
       let promise = await this.storageProvider.uploadFileByPath(im_path, im_type);
-      let res = new Promise ((resolve,reject) => {
+
+
+      let res = new Promise((resolve, reject) => {
         resolve(promise);
       });
 
       //Read the data from the promise
-      res.then((data)=>{
-        debugger
-        this.imageURL = data; 
+      res.then((data) => {
+        this.imageURL = data.toString();
         this._myForm.patchValue({ 'imagePath': this.imageURL });//insert the capture image path to the form 
-
       })
-     
+
 
     } catch (err) {
       this.errorProvider.alert("לא הצלחנו לבחור תמונה....", err);
@@ -366,25 +365,14 @@ export class AddPhrasePage {
 
     /*
     this.timer.startTimer();
-    let data = this._audioRecordProvider.startRecord();
-
-    if (data instanceof Error) {
-      this.recording = false;
-      this.micText = START_REC;
-      this.errorProvider.alert("לא הצלחנו לבצע הקלטה....", data.message);
-    } else {
-      this.fileName = data;
     }*/
   }
 
   //stop the record and save the audio file on local variable
   stopRecord() {
-    if (this.recording) 
-    {
+    if (this.recording) {
       this.micText = START_REC;
       this.recording = !this.recording;
-      let user = this.authentication.user.email;
-      const audioFolder = "/audio/";
 
       this.audio.stopRecord();
       // save the new audio file to the storage
@@ -395,18 +383,17 @@ export class AddPhrasePage {
           // fix the encoding
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
           const audio_type = 'data:audio/mp3;base64,'
-          
+
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
-          let res = new Promise ((resolve,reject) => {
+          let res = new Promise((resolve, reject) => {
             resolve(promise);
           });
-          res.then((data)=>{
-            debugger
-            this.audioFileURL = data; 
+          res.then((data) => {
+            this.audioFileURL = data.toString();
             this._myForm.patchValue({ 'audioFile': this.audioFileURL });//insert the recorded audio file path to the form 
 
           })
-       
+
         }, (err) => {
           console.log(err);
         });
