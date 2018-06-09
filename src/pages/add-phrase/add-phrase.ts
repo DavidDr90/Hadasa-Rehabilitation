@@ -300,13 +300,19 @@ export class AddPhrasePage {
       const im_path = await this.camera.getPicture(options);//get the path to the image
       
       const im_type = 'data:image/jpeg;base64,';
-      let res = this.storageProvider.uploadFileByPath(im_path, im_type);
-      console.log("image url in add:");
-      console.log(res);
+      let promise = await this.storageProvider.uploadFileByPath(im_path, im_type);
+      let res = new Promise ((resolve,reject) => {
+        resolve(promise);
+      });
 
+      //Read the data from the promise
+      res.then((data)=>{
+        debugger
+        this.imageURL = data; 
+        this._myForm.patchValue({ 'imagePath': this.imageURL });//insert the capture image path to the form 
 
-      this.imageURL = res;
-      this._myForm.patchValue({ 'imagePath': this.imageURL });//insert the capture image path to the form 
+      })
+     
 
     } catch (err) {
       this.errorProvider.alert("לא הצלחנו לבחור תמונה....", err);
@@ -373,7 +379,8 @@ export class AddPhrasePage {
 
   //stop the record and save the audio file on local variable
   stopRecord() {
-    if (this.recording) {
+    if (this.recording) 
+    {
       this.micText = START_REC;
       this.recording = !this.recording;
       let user = this.authentication.user.email;
@@ -384,17 +391,22 @@ export class AddPhrasePage {
       try {
 
         // encode the media object file to base64 file
-        this.base64.encodeFile(this.audioFilePath).then((base64File: string) => {
+        this.base64.encodeFile(this.audioFilePath).then(async (base64File: string) => {
           // fix the encoding
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
           const audio_type = 'data:audio/mp3;base64,'
           
-          let res = this.storageProvider.uploadFileByPath(audio_path, audio_type);
-          console.log("audio path in add");
-          console.log(res);
+          let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
+          let res = new Promise ((resolve,reject) => {
+            resolve(promise);
+          });
+          res.then((data)=>{
+            debugger
+            this.audioFileURL = data; 
+            this._myForm.patchValue({ 'audioFile': this.audioFileURL });//insert the recorded audio file path to the form 
 
-          this.audioFileURL = res;
-          this._myForm.patchValue({ 'imagePath': this.audioFileURL });//insert the recorded audio file path to the form 
+          })
+       
         }, (err) => {
           console.log(err);
         });
