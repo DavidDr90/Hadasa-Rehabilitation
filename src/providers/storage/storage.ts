@@ -59,7 +59,10 @@ export class StorageProvider {
    * for each image and audio seperatly.
    */
   public uploadFileByPath(path, type) {
-
+    return new Promise((resolve,reject) =>
+  {
+    
+ 
     let user = this.authentication.afAuth.auth.currentUser.email
     let user1 = this.authentication.user.email;
 
@@ -71,25 +74,20 @@ export class StorageProvider {
 
       this.image_ref = firebase.storage().ref(storage_path);
 
-      let task = this.image_ref.putString(type + path, "data_url").then(url => {
-        //Updates the image-progress
-        let current_percent = (url.task.snapshot.bytesTransferred / url.task.snapshot.totalBytes) * 100;
-        this.imageUploadPercentage = Math.round(+current_percent)
+      let task = this.image_ref.putString(type + path, "data_url")
 
+      task.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot: firebase.storage.UploadTaskSnapshot) => {
+          
+        this.imageUploadPercentage = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+        }
+      );
 
-        //TODO: make this function return the new url
-        let imageUrl = url.downloadURL;
-        console.log(imageUrl);
-        return imageUrl;
-
-
-
-        /*
-        this.imageDownloadURL = url.task.snapshot.downloadURL;
+      task.then(url => {
+        this.imageDownloadURL = url.downloadURL;
         console.log(this.imageDownloadURL);
-       */
-
-
+        resolve(this.imageDownloadURL)
 
       })
 
@@ -100,32 +98,29 @@ export class StorageProvider {
       const audioFolder = "/audio/";
 
       let storage_path = user + audioFolder + this.createFileName() + ".mp3";//create the path on the storage
-
       const task = firebase.storage().ref(storage_path).putString(type + path, "data_url")
-        .then(url => {
-          //Updates the audio-progress
-          let current_percent = (url.task.snapshot.bytesTransferred / url.task.snapshot.totalBytes) * 100;
-          this.audioUploadPercentage = Math.round(+current_percent)
 
+      task.on(
+        firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot: firebase.storage.UploadTaskSnapshot) => {
+        this.audioUploadPercentage = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+        }
+      );
 
-          //TODO: make this function return the url
-          this.audioDownloadURL = url.downloadURL;
-          console.log(this.audioDownloadURL);
-          return this.audioDownloadURL;
+      task.then(async url => {
+        this.audioDownloadURL = url.downloadURL;
+        console.log(this.audioDownloadURL);
+        resolve(this.audioDownloadURL)
+      });
 
-          /*
-          this.audioDownloadURL = url.task.snapshot.downloadURL
-          console.log(this.audioDownloadURL);
-          */
-
-        });
 
     }
 
     else {
       console.log("ERROR UPLOADING - UNKNOWN TYPE OF FILE");
-
+      reject("null")
     }
+  })
   }
 
   //this function creates random file-name (without extention) based on time.
