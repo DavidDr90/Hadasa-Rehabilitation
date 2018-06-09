@@ -140,4 +140,18 @@ export class StorageProvider {
     return this.audioUploadPercentage;
   }
 
+  public showImageProgressBar()
+  {
+    if(this.imageUploadPercentage == 0 || this.imageUploadPercentage == 100)
+      return false;
+    return true;
+  }
+
+  public showAudioProgressBar()
+  {
+    if(this.audioUploadPercentage == 0 || this.audioUploadPercentage == 100)
+      return false;
+    return true;
+  }
+
 }
