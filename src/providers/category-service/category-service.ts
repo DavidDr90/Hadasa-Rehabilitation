@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 import { Category } from '../../models/Category';
 import { FirebaseProvider } from '../firebase/firebase';
@@ -7,13 +6,14 @@ import { UnsubscriptionError } from 'rxjs';
 import { AutenticationProvider } from '../autentication/autentication';
 import { LoadingController, Spinner } from 'ionic-angular';
 import { PhrasesProvider } from '../phrases/phrases';
+import { Phrase } from '../../models/Phrase';
 
 
 @Injectable()
 export class CategoryServiceProvider {
 
   private categories = [];
-  
+  private allUserPhrases = [];
   //categories that have parent category, and shown only at there parentCategory's page (next the phrases)
   private subCategories = []
 
@@ -31,7 +31,7 @@ export class CategoryServiceProvider {
 
    
   /**
-   * updating the categories local arraies and refreshing the page, the method return a Promise object"
+   * updating the categories and favorits local arraies and refreshing the page, the method return a Promise object"
    * for catching error use "promise.then().catch(e){...handling error...}"
    * @returns Promise object
    */
@@ -42,6 +42,15 @@ export class CategoryServiceProvider {
     return new Promise((resolve, reject) => {
     this.firebaseProvider.getCategoriesObservable.subscribe(a => {
         this.categories = a.filter(cat => cat.parentCategoryID == "");
+        this.categories.forEach(element1 => {//initilize all user's phrases local array
+        let promise = this.phrasesProvider.getPhrases(element1);
+        promise.then((data)=>{
+          data.forEach(element2 =>{
+            if(!this.allUserPhrases.some(phrase => phrase.id == element2.id))
+                this.allUserPhrases.push(element2);
+          });
+        })
+      })
         resolve(this.subCategories = a.filter(cat => cat.parentCategoryID != ""))
         //loading.dismiss();
       })
@@ -68,6 +77,11 @@ export class CategoryServiceProvider {
   public get getCategories() {
     return this.categories;
   }
+
+  public get getAllUserPhrases() {
+      return  this.allUserPhrases;
+}
+  
 
   /**
    * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"

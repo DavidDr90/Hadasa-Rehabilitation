@@ -14,13 +14,58 @@ export class Favorite {
 	public min_cat_index; //the index of the category with the less views
 	public min_phrases_index; //the index of the category with the less views
 
-	constructor() {
+	constructor(categories:Category[], phrases:Phrase[]) {
 		this.min_cat_index=0;
 		this.min_phrases_index=0;
 		this.chosen_fav_cat=[];
 		this.chosen_fav_phrases=[];
 		this.common_cat=[];
 		this.common_phrases=[];
+
+		//update the categories arrays
+		for(let i=0; i<categories.length; i++){
+			if(categories[i].isFav==true)
+				this.chosen_fav_cat[this.chosen_fav_cat.length]=categories[i];
+			if (this.common_cat.length<Enums.NUM_FAVORITES_CAT){
+				this.common_cat[this.common_cat.length]=categories[i];
+			}
+			else{
+				this.find_min_cat_index();
+				if(categories[i].views>this.common_cat[this.min_cat_index].views){
+					this.common_cat[this.min_cat_index]=categories[i];
+				}
+			}
+			this.find_min_cat_index();
+		}
+
+		//update the phrases arrays
+		for(let i=0; i<phrases.length; i++){
+			if(phrases[i].isFav==true)
+				this.chosen_fav_phrases[this.chosen_fav_phrases.length]=phrases[i];
+			if (this.common_phrases.length<Enums.NUM_FAVORITES_PHRASES){
+				this.common_phrases[this.common_phrases.length]=phrases[i];
+			}
+			else{
+				this.find_min_phrase_index();
+				if(phrases[i].views>this.common_phrases[this.min_phrases_index].views){
+					this.common_phrases[this.min_phrases_index]=phrases[i];
+				}
+			}
+			this.find_min_phrase_index();
+		}
+
+	}
+
+	private find_min_cat_index(){
+		for(let i=0; i<this.common_cat.length; i++)
+			if(this.common_cat[this.min_cat_index].views>this.common_cat[i].views)
+				this.min_cat_index=i;
+	}
+
+	private find_min_phrase_index(){
+		for(let i=0; i<this.common_phrases.length; i++)
+			if(this.common_phrases[this.min_phrases_index].views>this.common_phrases[i].views)
+				this.min_phrases_index=i;
 	}
 
 	//========================================================================================
