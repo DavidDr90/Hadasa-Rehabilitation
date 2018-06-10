@@ -35,6 +35,9 @@ export class CategoriesPage {
 
   //popup the category's phrases's page.
   public openCategoryPhrases(category: Category) {
+    this.editFlag = false;
+    this.editButtonName = "עריכה";
+
     this.navCtrl.push(PhrasesPage, {
       parentCategory: category
     });
@@ -60,27 +63,27 @@ export class CategoriesPage {
 
   /*******************  Edit Mode section ****************/
 
-  visible:boolean = true;
+  visible: boolean = true;
   editFlag: boolean = false;
   editButtonName: string = "עריכה";
 
   edit() {
-    if( this.editFlag){
+    if (this.editFlag) {
       this.editFlag = false;
       this.editButtonName = "עריכה";
       /**TODO:
        * after the user press the "סיים" button
        * save the local array changes in the DB array
        */
-    }else{
+    } else {
       this.editFlag = true;
       this.editButtonName = "סיים";
 
     }
-    
+
   }
 
-  reorderItem(index){
+  reorderItem(index) {
     let element = this.categoryService.getCategories[index.from];//save the draged category
     /**TODO:
      * change the array of ctegories as follow:
@@ -89,7 +92,7 @@ export class CategoriesPage {
      */
   }
 
-  editCategory(item){
+  editCategory(item) {
     /**TODO:
      * enter the add phrase page with the clicked item
      * then allow the user to change any filed
@@ -99,7 +102,7 @@ export class CategoriesPage {
     console.log(item);
   }
 
-  deleteCategory(item){
+  deleteCategory(item) {
     /**TODO:
      * use dor's function and delete the category 
      * and all the sub categories and phrases 
@@ -108,8 +111,8 @@ export class CategoriesPage {
     console.log("delete ");
     console.log(item);
   }
-  
-  changeVisibility(item){
+
+  changeVisibility(item) {
     /**TODO:
      * change the visibility status when clicked
      * the unvisibale categories should by in a different style then the visible on

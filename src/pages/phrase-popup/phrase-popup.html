@@ -10,5 +10,6 @@
     <div class="titleDiv">
         <h1>{{phraseName}}</h1>
     </div>
-    <img src={{phraseImageURL}}>
+    <!-- display the image only if there is one -->
+    <img src={{phraseImageURL}} *ngIf="phraseImageURL != '' " />
 </ion-content>

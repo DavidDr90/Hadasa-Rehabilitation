@@ -108,9 +108,9 @@ export class AddPhrasePage {
     //create the form object depend from where you arrived
     this._myForm = this._formBuilder.group({
       "text": ['', [Validators.required, Validators.minLength(1)]],//the text must be more the one char
-      "categoryID": ['', /*Validators.required*/],//the associated category
-      "imagePath": ['', /*Validators.required*/],//the path to the pharse's image
-      "audioFile": ['', /*Validators.required*/],//the path to the phrase's audio file
+      "categoryID": [''],//the associated category
+      "imagePath": [''],//the path to the pharse's image
+      "audioFile": [''],//the path to the phrase's audio file
     });
 
     this.parentCategoryID = this.navParams.get('categoryID');//get the state from the previuse page

@@ -1,13 +1,18 @@
 <!-- ofeki css for the login or sign-up screen -->
 
 <ion-content padding class="text">
-    <img src="/assets/imgs/logo.png" id="img" />
+    <!-- TODO: fix the logo pic -->
+    <img src="https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffeelings%2Fimages%2Fhappy.PNG?alt=media&token=e0d5a579-457b-4409-a046-60a407fb282c" id="img" />
+    <br/>
+    <br/>
+    <br/>
     <!-- the form of the sign in details -->
-    <ion-item>
+    <ion-item class="item item-trns">
         <ion-label floating>דואר אלקטרוני</ion-label>
         <ion-input type="email" [(ngModel)]="user.email" color=black></ion-input>
     </ion-item>
-    <ion-item>
+    <br/>
+    <ion-item class="item item-trns">
         <ion-label floating>סיסמה</ion-label>
         <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>

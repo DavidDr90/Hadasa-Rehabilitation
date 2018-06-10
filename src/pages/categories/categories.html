@@ -32,7 +32,13 @@
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderItem($event)">
             <ion-item-sliding *ngFor="let item of categoryService.getCategories">
                 <ion-item>
-                    <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)"></my-category>
+                    <!-- TODO: to be check -->
+                    <!--  [ngClass] = "item.visibility ? visible : unVisible" -->
+                    <my-category
+                    *ngIf="item.name != 'aboutMe'"
+                     [category]="item" (click)="openCategoryPhrases(item);"
+                      (press)="categoryService.removeCategory(item)">
+                    </my-category>
                 </ion-item>
                 <ion-item-options side="right">
                     <button ion-button (click)="editCategory(item)">

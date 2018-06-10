@@ -41,18 +41,14 @@ export class PhrasePopupPage {
     this.phraseName = this.navParams.get("phraseName");
     this.phraseImageURL = this.navParams.get("phraseImageURL");
     this.phraseAudioURL = this.navParams.get("phraseAudioURL");
-
+    
     this.playAudio(this.phraseAudioURL);
 
     /**handle the minimize events
-     * pause when the app is minimize
-     * replay when the app is up agian
+     * stop when the app is minimize
      */
     document.addEventListener("pause", () => {
-      this.audio.pause();
-    }, false);
-    document.addEventListener("resume", () => {
-      this.audio.play();
+      this.audio.stop();
     }, false);
   }
 
@@ -64,10 +60,9 @@ export class PhrasePopupPage {
     //if we have no audio, whait few sec and pop
     if (url == null || url == "" || url == undefined) {
       this.audioUrlIsEmpty = true;
-      setTimeout(
-        this.navCtrl.pop(),
-        60000//display for a decent time, one minute for now
-      )
+      setTimeout( () => {
+        this.navCtrl.pop()
+      }, 1500)//display for a decent time, 1.5 seconds for now
     }
 
     try {
