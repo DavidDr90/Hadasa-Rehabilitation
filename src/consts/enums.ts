@@ -276,6 +276,6 @@ export const ABOUT_ME_STRING = 'aboutMe';//TODO: before relese need to change to
 export const DEFUALT_CATEGORY_COLOR: Color = {
     "hebrewName": "לבן",
     "englishName": "white",
-    "hexNumber": "#FFFFFF"
+    "hexNumber": "#ffffff"
 };
 
