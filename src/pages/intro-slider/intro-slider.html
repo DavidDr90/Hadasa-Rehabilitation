@@ -1,26 +1,9 @@
-<!-- <ion-content padding>
-    <img src="/assets/imgs/logo.png" />
-
-  
-
-    <button ion-button (click)="logIn(user)"> התחבר</button>
-    <button ion-button (click)="register()"> הירשם</button>
-
-</ion-content> -->
-
 <!-- ofeki css for the login or sign-up screen -->
 <ion-content padding class="text">
     <img src="/assets/imgs/logo.png" id="img" />
     <br/>
     <br/>
     <br/>
-    <p>
-        <button ion-button round large outline>התחבר</button>
-        <br/>
-        <br/>
-        <button ion-button round large outline>הרשם</button>
-    </p>
-    <!-- //*************the form of the sign in details -->
     <ion-item>
         <ion-label floating>דואר אלקטרוני</ion-label>
         <ion-input type="email" [(ngModel)]="user.email"></ion-input>
@@ -30,4 +13,12 @@
         <ion-label floating>סיסמה</ion-label>
         <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
+    <p>
+        <button ion-button round large outline (click)="logIn(user)">התחבר</button>
+        <br/>
+        <br/>
+        <button ion-button round large outline (click)="register()">הרשם</button>
+    </p>
+    <!-- //*************the form of the sign in details -->
+
 </ion-content>
