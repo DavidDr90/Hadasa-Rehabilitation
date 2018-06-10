@@ -56,17 +56,15 @@ async signIn(email, password)
 
 async registerNewUser(email, password)
 {
-  try{
-    
-    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password);
-    let temp = result.resolve()
-    console.log(temp);
-    return temp;
-  }
-  catch(e){
-    console.log(e);
-    return(e)
-  }
+  return new Promise(async (resolve,reject) =>
+{
+    const result = await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then((authData) => {
+      resolve("User created successfully!\nPlease verify your email address.");
+      //Write code to use authData to add to Users
+  }).catch((_error) => {
+    resolve("Register Failed!\n"+ _error);
+  })
+})
 }
 
 async logOut()
@@ -101,10 +99,13 @@ async logOut()
     // Result from Redirect authentication.
     firebase.auth().getRedirectResult().then((result) => {
       if (result.credential) 
+      
         // This gives you a Google Access Token. You can use it to access the Google API.
         var token = result.credential.accessToken;
       // The signed-in user info.
       var user = result.currentUser;
+
+      
     }).catch((error) => {
       // Handle Errors.
       var errorCode = error.code;
@@ -155,6 +156,11 @@ async logOut()
 
   public get getUserEmail(){
     return this.afAuth.auth.currentUser.email;
+  }
+
+  public isVerified()
+  {
+    return(firebase.auth().currentUser.emailVerified)
   }
 
 }

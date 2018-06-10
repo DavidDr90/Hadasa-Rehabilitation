@@ -7,6 +7,7 @@ import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
+import { ErrorProvider } from '../../providers/error/error';
 
 
 
@@ -28,7 +29,8 @@ export class AboutMeFormPage {
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
     public modalCtrl: ModalController, 
-    public auth: AutenticationProvider)  {
+    public auth: AutenticationProvider,
+    private errorProvider: ErrorProvider)  {
     
     //TODO: display loading window
 
@@ -84,8 +86,17 @@ export class AboutMeFormPage {
 
   //finish filling aboutMe forms and go to main page
   private finish() {
-    //this.navCtrl.pop();
-    this.navCtrl.push(TabsPage);
+   
+    //Checks if the email is verified.
+    
+    if(this.auth.isVerified())
+      this.navCtrl.push(TabsPage);
+    else
+    {
+      this.errorProvider.simpleTosat("You must verify your email to continue.")
+      this.navCtrl.setRoot(AboutMeFormPage)
+    }
+
   }
 
   /** display the addPhrasePage and get the return object from the form.
