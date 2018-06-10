@@ -1,6 +1,5 @@
-import { Component, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { NavController, LoadingController } from 'ionic-angular';
-import { TabsPage } from '../tabs/tabs';
 import { IntroSliderPage } from '../../pages/intro-slider/intro-slider'
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 
