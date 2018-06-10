@@ -15,6 +15,9 @@ export class Favorite {
 	public min_phrases_index; //the index of the category with the less views
 
 	constructor(categories:Category[], phrases:Phrase[]) {
+
+		//open loading window
+
 		this.min_cat_index=0;
 		this.min_phrases_index=0;
 		this.chosen_fav_cat=[];
@@ -54,6 +57,7 @@ export class Favorite {
 			this.find_min_phrase_index();
 		}
 
+		//close loading window
 	}
 
 	private find_min_cat_index(){
