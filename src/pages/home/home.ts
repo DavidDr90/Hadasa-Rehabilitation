@@ -1,5 +1,5 @@
 import { Component, Input, Output } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs';
 import { IntroSliderPage } from '../../pages/intro-slider/intro-slider'
 import { AddPhrasePage } from '../add-phrase/add-phrase';
@@ -37,13 +37,25 @@ export class HomePage {
     public authentication: AutenticationProvider,
     public storage: StorageProvider,
     public categoryProvider: CategoryServiceProvider,
-    public phrasesProvider: PhrasesProvider
+    public phrasesProvider: PhrasesProvider,
+    public loadingCtrl: LoadingController
   ) {
     this.percentage = 0;
     HomePage.userEmail = authentication.user.email;//fill the user email. being used in app-builder constructor.
 
+
+    let loading = this.loadingCtrl.create({
+      content: 'אנא המתן'
+    });
+
+    loading.present();
+
+
     HomePage.favClass = new Favorite(categoryProvider.getCategories, categoryProvider.getAllUserPhrases);
     this.favoriteProvider = new FavoriteProvider(HomePage.favClass);
+
+    if(HomePage.favClass.endFlag)
+      loading.dismiss();
 
     this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);
 
