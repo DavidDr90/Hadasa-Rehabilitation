@@ -212,7 +212,6 @@ export class AddPhrasePage {
       if (this.categoryColor === undefined)
         this.categoryColor = Enums.DEFUALT_CATEGORY_COLOR;
       else {
-        this.categoryColor = this.categoryColor.replace(/\s/g, "");//remove white spacess
         this.categoryColor = Enums.COLOR_LIST.find((item) => item.hexNumber == this.categoryColor);//look for the right object in the colors array
         this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
       }
@@ -413,20 +412,21 @@ export class AddPhrasePage {
     if (url == null || url == "") {
       this.errorProvider.simpleTosat("לא הצלחנו להקליט");
     }
-    if (this.firstTime) {
-      this.audio = this.media.create(url);
-      this.firstTime = !this.firstTime;
-    }
-    this.audio.onStatusUpdate.subscribe(status => {
-      if (status.toString() == "4") { // player end running
-        console.log("player stopped");
-        this.audio.release();//free audio resources after playback (android)
-        this.playing = !this.playing;
+    try {
+      if (this.firstTime) {
+        this.audio = this.media.create(url);
         this.firstTime = !this.firstTime;
       }
-    });
 
-    try {
+      this.audio.onStatusUpdate.subscribe(status => {
+        if (status.toString() == "4") { // player end running
+          console.log("player stopped");
+          this.audio.release();//free audio resources after playback (android)
+          this.playing = !this.playing;
+          this.firstTime = !this.firstTime;
+        }
+      });
+
       this.audio.play()
     }
     catch (ex) {
@@ -490,7 +490,7 @@ export class AddPhrasePage {
   private getColorsFromList() {
     this.colors = new Array<string>();
     Enums.COLOR_LIST.forEach((item) => {
-      this.colors.push(item.hexNumber);
+      this.colors.push(item.hexNumber.toLowerCase());//the hex color number is always lower case
     });
     this.color = this.colors[0];
   }

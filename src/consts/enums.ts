@@ -108,10 +108,10 @@ export const NIKUD: Nikud[] = [
 // TODO: add some colors from the client
 // please notice! if you add new color to this array make sure to updage the color section in cariables.scss
 export const COLOR_LIST: Color[] = [
-    {
+    /*{
         "hebrewName": "לבן",
         "englishName": "white",
-        "hexNumber": "#FFFFFF"
+        "hexNumber": "#ffffff"
     },
     {
         "hebrewName": "שחור",
@@ -121,7 +121,7 @@ export const COLOR_LIST: Color[] = [
     {
         "hebrewName": "אדום",
         "englishName": "red",
-        "hexNumber": "#FF0000"
+        "hexNumber": "#ff0000"
     },
     {
         "hebrewName": "ירוק",
@@ -131,22 +131,22 @@ export const COLOR_LIST: Color[] = [
     {
         "hebrewName": "כחול",
         "englishName": "blue",
-        "hexNumber": "#0000FF"
+        "hexNumber": "#0000ff"
     },
     {
         "hebrewName": "צהוב",
         "englishName": "yellow",
-        "hexNumber": "#FFFF00"
+        "hexNumber": "#ffff00"
     },
     {
         "hebrewName": "כתום",
         "englishName": "orange",
-        "hexNumber": "#FFA500"
-    },
+        "hexNumber": "#ffa500"
+    },*/
     {
         "hebrewName": "לבן",
         "englishName": "white",
-        "hexNumber": "#FFFFFF"
+        "hexNumber": "#ffffff"
     },
     {
         "hebrewName": "כוכב",
