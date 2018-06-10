@@ -13,6 +13,7 @@ import { AutenticationProvider } from '../../providers/autentication/autenticati
 /**
  * the user will see this page if he haven't filled his aboutMe section
  */
+
 @IonicPage()
 @Component({
   selector: 'page-about-me-form',
@@ -84,7 +85,8 @@ export class AboutMeFormPage {
 
   //finish filling aboutMe forms and go to main page
   private finish() {
-    //this.navCtrl.pop();
+    //this.navCtrl.pop();'
+    //app builder
     this.navCtrl.push(TabsPage);
   }
 
@@ -139,8 +141,4 @@ export class AboutMeFormPage {
 
 
   }
-
-
-
-
 }

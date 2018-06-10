@@ -6,7 +6,6 @@ import * as Enums from '../consts/enums';
 
 export class Favorite {
 
-	public endFlag: boolean = false;
 	public chosen_fav_cat: Category[]; //array of the favorite categories chosen by the user
 	public chosen_fav_phrases: Phrase[]; //array of the favorite phrases chosen by the user
 	public common_cat: Category[]; //array of the common categories that the user use.

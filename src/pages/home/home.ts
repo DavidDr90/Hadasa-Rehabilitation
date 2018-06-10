@@ -43,6 +43,9 @@ export class HomePage {
       content: 'אנא המתן'
     });
     loading.present();
+    setTimeout(() => {
+      loading.dismiss();
+    }, 10000);
 
     this.percentage = 0;
     HomePage.userEmail = authentication.user.email;//fill the user email. being used in app-builder constructor.
@@ -51,13 +54,13 @@ export class HomePage {
 
     this.favoriteProvider = new FavoriteProvider(HomePage.favClass);
 
-    if (HomePage.favClass.endFlag)
-      loading.dismiss();
+
 
     this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);
 
     //Sets the display name of the logged-in user
     this.user_name = authentication.user.email;
+    
   }
 
   // Called on pressing Log-out button.
