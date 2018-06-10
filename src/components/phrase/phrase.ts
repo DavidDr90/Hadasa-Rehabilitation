@@ -6,6 +6,7 @@ import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { HomePage } from '../../pages/home/home';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { ErrorProvider } from '../../providers/error/error';
+import * as Enums from '../../consts/enums';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class PhraseComponent {
   constructor(
     public navCtrl: NavController,
     private errorProvider: ErrorProvider,
-    private phraseProvider: PhrasesProvider) {
+    private phraseProvider: PhrasesProvider,
+    public error:ErrorProvider) {
     this.favProvider = new FavoriteProvider(HomePage.favClass);
 
   }
@@ -56,8 +58,10 @@ export class PhraseComponent {
     if (this.phrase.isFav == false) {
       let flag = this.favProvider.add_fav_phrase(this.phrase)//add phrase from favorite
       //the list is full. cannot add.
-      if (flag == -1)
+      if (flag == -1){
+        this.error.simpleTosat("you cant choose more then "+Enums.NUM_FAVORITES_PHRASES+"favorite phrases")
         return;
+      }
       this.phrase.isFav = true;
     }
     else {
