@@ -41,8 +41,8 @@ export class HomePage {
   ) {
     this.percentage = 0;
     HomePage.userEmail = authentication.user.email;//fill the user email. being used in app-builder constructor.
-
-    HomePage.favClass = new Favorite(categoryProvider.getCategories, categoryProvider.getAllUserPhrases);
+    let catArray=categoryProvider.getCategories.concat(categoryProvider.getSubCategories)
+    HomePage.favClass = new Favorite(catArray, categoryProvider.getAllUserPhrases);
     this.favoriteProvider = new FavoriteProvider(HomePage.favClass);
 
     this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);

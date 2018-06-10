@@ -26,13 +26,15 @@ export class Favorite {
 		for(let i=0; i<categories.length; i++){
 			if(categories[i].isFav==true)
 				this.chosen_fav_cat[this.chosen_fav_cat.length]=categories[i];
-			if (this.common_cat.length<Enums.NUM_FAVORITES_CAT&&categories[i].views>0){
-				this.common_cat[this.common_cat.length]=categories[i];
-			}
-			else{
-				this.find_min_cat_index();
-				if(categories[i].views>this.common_cat[this.min_cat_index].views){
-					this.common_cat[this.min_cat_index]=categories[i];
+			if(categories[i].views>0){
+				if (this.common_cat.length<Enums.NUM_FAVORITES_CAT){
+					this.common_cat[this.common_cat.length]=categories[i];
+				}
+				else{
+					this.find_min_cat_index();
+					if(categories[i].views>this.common_cat[this.min_cat_index].views){
+						this.common_cat[this.min_cat_index]=categories[i];
+					}
 				}
 			}
 			this.find_min_cat_index();
@@ -42,13 +44,15 @@ export class Favorite {
 		for(let i=0; i<phrases.length; i++){
 			if(phrases[i].isFav==true)
 				this.chosen_fav_phrases[this.chosen_fav_phrases.length]=phrases[i];
-			if (this.common_phrases.length<Enums.NUM_FAVORITES_PHRASES&&phrases[i].views>0){
-				this.common_phrases[this.common_phrases.length]=phrases[i];
-			}
-			else{
-				this.find_min_phrase_index();
-				if(phrases[i].views>this.common_phrases[this.min_phrases_index].views){
-					this.common_phrases[this.min_phrases_index]=phrases[i];
+			if(phrases[i].views>0){
+				if (this.common_phrases.length<Enums.NUM_FAVORITES_PHRASES){
+					this.common_phrases[this.common_phrases.length]=phrases[i];
+				}
+				else{
+					this.find_min_phrase_index();
+					if(phrases[i].views>this.common_phrases[this.min_phrases_index].views){
+						this.common_phrases[this.min_phrases_index]=phrases[i];
+					}
 				}
 			}
 			this.find_min_phrase_index();

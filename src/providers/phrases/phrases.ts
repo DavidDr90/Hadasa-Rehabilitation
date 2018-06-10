@@ -3,6 +3,8 @@ import { Phrase } from '../../models/Phrase';
 import { FirebaseProvider } from '../firebase/firebase';
 import { Category } from '../../models/Category';
 import { ErrorProvider } from '../error/error';
+import { FavoriteProvider } from '../favorite/favorite';
+import { HomePage } from '../../pages/home/home';
 
 
 @Injectable()
@@ -75,6 +77,9 @@ export class PhrasesProvider {
 
   removePhrase(phrase: Phrase) {
     this.firebaseProvider.removePhrase(phrase);
+    let favoriteProvider=new FavoriteProvider(HomePage.favClass);
+    favoriteProvider.remove_fav_phrases(phrase);
+    favoriteProvider.remove_from_commom_phrases(phrase);
   }
 
    //SETTERS

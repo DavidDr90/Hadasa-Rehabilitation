@@ -3,13 +3,17 @@ import { Favorite } from '../../models/Favorite'
 import { Phrase } from '../../models/Phrase'
 import { Category } from '../../models/Category'
 import * as Enums from '../../consts/enums';
+import { ErrorProvider } from '../error/error';
+import { AlertController } from 'ionic-angular';
 
 @Injectable()
 export class FavoriteProvider {
    private fav:Favorite;
+   private errorHandler:ErrorProvider
 
   constructor(favorite:Favorite) {
     this.fav=favorite;
+   // this.errorHandler=new ErrorProvider();
   }
          
 //========================================================================================
@@ -194,7 +198,7 @@ export class FavoriteProvider {
         break;
     //check if cat not exist in the categories favorite list
     if(i>=this.fav.chosen_fav_cat.length)
-      console.log("ERROR-cannot remove from favorite list\ncategory not exist in the favorite list");
+      return;
     else{
       cat.isFav=false;
       this.fav.chosen_fav_cat.splice(i, 1);//remove the category from the list
@@ -213,7 +217,7 @@ export class FavoriteProvider {
         break;
     //check if phrase not exist in the phrases favorite list
     if(i>=this.fav.chosen_fav_phrases.length)
-      console.log("ERROR-cannot remove from favorite list\nphrase not exist in the favorite list");
+      return;
     else{
       phrase.isFav=(false);
      this.fav.chosen_fav_phrases.splice(i, 1);

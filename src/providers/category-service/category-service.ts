@@ -7,6 +7,8 @@ import { AutenticationProvider } from '../autentication/autentication';
 import { LoadingController, Spinner } from 'ionic-angular';
 import { PhrasesProvider } from '../phrases/phrases';
 import { Phrase } from '../../models/Phrase';
+import { FavoriteProvider } from '../favorite/favorite';
+import { HomePage } from '../../pages/home/home';
 
 
 @Injectable()
@@ -15,7 +17,7 @@ export class CategoryServiceProvider {
   private categories = [];
   private allUserPhrases = [];
   //categories that have parent category, and shown only at there parentCategory's page (next the phrases)
-  private subCategories = []
+  private subCategories = [];
 
   //import categories collection from db and initialize categories attr.
   constructor(
@@ -25,8 +27,10 @@ export class CategoryServiceProvider {
        public loadingCtrl: LoadingController, 
        public phrasesProvider: PhrasesProvider
       ) {
+        
     if(authentication.afAuth.auth.currentUser)
       this.updateCategoriesArray();
+    
   }
 
    
@@ -41,7 +45,7 @@ export class CategoryServiceProvider {
     this.firebaseProvider.importCategories();
     return new Promise((resolve, reject) => {
     this.firebaseProvider.getCategoriesObservable.subscribe(a => {
-        this.categories = a.filter(cat => cat.parentCategoryID == "");
+        this.categories = a;
         this.categories.forEach(element1 => {//initilize all user's phrases local array
         let promise = this.phrasesProvider.getPhrases(element1);
         promise.then((data)=>{
@@ -51,6 +55,7 @@ export class CategoryServiceProvider {
           });
         })
       })
+      this.categories = a.filter(cat => cat.parentCategoryID == "");
         resolve(this.subCategories = a.filter(cat => cat.parentCategoryID != ""))
         //loading.dismiss();
       })
@@ -76,6 +81,10 @@ export class CategoryServiceProvider {
 
   public get getCategories() {
     return this.categories;
+  }
+  
+  public get getSubCategories() {
+    return this.subCategories;
   }
 
   public get getAllUserPhrases() {
@@ -141,25 +150,34 @@ export class CategoryServiceProvider {
    * @param category category to remove.
    */
   removeCategory(category: Category) {
+    let favoriteProvider=new FavoriteProvider(HomePage.favClass)
     let promise = this.phrasesProvider.getPhrases(category);
     promise.then((data)=> {
       let phrases = data;
       if(category.parentCategoryID == ""){//if the wanted remove category isn't a sub-category.
         let subCategories = this.subCategories.filter(cat => cat.parentCategoryID == category.id);
         subCategories.forEach(element => {
+          favoriteProvider.remove_fav_cat(element);
+      favoriteProvider.remove_from_commom_cat(element);
           let promise2 = this.phrasesProvider.getPhrases(element);//remove the sub-categories's phrases
           promise2.then((data)=> {
             let phrases2 = data;
             phrases2.forEach(element =>{
               this.firebaseProvider.removePhrase(element);
+              favoriteProvider.remove_fav_phrases(element)
+              favoriteProvider.remove_from_commom_phrases(element)
             })
           });
           this.firebaseProvider.removeCategory(element);
         })
       }
+      favoriteProvider.remove_fav_cat(category);
+      favoriteProvider.remove_from_commom_cat(category);
 
       phrases.forEach(element => {
         this.firebaseProvider.removePhrase(element);
+        favoriteProvider.remove_fav_phrases(element)
+        favoriteProvider.remove_from_commom_phrases(element)
       });
 
       this.firebaseProvider.removeCategory(category);

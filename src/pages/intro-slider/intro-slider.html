@@ -2,28 +2,17 @@
 
 <ion-content padding class="text">
     <img src="/assets/imgs/logo.png" id="img" />
-    <br/>
-    <br/>
-    <br/>
-    <p>
-        <button ion-button round large outline (click)="logIn(user)">התחבר</button>
-        <br/>
-        <br/>
-        <button ion-button round large outline (click)="register()">הרשם</button>
-    </p>
     <!-- the form of the sign in details -->
     <ion-item>
         <ion-label floating>דואר אלקטרוני</ion-label>
-        <ion-input type="email" [(ngModel)]="user.email"></ion-input>
+        <ion-input type="email" [(ngModel)]="user.email" color=black></ion-input>
     </ion-item>
-    <br/>
     <ion-item>
         <ion-label floating>סיסמה</ion-label>
         <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
     <p>
         <button ion-button round large outline (click)="logIn(user)">התחבר</button>
-        <br/>
         <br/>
         <button ion-button round large outline (click)="register()">הרשם</button>
     </p>

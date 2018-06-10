@@ -37,8 +37,6 @@ export class Category extends Item {
         }
          else
             this.color=color;
-       
-        console.log(this);
     }
 
 
