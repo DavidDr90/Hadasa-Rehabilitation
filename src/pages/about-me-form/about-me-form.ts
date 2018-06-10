@@ -22,17 +22,17 @@ import { ErrorProvider } from '../../providers/error/error';
 })
 export class AboutMeFormPage {
 
-  aboutMeCategory : Category
+  aboutMeCategory: Category
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
-    public modalCtrl: ModalController, 
+    public modalCtrl: ModalController,
     public auth: AutenticationProvider,
-    private errorProvider: ErrorProvider)  {
-    
+    private errorProvider: ErrorProvider) {
+
     //TODO: display loading window
 
     //TODO: dor will create a function that chack if a user is exsist
@@ -55,7 +55,7 @@ export class AboutMeFormPage {
 
     //TODO: close the loading window before leaving the page
 
-    
+
 
     //we stay on this page, so we need to create an aboutMe category
     //create new category aboutMe and add it to DB
@@ -63,7 +63,7 @@ export class AboutMeFormPage {
     // this.aboutMeCategory =
     //   new Category(Enums.ABOUT_ME_STRING, "", "", this.auth.currentUser.email, "",
     //    0, false, Enums.DEFUALT_CATEGORY_COLOR, 1);
-//     this.categoryProvider.updateCategoriesArray();
+    //     this.categoryProvider.updateCategoriesArray();
     // this.categoryProvider.addCategory(this.aboutMeCategory);
     console.log("constructor ends")
   }
@@ -71,39 +71,31 @@ export class AboutMeFormPage {
   //clicked the button, open add phrase form
   private clicked() {
     let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
-    promise.then((data) =>{
+    promise.then((data) => {
       this.aboutMeCategory = data;
       this.aboutMeCategory as Category;
-      console.log("in click id is:"  +this.aboutMeCategory.id+"okey?");
+      console.log("in click id is:" + this.aboutMeCategory.id + "okey?");
       this.phrasesProvider.getPhrases(this.aboutMeCategory);
-    }).then(()=>{
-      console.log("im in second .zen")  
-    this.openAddPage(Enums.ADD_OPTIONS.PHRASE)
-  })
+    }).then(() => {
+      console.log("im in second .zen")
+      this.openAddPage(Enums.ADD_OPTIONS.PHRASE)
+    })
 
     //fill phrases and add them to about-me category
-    
+
   }
 
   //finish filling aboutMe forms and go to main page
   private finish() {
-<<<<<<< HEAD
-    //this.navCtrl.pop();'
-    //app builder
-    this.navCtrl.push(TabsPage);
-=======
-   
+
     //Checks if the email is verified.
-    
-    if(this.auth.isVerified())
+    if (this.auth.isVerified())
       this.navCtrl.push(TabsPage);
-    else
-    {
+    else {
       this.errorProvider.simpleTosat("You must verify your email to continue.")
       this.navCtrl.setRoot(AboutMeFormPage)
     }
 
->>>>>>> d6204395ec2fc50fad7480d24220f2a4d3bd3b63
   }
 
   /** display the addPhrasePage and get the return object from the form.
@@ -120,7 +112,7 @@ export class AboutMeFormPage {
     let addModal = this.modalCtrl.create('AddPhrasePage',
       {
         'fromWhere': fromWhere,
-        'categoryID': this.aboutMeCategory.id 
+        'categoryID': this.aboutMeCategory.id
       });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
@@ -141,17 +133,17 @@ export class AboutMeFormPage {
   * @param navigateHome should we go toHomePage if aboutMe category exists
    */
   async verifyAboutMeCategory(navigateHome: boolean) {
-    try{
+    try {
       let aboutMeCategory = await this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
       console.log("after await");
-      if(aboutMeCategory != undefined){
+      if (aboutMeCategory != undefined) {
         this.aboutMeCategory as Category;
         console.log(this.aboutMeCategory.getID().toString())
-        if(navigateHome)
+        if (navigateHome)
           this.navCtrl.push(TabsPage);
       }
       console.log("data undefined");
-    } catch(err) {
+    } catch (err) {
       console.log("aboutMe was not found:" + err)
     }
 

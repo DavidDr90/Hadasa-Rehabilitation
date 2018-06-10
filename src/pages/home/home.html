@@ -5,6 +5,9 @@
             בוא נדבר! שלום {{user_name}}
         </ion-title>
         <ion-buttons end>
+            <button ion-button icon-only (click)="aboutApp()">
+                <ion-icon name="information-circle"></ion-icon>
+            </button>
             <button ion-button icon-only (click)="logOut()">
                 <ion-icon name="log-out"></ion-icon>
             </button>
@@ -24,7 +27,7 @@
     <button ion-button (click)="showFav()">
         click here to see favorite
     </button>
-    
+
     <favorites></favorites>
-    
+
 </ion-content>

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { IntroSliderPage } from '../../pages/intro-slider/intro-slider'
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 
@@ -31,7 +31,8 @@ export class HomePage {
   public favoriteProvider: FavoriteProvider
   public appBuilderProvider: AppBuilderProvider
 
-  constructor(public navCtrl: NavController,
+  constructor(private modal: ModalController,
+    public navCtrl: NavController,
     public firebaseProvider: FirebaseProvider,
     public authentication: AutenticationProvider,
     public storage: StorageProvider,
@@ -45,7 +46,7 @@ export class HomePage {
     loading.present();
     setTimeout(() => {
       loading.dismiss();
-    }, 10000);
+    }, 1000);
 
     this.percentage = 0;
     HomePage.userEmail = authentication.user.email;//fill the user email. being used in app-builder constructor.
@@ -70,6 +71,15 @@ export class HomePage {
     // this.authentication.toggleSignIn();
     this.authentication.logOut()
     this.navCtrl.push(IntroSliderPage);
+  }
+
+  /** display to the user a page with information about the app
+   *  this can be accsses without registertion
+   */
+  aboutApp(){
+    const myModal = this.modal.create('OurAppPage');
+
+    myModal.present();
   }
 
   showFav() {
