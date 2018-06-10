@@ -3,6 +3,8 @@ import { Category } from '../../models/Category';
 import { HomePage } from '../../pages/home/home'
 import { FavoriteProvider } from '../../providers/favorite/favorite'
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
+import { ErrorProvider } from '../../providers/error/error';
+import * as Enums from '../../consts/enums';
 
 
 
@@ -15,7 +17,7 @@ export class MyCategoryComponent {
   @Input() category: Category;
   favProvider:FavoriteProvider
 
-  constructor(public categoryProvider:CategoryServiceProvider) {
+  constructor(public categoryProvider:CategoryServiceProvider, public error:ErrorProvider) {
       this.favProvider=new FavoriteProvider(HomePage.favClass); 
   }
   
@@ -28,8 +30,11 @@ export class MyCategoryComponent {
     if(this.category.isFav==false){
       let flag=this.favProvider.add_fav_cat(this.category) //add favorite category
       //not able to add the category to favoriets.
-      if(flag==-1)
+      if(flag==-1){
+        this.error.simpleTosat(("you cant choose more then "+Enums.NUM_FAVORITES_CAT+"favorite categories"))
         return;
+      }
+        
       this.category.isFav=true;
     }
     else{

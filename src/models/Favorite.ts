@@ -1,4 +1,3 @@
-import { Component } from '@angular/core';
 import { Category } from '../models/Category';
 import { Phrase } from '../models/Phrase';
 import * as Enums from '../consts/enums';
@@ -61,7 +60,6 @@ export class Favorite {
 			this.find_min_phrase_index();
 		}
 
-		this.endFlag = true;
 
 	}
 

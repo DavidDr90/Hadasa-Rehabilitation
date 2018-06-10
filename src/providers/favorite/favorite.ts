@@ -4,16 +4,13 @@ import { Phrase } from '../../models/Phrase'
 import { Category } from '../../models/Category'
 import * as Enums from '../../consts/enums';
 import { ErrorProvider } from '../error/error';
-import { AlertController } from 'ionic-angular';
 
 @Injectable()
 export class FavoriteProvider {
    private fav:Favorite;
-   private errorHandler:ErrorProvider
 
   constructor(favorite:Favorite) {
     this.fav=favorite;
-   // this.errorHandler=new ErrorProvider();
   }
          
 //========================================================================================
@@ -156,7 +153,7 @@ export class FavoriteProvider {
   add_fav_cat(cat){
     // check if there is a free place for the category on the favorites categories list
     if(this.fav.chosen_fav_cat.length==Enums.NUM_FAVORITES_CAT){
-      alert("you cant choose more then "+Enums.NUM_FAVORITES_CAT+"favorite categories");//no place, error message to the user
+      //no place, error message to the user
       return -1;
     }
       
@@ -175,7 +172,7 @@ export class FavoriteProvider {
   add_fav_phrase(phrase){
     //check if there is a free place for the phrase on the favorites phrases list
     if(this.fav.chosen_fav_phrases.length==Enums.NUM_FAVORITES_PHRASES){
-      alert("you cant choose more then "+Enums.NUM_FAVORITES_PHRASES+"favorite phrases");//no place, error message to the user
+      //no place, error message to the user
       return -1;
 
     }
