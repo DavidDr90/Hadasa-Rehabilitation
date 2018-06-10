@@ -39,14 +39,41 @@ export class IntroSliderPage {
     // The function toggleSignIn will connect the user with redirect-auth.
     // let promise = this.authentication.toggleSignIn(this.user);
     let logged_in = await this.authentication.signIn(this.user.email, this.user.password);
-    if (!this.authentication.afAuth.auth.currentUser)
+    if (this.authentication.afAuth.auth.currentUser)
+    {
+      //Checks if the user email verified. If it is not verified stay the user in this page.
+     if(!this.authentication.afAuth.auth.currentUser.emailVerified)
+     {
+      this.errorProvider.simpleTosat("You must verify your email before log-in.");
+      this.navCtrl.setRoot(IntroSliderPage);
+      this.authentication.logOut();
+     }
+    }
+    else
+    {
       this.errorProvider.simpleTosat(logged_in)
+    }
   }
 
   public register() {
+    debugger
     let registered = this.authentication.registerNewUser(this.user.email, this.user.password);
-    if (!this.authentication.afAuth.auth.currentUser)
-      this.errorProvider.simpleTosat(registered)
+    let res = new Promise((resolve, reject) => {
+      resolve(registered);
+    });
+
+    res.then((data) => {
+      if (this.authentication.afAuth.auth.currentUser)
+        {
+          //Sends verification email when user register at first time.
+          this.authentication.afAuth.auth.currentUser.sendEmailVerification();
+        }
+        //Toasts the register state. (success or fail).
+        this.errorProvider.simpleTosat(data)
+
+    });
+    
+
   }
 }
 
