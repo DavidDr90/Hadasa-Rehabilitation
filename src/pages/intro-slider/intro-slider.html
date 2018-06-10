@@ -1,3 +1,5 @@
+<!-- ofeki css for the login or sign-up screen -->
+
 <ion-content padding class="text">
     <img src="www/assets/imgs/logo.png" id="img" />
     <br/>
@@ -19,4 +21,12 @@
         <ion-label floating>סיסמה</ion-label>
         <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
+    <p>
+        <button ion-button round large outline (click)="logIn(user)">התחבר</button>
+        <br/>
+        <br/>
+        <button ion-button round large outline (click)="register()">הרשם</button>
+    </p>
+
+
 </ion-content>
