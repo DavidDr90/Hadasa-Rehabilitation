@@ -1,6 +1,6 @@
 page-intro-slider {
     ion-content {
-        background-image: url("/assets/imgs/login-background.jpg");
+        background-image: url("/assets/imgs/login-background2.jpg");
     }
     .text {
         text-align: center;
@@ -16,5 +16,8 @@ page-intro-slider {
         margin-right: 50%;
         justify-content: center;
         margin-top: 10%;
+    }
+    ion-item {
+        background-color: #fff0 !important;
     }
 }
