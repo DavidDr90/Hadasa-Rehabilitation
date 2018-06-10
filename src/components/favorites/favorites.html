@@ -1,14 +1,28 @@
 <ion-item-group>
     <ion-item-divider color="primary"> קטגוריות מועדפות </ion-item-divider>
     <ion-item>
-        <my-category [category]="item" *ngFor="let item of favorite.getCatArray()" (click)="openCategoryPhrases(item);">
+        <my-category [category]="item" *ngFor="let item of favorite.chosen_fav_cat" (click)="openCategoryPhrases(item);">
+        </my-category>
+    </ion-item>
+</ion-item-group>
+<ion-item-group>
+    <ion-item-divider color="primary"> קטגוריות שכיחות </ion-item-divider>
+    <ion-item>
+        <my-category [category]="item" *ngFor="let item of favorite.getCommonCatArray()" (click)="openCategoryPhrases(item);">
         </my-category>
     </ion-item>
 </ion-item-group>
 <ion-item-group>
     <ion-item-divider color="primary"> משפטים מועדפים </ion-item-divider>
     <ion-item>
-        <phrase [phrase]="item" *ngFor="let item of favorite.getPhrasesArray()">
+        <phrase [phrase]="item" *ngFor="let item of favorite.chosen_fav_phrases">
+        </phrase>
+    </ion-item>
+</ion-item-group>
+<ion-item-group>
+    <ion-item-divider color="primary"> משפטים שכיחים </ion-item-divider>
+    <ion-item>
+        <phrase [phrase]="item" *ngFor="let item of favorite.getCommonPhrasesArray()">
         </phrase>
     </ion-item>
 </ion-item-group>

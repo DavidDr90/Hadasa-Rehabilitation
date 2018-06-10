@@ -26,7 +26,7 @@ export class Favorite {
 		for(let i=0; i<categories.length; i++){
 			if(categories[i].isFav==true)
 				this.chosen_fav_cat[this.chosen_fav_cat.length]=categories[i];
-			if (this.common_cat.length<Enums.NUM_FAVORITES_CAT){
+			if (this.common_cat.length<Enums.NUM_FAVORITES_CAT&&categories[i].views>0){
 				this.common_cat[this.common_cat.length]=categories[i];
 			}
 			else{
@@ -42,7 +42,7 @@ export class Favorite {
 		for(let i=0; i<phrases.length; i++){
 			if(phrases[i].isFav==true)
 				this.chosen_fav_phrases[this.chosen_fav_phrases.length]=phrases[i];
-			if (this.common_phrases.length<Enums.NUM_FAVORITES_PHRASES){
+			if (this.common_phrases.length<Enums.NUM_FAVORITES_PHRASES&&phrases[i].views>0){
 				this.common_phrases[this.common_phrases.length]=phrases[i];
 			}
 			else{
@@ -94,19 +94,19 @@ export class Favorite {
 		 * favoriets categories chosen by him. the rest will be his common categories.
 		 * @returns an array of the favorites categories.
 		 */
-		public getCatArray(){
+		public getCommonCatArray(){
 			let categories:Category[];
 			categories=[];
 			//fill the array with chosen
-			let i=0;
+			/*let i=0;
 			for(i=0; i<this.chosen_fav_cat.length; i++)
-				categories[i]=this.chosen_fav_cat[i];
+				categories[i]=this.chosen_fav_cat[i];*/
 			
 			this.common_cat.sort(function(a, b){return b.views - a.views});//sort the common array from most viewed to least viewed
 			
 			//fill the rest of the array with common categories with the most viewed categories
-			i=0;
-			while(categories.length<Enums.NUM_FAVORITES_CAT&& i<this.common_cat.length){
+			let i=0;
+			while(categories.length+this.chosen_fav_cat.length<Enums.NUM_FAVORITES_CAT&& i<this.common_cat.length){
 				if(this.common_cat[i].isFav==false)
 					categories[categories.length]=this.common_cat[i];
 				i++;
@@ -119,19 +119,19 @@ export class Favorite {
 		 * favoriets Phrases chosen by him. the rest will be his common Phrases.
 		 * @returns an array of the favorites Phrases.
 		 */
-		public getPhrasesArray(){
+		public getCommonPhrasesArray(){
 			let phrases:Phrase[];
 			phrases=[];
 			//fill the array with chosen
-			let i=0;
+			/*let i=0;
 			for(i=0; i<this.chosen_fav_phrases.length; i++)
-			phrases[i]=this.chosen_fav_phrases[i];
+			phrases[i]=this.chosen_fav_phrases[i];*/
 
 			this.common_phrases.sort(function(a, b){return b.views - a.views});//sort the common array from most viewed to least viewed
 			
 			//fill the rest of the array with common phrases with the most viewed categories
-			i=0;
-			while(phrases.length<Enums.NUM_FAVORITES_PHRASES&& i<this.common_phrases.length){
+			let i=0;
+			while(phrases.length+this.chosen_fav_phrases.length<Enums.NUM_FAVORITES_PHRASES&& i<this.common_phrases.length){
 				if(this.common_phrases[i].isFav==false)
 					phrases[phrases.length]=this.common_phrases[i];
 				i++;
