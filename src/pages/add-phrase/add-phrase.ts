@@ -3,22 +3,16 @@ import { IonicPage, ActionSheetController, ViewController, NavParams, LoadingCon
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
-import { AlertController } from 'ionic-angular';
-import * as firebase from 'firebase';
 import { Base64 } from '@ionic-native/base64';
-import { NativeAudio } from '@ionic-native/native-audio';
+
 
 //for the recorder functions
 import { Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 import { File } from '@ionic-native/file';
-import { FilePath } from '@ionic-native/file-path';
-import { HttpProvider } from '../../providers/http/http';
 import { StorageProvider } from '../../providers/storage/storage';
-import { AudioRecordProvider } from '../../providers/audio-record/audio-record';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { ErrorProvider } from '../../providers/error/error';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
@@ -294,12 +288,10 @@ export class AddPhrasePage {
         correctOrientation: true
       };
 
-
       const im_path = await this.camera.getPicture(options);//get the path to the image
 
       const im_type = 'data:image/jpeg;base64,';
       let promise = await this.storageProvider.uploadFileByPath(im_path, im_type);
-
 
       let res = new Promise((resolve, reject) => {
         resolve(promise);
@@ -311,18 +303,9 @@ export class AddPhrasePage {
         this._myForm.patchValue({ 'imagePath': this.imageURL });//insert the capture image path to the form 
       })
 
-
     } catch (err) {
       this.errorProvider.alert("לא הצלחנו לבחור תמונה....", err);
     }
-  }
-
-  // Create a new name for the image from the current time
-  private createFileName() {
-    var d = new Date(),
-      n = d.getTime(),
-      newFileName = n + ".jpg";
-    return newFileName;
   }
 
   /********* The following are the voice record handler functions ************/
@@ -387,11 +370,11 @@ export class AddPhrasePage {
           let res = new Promise((resolve, reject) => {
             resolve(promise);
           });
+
           res.then((data) => {
             this.audioFileURL = data.toString();
             this._myForm.patchValue({ 'audioFile': this.audioFileURL });//insert the recorded audio file path to the form 
-
-          })
+          });
 
         }, (err) => {
           console.log(err);

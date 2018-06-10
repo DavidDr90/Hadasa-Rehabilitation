@@ -1,10 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, LoadingController } from 'ionic-angular';
+import { Component } from '@angular/core';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs'
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { MyApp } from '../../app/app.component';
-import { HomePage } from '../home/home';
-import * as firebase from 'firebase/app';
 import { AboutMeFormPage } from '../about-me-form/about-me-form';
 import { User } from '../../models/user';
 import { ErrorProvider } from '../../providers/error/error';
@@ -41,15 +39,14 @@ export class IntroSliderPage {
     // The function toggleSignIn will connect the user with redirect-auth.
     // let promise = this.authentication.toggleSignIn(this.user);
     let logged_in = await this.authentication.signIn(this.user.email, this.user.password);
-    if(!this.authentication.afAuth.auth.currentUser)
-    this.errorProvider.simpleTosat(logged_in)
+    if (!this.authentication.afAuth.auth.currentUser)
+      this.errorProvider.simpleTosat(logged_in)
   }
 
-  public register()
-  {
-    let registered =this.authentication.registerNewUser(this.user.email, this.user.password);
-    if(!this.authentication.afAuth.auth.currentUser)
-    this.errorProvider.simpleTosat(registered)
+  public register() {
+    let registered = this.authentication.registerNewUser(this.user.email, this.user.password);
+    if (!this.authentication.afAuth.auth.currentUser)
+      this.errorProvider.simpleTosat(registered)
   }
 }
 
