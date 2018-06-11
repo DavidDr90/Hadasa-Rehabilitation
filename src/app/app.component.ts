@@ -46,7 +46,8 @@ export class MyApp {
     this.authentication.afAuth.auth.onAuthStateChanged(
     async user =>
     {
-     if(user)
+
+      if (user && user.emailVerified)
       {
       let update_promise = await this.categoryServiceProvider.updateCategoriesArray()
       let promise = this.categoryServiceProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
@@ -59,8 +60,10 @@ export class MyApp {
         this.rootPage = AboutMeFormPage;
         console.log("Nothing");
       })
-    }
+        
+      }
     })
+    
       this.rootPage = IntroSliderPage;
   
   }
