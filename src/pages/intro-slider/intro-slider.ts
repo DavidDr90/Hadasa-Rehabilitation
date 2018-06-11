@@ -26,12 +26,7 @@ export class IntroSliderPage {
   }
 
   ionViewDidLoad() {
-    //On page loading checks if the user already logged in.
-    //if the user logged in already sets 'TabsPage' as main page.
-    // this.authentication.afAuth.auth.onAuthStateChanged((user) => {
-    //   if (user)
-    //     this.navCtrl.setRoot(AboutMeFormPage);
-    // })
+
   }
 
   // This function called by clicking login-button.

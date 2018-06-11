@@ -28,11 +28,15 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
-
-    //check if current user is login, initialize authentication.loggedIn attr.
-    // this.authentication.isLoggedIn();
     this.authentication.initApp();
-
+    
+    //check if current user is login, initialize authentication.loggedIn attr.
+    if(!this.authentication.isLoggedIn())
+    {
+      this.rootPage = IntroSliderPage;
+    }
+    // if(!this.authentication.isLoggedIn)
+      
     //considering authentication.loggedIn set the following page: homePage or loginPage
     this.getRootPage();
    
@@ -42,13 +46,14 @@ export class MyApp {
   //considering authentication.loggedIn set the following page: homePage or loginPage
   //if current user doesn't logged in -> popup google login window.  
   getRootPage() {
-    this.authentication.logOut()
+
     this.authentication.afAuth.auth.onAuthStateChanged(
     async user =>
     {
-
+  
       if (user && user.emailVerified)
       {
+        
       let update_promise = await this.categoryServiceProvider.updateCategoriesArray()
       let promise = this.categoryServiceProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
       promise.then((data) => {
@@ -64,7 +69,7 @@ export class MyApp {
       }
     })
     
-      this.rootPage = IntroSliderPage;
+      // this.rootPage = IntroSliderPage;
   
   }
   //---------------------------------------------------------------------------//
