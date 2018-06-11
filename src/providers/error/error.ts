@@ -73,4 +73,26 @@ export class ErrorProvider {
     alert.present();
   }
 
+
+  public waitAlert(headline, message) : Promise<boolean> {
+    return new Promise((resolve, reject) => {
+
+      let alert = this.alertCtrl.create({
+        title: headline,
+        subTitle: message,
+        buttons: [{
+          text: 'OK',
+          handler: () => {
+            alert.dismiss().then(() => { resolve(true); });
+            return false;
+          }
+        }]
+      });
+
+      alert.present();
+
+    });
+  }
+
+
 }

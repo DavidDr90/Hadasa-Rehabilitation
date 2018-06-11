@@ -76,6 +76,13 @@ export class IntroSliderPage {
       //Toasts the register state. (success or fail).
       this.errorProvider.simpleTosat(data)
 
+      let wait_promise = this.errorProvider.waitAlert("Verify Email","Please enter the link in your mail. Continue after you verified.")
+      wait_promise.then(async ()=>
+    {
+      await this.authentication.getCurrentUser.reload()
+      this.authentication.getCurrentUser.getToken(true)
+    })
+      
     });
   }
   else{
