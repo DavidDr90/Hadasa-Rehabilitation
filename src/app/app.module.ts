@@ -56,6 +56,9 @@ import { AboutMeFormPage } from '../pages/about-me-form/about-me-form';
 import { ErrorProvider } from '../providers/error/error';
 import { Base64 } from '@ionic-native/base64';
 import { CustomErrorHandler } from '../models/CustomErrorHandler';
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import { TimerComponent } from '../components/timer/timer';
+import { OurAppPage } from '../pages/our-app/our-app';
 
 
 // use our custom fatel error handler in production, and the ionic error handler on devlopment
@@ -66,20 +69,20 @@ const ERROR_HANDLER = ((<any>window)['IonicDevServer'] == undefined) ? CustomErr
   declarations: [
     MyApp,
     HomePage,
-    // AddPhrasePage,
+    AddPhrasePage,
     CategoriesPage,
     MyCategoryComponent,
     AboutMePage,
     IntroSliderPage,
     PhrasesPage,
     PhraseComponent,
-    // TimerComponent,
+    TimerComponent,
     TabsPage,
     FavoritesComponent,
     AboutMeFormPage,
-    // ProgressBarComponent,
+    ProgressBarComponent,
     PhrasePopupPage,
-    //NumbersPage
+    OurAppPage
   ],
   imports: [
     BrowserModule,
@@ -103,8 +106,8 @@ const ERROR_HANDLER = ((<any>window)['IonicDevServer'] == undefined) ? CustomErr
     TabsPage,
     PhrasePopupPage,
     PhrasesPage,
-    AboutMeFormPage
-    //NumbersPage
+    AboutMeFormPage,
+    OurAppPage
   ],
   providers: [
     CategoryServiceProvider,
