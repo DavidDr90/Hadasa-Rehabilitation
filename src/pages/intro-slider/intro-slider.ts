@@ -19,7 +19,7 @@ export class IntroSliderPage {
   loading_sign = false;
   user = {} as User;
 
-  constructor(private modal: ModalController, public navCtrl: NavController,
+  constructor(private modal: ModalController, public navCtrl: NavController, 
     public navParams: NavParams, public authentication: AutenticationProvider, private errorProvider: ErrorProvider) {
     // this.checkIfDataLoaded();
     this.loading_sign = false;
@@ -36,6 +36,8 @@ export class IntroSliderPage {
 
   // This function called by clicking login-button.
   public async logIn() {
+
+    if (this.authentication.checkEmailValidity(this.user.email)) {
     // this.loading_sign = true;
     // The function toggleSignIn will connect the user with redirect-auth.
     // let promise = this.authentication.toggleSignIn(this.user);
@@ -52,8 +54,15 @@ export class IntroSliderPage {
       this.errorProvider.simpleTosat(logged_in)
     }
   }
+  else{
+    this.errorProvider.simpleTosat("Email is not valid.")
+  }
+  }
 
   public register() {
+    
+    if (this.authentication.checkEmailValidity(this.user.email)) 
+    {
     let registered = this.authentication.registerNewUser(this.user.email, this.user.password);
     let res = new Promise((resolve, reject) => {
       resolve(registered);
@@ -68,26 +77,43 @@ export class IntroSliderPage {
       this.errorProvider.simpleTosat(data)
 
     });
-
+  }
+  else{
+    this.errorProvider.simpleTosat("Email is not valid.")
+  }
 
   }
 
   /** display to the user a page with information about the app
    *  this can be accsses without registertion
    */
-  aboutApp() {
+  aboutApp(){
     const myModal = this.modal.create('OurAppPage');
 
     myModal.present();
   }
 
-  public resetPassword() {
-    try {
-      let msg = this.authentication.resetPassword(this.user.email);
-      this.errorProvider.simpleTosat("מייל איפוס סיסמה נשלח לכתובת המייל");
-    } catch (err) {
-      console.log(err);
-      this.errorProvider.simpleTosat(err);
+  public resetPassword()
+  {
+    if (this.authentication.checkEmailValidity(this.user.email)) 
+    {
+      try{
+
+      let promise = this.authentication.resetPassword(this.user.email);
+      let res = new Promise((resolve, reject) => {
+        resolve(promise);
+      });
+      res.then((data) => {
+        this.errorProvider.simpleTosat(data)
+      });
+      }
+      catch{
+        this.errorProvider.simpleTosat("An error accourd on sending reset password email to '"+this.user.email+"'.")
+      }
+    }
+    else
+    {
+      this.errorProvider.simpleTosat("Email is not valid.")
     }
   }
 }

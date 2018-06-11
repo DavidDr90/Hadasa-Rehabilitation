@@ -40,7 +40,7 @@ export class MyApp {
   //considering authentication.loggedIn set the following page: homePage or loginPage
   //if current user doesn't logged in -> popup google login window.  
   getRootPage() {
-    if (this.authentication.loggedInStatus()) {
+    if (this.authentication.isLoggedIn()) {
       this.rootPage = TabsPage;
     }
     else {
