@@ -28,10 +28,10 @@ export class IntroSliderPage {
   ionViewDidLoad() {
     //On page loading checks if the user already logged in.
     //if the user logged in already sets 'TabsPage' as main page.
-    this.authentication.afAuth.auth.onAuthStateChanged((user) => {
-      if (user)
-        this.navCtrl.setRoot(AboutMeFormPage);
-    })
+    // this.authentication.afAuth.auth.onAuthStateChanged((user) => {
+    //   if (user)
+    //     this.navCtrl.setRoot(AboutMeFormPage);
+    // })
   }
 
   // This function called by clicking login-button.
@@ -98,7 +98,6 @@ export class IntroSliderPage {
     if (this.authentication.checkEmailValidity(this.user.email)) 
     {
       try{
-
       let promise = this.authentication.resetPassword(this.user.email);
       let res = new Promise((resolve, reject) => {
         resolve(promise);
