@@ -80,5 +80,11 @@ export class IntroSliderPage {
 
     myModal.present();
   }
+
+  public resetPassword()
+  {
+    let msg = this.authentication.resetPassword(this.user.email);
+    this.errorProvider.simpleTosat(msg);
+  }
 }
 

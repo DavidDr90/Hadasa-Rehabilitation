@@ -146,6 +146,13 @@ async logOut()
     })
   }
 
+  public resetPassword(email: string) {
+    var auth = firebase.auth();
+    return auth.sendPasswordResetEmail(email)
+      .then(() => console.log("email sent"))
+      .catch((error) => console.log(error))
+  }
+
   public loggedInStatus(){
     return this.loggedIn;  
   }
