@@ -19,7 +19,7 @@ export class IntroSliderPage {
   loading_sign = false;
   user = {} as User;
 
-  constructor(private modal: ModalController, public navCtrl: NavController, 
+  constructor(private modal: ModalController, public navCtrl: NavController,
     public navParams: NavParams, public authentication: AutenticationProvider, private errorProvider: ErrorProvider) {
     // this.checkIfDataLoaded();
     this.loading_sign = false;
@@ -75,16 +75,20 @@ export class IntroSliderPage {
   /** display to the user a page with information about the app
    *  this can be accsses without registertion
    */
-  aboutApp(){
+  aboutApp() {
     const myModal = this.modal.create('OurAppPage');
 
     myModal.present();
   }
 
-  public resetPassword()
-  {
-    let msg = this.authentication.resetPassword(this.user.email);
-    this.errorProvider.simpleTosat(msg);
+  public resetPassword() {
+    try {
+      let msg = this.authentication.resetPassword(this.user.email);
+      this.errorProvider.simpleTosat("מייל איפוס סיסמה נשלח לכתובת המייל");
+    } catch (err) {
+      console.log(err);
+      this.errorProvider.simpleTosat(err);
+    }
   }
 }
 
