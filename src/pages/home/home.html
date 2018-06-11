@@ -18,16 +18,16 @@
 
 
 <ion-content padding>
-    <h1> ברוכים הבאים! </h1>
-
     <button ion-button (click)="this.appBuilderProvider.fillDB()">
         click here to fill DB
     </button>
+    <ion-item>
+        <ion-label>הצגת מועדפים</ion-label>
+        <ion-toggle [(ngModel)]="isToggled"></ion-toggle>
+    </ion-item>
 
-    <button ion-button (click)="showFav()">
-        click here to see favorite
-    </button>
 
-    <favorites></favorites>
 
+
+    <favorites *ngIf="isToggled"></favorites>
 </ion-content>

@@ -30,6 +30,7 @@ export class HomePage {
   static favClass: Favorite
   public favoriteProvider: FavoriteProvider
   public appBuilderProvider: AppBuilderProvider
+  public isToggled:boolean;
 
   constructor(private modal: ModalController,
     public navCtrl: NavController,
@@ -40,6 +41,7 @@ export class HomePage {
     public phrasesProvider: PhrasesProvider,
     public loadingCtrl: LoadingController
   ) {
+    this.isToggled=true;
     let loading = this.loadingCtrl.create({
       content: 'אנא המתן'
     });
@@ -80,21 +82,6 @@ export class HomePage {
     const myModal = this.modal.create('OurAppPage');
 
     myModal.present();
-  }
-
-  showFav() {
-    console.log("==============================")
-    console.log("FAVORITE")
-    console.log(HomePage.favClass)
-    console.log("common_cat")
-    console.log(HomePage.favClass.common_cat)
-    console.log("common_phrases")
-    console.log(HomePage.favClass.common_phrases)
-    console.log("chosen_fav_cat")
-    console.log(HomePage.favClass.chosen_fav_cat)
-    console.log("chosen_fav_phrases")
-    console.log(HomePage.favClass.chosen_fav_phrases)
-    console.log("==============================")
   }
 
 

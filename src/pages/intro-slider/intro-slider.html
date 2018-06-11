@@ -2,8 +2,7 @@
 
 <ion-content padding class="text">
     <!-- TODO: fix the logo pic -->
-    <img src="https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffeelings%2Fimages%2Fhappy.PNG?alt=media&token=e0d5a579-457b-4409-a046-60a407fb282c"
-        id="img" />
+    <img src="https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffeelings%2Fimages%2Fhappy.PNG?alt=media&token=e0d5a579-457b-4409-a046-60a407fb282c" id="img" />
 
     <!-- the form of the sign in details -->
     <ion-item class="item item-trns">
@@ -17,17 +16,18 @@
 
 
     <ion-grid>
-        <ion-row>
-            <ion-col col->
+        <ion-row justify-content: space-around>
+            <ion-col>
                 <button ion-button round large outline (click)="logIn(user)">התחבר</button>
             </ion-col>
             <ion-col>
                 <button ion-button round large outline (click)="register()">הרשם</button>
             </ion-col>
         </ion-row>
-        <ion-row justify-content-center>
+        <br/>
+        <ion-row justify-content-center margin-top=150%>
             <ion-col align-self-center>
-            <button ion-button round large outline (click)="aboutApp()">אודות</button>
+                <button ion-button round (click)="aboutApp()">אודות</button>
             </ion-col>
         </ion-row>
     </ion-grid>
