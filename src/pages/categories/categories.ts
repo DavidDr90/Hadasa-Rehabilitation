@@ -10,9 +10,9 @@ import { StorageProvider } from '../../providers/storage/storage';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
+import { AddPhrasePage } from '../add-phrase/add-phrase';
 
 
-@IonicPage()
 @Component({
   selector: 'page-categories',
   templateUrl: 'categories.html',
@@ -48,7 +48,7 @@ export class CategoriesPage {
    * modal and then adds the new item to our data source if the user created one.
    */
   openAddPage() {
-    let addModal = this.modalCtrl.create('AddPhrasePage',
+    let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.CATEGORY,
         'categoryID': Enums.ADD_OPTIONS.NO_CATEGORY

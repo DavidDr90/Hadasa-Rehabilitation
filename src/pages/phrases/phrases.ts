@@ -8,8 +8,8 @@ import * as Enums from '../../consts/enums';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { CategoriesPage } from '../categories/categories';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { AddPhrasePage } from '../add-phrase/add-phrase';
 
-@IonicPage()
 @Component({
   selector: 'page-phrases',
   templateUrl: 'phrases.html'
@@ -153,7 +153,7 @@ export class PhrasesPage {
   * modal and then adds the new item to our data source if the user created one.
   */
   openAddPage(fromWhere) {
-    let addModal = this.modalCtrl.create('AddPhrasePage',
+    let addModal = this.modalCtrl.create(AddPhrasePage,
       { 'fromWhere': fromWhere, 'categoryID': this.parentCategory.id });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form

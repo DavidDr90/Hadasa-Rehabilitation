@@ -13,6 +13,7 @@ import { FirebaseProvider } from '../../providers/firebase/firebase'
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
+import { OurAppPage } from '../our-app/our-app';
 
 @Component({
   selector: 'page-home',
@@ -79,7 +80,7 @@ export class HomePage {
    *  this can be accsses without registertion
    */
   aboutApp(){
-    const myModal = this.modal.create('OurAppPage');
+    const myModal = this.modal.create(OurAppPage);
 
     myModal.present();
   }

@@ -6,9 +6,9 @@ import { MyApp } from '../../app/app.component';
 import { AboutMeFormPage } from '../about-me-form/about-me-form';
 import { User } from '../../models/user';
 import { ErrorProvider } from '../../providers/error/error';
+import { OurAppPage } from '../our-app/our-app';
 
 
-@IonicPage()
 @Component({
   selector: 'page-intro-slider',
   templateUrl: 'intro-slider.html'
@@ -88,7 +88,7 @@ export class IntroSliderPage {
    *  this can be accsses without registertion
    */
   aboutApp(){
-    const myModal = this.modal.create('OurAppPage');
+    const myModal = this.modal.create(OurAppPage);
 
     myModal.present();
   }

@@ -9,9 +9,9 @@ import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
 import { PhrasesPage } from '../phrases/phrases';
 import { ErrorProvider } from '../../providers/error/error';
+import { AddPhrasePage } from '../add-phrase/add-phrase';
 
 
-@IonicPage()
 @Component({
   selector: 'page-about-me',
   templateUrl: 'about-me.html',
@@ -100,7 +100,7 @@ export class AboutMePage {
       this.errorProvider.simpleTosat("על עצמי לא מוגדר");
       return;
     }
-    let addModal = this.modalCtrl.create('AddPhrasePage',
+    let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.PHRASE,
         'categoryID': this.aboutMeCategory.id

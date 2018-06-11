@@ -39,7 +39,6 @@ const START_REC = "התחל הקלטה";
 const STOP_REC = "עצור הקלטה";
 const hebrewRegx = "[\u0590-\u05fe 0-9/\//ig.?!,/\\\\/ig@#$%^&*()]+$";//regex for hebrew chars
 
-@IonicPage()
 @Component({
   selector: 'page-add-phrase',
   templateUrl: 'add-phrase.html',
