@@ -75,5 +75,11 @@ export class IntroSliderPage {
     
 
   }
+
+  public resetPassword()
+  {
+    let msg = this.authentication.resetPassword(this.user.email);
+    this.errorProvider.simpleTosat(msg);
+  }
 }
 
