@@ -7,6 +7,7 @@ import { AboutMeFormPage } from '../about-me-form/about-me-form';
 import { User } from '../../models/user';
 import { ErrorProvider } from '../../providers/error/error';
 
+
 @IonicPage()
 @Component({
   selector: 'page-intro-slider',
