@@ -139,22 +139,21 @@ async logOut()
   
 
   public isLoggedIn() {
-    return new Promise((resolve, reject) => {
-      this.afAuth.authState.subscribe(user => {
-        resolve(user.displayName);
-      })
-    })
+    if(this.getCurrentUser)
+      return true
+    return false;
   }
 
   public resetPassword(email: string) {
+    return new Promise((resolve,reject) =>
+  {
     var auth = firebase.auth();
-    return auth.sendPasswordResetEmail(email)
-      .then(() => console.log("email sent"))
-      .catch((error) => console.log(error))
-  }
-
-  public loggedInStatus(){
-    return this.loggedIn;  
+    let result = auth.sendPasswordResetEmail(email)
+    if (result)
+      resolve("Reset password email has been sent to your email.")
+    else
+     resolve("Error on reseting password")
+  })
   }
 
   public get getUserName(){
@@ -165,9 +164,20 @@ async logOut()
     return this.afAuth.auth.currentUser.email;
   }
 
+  public get getCurrentUser(){
+    return this.afAuth.auth.currentUser;
+  }
+
   public isVerified()
   {
     return(firebase.auth().currentUser.emailVerified)
+  }
+
+  public checkEmailValidity(email)
+  {
+    let emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"; 
+    var re = new RegExp(emailPattern);
+    return (re.test(email)) 
   }
 
 }

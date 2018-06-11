@@ -7,7 +7,6 @@ import { AboutMeFormPage } from '../about-me-form/about-me-form';
 import { User } from '../../models/user';
 import { ErrorProvider } from '../../providers/error/error';
 
-
 @IonicPage()
 @Component({
   selector: 'page-intro-slider',
@@ -36,6 +35,8 @@ export class IntroSliderPage {
 
   // This function called by clicking login-button.
   public async logIn() {
+
+    if (this.authentication.checkEmailValidity(this.user.email)) {
     // this.loading_sign = true;
     // The function toggleSignIn will connect the user with redirect-auth.
     // let promise = this.authentication.toggleSignIn(this.user);
@@ -52,8 +53,15 @@ export class IntroSliderPage {
       this.errorProvider.simpleTosat(logged_in)
     }
   }
+  else{
+    this.errorProvider.simpleTosat("Email is not valid.")
+  }
+  }
 
   public register() {
+    
+    if (this.authentication.checkEmailValidity(this.user.email)) 
+    {
     let registered = this.authentication.registerNewUser(this.user.email, this.user.password);
     let res = new Promise((resolve, reject) => {
       resolve(registered);
@@ -68,7 +76,10 @@ export class IntroSliderPage {
       this.errorProvider.simpleTosat(data)
 
     });
-
+  }
+  else{
+    this.errorProvider.simpleTosat("Email is not valid.")
+  }
 
   }
 
@@ -83,8 +94,26 @@ export class IntroSliderPage {
 
   public resetPassword()
   {
-    let msg = this.authentication.resetPassword(this.user.email);
-    this.errorProvider.simpleTosat(msg);
+    if (this.authentication.checkEmailValidity(this.user.email)) 
+    {
+      try{
+
+      let promise = this.authentication.resetPassword(this.user.email);
+      let res = new Promise((resolve, reject) => {
+        resolve(promise);
+      });
+      res.then((data) => {
+        this.errorProvider.simpleTosat(data)
+      });
+      }
+      catch{
+        this.errorProvider.simpleTosat("An error accourd on sending reset password email to '"+this.user.email+"'.")
+      }
+    }
+    else
+    {
+      this.errorProvider.simpleTosat("Email is not valid.")
+    }
   }
 }
 
