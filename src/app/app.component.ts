@@ -53,7 +53,11 @@ export class MyApp {
   
       if (user && user.emailVerified)
       {
-        
+        let loading = this.loadingCtrl.create({
+          content: 'אנא המתן'
+        });
+        loading.present();
+    
       let update_promise = await this.categoryServiceProvider.updateCategoriesArray()
       let promise = this.categoryServiceProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
       promise.then((data) => {
@@ -65,7 +69,7 @@ export class MyApp {
         this.rootPage = AboutMeFormPage;
         console.log("Nothing");
       })
-        
+      loading.dismiss()
       }
     })
     
