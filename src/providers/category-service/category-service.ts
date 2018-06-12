@@ -200,13 +200,19 @@ export class CategoryServiceProvider {
     category.isFav = isFav;
     this.firebaseProvider.updateCategory(category)
   }
-  //each time a category has chosen, her views increase by 1.
+  //each time a category is chosen, its views increase by 1.
   public increaseViews(category:Category) {
     category.views++;
     this.firebaseProvider.updateCategory(category)
   }
+
   public setOrder(category:Category, order: number) {
     category.order = order;
+    this.firebaseProvider.updateCategory(category);
+  }
+
+  public changeVisibility(category:Category) {
+    category.visibility = !category.visibility;
     this.firebaseProvider.updateCategory(category);
   }
 

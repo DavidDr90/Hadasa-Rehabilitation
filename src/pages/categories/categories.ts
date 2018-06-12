@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, AlertController, reorderArray } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 
 import { Category } from '../../models/Category';
@@ -27,7 +27,8 @@ export class CategoriesPage {
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
-    public storage: StorageProvider) {
+    public storage: StorageProvider,
+    public alertCtrl: AlertController) {
 
     this.favProvider = new FavoriteProvider(HomePage.favClass);
 
@@ -67,29 +68,39 @@ export class CategoriesPage {
   editFlag: boolean = false;
   editButtonName: string = "עריכה";
 
-  edit() {
+  async edit() {
     if (this.editFlag) {
       this.editFlag = false;
       this.editButtonName = "עריכה";
-      /**TODO:
-       * after the user press the "סיים" button
-       * save the local array changes in the DB array
-       */
+ 
     } else {
       this.editFlag = true;
       this.editButtonName = "סיים";
-
+      await this.categoryService.updateCategoriesArray; //update DB
     }
 
   }
 
-  reorderItem(index) {
-    let element = this.categoryService.getCategories[index.from];//save the draged category
-    /**TODO:
-     * change the array of ctegories as follow:
-     * categpriesArrya.splice(index.from, 1);
-     * categpriesArrya.splice(index.to, 1);
-     */
+  /**
+   * Using reorderArray to move element between positions in the array
+   * then update order of each category using new place in the array
+   * @param index used to get element original and new positions from the HTML
+   */
+  async reorderItem(index) {
+    console.log("edit");
+    console.log("from: " + index.from);
+    console.log("to: " + index.to);
+    let temp = await this.categoryService.getCategories;
+    let catArray = temp as Category[];
+    console.log("size: " + catArray.length);
+ 
+    catArray = reorderArray(catArray, index );
+    for(var i = 0; i < catArray.length; i++){
+      console.log("i: " + i);
+      await this.categoryService.setOrder(catArray[i], i + 1);   
+      console.log("done with i: " + i);   
+    }
+         
   }
 
   editCategory(item) {
@@ -103,13 +114,29 @@ export class CategoriesPage {
   }
 
   deleteCategory(item) {
-    /**TODO:
-     * use dor's function and delete the category 
-     * and all the sub categories and phrases 
-     * update the view
-     */
-    console.log("delete ");
+    console.log("delete");
     console.log(item);
+    const alert = this.alertCtrl.create({
+      title: 'Confirm delete',
+      message: 'Deleting category also removes all its content!!1',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'DELETE',
+          handler: () => {
+            console.log('delete clicked');
+            this.categoryService.removeCategory(item);
+          }
+        }
+      ]
+    });
+    alert.present();    
   }
 
   changeVisibility(item) {
@@ -118,8 +145,11 @@ export class CategoriesPage {
      * the unvisibale categories should by in a different style then the visible on
      * the user can see the unvisibale categories only in 'edit mode'
      */
+    
     console.log("visibility");
     console.log(item);
+    this.categoryService.changeVisibility(item);
+    
   }
 
 
