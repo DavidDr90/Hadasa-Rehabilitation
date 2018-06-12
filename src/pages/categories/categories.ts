@@ -87,14 +87,14 @@ export class CategoriesPage {
    * @param index used to get element original and new positions from the HTML
    */
   async reorderItem(index) {
-    console.log("edit");
+    console.log("edit -reorder");
     console.log("from: " + index.from);
     console.log("to: " + index.to);
     let temp = await this.categoryService.getCategories;
     let catArray = temp as Category[];
     console.log("size: " + catArray.length);
- 
-    catArray = reorderArray(catArray, index );
+
+    catArray = reorderArray(catArray, index);
     for(var i = 0; i < catArray.length; i++){
       console.log("i: " + i);
       await this.categoryService.setOrder(catArray[i], i + 1);   
@@ -109,29 +109,33 @@ export class CategoriesPage {
      * then allow the user to change any filed
      * in the end save the changes and update all the arrays and DB
      */
-    console.log("edit");
+    console.log("edit -contents");
     console.log(item);
   }
 
+  /**
+   * Delete selected category after the user accepts the alert
+   * @param item category to delete
+   */
   deleteCategory(item) {
-    console.log("delete");
+    console.log("edit -delete");
     console.log(item);
     const alert = this.alertCtrl.create({
-      title: 'Confirm delete',
-      message: 'Deleting category also removes all its content!!1',
+      title: '?בטוח למחוק',
+      message: 'המחיקה היא סופית וכוללת את כול התוכן של הקטגוריה כולל הביטויים שבה!',
       buttons: [
         {
-          text: 'Cancel',
+          text: 'בטל',
           role: 'cancel',
           handler: () => {
             console.log('Cancel clicked');
           }
         },
         {
-          text: 'DELETE',
+          text: 'מ ח ק',
           handler: () => {
             console.log('delete clicked');
-            this.categoryService.removeCategory(item);
+            this.categoryService.removeCategory(item); //delete the category
           }
         }
       ]
@@ -146,7 +150,7 @@ export class CategoriesPage {
      * the user can see the unvisibale categories only in 'edit mode'
      */
     
-    console.log("visibility");
+    console.log("edit -visibility");
     console.log(item);
     this.categoryService.changeVisibility(item);
     
