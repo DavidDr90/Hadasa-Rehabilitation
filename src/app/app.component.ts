@@ -29,28 +29,26 @@ export class MyApp {
       splashScreen.hide();
     });
     this.authentication.initApp();
-    
-    //check if current user is login, initialize authentication.loggedIn attr.
-    if(!this.authentication.isLoggedIn())
-    {
-      this.rootPage = IntroSliderPage;
-    }
-    // if(!this.authentication.isLoggedIn)
-      
-    //considering authentication.loggedIn set the following page: homePage or loginPage
     this.getRootPage();
    
   }
 
   //---------------------------------------------------------------------------//
-  //considering authentication.loggedIn set the following page: homePage or loginPage
-  //if current user doesn't logged in -> popup google login window.  
-  getRootPage() {
+  /* Written by Or. 
+  *This function checks if the user logged-in or not, and if he is then
+  *  it checks if the user has "aboueMe" category on the Database.
+  * 
+  *  If the user logged-in then checks if he has aboutMe category in DB.
+  *  If the user has aboutMe --> goes to TabsPage
+  *  Else go to about-me-form Page.
+  *  If the user if not connected then go to the slider login page.
+  *  */
+  public getRootPage() {
 
     this.authentication.afAuth.auth.onAuthStateChanged(
     async user =>
     {
-  
+      debugger
       if (user && user.emailVerified)
       {
         let loading = this.loadingCtrl.create({
@@ -71,14 +69,12 @@ export class MyApp {
       })
       loading.dismiss()
       }
+      else
+      {
+        this.rootPage = IntroSliderPage;
+      }
     })
-    
-      // this.rootPage = IntroSliderPage;
-  
   }
-  //---------------------------------------------------------------------------//
-
-
   public setRootPage(page) {
     this.rootPage = page
   }

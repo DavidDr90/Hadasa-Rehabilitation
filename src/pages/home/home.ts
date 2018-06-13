@@ -70,10 +70,7 @@ export class HomePage {
   // Called on pressing Log-out button.
   // Disconnects google authentication and moves the user to the into-slider-page.
   logOut() {
-    console.log("logging out");
-    // this.authentication.toggleSignIn();
     this.authentication.logOut()
-    this.navCtrl.push(IntroSliderPage);
   }
 
   /** display to the user a page with information about the app
@@ -81,7 +78,6 @@ export class HomePage {
    */
   aboutApp(){
     const myModal = this.modal.create(OurAppPage);
-
     myModal.present();
   }
 
