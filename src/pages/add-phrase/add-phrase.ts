@@ -144,7 +144,7 @@ export class AddPhrasePage {
         //create new 'משפטים' sub category
         let newSentencesCategory = new Category(
           Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
-          this.authentication.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
+          this.authentication.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, -1, true);
 
         this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
@@ -210,11 +210,11 @@ export class AddPhrasePage {
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
         this._myForm.controls['imagePath'].value, this.authentication.user.email,
-        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1, true);
+        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, -1, true);
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
-        0, this._myForm.controls['audioFile'].value, false, 1, true);
+        0, this._myForm.controls['audioFile'].value, false, -1, true);
     }
     this._myForm.reset();//reset the form
     this._viewCtrl.dismiss(returnObject);//return the new object

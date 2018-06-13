@@ -9,6 +9,7 @@ import { PhrasesProvider } from '../phrases/phrases';
 import { Phrase } from '../../models/Phrase';
 import { FavoriteProvider } from '../favorite/favorite';
 import { HomePage } from '../../pages/home/home';
+import { elementAt } from 'rxjs/operator/elementAt';
 
 
 @Injectable()
@@ -79,6 +80,23 @@ export class CategoryServiceProvider {
       })
   }
 
+ 
+  /**
+   * Rearrange all categories, and sub-categories by new order.
+   * usually used after adding or removing of category. 
+   */
+  public arrangeCategoriesByOrder(){
+    for(var i = 0; i<this.categories.length; i++){
+      this.setOrder(this.categories[i],i);
+    }
+
+    for(var i = 0; i<this.subCategories.length; i++){
+      this.setOrder(this.subCategories[i],i);
+    }
+  }
+
+
+  //GETTERS
   public get getCategories() {
     return this.categories;
   }
@@ -135,7 +153,10 @@ export class CategoryServiceProvider {
 
   public addCategory(category: Category) {
     this.firebaseProvider.addCategory(category);
-    this.updateCategoriesArray();
+    let promise = this.updateCategoriesArray();
+    promise.then(()=>{
+      this.arrangeCategoriesByOrder();
+    })
   }
 
   /**
@@ -178,7 +199,10 @@ export class CategoryServiceProvider {
       });
 
       this.firebaseProvider.removeCategory(category);
-      this.updateCategoriesArray();
+      let promise = this.updateCategoriesArray();
+      promise.then(()=>{
+        this.arrangeCategoriesByOrder();
+      })
      })
   }
 

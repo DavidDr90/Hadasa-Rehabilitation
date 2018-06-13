@@ -50,6 +50,17 @@ export class PhrasesProvider {
   }
 
   /**
+   * Rearrange the current phrases array by order propery.
+   * usually used after adding or removing of phrase. 
+   */
+  public arrangePhrasesByOrder(){
+    for(var i = 0; i<this.phrases.length; i++){
+      this.setOrder(this.phrases[i],i);
+    }
+    debugger
+  }
+
+  /**
    * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted phrase...})"
    * for catching error use "promise.then().catch(e){...handling error...}"
    * @param n name of phrase
@@ -70,6 +81,7 @@ export class PhrasesProvider {
 
   public addPhrase(phrase: Phrase) {
     this.firebaseProvider.addPhrase(phrase);
+    this.arrangePhrasesByOrder();
   }
 
   removePhrase(phrase: Phrase) {
@@ -77,6 +89,7 @@ export class PhrasesProvider {
     let favoriteProvider=new FavoriteProvider(HomePage.favClass);
     favoriteProvider.remove_fav_phrases(phrase);
     favoriteProvider.remove_from_commom_phrases(phrase);
+    this.arrangePhrasesByOrder();
   }
 
   //SETTERS
