@@ -6,9 +6,7 @@
                 {{editButtonName}} &nbsp;
                 <ion-icon name="construct"></ion-icon>
             </button>
-        </ion-buttons>
-        <!-- add button in the end of the nav-bar -->
-        <ion-buttons end>
+            <!-- add button in the end of the nav-bar -->
             <button ion-button icon-only (click)="openAddPage()">
                 <ion-icon name="add"></ion-icon>
             </button>
@@ -34,10 +32,7 @@
                 <ion-item>
                     <!-- TODO: to be check -->
                     <!--  [ngClass] = "item.visibility ? visible : unVisible" -->
-                    <my-category
-                    *ngIf="item.name != 'aboutMe'"
-                     [category]="item" (click)="openCategoryPhrases(item);"
-                      (press)="categoryService.removeCategory(item)">
+                    <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)">
                     </my-category>
                 </ion-item>
                 <ion-item-options side="right">
