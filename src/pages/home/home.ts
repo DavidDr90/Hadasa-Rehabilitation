@@ -63,8 +63,9 @@ export class HomePage {
     this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);
 
     //Sets the display name of the logged-in user
-    this.user_name = authentication.user.email;
-    
+    // this.user_name = authentication.user.email;
+    const userEmailWithoutEnd = authentication.user.email.split('@');
+    this.user_name = userEmailWithoutEnd[0];
   }
 
   // Called on pressing Log-out button.
