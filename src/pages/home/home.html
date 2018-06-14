@@ -2,7 +2,7 @@
     <ion-navbar>
         <!-- user_name holds the looged in user from the google account -->
         <ion-title>
-            בוא נדבר! שלום {{user_name}}
+            בואו נדבר! שלום {{user_name}}
         </ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="aboutApp()">
@@ -26,6 +26,12 @@
     </ion-item>
 
 
+    <!-- TODO: change the logo path -->
+    <div *ngIf="!isToggled">
+        <h1>ברוכים הבאים</h1>
+        <h2>בואו נדבר</h2>
+        <img src="https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffeelings%2Fimages%2Fhappy.PNG?alt=media&token=e0d5a579-457b-4409-a046-60a407fb282c" id="img" />
+    </div>
 
 
     <favorites *ngIf="isToggled"></favorites>

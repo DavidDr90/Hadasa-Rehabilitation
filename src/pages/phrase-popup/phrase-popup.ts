@@ -10,7 +10,6 @@ has the phrase itself,
 the image 
 and the audio playable by button click
  */
-@IonicPage()
 @Component({
   selector: 'page-phrase-popup',
   templateUrl: 'phrase-popup.html',

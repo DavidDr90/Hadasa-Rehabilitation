@@ -67,8 +67,12 @@ export class Category extends Item {
         return this.parentCategoryID;
     }
 
-    public getVisibility(){
+    public getVisibility(): boolean{
         return this.visibility;
+    }
+
+    public getOrder(){
+        return this.order;
     }
 
 
@@ -80,7 +84,9 @@ export class Category extends Item {
             "userEmail: " + this.getUserEmail + "\n" +
             "parentCategoryID: " + this.getParentCategoryId + "\n" +
             "views: " + this.getViews + "\n" +
-            "isFav: " + this.getIsFav + "\n";
+            "isFav: " + this.getIsFav + "\n" +
+            "order: " + this.order + "\n" +
+            "visible: " + this.getVisibility + "\n";
     }
 
 }

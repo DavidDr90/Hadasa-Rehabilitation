@@ -55,13 +55,25 @@
 
 
     <ion-item id="recordDiv" *ngIf="!isCategory">
+      <ion-grid>
+        <ion-row  justify-content-center>
+          <button ion-button (click)="startRecord()" *ngIf="!recording">
+            <ion-icon name="mic"></ion-icon>
+            &nbsp; התחל הקלטה
+          </button>
+          <button ion-button (click)="stopRecord()" *ngIf="recording">
+            <ion-icon name="mic-off"></ion-icon>
+            &nbsp; עצור הקלטה
+          </button>
 
-      <button ion-button large (click)="startRecord()" *ngIf="!recording">
-        התחל הקלטה
-      </button>
-      <button ion-button large (click)="stopRecord()" *ngIf="recording">
-        עצור הקלטה
-      </button>
+          <!-- <ion-col>
+            <!-- TODO: ask eran about how to reactived the component --
+            <div [hidden]="!recording">
+              <timer #myTimer></timer>
+            </div>
+           </ion-col> -->
+        </ion-row>
+      </ion-grid>
 
       <ion-list>
         <ion-item *ngIf="audioFileURL != null && !recording">
@@ -74,26 +86,9 @@
           </button>
         </ion-item>
       </ion-list>
+      <progress-bar *ngIf="storageProvider.showAudioProgressBar()" [progress]="storageProvider.getAudioPercentage()"> </progress-bar>
     </ion-item>
-    <progress-bar *ngIf="storageProvider.showAudioProgressBar()" [progress]="storageProvider.getAudioPercentage()"> </progress-bar>
 
-    <!-- <ion-item id="recordDiv" *ngIf="!isCategory">
-      <button ion-button primary (touchstart)="startRecord()" (touchend)="stopRecord()">
-        <ion-icon name="mic" *ngIf="!recording"></ion-icon>
-        <ion-icon name="mic-off" *ngIf="recording"></ion-icon>
-        &nbsp;&nbsp; {{ micText }}
-      </button>
-
-      <!-- TODO: ask eran about how to reactived the component --
-      <div [hidden]="!recording">
-        <timer #myTimer></timer>
-      </div>
-
-      <button ion-button primary (click)="getAudioFromTTS()" *ngIf="!recording">
-        <ion-icon name="radio"></ion-icon>&nbsp;&nbsp; יצר הקלטה</button>
-
-      
-    </ion-item> -->
 
     <div id="radioButtonForPhrase" *ngIf="!isCategory">
       <ion-list radio-group [(ngModel)]="sentenceOrNoun" [ngModelOptions]="{standalone: true}" (ionChange)="checkSentenceOrNoun()">

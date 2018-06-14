@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input } from '@angular/core';
-import { IonicPage, ActionSheetController, ViewController, NavParams, LoadingController } from 'ionic-angular';
+import { ActionSheetController, ViewController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
@@ -39,7 +39,6 @@ const START_REC = "התחל הקלטה";
 const STOP_REC = "עצור הקלטה";
 const hebrewRegx = "[\u0590-\u05fe 0-9/\//ig.?!,/\\\\/ig@#$%^&*()]+$";//regex for hebrew chars
 
-@IonicPage()
 @Component({
   selector: 'page-add-phrase',
   templateUrl: 'add-phrase.html',
@@ -145,7 +144,7 @@ export class AddPhrasePage {
         //create new 'משפטים' sub category
         let newSentencesCategory = new Category(
           Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
-          this.authentication.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
+          this.authentication.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, -1, true);
 
         this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
@@ -211,11 +210,11 @@ export class AddPhrasePage {
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
         this._myForm.controls['imagePath'].value, this.authentication.user.email,
-        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, 1, true);
+        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, -1, true);
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
-        0, this._myForm.controls['audioFile'].value, false, 1, true);
+        0, this._myForm.controls['audioFile'].value, false, -1, true);
     }
     this._myForm.reset();//reset the form
     this._viewCtrl.dismiss(returnObject);//return the new object
@@ -312,7 +311,7 @@ export class AddPhrasePage {
   /*  all the record function should be tested on an android or iOS emulator or device */
 
   /**
-  * @returns file name from the current time and data
+  * @returns file name from the current time and data, without end type
   */
   private generateFileName() {
     return 'record' +
@@ -321,8 +320,7 @@ export class AddPhrasePage {
       new Date().getFullYear() +
       new Date().getHours() +
       new Date().getMinutes() +
-      new Date().getSeconds() +
-      '.mp3';
+      new Date().getSeconds();
   }
 
   //start the record
@@ -333,10 +331,10 @@ export class AddPhrasePage {
     try {
       this.fileName = this.generateFileName();
       if (this.platform.is('ios')) {
-        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName + '.m4a';
         this.audio = this.media.create(this.audioFilePath);
       } else if (this.platform.is('android')) {
-        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName + '.mp3';
         this.audio = this.media.create(this.audioFilePath);
       }
       this.audio.startRecord();
@@ -356,15 +354,22 @@ export class AddPhrasePage {
       this.micText = START_REC;
       this.recording = !this.recording;
 
-      this.audio.stopRecord();
       // save the new audio file to the storage
       try {
+        this.audio.stopRecord();
 
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then(async (base64File: string) => {
           // fix the encoding
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
-          const audio_type = 'data:audio/mp3;base64,'
+
+          let audio_type;
+          // if the platform is iOS use m4a format
+          if (this.platform.is('ios')) {
+            audio_type = 'data:audio/m4a;base64,'
+          } else {
+            audio_type = 'data:audio/mp3;base64,'
+          }
 
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
           let res = new Promise((resolve, reject) => {
@@ -393,7 +398,7 @@ export class AddPhrasePage {
 
     //if we have no audio, whait few sec and pop
     if (url == null || url == "") {
-      this.errorProvider.simpleTosat("לא הצלחנו להקליט");
+      this.errorProvider.simpleTosat("אין קובץ קול");
     }
     try {
       if (this.firstTime) {
@@ -421,7 +426,11 @@ export class AddPhrasePage {
   //pause the file in the current posision
   pauseAudio() {
     this.playing = !this.playing;
-    this.audio.pause();
+    try {
+      this.audio.pause();
+    } catch (err) {
+      this.errorProvider.simpleTosat(err);
+    }
   }
 
   //use the http provider to get the audio file from the TTS server

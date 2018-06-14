@@ -47,8 +47,6 @@ import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { StorageProvider } from '../providers/storage/storage';
-// import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
-import { AddPhrasePageModule } from '../pages/add-phrase/add-phrase.module';
 import { AppBuilderProvider } from '../providers/app-builder/app-builder';
 import { FavoriteProvider } from '../providers/favorite/favorite';
 import { UsersProvider } from '../providers/users/users';
@@ -56,6 +54,9 @@ import { AboutMeFormPage } from '../pages/about-me-form/about-me-form';
 import { ErrorProvider } from '../providers/error/error';
 import { Base64 } from '@ionic-native/base64';
 import { CustomErrorHandler } from '../models/CustomErrorHandler';
+import { ProgressBarComponent } from '../components/progress-bar/progress-bar';
+import { TimerComponent } from '../components/timer/timer';
+import { OurAppPage } from '../pages/our-app/our-app';
 
 
 // use our custom fatel error handler in production, and the ionic error handler on devlopment
@@ -66,20 +67,20 @@ const ERROR_HANDLER = ((<any>window)['IonicDevServer'] == undefined) ? CustomErr
   declarations: [
     MyApp,
     HomePage,
-    // AddPhrasePage,
+    AddPhrasePage,
     CategoriesPage,
     MyCategoryComponent,
     AboutMePage,
     IntroSliderPage,
     PhrasesPage,
     PhraseComponent,
-    // TimerComponent,
+    TimerComponent,
     TabsPage,
     FavoritesComponent,
     AboutMeFormPage,
-    // ProgressBarComponent,
+    ProgressBarComponent,
     PhrasePopupPage,
-    //NumbersPage
+    OurAppPage
   ],
   imports: [
     BrowserModule,
@@ -90,7 +91,6 @@ const ERROR_HANDLER = ((<any>window)['IonicDevServer'] == undefined) ? CustomErr
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    AddPhrasePageModule,
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -103,8 +103,8 @@ const ERROR_HANDLER = ((<any>window)['IonicDevServer'] == undefined) ? CustomErr
     TabsPage,
     PhrasePopupPage,
     PhrasesPage,
-    AboutMeFormPage
-    //NumbersPage
+    AboutMeFormPage,
+    OurAppPage
   ],
   providers: [
     CategoryServiceProvider,

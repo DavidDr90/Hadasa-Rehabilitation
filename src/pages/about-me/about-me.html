@@ -2,12 +2,11 @@
   <ion-navbar>
     <ion-title>על עצמי</ion-title>
     <ion-buttons end>
-        <button ion-button icon-only (click)="edit()">
-          <ion-icon name="construct"></ion-icon>
-        </button>
-      </ion-buttons>
-    <!-- add button in the end of the nav-bar -->
-    <ion-buttons end>
+      <button ion-button clear (click)="edit()">
+        {{editButtonName}} &nbsp;
+        <ion-icon name="construct"></ion-icon>
+      </button>
+      <!-- add button in the end of the nav-bar -->
       <button ion-button icon-only (click)="openAddPage()">
         <ion-icon name="add"></ion-icon>
       </button>
@@ -18,18 +17,94 @@
 
 <!-- the "press" event is just for debugging -->
 <ion-content>
-    <ion-list>
-        <!-- display the sub categories only if there is at least one sub category -->
-        <ion-item *ngIf="hasSubCategories">
-            <my-category (click)="openCategoryPhrases(item)" (press)="removeSubCategory(item)" 
-            [category]="item" *ngFor="let item of this.subCategories">
-            </my-category>
-        </ion-item>
+  <!-- for normal mode -->
+  <div *ngIf="!editFlag">
+    <ion-list no-lines>
+      <!-- display the sub categories only if there is at least one sub category -->
+      <ion-item *ngIf="hasSubCategories" color={{backgroundColor}}>
+        <my-category (click)="openCategoryPhrases(item)" [category]="item" *ngFor="let item of this.subCategories">
+        </my-category>
+      </ion-item>
 
-        <!-- the "press" event is just for debugging -->
-        <ion-item>
-            <phrase [phrase]="item" *ngFor="let item of phrases" (press)="this.removePhrase(item)"></phrase>
-            <!--onClick is in phrase.ts component, should work-->
-        </ion-item>
+      <!-- button for hide/show phrases -->
+      <ion-item color={{backgroundColor}} *ngIf="hasPhrases">
+        <button *ngIf="!showPhrases" ion-button large round icon-start block (click)="onClickShowPhrases()">הצג ביטויים&#160;&#160;
+          <ion-icon name="arrow-down"></ion-icon>
+        </button>
+        <button *ngIf="showPhrases" ion-button large round icon-start block (click)="onClickShowPhrases()">הסתר ביטויים&#160;&#160;
+          <ion-icon name="arrow-up"></ion-icon>
+        </button>
+      </ion-item>
+
+      <!-- the "press" event is just for debugging -->
+      <!-- phrases list -->
+      <ion-item color={{backgroundColor}} *ngIf="showPhrases">
+        <phrase [phrase]="item" *ngFor="let item of phrases"></phrase>
+      </ion-item>
     </ion-list>
+  </div>
+
+  <!-- for edit mode, enable reorder and swiping -->
+  <div *ngIf="editFlag">
+    <!-- sub categories -->
+    <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderItem($event)">
+      <ion-item-sliding *ngFor="let item of this.subCategories">
+        <!-- display the sub categories only if there is at least one sub category -->
+        <ion-item *ngIf="hasSubCategories" color={{backgroundColor}}>
+          <my-category (click)="openCategoryPhrases(item)" [category]="item">
+          </my-category>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button (click)="editSubCategory(item)">
+            <ion-icon name="create"></ion-icon>
+            ערוך
+          </button>
+          <button ion-button color="red" (click)="deleteSubCategory(item)">
+            <ion-icon name="trash"></ion-icon>
+            מחק
+          </button>
+        </ion-item-options>
+        <ion-item-options side="left">
+          <button ion-button *ngIf="!Svisible" (click)="changeSubVisibility(item)">
+            <ion-icon name="eye"></ion-icon>
+            הצג
+          </button>
+          <button ion-button *ngIf="Svisible" (click)="changeSubVisibility(item)">
+            <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
+            הסתר
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <!-- phrases -->
+    <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderItem($event)">
+      <ion-item-sliding *ngFor="let item of phrases">
+        <!-- the "press" event is just for debugging -->
+        <ion-item color={{backgroundColor}}>
+          <phrase [phrase]="item"></phrase>
+        </ion-item>
+        <ion-item-options side="right">
+          <button ion-button (click)="editPhrase(item)">
+            <ion-icon name="create"></ion-icon>
+            ערוך
+          </button>
+          <button ion-button color="red" (click)="deletePhrase(item)">
+            <ion-icon name="trash"></ion-icon>
+            מחק
+          </button>
+        </ion-item-options>
+        <ion-item-options side="left">
+          <button ion-button *ngIf="!Pvisible" (click)="changeVisibility(item)">
+            <ion-icon name="eye"></ion-icon>
+            הצג
+          </button>
+          <button ion-button *ngIf="Pvisible" (click)="changeVisibility(item)">
+            <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
+            הסתר
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+  </div>
 </ion-content>

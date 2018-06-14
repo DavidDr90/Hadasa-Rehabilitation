@@ -2,8 +2,9 @@
 
 <ion-content padding class="text">
     <!-- TODO: fix the logo pic -->
-    <img src="https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffeelings%2Fimages%2Fhappy.PNG?alt=media&token=e0d5a579-457b-4409-a046-60a407fb282c" id="img" />
-
+    <img src="https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffeelings%2Fimages%2Fhappy.PNG?alt=media&token=e0d5a579-457b-4409-a046-60a407fb282c"
+        id="img" />
+    
     <!-- the form of the sign in details -->
     <ion-item class="item item-trns">
         <ion-label floating color="black">דואר אלקטרוני</ion-label>
@@ -14,14 +15,16 @@
         <ion-input type="password" [(ngModel)]="user.password"></ion-input>
     </ion-item>
 
-
     <ion-grid>
         <ion-row justify-content: space-around>
             <ion-col>
-                <button ion-button round large outline (click)="logIn(user)">התחבר</button>
+                <button ion-button round large outline (click)="resetPassword()">אפס סיסמה</button>
             </ion-col>
             <ion-col>
                 <button ion-button round large outline (click)="register()">הרשם</button>
+            </ion-col>
+            <ion-col>
+                <button ion-button round large outline (click)="logIn(user)">התחבר</button>
             </ion-col>
         </ion-row>
         <br/>
@@ -31,6 +34,4 @@
             </ion-col>
         </ion-row>
     </ion-grid>
-
-
 </ion-content>

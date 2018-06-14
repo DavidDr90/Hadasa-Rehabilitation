@@ -5,7 +5,6 @@ import { CategoriesPage } from '../categories/categories';
 import { AboutMePage } from '../about-me/about-me'; 
 
 
-@IonicPage()
 @Component({
   selector: 'page-tabs',
   templateUrl: 'tabs.html',

@@ -8,6 +8,7 @@ import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { ErrorProvider } from '../../providers/error/error';
+import { AddPhrasePage } from '../add-phrase/add-phrase';
 
 
 
@@ -15,7 +16,6 @@ import { ErrorProvider } from '../../providers/error/error';
  * the user will see this page if he haven't filled his aboutMe section
  */
 
-@IonicPage()
 @Component({
   selector: 'page-about-me-form',
   templateUrl: 'about-me-form.html',
@@ -109,7 +109,7 @@ export class AboutMeFormPage {
     //this.verifyAboutMeCategory(false);//should be false here
 
 
-    let addModal = this.modalCtrl.create('AddPhrasePage',
+    let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': fromWhere,
         'categoryID': this.aboutMeCategory.id

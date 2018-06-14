@@ -9,9 +9,9 @@ import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
 import { PhrasesPage } from '../phrases/phrases';
 import { ErrorProvider } from '../../providers/error/error';
+import { AddPhrasePage } from '../add-phrase/add-phrase';
 
 
-@IonicPage()
 @Component({
   selector: 'page-about-me',
   templateUrl: 'about-me.html',
@@ -22,6 +22,8 @@ export class AboutMePage {
   public phrases;
   public subCategories;
   public hasSubCategories: boolean = false
+  public showPhrases:boolean=false;
+  public hasPhrases:boolean=false;
 
   constructor(public categoryProvider: CategoryServiceProvider,
     public db: FirebaseProvider,
@@ -38,8 +40,8 @@ export class AboutMePage {
       this.aboutMeCategory as Category
       this.AsyncPhrasesloader();
     }).catch((e => {
-      //TODO:error in about me
       console.log("error import aboutme Category at aboutMe.ts");
+      this.errorProvider.simpleTosat("error import aboutme Category");
     }))
   }
 
@@ -100,7 +102,7 @@ export class AboutMePage {
       this.errorProvider.simpleTosat("על עצמי לא מוגדר");
       return;
     }
-    let addModal = this.modalCtrl.create('AddPhrasePage',
+    let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.PHRASE,
         'categoryID': this.aboutMeCategory.id
@@ -115,9 +117,102 @@ export class AboutMePage {
     })
     addModal.present();//present the addPhrasePage
   }
-  //TODO: enter edit mode
+
+  private editFlag: boolean = false;
+  private editButtonName: string = "עריכה";
+
+  // TODO: need to be like the methods in phrase page ts
   edit() {
-    console.log("edit about me");
+    if( this.editFlag){
+      this.editFlag = false;
+      this.editButtonName = "עריכה";
+      /**TODO:
+       * after the user press the "סיים" button
+       * save the local array changes in the DB array
+       */
+    }else{
+      this.editFlag = true;
+      this.editButtonName = "סיים";
+
+    }
+    
+  }
+
+  reorderItem(index){
+    /**TODO:
+     * let element = this.categoryService.getCategories[index.from];//save the draged category
+     * change the array of ctegories as follow:
+     * categpriesArrya.splice(index.from, 1);
+     * categpriesArrya.splice(index.to, 1);
+     */
+  }
+
+  editSubCategory(item){
+    /**TODO:
+     * enter the add phrase page with the clicked item
+     * then allow the user to change any filed
+     * in the end save the changes and update all the arrays and DB
+     */
+    console.log("edit sub");
+    console.log(item);
+  }
+
+  deleteSubCategory(item){
+    /**TODO:
+     * use dor's function and delete the category 
+     * and all the sub categories and phrases 
+     * update the view
+     */
+    console.log("delete sub");
+    console.log(item);
+  }
+  
+  changeSubVisibility(item){
+    /**TODO:
+     * change the visibility status when clicked
+     * the unvisibale categories should by in a different style then the visible on
+     * the user can see the unvisibale categories only in 'edit mode'
+     */
+    console.log("visibility sub");
+    console.log(item);
+  }
+
+  editPhrase(item){
+    /**TODO:
+     * enter the add phrase page with the clicked item
+     * then allow the user to change any filed
+     * in the end save the changes and update all the arrays and DB
+     */
+    console.log("edit phrase");
+    console.log(item);
+  }
+
+  deletePhrase(item){
+    /**TODO:
+     * use dor's function and delete the category 
+     * and all the sub categories and phrases 
+     * update the view
+     */
+    console.log("delete phrase");
+    console.log(item);
+  }
+  
+  changeVisibility(item){
+    /**TODO:
+     * change the visibility status when clicked
+     * the unvisibale categories should by in a different style then the visible on
+     * the user can see the unvisibale categories only in 'edit mode'
+     */
+    console.log("visibility phrase");
+    console.log(item);
+  }
+
+  /**
+   * on click for the "show/hide phrases" button
+   */
+  public onClickShowPhrases(){
+    console.log(this.showPhrases)
+    this.showPhrases=!this.showPhrases;
   }
 
 }

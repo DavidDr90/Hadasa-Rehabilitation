@@ -13,6 +13,7 @@ import { FirebaseProvider } from '../../providers/firebase/firebase'
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
+import { OurAppPage } from '../our-app/our-app';
 
 @Component({
   selector: 'page-home',
@@ -56,25 +57,22 @@ export class HomePage {
     this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider, loadingCtrl);
 
     //Sets the display name of the logged-in user
-    this.user_name = authentication.user.email;
-    
+    // this.user_name = authentication.user.email;
+    const userEmailWithoutEnd = authentication.user.email.split('@');
+    this.user_name = userEmailWithoutEnd[0];
   }
 
   // Called on pressing Log-out button.
   // Disconnects google authentication and moves the user to the into-slider-page.
   logOut() {
-    console.log("logging out");
-    // this.authentication.toggleSignIn();
     this.authentication.logOut()
-    this.navCtrl.push(IntroSliderPage);
   }
 
   /** display to the user a page with information about the app
    *  this can be accsses without registertion
    */
   aboutApp(){
-    const myModal = this.modal.create('OurAppPage');
-
+    const myModal = this.modal.create(OurAppPage);
     myModal.present();
   }
 
