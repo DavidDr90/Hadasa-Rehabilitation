@@ -149,14 +149,14 @@ export const COLOR_LIST: Color[] = [
         "hexNumber": "#ffffff"
     },
     {
-        "hebrewName": "כוכב",
-        "englishName": "star",
-        "hexNumber": "#ffce00"
-    },
-    {
         "hebrewName": "על עצמי",
         "englishName": "aboutMe",
         "hexNumber": "#0080c0"
+    },
+    {
+        "hebrewName": "כוכב",
+        "englishName": "star",
+        "hexNumber": "#ffce00"
     },
     {
         "hebrewName": "זמן",

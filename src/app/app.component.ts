@@ -48,7 +48,6 @@ export class MyApp {
     this.authentication.afAuth.auth.onAuthStateChanged(
     async user =>
     {
-      debugger
       if (user && user.emailVerified)
       {
         let loading = this.loadingCtrl.create({

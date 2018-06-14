@@ -57,7 +57,6 @@ export class PhrasesProvider {
     for(var i = 0; i<this.phrases.length; i++){
       this.setOrder(this.phrases[i],i);
     }
-    debugger
   }
 
   /**
