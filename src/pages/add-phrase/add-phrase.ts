@@ -1,5 +1,5 @@
 import { Component, ViewChild, Input } from '@angular/core';
-import { IonicPage, ActionSheetController, ViewController, NavParams, LoadingController } from 'ionic-angular';
+import { ActionSheetController, ViewController, NavParams, LoadingController } from 'ionic-angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Camera } from '@ionic-native/camera';
 import * as Enums from '../../consts/enums';
@@ -311,7 +311,7 @@ export class AddPhrasePage {
   /*  all the record function should be tested on an android or iOS emulator or device */
 
   /**
-  * @returns file name from the current time and data
+  * @returns file name from the current time and data, without end type
   */
   private generateFileName() {
     return 'record' +
@@ -320,8 +320,7 @@ export class AddPhrasePage {
       new Date().getFullYear() +
       new Date().getHours() +
       new Date().getMinutes() +
-      new Date().getSeconds() +
-      '.mp3';
+      new Date().getSeconds();
   }
 
   //start the record
@@ -332,10 +331,10 @@ export class AddPhrasePage {
     try {
       this.fileName = this.generateFileName();
       if (this.platform.is('ios')) {
-        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName;
+        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName + '.wav';
         this.audio = this.media.create(this.audioFilePath);
       } else if (this.platform.is('android')) {
-        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName;
+        this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName + '.mp3';
         this.audio = this.media.create(this.audioFilePath);
       }
       this.audio.startRecord();
@@ -355,15 +354,22 @@ export class AddPhrasePage {
       this.micText = START_REC;
       this.recording = !this.recording;
 
-      this.audio.stopRecord();
       // save the new audio file to the storage
       try {
+        this.audio.stopRecord();
 
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then(async (base64File: string) => {
           // fix the encoding
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
-          const audio_type = 'data:audio/mp3;base64,'
+
+          let audio_type;
+          // if the platform is iOS use wav format
+          if (this.platform.is('ios')) {
+            audio_type = 'data:audio/wav;base64,'
+          } else {
+            audio_type = 'data:audio/mp3;base64,'
+          }
 
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
           let res = new Promise((resolve, reject) => {
@@ -392,7 +398,7 @@ export class AddPhrasePage {
 
     //if we have no audio, whait few sec and pop
     if (url == null || url == "") {
-      this.errorProvider.simpleTosat("לא הצלחנו להקליט");
+      this.errorProvider.simpleTosat("אין קובץ קול");
     }
     try {
       if (this.firstTime) {
@@ -420,7 +426,11 @@ export class AddPhrasePage {
   //pause the file in the current posision
   pauseAudio() {
     this.playing = !this.playing;
-    this.audio.pause();
+    try {
+      this.audio.pause();
+    } catch (err) {
+      this.errorProvider.simpleTosat(err);
+    }
   }
 
   //use the http provider to get the audio file from the TTS server
