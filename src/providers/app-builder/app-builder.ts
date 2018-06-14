@@ -6,6 +6,8 @@ import { HomePage } from '../../pages/home/home';
 import { PhrasesProvider } from '../phrases/phrases';
 import { CategoryServiceProvider } from '../category-service/category-service';
 import * as Enums from '../../consts/enums';
+import { LoadedModule } from 'ionic-angular/util/module-loader';
+import { LoadingController } from 'ionic-angular';
 
 /**
  * this provider create the defult categorys and phrases when the app is first load
@@ -16,9 +18,9 @@ import * as Enums from '../../consts/enums';
 export class AppBuilderProvider {
   public userEmail
   private time: number
+  loading;
 
-
-  constructor(public categoryProvider: CategoryServiceProvider, public phraseProvider: PhrasesProvider) {
+  constructor(public categoryProvider: CategoryServiceProvider, public phraseProvider: PhrasesProvider, public loadingCtrl:LoadingController) {
     this.userEmail = HomePage.userEmail;
     this.time = 5000;
   }
@@ -32,7 +34,7 @@ export class AppBuilderProvider {
    * @param subFlag 1 if the category is a sub category and there is need to use "findSubCategoryByID".
    * @returns the ID of the added category in the DB.
    */
-  add_new_cat_to_db(category: Category, phrases: Phrase[], subCat: Category[], subPhrases: Phrase[][], subFlag: number) {
+  add_new_cat_to_db(category: Category, phrases: Phrase[], subCat: Category[], subPhrases: Phrase[][], subFlag: number, isLast:boolean) {
     let catId: string;
     this.categoryProvider.addCategory(category);
     let promise;
@@ -54,9 +56,12 @@ export class AppBuilderProvider {
         for (let i = 0; i < subCat.length; i++) {
           subCat[i].order = i;
           subCat[i].parentCategoryID = catId;
-          this.add_new_cat_to_db(subCat[i], subPhrases[i], [], [], 1)
+          this.add_new_cat_to_db(subCat[i], subPhrases[i], [], [], 1, false)
         }
       })
+      if (isLast==true)
+        this.loading.dismiss();
+
     }, this.time);
 
   }
@@ -67,6 +72,10 @@ export class AppBuilderProvider {
   /**this method fill the DB for the user with the default categories&phrases
   */
   fillDB() {
+    this.loading = this.loadingCtrl.create({
+      content: 'אנא המתן'
+    });
+   this.loading.present();
     let cat;
     let phrases
     let subCats;
@@ -150,7 +159,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, false);
 
     //PLACES CATEGORY  
     cat = new Category("מקומות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/places%2Fplaces.PNG?alt=media&token=ce32254d-0fed-4e4b-ae35-35523290956f", this.userEmail, "", 0, false, null, 2, true)
@@ -197,7 +206,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, false);
 
 
     //TRAVEL CATEGORY
@@ -242,7 +251,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, false);
 
 
     //FOOD CATEGORY
@@ -323,7 +332,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, false);
 
     //FEELINGS CATEGORY
     cat = new Category("רגשות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2F%E2%80%8F%E2%80%8Ffeelings.PNG?alt=media&token=921bff5c-c031-41b3-b1d0-efe4c622e542", this.userEmail, "", 0, false, null, 3, true)
@@ -337,7 +346,7 @@ export class AppBuilderProvider {
       new Phrase("", "בהלה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2Ffreaking_out.PNG?alt=media&token=2f35b76c-89d6-49d9-b676-e751d8391f1e", "", 0, "", false, 0, true),
       new Phrase("", "אדישות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/feelings%2F%E2%80%8F%E2%80%8Fapathetic.PNG?alt=media&token=9880b9ee-7a16-4c52-a9f6-787e9b52b4fc", "", 0, "", false, 0, true)
     ];
-    this.add_new_cat_to_db(cat, phrases, [], [], 0);
+    this.add_new_cat_to_db(cat, phrases, [], [], 0, false);
 
     //PERSONAL STUFF CATEGORY
     cat = new Category("חפצים אישיים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Fpersonal%20stuff.PNG?alt=media&token=bd9ebcf2-edbe-4288-b716-d76f2d57d757", this.userEmail, "", 0, false, null, 4, true)
@@ -352,7 +361,7 @@ export class AppBuilderProvider {
       new Phrase("", "כסף", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/personal%20stuff%2Fmoney.PNG?alt=media&token=63622875-4e2a-496d-ad71-646f00960058", "", 0, "", false, 0, true)
     ];
 
-    this.add_new_cat_to_db(cat, phrases, [], [], 0);
+    this.add_new_cat_to_db(cat, phrases, [], [], 0, false);
 
     //MEDICINE CATEGORY
     cat = new Category("רפואה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/medicine%20category%2F%E2%80%8F%E2%80%8Fmadical.PNG?alt=media&token=62e9e247-658e-454d-87aa-6886aa0bab99", this.userEmail, "", 0, false, null, 5, true)
@@ -431,7 +440,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, true);
 
     this.categoryProvider.updateCategoriesArray();
 

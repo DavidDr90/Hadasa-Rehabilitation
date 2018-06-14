@@ -42,13 +42,7 @@ export class HomePage {
     public loadingCtrl: LoadingController
   ) {
     this.isToggled=true;
-    let loading = this.loadingCtrl.create({
-      content: 'אנא המתן'
-    });
-    loading.present();
-    setTimeout(() => {
-      loading.dismiss();
-    }, 1000);
+    
 
     this.percentage = 0;
     HomePage.userEmail = authentication.user.email;//fill the user email. being used in app-builder constructor.
@@ -59,7 +53,7 @@ export class HomePage {
 
 
 
-    this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider);
+    this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider, loadingCtrl);
 
     //Sets the display name of the logged-in user
     this.user_name = authentication.user.email;
