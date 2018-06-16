@@ -165,6 +165,8 @@ export class AppBuilderProvider {
     cat = new Category("מקומות", "", "", this.userEmail, "", 0, false, null, 2, true)
     phrases = [];
     subCats = [
+      new Category("בילויים", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("מקומות שאני הולך אליהם", "", "", this.userEmail, "", 0, false, null, 0, true),
       new Category("חדרים בבית", "", "", this.userEmail, "", 0, false, null, 0, true),
       new Category("בנק", "", "", this.userEmail, "", 0, false, null, 1, true),
       new Category("קניות", "", "", this.userEmail, "", 0, false, null, 2, true),
@@ -173,12 +175,44 @@ export class AppBuilderProvider {
 
     subPhrases = [
       [
+        new Phrase("", "קונצרט", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%A7%D7%95%D7%A0%D7%A6%D7%A8%D7%98.mp3?alt=media&token=580fa79b-17df-4501-b503-15286403b0f7", false, 0, true),
+        new Phrase("", "מוזיאון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%9E%D7%95%D7%96%D7%99%D7%90%D7%95%D7%9F.mp3?alt=media&token=7f1200fa-118f-416b-a29c-cd02f7a8d50a", false, 0, true),
+        new Phrase("", "תיאטרון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%AA%D7%99%D7%90%D7%98%D7%A8%D7%95%D7%9F.mp3?alt=media&token=ea3e9124-63e5-459b-987f-1ce075705c8b", false, 0, true),
+        new Phrase("", "הופעה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%94%D7%95%D7%A4%D7%A2%D7%94.mp3?alt=media&token=dabc01a8-2cb2-47f0-a17a-2e00541e1667", false, 0, true),
+        new Phrase("", "קןלנוע", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%A7%D7%95%D7%9C%D7%A0%D7%95%D7%A2.mp3?alt=media&token=4b8dd6de-172b-4bb8-b526-234c3fd746f0", false, 0, true),
+        new Phrase("", "מסעדה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%9E%D7%A1%D7%A2%D7%93%D7%94.mp3?alt=media&token=a7af46a2-8a29-4b7f-a4f6-7c411037bf5e", false, 0, true),
+        new Phrase("", "טיול", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%98%D7%99%D7%95%D7%9C.mp3?alt=media&token=6a907618-3979-459b-a62f-6882358da7ab", false, 0, true),
+        new Phrase("", 'חו"ל', "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%97%D7%95%D7%9C.mp3?alt=media&token=e5bb056e-9a5c-4633-9589-528984b38fa9", false, 0, true),
+        new Phrase("", "קניות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%A7%D7%A0%D7%99%D7%95%D7%AA.mp3?alt=media&token=16b8e15e-b0de-4063-9cb0-3001d2352c62", false, 0, true),
+        new Phrase("", "פיקניק", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%A4%D7%99%D7%A7%D7%A0%D7%99%D7%A7.mp3?alt=media&token=b9e2ea0d-2fd6-4ab5-8702-c3c7ba1cee41", false, 0, true),
+        new Phrase("", "פארק", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%A4%D7%90%D7%A8%D7%A7.mp3?alt=media&token=01e85dc0-43ad-49c6-88c3-90b96b11ca8f", false, 0, true),
+        new Phrase("", "ים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2F%D7%91%D7%99%D7%9C%D7%95%D7%99%D7%99%D7%9D%2Faudio%2F%D7%99%D7%9D.mp3?alt=media&token=55746758-5e22-403e-992d-240c4fb09218", false, 0, true)
+      ],
+      [
+        new Phrase("", "דואר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%93%D7%95%D7%90%D7%A8.mp3?alt=media&token=9efaecf4-02a9-44f8-a746-18e91e0d5569", false, 0, true),
+        new Phrase("", "סופרמרקט", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%A1%D7%95%D7%A4%D7%A8%D7%9E%D7%A8%D7%A7%D7%98.mp3?alt=media&token=d33f2ba1-ce0e-4ddf-984d-b2124b2a2ae2", false, 0, true),
+        new Phrase("", "בית חולים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%91%D7%99%D7%AA%20%D7%97%D7%95%D7%9C%D7%99%D7%9D.mp3?alt=media&token=3d808039-f3bf-4731-92ba-d718415390cd", false, 0, true),
+        new Phrase("", "קופת חולים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%A7%D7%95%D7%A4%D7%AA%20%D7%97%D7%95%D7%9C%D7%99%D7%9D.mp3?alt=media&token=a294c3c1-b0b0-4bc5-8fe2-3df2cf8c57f3", false, 0, true),
+        new Phrase("", "קניון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%A7%D7%A0%D7%99%D7%95%D7%9F.mp3?alt=media&token=f84b9a89-4235-438c-8fc5-ade0542055e5", false, 0, true),
+        new Phrase("", "בית כנסת", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%91%D7%99%D7%AA%20%D7%9B%D7%A0%D7%A1%D7%AA.mp3?alt=media&token=a25fb311-3ea0-43e8-a64b-38e18fc027ba", false, 0, true),
+        new Phrase("", "חנות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%97%D7%A0%D7%95%D7%AA.mp3?alt=media&token=3cd04258-7564-4cd6-82ba-860e0a794e7f", false, 0, true),
+        new Phrase("", "בית מלון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%91%D7%99%D7%AA%20%D7%9E%D7%9C%D7%95%D7%9F.mp3?alt=media&token=9f072739-d1c1-4047-8fed-e119f4d438f3", false, 0, true),
+        new Phrase("", "מספרה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%9E%D7%A1%D7%A4%D7%A8%D7%94.mp3?alt=media&token=48faf48b-4b48-4c0d-ad3c-04aa8d1b8002", false, 0, true),
+        new Phrase("", "מוסך", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%9E%D7%95%D7%A1%D7%9A.mp3?alt=media&token=4a4f81fc-bf12-4517-8de0-4ff9506423a0", false, 0, true),
+        new Phrase("", "חדר כושר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%97%D7%93%D7%A8%20%D7%9B%D7%95%D7%A9%D7%A8.mp3?alt=media&token=44b01dd3-ff01-4a5d-97a9-71f1481f3ef2", false, 0, true),
+        new Phrase("", "בריכה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%91%D7%A8%D7%99%D7%9B%D7%94.mp3?alt=media&token=4588c5a9-b51e-430b-a76c-e0d3e43ba7eb", false, 0, true),
+        new Phrase("", "בנק", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fplaces%20I%20go%2Faudio%2F%D7%91%D7%A0%D7%A7.mp3?alt=media&token=b4be1fa7-376e-4b97-bb8b-2331e8a0ac32", false, 0, true)
+      ],
+      [
         new Phrase("", "סלון", "", "", 0, "", false, 0, true),
         new Phrase("", "מטבח", "", "", 0, "", false, 0, true),
         new Phrase("", "שירותים", "", "", 0, "", false, 0, true),
         new Phrase("", "אמבטיה", "", "", 0, "", false, 0, true),
         new Phrase("", "חדר שינה", "", "", 0, "", false, 0, true),
-        new Phrase("", "חדר ילדים", "", "", 0, "", false, 0, true)
+        new Phrase("", "חדר ילדים", "", "", 0, "", false, 0, true),
+        new Phrase("", "גינה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Froom%20at%20home%2Faudio%2F%D7%92%D7%99%D7%A0%D7%94.mp3?alt=media&token=79f9a8f2-9e01-4b02-af54-f4f0681bec9e", false, 0, true),
+        new Phrase("", "מרפסת", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Froom%20at%20home%2Faudio%2F%D7%9E%D7%A8%D7%A4%D7%A1%D7%AA.mp3?alt=media&token=8d27532c-7fbe-4235-b681-35c05645788f", false, 0, true),
+        new Phrase("", "מחסן", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Froom%20at%20home%2Faudio%2F%D7%9E%D7%97%D7%A1%D7%9F.mp3?alt=media&token=d4240582-5752-491c-a6c3-a8ec9a0ba933", false, 0, true)
       ],
 
       [
@@ -186,14 +220,17 @@ export class AppBuilderProvider {
         new Phrase("", "אני רוצה למשוך כסף מהחשבון", "", "", 0, "", false, 0, true),
         new Phrase("", "אני רוצה להפקיד כסף בחשבון", "", "", 0, "", false, 0, true),
         new Phrase("", "אני רוצה לפתוח חשבון בנק", "", "", 0, "", false, 0, true),
-        new Phrase("", "אני רוצה לקבל שירות מבנקאי/ת", "", "", 0, "", false, 0, true)
+        new Phrase("", "אני רוצה לקבל שירות מבנקאי/ת", "", "", 0, "", false, 0, true),
+        new Phrase("", "אני לא זוכר את המספר חשבון שלי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fbank%2Faudio%2F%D7%90%D7%A0%D7%99%20%D7%9C%D7%90%20%D7%96%D7%95%D7%9B%D7%A8%20%D7%90%D7%AA%20%D7%9E%D7%A1%D7%A4%D7%A8%20%D7%94%D7%97%D7%A9%D7%91%D7%95%D7%9F%20%D7%A9%D7%9C%D7%99.mp3?alt=media&token=b00bd6f9-5d4a-4a29-b60a-7cd2410c1949", false, 0, true)
       ],
 
       [
         new Phrase("", "אפשר למדוד?", "", "", 0, "", false, 0, true),
         new Phrase("", "היכן תאי המדידה?", "", "", 0, "", false, 0, true),
-        new Phrase("", "כמה זה עולה?", "", "", 0, "", false, 0, true),
-        new Phrase("", "אפשר לשלם?", "", "", 0, "", false, 0, true)
+        new Phrase("", "כמה זה עולה?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fshopping%2Faudio%2F%D7%9B%D7%9E%D7%94%20%D7%96%D7%94%20%D7%A2%D7%95%D7%9C%D7%94.mp3?alt=media&token=9c82f603-e688-4783-9df7-3d6cb85de84b", false, 0, true),
+        new Phrase("", "אפשר לשלם?", "", "", 0, "", false, 0, true),
+        new Phrase("", "יש מידה אחרת?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fshopping%2Faudio%2F%D7%99%D7%A9%20%D7%9E%D7%99%D7%93%D7%94%20%D7%90%D7%97%D7%A8%D7%AA.mp3?alt=media&token=7ccde529-8c13-4161-8940-e177d3e2ee2e", false, 0, true),
+        new Phrase("", "יש בצבע אחר?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fplaces%2Fshopping%2Faudio%2F%D7%99%D7%A9%20%D7%91%D7%A6%D7%91%D7%A2%20%D7%90%D7%97%D7%A8.mp3?alt=media&token=2a0c0eee-fc20-4f3a-b9d4-755005f19ced", false, 0, true)
       ],
 
       [
@@ -358,7 +395,10 @@ export class AppBuilderProvider {
       new Phrase("", "משקפיים", "", "", 0, "", false, 0, true),
       new Phrase("", "משקפי שמש", "", "", 0, "", false, 0, true),
       new Phrase("", "ארנק", "", "", 0, "", false, 0, true),
-      new Phrase("", "כסף", "", "", 0, "", false, 0, true)
+      new Phrase("", "כסף", "", "", 0, "", false, 0, true),
+      new Phrase("", "טישו", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fpersonal%20stuff%2Faudio%2F%D7%98%D7%99%D7%A9%D7%95.mp3?alt=media&token=abf1dc2a-98d3-45e0-a4a0-021d8484b4a2", false, 0, true),
+      new Phrase("", "מקל הליכה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fpersonal%20stuff%2Faudio%2F%D7%9E%D7%A7%D7%9C%20%D7%94%D7%9C%D7%99%D7%9B%D7%94.mp3?alt=media&token=54bbfada-0e4b-44c1-8bf8-dfcbc1672e78", 0, "", false, 0, true),
+      new Phrase("", "תרופות", "", "", 0, "", false, 0, true)
     ];
 
     this.add_new_cat_to_db(cat, phrases, [], [], 0, false);
