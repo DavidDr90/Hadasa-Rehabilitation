@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.jce.letstalk" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>lets-talk</name>
-    <description>An awesome Ionic/Cordova app.</description>
+    <description>Create a platform that will provide people suffering from Aphasia the means for communication and self expression.</description>
     <author email="lets.talk.1948@gmail.com" href="https://github.com/DavidDr90/Lets-Talk">Hadasa JCE Team</author>
     <content src="index.html" />
     <access origin="*" />
