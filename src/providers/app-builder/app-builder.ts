@@ -13,16 +13,16 @@ import { LoadingController } from 'ionic-angular';
  * this provider create the defult categorys and phrases when the app is first load
  */
 
+const NUM_OF_DEF_CAT = 38;
 
 @Injectable()
 export class AppBuilderProvider {
   public userEmail
-  private time: number
-  loading;
+  public loading;
+  public load_counter = 0;
 
   constructor(public categoryProvider: CategoryServiceProvider, public phraseProvider: PhrasesProvider, public loadingCtrl:LoadingController) {
     this.userEmail = HomePage.userEmail;
-    this.time = 5000;
   }
 
   //===================================
@@ -34,38 +34,35 @@ export class AppBuilderProvider {
    * @param subFlag 1 if the category is a sub category and there is need to use "findSubCategoryByID".
    * @returns the ID of the added category in the DB.
    */
-  add_new_cat_to_db(category: Category, phrases: Phrase[], subCat: Category[], subPhrases: Phrase[][], subFlag: number, isLast:boolean) {
+  add_new_cat_to_db(category: Category, phrases: Phrase[], subCat: Category[], subPhrases: Phrase[][], subFlag: number) {
     let catId: string;
-    this.categoryProvider.addCategory(category);
     let promise;
-    setTimeout(() => {
-      if (subFlag == 1) {
-        promise = this.categoryProvider.getSubCategoryByName(category.parentCategoryID, category.name)
-      }
+    this.categoryProvider.addCategory(category,true).then(()=>{
+      if (subFlag == 1) 
+        promise = this.categoryProvider.getSubCategoryByName(category.parentCategoryID, category.name);
       else
-        promise = this.categoryProvider.getCategoryByName(category.name);
+        promise = this.categoryProvider.getCategoryByName(category.name);  
       promise.then((data) => {
-        let cat = data;
-        cat as Category;
-        catId = cat.id;
+        catId = data.id;
         for (let i = 0; i < phrases.length; i++) {
           phrases[i].order = i;
           phrases[i].categoryID = catId;
-          this.phraseProvider.addPhrase(phrases[i]);
+          this.phraseProvider.addPhrase(phrases[i],true);
         }
         for (let i = 0; i < subCat.length; i++) {
           subCat[i].order = i;
           subCat[i].parentCategoryID = catId;
-          this.add_new_cat_to_db(subCat[i], subPhrases[i], [], [], 1, false)
+          this.add_new_cat_to_db(subCat[i], subPhrases[i], [], [], 1)
         }
+        
       })
-      if (isLast==true)
+      this.load_counter++;
+      if(this.load_counter == NUM_OF_DEF_CAT){
+        this.load_counter=0;
         this.loading.dismiss();
-
-    }, this.time);
-
+      }
+    })
   }
-
 
   //===================================
 
@@ -158,8 +155,8 @@ export class AppBuilderProvider {
         new Phrase("", "יום הולדת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "", false, 0, true)
       ]
     ];
-
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, false);
+    
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
     //PLACES CATEGORY  
     cat = new Category("מקומות", "", "", this.userEmail, "", 0, false, null, 2, true)
@@ -243,7 +240,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, false);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
 
     //TRAVEL CATEGORY
@@ -288,7 +285,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, false);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
 
     //FOOD CATEGORY
@@ -369,7 +366,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, false);
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
     //FEELINGS CATEGORY
     cat = new Category("רגשות", "", "", this.userEmail, "", 0, false, null, 3, true)
@@ -383,7 +380,7 @@ export class AppBuilderProvider {
       new Phrase("", "בהלה", "", "", 0, "", false, 0, true),
       new Phrase("", "אדישות", "", "", 0, "", false, 0, true)
     ];
-    this.add_new_cat_to_db(cat, phrases, [], [], 0, false);
+    this.add_new_cat_to_db(cat, phrases, [], [], 0);
 
     //PERSONAL STUFF CATEGORY
     cat = new Category("חפצים אישיים", "", "", this.userEmail, "", 0, false, null, 4, true)
@@ -401,7 +398,7 @@ export class AppBuilderProvider {
       new Phrase("", "תרופות", "", "", 0, "", false, 0, true)
     ];
 
-    this.add_new_cat_to_db(cat, phrases, [], [], 0, false);
+    this.add_new_cat_to_db(cat, phrases, [], [], 0);
 
     //MEDICINE CATEGORY
     cat = new Category("רפואה", "", "", this.userEmail, "", 0, false, null, 5, true)
@@ -480,10 +477,7 @@ export class AppBuilderProvider {
       ]
     ];
 
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0, true);
-
-    this.categoryProvider.updateCategoriesArray();
-
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
   }
 
 

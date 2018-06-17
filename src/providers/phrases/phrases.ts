@@ -78,9 +78,14 @@ export class PhrasesProvider {
     })
   }
 
-  public addPhrase(phrase: Phrase) {
+    /**
+   * add phrase, update DB and arrange by order.
+   * if addPhrase called from App-Builder don't arrange by order.
+   */
+  public addPhrase(phrase: Phrase, callFromAppBuilder = false) {
     this.firebaseProvider.addPhrase(phrase);
-    this.arrangePhrasesByOrder();
+    if(callFromAppBuilder == false)
+      this.arrangePhrasesByOrder();
   }
 
   removePhrase(phrase: Phrase) {
