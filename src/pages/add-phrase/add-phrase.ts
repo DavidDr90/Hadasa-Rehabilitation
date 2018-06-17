@@ -279,6 +279,8 @@ export class AddPhrasePage {
       // Create options for the Camera Dialog
       var options = {
         quality: 100,
+        targetWidth: 900,
+        targetHeight: 600,
         sourceType: sourceType,
         destinationType: this.camera.DestinationType.DATA_URL,
         mediaType: this.camera.MediaType.PICTURE,
