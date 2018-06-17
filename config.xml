@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.jce.letstalk" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>lets-talk</name>
+    <name>בואו נדבר</name>
     <description>Create a platform that will provide people suffering from Aphasia the means for communication and self expression.</description>
     <author email="lets.talk.1948@gmail.com" href="https://github.com/DavidDr90/Lets-Talk">Hadasa JCE Team</author>
     <content src="index.html" />
@@ -104,5 +104,6 @@
     <plugin name="com-badrit-base64" spec="^0.2.0" />
     <plugin name="cordova-plugin-nativeaudio" spec="^3.0.9" />
     <engine name="browser" spec="5.0.3" />
-    <engine name="android" spec="7.1.0" />
+    <engine name="ios" spec="~4.5.4" />
+    <engine name="android" spec="~7.1.0" />
 </widget>
