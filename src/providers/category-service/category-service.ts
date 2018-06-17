@@ -10,6 +10,7 @@ import { Phrase } from '../../models/Phrase';
 import { FavoriteProvider } from '../favorite/favorite';
 import { HomePage } from '../../pages/home/home';
 import { elementAt } from 'rxjs/operator/elementAt';
+import * as Enums from '../../consts/enums';
 
 
 @Injectable()
@@ -19,6 +20,7 @@ export class CategoryServiceProvider {
   private allUserPhrases = [];
   //categories that have parent category, and shown only at there parentCategory's page (next the phrases)
   private subCategories = [];
+  private includeAboutMe = true;
 
   //import categories collection from db and initialize categories attr.
   constructor(
@@ -36,7 +38,7 @@ export class CategoryServiceProvider {
 
    
   /**
-   * updating the categories and favorits local arraies and refreshing the page, the method return a Promise object"
+   * updating the categories and favorites local arrays and refreshing the page, the method return a Promise object"
    * for catching error use "promise.then().catch(e){...handling error...}"
    * @returns Promise object
    */
@@ -47,6 +49,15 @@ export class CategoryServiceProvider {
     return new Promise((resolve, reject) => {
     this.firebaseProvider.getCategoriesObservable.subscribe(a => {
         this.categories = a;
+        if(!this.includeAboutMe){ //should we ignore aboutMe category
+          let temp = this.categories.find(cat => cat.name == Enums.ABOUT_ME_STRING);
+          if(temp != undefined){    
+            var index = this.categories.indexOf(temp);
+            if(index > -1)
+              this.categories.splice(index, 1);
+          }
+        }
+          
         this.categories.forEach(element1 => {//initilize all user's phrases local array
         let promise = this.phrasesProvider.getPhrases(element1);
         promise.then((data)=>{
@@ -107,7 +118,11 @@ export class CategoryServiceProvider {
 
   public get getAllUserPhrases() {
       return  this.allUserPhrases;
-}
+  }
+
+  public setIncludeAboutMe(include: boolean){
+    this.includeAboutMe = include;
+  }
   
 
   /**
@@ -167,7 +182,7 @@ export class CategoryServiceProvider {
    * the method know to handle if the wanted remove category is sub-category.
    * @param category category to remove.
    */
-  removeCategory(category: Category) {
+  public removeCategory(category: Category) {
     let favoriteProvider=new FavoriteProvider(HomePage.favClass)
     let promise = this.phrasesProvider.getPhrases(category);
     promise.then((data)=> {
