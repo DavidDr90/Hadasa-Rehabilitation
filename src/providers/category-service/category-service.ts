@@ -117,19 +117,9 @@ export class CategoryServiceProvider {
   }
 
   public get getAllUserPhrases() {
-<<<<<<< HEAD
     return this.allUserPhrases;
   }
 
-=======
-      return  this.allUserPhrases;
-  }
-
-  public setIncludeAboutMe(include: boolean){
-    this.includeAboutMe = include;
-  }
-  
->>>>>>> d4d6b9327df2768e951ce81486c613a82b0f0a9c
 
   /**
    * for handling the promise returned, use "promise.then((data) =>{'data' hold the wanted category...})"
