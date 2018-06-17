@@ -121,7 +121,7 @@ export class CategoriesPage {
     console.log("edit -delete");
     console.log(item);
     const alert = this.alertCtrl.create({
-      title: '?בטוח למחוק',
+      title: 'בטוח למחוק?',
       message: 'המחיקה היא סופית וכוללת את כול התוכן של הקטגוריה כולל הביטויים שבה!',
       buttons: [
         {
