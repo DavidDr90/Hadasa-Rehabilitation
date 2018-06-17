@@ -190,13 +190,8 @@ export class CategoryServiceProvider {
    * the method know to handle if the wanted remove category is sub-category.
    * @param category category to remove.
    */
-<<<<<<< HEAD
   removeCategory(category: Category) {
     let favoriteProvider = new FavoriteProvider(HomePage.favClass)
-=======
-  public removeCategory(category: Category) {
-    let favoriteProvider=new FavoriteProvider(HomePage.favClass)
->>>>>>> d4d6b9327df2768e951ce81486c613a82b0f0a9c
     let promise = this.phrasesProvider.getPhrases(category);
     promise.then((data) => {
       let phrases = data;
