@@ -333,7 +333,7 @@ export class AddPhrasePage {
     try {
       this.fileName = this.generateFileName();
       if (this.platform.is('ios')) {
-        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName + 'mp3'; //'.m4a';
+        this.audioFilePath = this.file.documentsDirectory.replace(/file:\/\//g, '') + this.fileName + '.m4a';
         this.audio = this.media.create(this.audioFilePath);
       } else if (this.platform.is('android')) {
         this.audioFilePath = this.file.externalDataDirectory.replace(/file:\/\//g, '') + this.fileName + '.mp3';
@@ -366,12 +366,12 @@ export class AddPhrasePage {
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
 
           let audio_type;
-          // if the platform is iOS use m4a format
-          // if (this.platform.is('ios')) {
-          //   audio_type = 'data:audio/m4a;base64,'
-          // } else {
+          //if the platform is iOS use m4a format
+          if (this.platform.is('ios')) {
+            audio_type = 'data:audio/m4a;base64,'
+          } else {
             audio_type = 'data:audio/mp3;base64,'
-          // }
+          }
 
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
           let res = new Promise((resolve, reject) => {
