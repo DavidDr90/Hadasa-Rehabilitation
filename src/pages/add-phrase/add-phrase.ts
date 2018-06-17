@@ -279,6 +279,8 @@ export class AddPhrasePage {
       // Create options for the Camera Dialog
       var options = {
         quality: 100,
+        targetWidth: 900,
+        targetHeight: 600,
         sourceType: sourceType,
         destinationType: this.camera.DestinationType.DATA_URL,
         mediaType: this.camera.MediaType.PICTURE,
@@ -364,7 +366,7 @@ export class AddPhrasePage {
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
 
           let audio_type;
-          // if the platform is iOS use m4a format
+          //if the platform is iOS use m4a format
           if (this.platform.is('ios')) {
             audio_type = 'data:audio/m4a;base64,'
           } else {

@@ -30,8 +30,17 @@ export class CategoriesPage {
     public storage: StorageProvider,
     public alertCtrl: AlertController) {
 
+    
+
+    this.categoryService.setIncludeAboutMe(false); //we ignore aboutMe category on this page
+    this.categoryService.updateCategoriesArray();
     this.favProvider = new FavoriteProvider(HomePage.favClass);
 
+  }
+
+  ionViewWillEnter() { //we ignore aboutMe category on this page
+    this.categoryService.setIncludeAboutMe(false);
+    this.categoryService.updateCategoriesArray();
   }
 
   //popup the category's phrases's page.
@@ -72,11 +81,16 @@ export class CategoriesPage {
     if (this.editFlag) {
       this.editFlag = false;
       this.editButtonName = "עריכה";
+      //we ignore aboutMe category on this page
+      this.categoryService.setIncludeAboutMe(false);
+      await this.categoryService.updateCategoriesArray(); //update DB
  
     } else {
       this.editFlag = true;
       this.editButtonName = "סיים";
-      await this.categoryService.updateCategoriesArray; //update DB
+      //we ignore aboutMe category on this page
+      this.categoryService.setIncludeAboutMe(false);
+      await this.categoryService.updateCategoriesArray(); //update DB
     }
 
   }
@@ -90,7 +104,15 @@ export class CategoriesPage {
     console.log("edit -reorder");
     console.log("from: " + index.from);
     console.log("to: " + index.to);
+    this.categoryService.setIncludeAboutMe(false);
     let temp = await this.categoryService.getCategories;
+    //we ignore aboutMe category on this page
+    let aboutMe = temp.find(cat => cat.name == Enums.ABOUT_ME_STRING);
+    if(aboutMe != undefined){    
+      var indexAM = temp.indexOf(aboutMe);
+      if(index > -1)
+        temp.splice(indexAM, 1);
+    }
     let catArray = temp as Category[];
     console.log("size: " + catArray.length);
 
@@ -121,7 +143,7 @@ export class CategoriesPage {
     console.log("edit -delete");
     console.log(item);
     const alert = this.alertCtrl.create({
-      title: '?בטוח למחוק',
+      title: 'בטוח למחוק?',
       message: 'המחיקה היא סופית וכוללת את כול התוכן של הקטגוריה כולל הביטויים שבה!',
       buttons: [
         {
