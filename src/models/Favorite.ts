@@ -13,8 +13,13 @@ export class Favorite {
 	public min_cat_index; //the index of the category with the less views
 	public min_phrases_index; //the index of the category with the less views
 
-	constructor(categories: Category[], phrases: Phrase[]) {
+	constructor(categories: Category[], phrases: Phrase[], loadingCtrl) {
+		let loading = loadingCtrl.create({
+			spinner: 'hide',
+			content: 'אנחנו מכינים את המועדפים שלך'
+		});
 
+		loading.present();
 
 		this.min_cat_index = 0;
 		this.min_phrases_index = 0;
@@ -58,8 +63,7 @@ export class Favorite {
 			}
 			this.find_min_phrase_index();
 		}
-
-
+		loading.dismiss()
 	}
 
 	private find_min_cat_index() {
