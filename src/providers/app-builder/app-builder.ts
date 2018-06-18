@@ -91,43 +91,52 @@ export class AppBuilderProvider {
 
     subPhrases = [
       [
-        new Phrase("", "ראשון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fday.png?alt=media&token=92e0ecd2-1435-438f-8528-d6c14fcb1b08", "", 0, "", false, 0, true),
-        new Phrase("", "שני", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fday.png?alt=media&token=92e0ecd2-1435-438f-8528-d6c14fcb1b08", "", 0, "", false, 0, true),
-        new Phrase("", "שלישי", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fday.png?alt=media&token=92e0ecd2-1435-438f-8528-d6c14fcb1b08", "", 0, "", false, 0, true),
-        new Phrase("", "רביעי", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fday.png?alt=media&token=92e0ecd2-1435-438f-8528-d6c14fcb1b08", "", 0, "", false, 0, true),
-        new Phrase("", "חמישי", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fday.png?alt=media&token=92e0ecd2-1435-438f-8528-d6c14fcb1b08", "", 0, "", false, 0, true),
-        new Phrase("", "שישי", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fday.png?alt=media&token=92e0ecd2-1435-438f-8528-d6c14fcb1b08", "", 0, "", false, 0, true),
-        new Phrase("", "שבת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fday.png?alt=media&token=92e0ecd2-1435-438f-8528-d6c14fcb1b08", "", 0, "", false, 0, true)
+        new Phrase("", "ראשון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%A8%D7%90%D7%A9%D7%95%D7%9F.mp3?alt=media&token=55c85597-7084-4daf-90a7-f3e343b95a54", false, 0, true),
+        new Phrase("", "שני", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%A9%D7%A0%D7%99.mp3?alt=media&token=7dfe1786-0933-4231-9142-c5c550a45aa6", false, 0, true),
+        new Phrase("", "שלישי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%A9%D7%9C%D7%99%D7%A9%D7%99.mp3?alt=media&token=a9be431d-2813-493b-a27b-2f34c9fcc18e", false, 0, true),
+        new Phrase("", "רביעי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%A8%D7%91%D7%99%D7%A2%D7%99.mp3?alt=media&token=4f9ad981-ae91-4a80-9882-a3e4de859716", false, 0, true),
+        new Phrase("", "חמישי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%97%D7%9E%D7%99%D7%A9%D7%99.mp3?alt=media&token=e1d36d86-e85a-48ee-9ae9-d15014d174ad", false, 0, true),
+        new Phrase("", "שישי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%A9%D7%99%D7%A9%D7%99.mp3?alt=media&token=49eef202-a932-43f9-b47c-40e829a43a0a", false, 0, true),
+        new Phrase("", "שבת", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%A9%D7%91%D7%AA.mp3?alt=media&token=36b85562-ba44-403d-b9ef-0e55c6d0d389", false, 0, true),
+        new Phrase("", "אתמול", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2F%25E2%2580%258F%25E2%2580%258Fprev.PNG?alt=media&token=8bf07686-f0ec-41e3-ab08-6a6fca246ce2", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%90%D7%AA%D7%9E%D7%95%D7%9C.mp3?alt=media&token=93f4a3ae-b03d-494b-b406-263681fe7bd3", false, 0, true),
+        new Phrase("", "היום", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%94%D7%99%D7%95%D7%9D.mp3?alt=media&token=d381aa27-eed2-4d9c-a6ce-502720e8034c", false, 0, true);
+        new Phrase("", "מחר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fnext.PNG?alt=media&token=c5f2afab-f60f-4a45-adc8-681b490f5d59", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%9E%D7%97%D7%A8.mp3?alt=media&token=101f7451-b391-46a1-825b-dfae6823d28d", false, 0, true),
+        new Phrase("", "שבוע שעבר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2F%25E2%2580%258F%25E2%2580%258Fprev.PNG?alt=media&token=8bf07686-f0ec-41e3-ab08-6a6fca246ce2", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%A9%D7%91%D7%95%D7%A2%20%D7%A9%D7%A2%D7%91%D7%A8.mp3?alt=media&token=8e6f32be-f234-4860-9e5f-c60691883296", false, 0, true),
+        new Phrase("", "שבוע הבא", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fnext.PNG?alt=media&token=c5f2afab-f60f-4a45-adc8-681b490f5d59", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%A9%D7%91%D7%95%D7%A2%20%D7%94%D7%91%D7%90.mp3?alt=media&token=5a8a98a3-cc2e-4929-b50a-5d85d00378f6", false, 0, true),
+        new Phrase("", "בוקר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%91%D7%95%D7%A7%D7%A8.mp3?alt=media&token=285c2774-5bb7-4ed3-9fbb-89728883cecc", false, 0, true),
+        new Phrase("", "צהריים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%A6%D7%94%D7%A8%D7%99%D7%99%D7%9D.mp3?alt=media&token=f4b96a54-a56f-44d1-a4d1-1afa3f447de9", false, 0, true),
+        new Phrase("", "ערב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%A2%D7%A8%D7%91.mp3?alt=media&token=f539edba-324b-4dfb-a6a7-2e1005f2ee6c", false, 0, true),
       ],
 
       [
-        new Phrase("", "תשרי", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%AA%D7%A9%D7%A8%D7%99.mp3?alt=media&token=3c655168-f690-464f-8357-de63c00b108e", false, 0, true),
-        new Phrase("", "חשוון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%97%D7%A9%D7%95%D7%95%D7%9F.mp3?alt=media&token=d7a2ab4b-402b-4138-917d-f88a9077bf67", false, 0, true),
-        new Phrase("", "כסליו", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%9B%D7%A1%D7%9C%D7%99%D7%95.mp3?alt=media&token=013917cc-b8bd-4a6a-ae1d-cea79acb69d9", false, 0, true),
-        new Phrase("", "טבת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%98%D7%91%D7%AA.mp3?alt=media&token=effb9845-de91-4a24-b71e-daa2d592a966", false, 0, true),
-        new Phrase("", "שבט", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%A9%D7%91%D7%98.mp3?alt=media&token=dd5b9404-ab45-4145-b50f-fc21587e6a0f", false, 0, true),
-        new Phrase("", "אדר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%90%D7%93%D7%A8.mp3?alt=media&token=1dac9409-ec13-427a-8a71-1e198b087e4c", false, 0, true),
-        new Phrase("", "ניסן", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%A0%D7%99%D7%A1%D7%9F.mp3?alt=media&token=766284f5-e12e-414e-96aa-e7a4d1c46a99", false, 0, true),
-        new Phrase("", "אייר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%90%D7%99%D7%99%D7%A8.mp3?alt=media&token=12047be4-dfe2-4f7e-8d5e-6f0a2d2bc84c", false, 0, true),
-        new Phrase("", "סיוון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%A1%D7%99%D7%95%D7%95%D7%9F.mp3?alt=media&token=fe6dd408-8e86-45fe-9658-f893a85ced3d", false, 0, true),
-        new Phrase("", "תמוז", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%AA%D7%9E%D7%95%D7%96.mp3?alt=media&token=19d72f22-ba7e-4bf1-82ac-3a3fc84dd7d5", false, 0, true),
-        new Phrase("", "אב", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%90%D7%91.mp3?alt=media&token=eeaaee85-7bb7-46e0-bfd1-5be514f01075", false, 0, true),
-        new Phrase("", "אלול", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%90%D7%9C%D7%95%D7%9C.mp3?alt=media&token=66675158-51f2-493d-a3db-dde124577649", false, 0, true)
+        new Phrase("", "תשרי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%AA%D7%A9%D7%A8%D7%99.mp3?alt=media&token=3c655168-f690-464f-8357-de63c00b108e", false, 0, true),
+        new Phrase("", "חשוון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%97%D7%A9%D7%95%D7%95%D7%9F.mp3?alt=media&token=d7a2ab4b-402b-4138-917d-f88a9077bf67", false, 0, true),
+        new Phrase("", "כסליו", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%9B%D7%A1%D7%9C%D7%99%D7%95.mp3?alt=media&token=013917cc-b8bd-4a6a-ae1d-cea79acb69d9", false, 0, true),
+        new Phrase("", "טבת", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%98%D7%91%D7%AA.mp3?alt=media&token=effb9845-de91-4a24-b71e-daa2d592a966", false, 0, true),
+        new Phrase("", "שבט", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%A9%D7%91%D7%98.mp3?alt=media&token=dd5b9404-ab45-4145-b50f-fc21587e6a0f", false, 0, true),
+        new Phrase("", "אדר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%90%D7%93%D7%A8.mp3?alt=media&token=1dac9409-ec13-427a-8a71-1e198b087e4c", false, 0, true),
+        new Phrase("", "ניסן", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%A0%D7%99%D7%A1%D7%9F.mp3?alt=media&token=766284f5-e12e-414e-96aa-e7a4d1c46a99", false, 0, true),
+        new Phrase("", "אייר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%90%D7%99%D7%99%D7%A8.mp3?alt=media&token=12047be4-dfe2-4f7e-8d5e-6f0a2d2bc84c", false, 0, true),
+        new Phrase("", "סיוון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%A1%D7%99%D7%95%D7%95%D7%9F.mp3?alt=media&token=fe6dd408-8e86-45fe-9658-f893a85ced3d", false, 0, true),
+        new Phrase("", "תמוז", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%AA%D7%9E%D7%95%D7%96.mp3?alt=media&token=19d72f22-ba7e-4bf1-82ac-3a3fc84dd7d5", false, 0, true),
+        new Phrase("", "אב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%90%D7%91.mp3?alt=media&token=eeaaee85-7bb7-46e0-bfd1-5be514f01075", false, 0, true),
+        new Phrase("", "אלול", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%90%D7%9C%D7%95%D7%9C.mp3?alt=media&token=66675158-51f2-493d-a3db-dde124577649", false, 0, true)
       ],
 
       [
-        new Phrase("", "ינואר - 1", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%99%D7%A0%D7%95%D7%90%D7%A8.mp3?alt=media&token=d30c262c-2397-44f4-9af3-52cda9662d42", false, 0, true),
-        new Phrase("", "פברואר - 2", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%A4%D7%91%D7%A8%D7%95%D7%90%D7%A8.mp3?alt=media&token=bb97c10e-733a-4016-85fb-7ceeeeb88b0b", false, 0, true),
-        new Phrase("", "מרץ - 3", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%9E%D7%A8%D7%A5.mp3?alt=media&token=b8185262-bc74-4e95-bdc2-c8d9bcf8b039", false, 0, true),
-        new Phrase("", "אפריל - 4", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%90%D7%A4%D7%A8%D7%99%D7%9C.mp3?alt=media&token=84526715-476f-4501-97fd-e1dd8c71c2d0", false, 0, true),
-        new Phrase("", "מאי - 5", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%9E%D7%90%D7%99.mp3?alt=media&token=e46fec94-c7b2-4f1c-b870-4875edce6183", false, 0, true),
-        new Phrase("", "יוני - 6", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%99%D7%95%D7%A0%D7%99.mp3?alt=media&token=a6f3b850-3ef6-4ce2-b402-7e2845deacc0", false, 0, true),
-        new Phrase("", "יולי - 7", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%99%D7%95%D7%9C%D7%99.mp3?alt=media&token=46b3c1bb-93c8-49e0-bfb5-f73ab6ecbbaf", false, 0, true),
-        new Phrase("", "אוגוסט - 8", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98.mp3?alt=media&token=ed50e1d5-c137-4ddd-992d-1637736a656b", false, 0, true),
-        new Phrase("", "ספטמבר - 9", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%A1%D7%A4%D7%98%D7%9E%D7%91%D7%A8.mp3?alt=media&token=aca468aa-db9d-46a5-aaec-5171e290a421", false, 0, true),
-        new Phrase("", "אוקטובר - 10", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%90%D7%95%D7%A7%D7%98%D7%95%D7%91%D7%A8.mp3?alt=media&token=99c67f97-fdc5-4a3c-a73d-34611eb3b0b6", false, 0, true),
-        new Phrase("", "נובמבר - 11", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%A0%D7%95%D7%91%D7%9E%D7%91%D7%A8.mp3?alt=media&token=a152be5f-3efd-43ed-8c8e-4fd9de92bc17", false, 0, true),
-        new Phrase("", "דצמבר - 12", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%93%D7%A6%D7%9E%D7%91%D7%A8.mp3?alt=media&token=c64bbd2e-4164-4c07-8555-6237776e0f60", false, 0, true)
+        
+        new Phrase("", "ינואר - 1", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%99%D7%A0%D7%95%D7%90%D7%A8.mp3?alt=media&token=8d993b7e-10e6-42ce-a6f5-98ef1a0b3bd8", false, 0, true),
+        new Phrase("", "פברואר - 2", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%A4%D7%91%D7%A8%D7%95%D7%90%D7%A8.mp3?alt=media&token=dd89d6d1-51c9-44cb-b56b-4d32de429ab6", false, 0, true),
+        new Phrase("", "מרץ - 3", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%9E%D7%A8%D7%A5.mp3?alt=media&token=9c14eddd-44d6-45d7-89fc-2f54f282535b", false, 0, true),
+        new Phrase("", "אפריל - 4", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%90%D7%A4%D7%A8%D7%99%D7%9C.mp3?alt=media&token=4a8be03a-6901-42b7-be65-5297da8f295a", false, 0, true),
+        new Phrase("", "מאי - 5", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%9E%D7%90%D7%99.mp3?alt=media&token=0ad7dcde-3c3f-4c89-b836-5e16303a78bf", false, 0, true),
+        new Phrase("", "יוני - 6", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%99%D7%95%D7%A0%D7%99.mp3?alt=media&token=e25ef576-1716-4fcd-ba64-af36641e55cd", false, 0, true),
+        new Phrase("", "יולי - 7", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%99%D7%95%D7%9C%D7%99.mp3?alt=media&token=21b6acc5-6717-4bb3-9a70-d7e67d2fe1d0", false, 0, true),
+        new Phrase("", "אוגוסט - 8", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%90%D7%95%D7%92%D7%95%D7%A1%D7%98.mp3?alt=media&token=47ca7e4e-14d4-4650-a2cc-8061e934c476", false, 0, true),
+        new Phrase("", "ספטמבר - 9", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%A1%D7%A4%D7%98%D7%9E%D7%91%D7%A8.mp3?alt=media&token=88895f88-d3a2-4277-b44b-42f6058b4e86", false, 0, true),
+        new Phrase("", "אוקטובר - 10", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%90%D7%95%D7%A7%D7%98%D7%95%D7%91%D7%A8.mp3?alt=media&token=01ac1a0b-fe4b-47b8-8b1e-6f6f7426663f", false, 0, true),
+        new Phrase("", "נובמבר - 11", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%A0%D7%95%D7%91%D7%9E%D7%91%D7%A8.mp3?alt=media&token=84e06613-4389-4bf6-9b35-cdd612eb7e9c", false, 0, true),
+        new Phrase("", "דצמבר - 12", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%93%D7%A6%D7%9E%D7%91%D7%A8.mp3?alt=media&token=405fd571-92d5-490d-b90a-b11c56894d41", false, 0, true)
       ],
 
       [
@@ -143,19 +152,28 @@ export class AppBuilderProvider {
         new Phrase("", "יום הזיכרון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2F%D7%97%D7%92%D7%99%D7%9D%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%94%D7%96%D7%99%D7%9B%D7%A8%D7%95%D7%9F.mp3?alt=media&token=cd8276f2-c550-460f-9511-f6a3ae03f59a", false, 0, true),
         new Phrase("", "יום העצמאות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2F%D7%97%D7%92%D7%99%D7%9D%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%94%D7%A2%D7%A6%D7%9E%D7%90%D7%95%D7%AA.mp3?alt=media&token=e7d25b9f-cc64-42fb-8c42-a76d09646c0d", false, 0, true),
         new Phrase("", "לג בעומר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2F%D7%97%D7%92%D7%99%D7%9D%2Faudio%2F%D7%9C%D7%92%20%D7%91%D7%A2%D7%95%D7%9E%D7%A8.mp3?alt=media&token=0b690764-691b-4a7f-946e-5c8f6dac4474", false, 0, true),
-        new Phrase("", "שבועות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2F%D7%97%D7%92%D7%99%D7%9D%2Faudio%2F%D7%A9%D7%91%D7%95%D7%A2%D7%95%D7%AA.mp3?alt=media&token=00eab84e-50a4-4852-bb49-817304e1d6d6", false, 0, true)
+        new Phrase("", "שבועות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2F%D7%97%D7%92%D7%99%D7%9D%2Faudio%2F%D7%A9%D7%91%D7%95%D7%A2%D7%95%D7%AA.mp3?alt=media&token=00eab84e-50a4-4852-bb49-817304e1d6d6", false, 0, true),
+        new Phrase("", "תשעה באב", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2F%D7%97%D7%92%D7%99%D7%9D%2Faudio%2F%D7%A9%D7%91%D7%95%D7%A2%D7%95%D7%AA.mp3?alt=media&token=00eab84e-50a4-4852-bb49-817304e1d6d6", false, 0, true)
       ],
 
       [
+        new Phrase("", "יום הולדת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "", false, 0, true),
+        new Phrase("", "מסיבה", "", "", 0, "", false, 0, true),
+        new Phrase("", "אירוסין", "", "", 0, "", false, 0, true),
         new Phrase("", "חתונה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "", false, 0, true),
+        new Phrase("", "יום נישואין", "", "", 0, "", false, 0, true),
+        new Phrase("", "גירושין", "", "", 0, "", false, 0, true),
         new Phrase("", "בר מצווה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "", false, 0, true),
         new Phrase("", "בת מצווה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "", false, 0, true),
         new Phrase("", "ברית", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "", false, 0, true),
         new Phrase("", "זבד הבת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "", false, 0, true),
-        new Phrase("", "יום הולדת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", "", 0, "", false, 0, true)
+        new Phrase("", "הלוויה", "", "", 0, "", false, 0, true),
+        new Phrase("", "אזכרה", "", "", 0, "", false, 0, true),
+        new Phrase("", "שבעה", "", "", 0, "", false, 0, true),
+        new Phrase("", "גיוס לצבא", "", "", 0, "", false, 0, true),
+        new Phrase("", "טקס סיום", "", "", 0, "", false, 0, true)
       ]
     ];
-    
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
     //PLACES CATEGORY  
@@ -368,19 +386,57 @@ export class AppBuilderProvider {
 
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
-    //FEELINGS CATEGORY
-    cat = new Category("רגשות", "", "", this.userEmail, "", 0, false, null, 3, true)
+       //FEELINGS CATEGORY
+       cat = new Category("רגשות", "", "", this.userEmail, "", 0, false, null, 3, true)
 
-    phrases = [
-      new Phrase("", "עצב", "", "", 0, "", false, 0, true),
-      new Phrase("", "צחוק", "", "", 0, "", false, 0, true),
-      new Phrase("", "עצבנות", "", "", 0, "", false, 0, true),
-      new Phrase("", "הפתעה", "", "", 0, "", false, 0, true),
-      new Phrase("", "שמחה", "", "", 0, "", false, 0, true),
-      new Phrase("", "בהלה", "", "", 0, "", false, 0, true),
-      new Phrase("", "אדישות", "", "", 0, "", false, 0, true)
-    ];
-    this.add_new_cat_to_db(cat, phrases, [], [], 0);
+       phrases = [
+         new Phrase("", "שמחה", "", "", 0, "", false, 0, true),
+         new Phrase("", "אהבה", "", "", 0, "", false, 0, true),
+         new Phrase("", "רוגע", "", "", 0, "", false, 0, true),
+         new Phrase("", "הפתעה", "", "", 0, "", false, 0, true),
+         new Phrase("", "גאווה", "", "", 0, "", false, 0, true),
+         new Phrase("", "אדישות", "", "", 0, "", false, 0, true),
+         new Phrase("", "עצב", "", "", 0, "", false, 0, true),
+         new Phrase("", "כעס", "", "", 0, "", false, 0, true),
+         new Phrase("", "בלבול", "", "", 0, "", false, 0, true),      new Phrase("", "שמחה", "", "", 0, "", false, 0, true),
+         new Phrase("", "קנאה", "", "", 0, "", false, 0, true),
+         new Phrase("", "עצבנות", "", "", 0, "", false, 0, true),
+         new Phrase("", "דאגה", "", "", 0, "", false, 0, true),
+         new Phrase("", "מבוכה", "", "", 0, "", false, 0, true),
+         new Phrase("", "אכזבה", "", "", 0, "", false, 0, true),
+         new Phrase("", "בהלה", "", "", 0, "", false, 0, true)
+       ];
+      this.add_new_cat_to_db(cat, phrases, [], [], 0)
+   
+   //NUMBERS CATEGORY
+   cat = new Category("מספרים", "", "", this.userEmail, "", 0, false, null, 3, true)
+   
+   phrases = [
+     new Phrase("", "אחד", "", "", 0, "", false, 0, true),
+     new Phrase("", "שתיים", "", "", 0, "", false, 0, true),
+     new Phrase("", "שלוש", "", "", 0, "", false, 0, true),
+     new Phrase("", "ארבע", "", "", 0, "", false, 0, true),
+     new Phrase("", "חמש", "", "", 0, "", false, 0, true),
+     new Phrase("", "שש", "", "", 0, "", false, 0, true),
+     new Phrase("", "שבע", "", "", 0, "", false, 0, true),
+     new Phrase("", "שמונה", "", "", 0, "", false, 0, true),
+     new Phrase("", "תשע", "", "", 0, "", false, 0, true),
+     new Phrase("", "עשר", "", "", 0, "", false, 0, true),
+     new Phrase("", "עשרים", "", "", 0, "", false, 0, true),
+     new Phrase("", "שלושים", "", "", 0, "", false, 0, true),
+     new Phrase("", "ארבעים", "", "", 0, "", false, 0, true),
+     new Phrase("", "חמישים", "", "", 0, "", false, 0, true),
+     new Phrase("", "שישים", "", "", 0, "", false, 0, true),
+     new Phrase("", "שבעים", "", "", 0, "", false, 0, true),
+     new Phrase("", "שמונים", "", "", 0, "", false, 0, true),
+     new Phrase("", "תשעים", "", "", 0, "", false, 0, true),
+     new Phrase("", "מאה", "", "", 0, "", false, 0, true),
+   ];
+   
+   this.add_new_cat_to_db(cat, phrases, [], [], 0)
+   
+   
+   
 
     //PERSONAL STUFF CATEGORY
     cat = new Category("חפצים אישיים", "", "", this.userEmail, "", 0, false, null, 4, true)
