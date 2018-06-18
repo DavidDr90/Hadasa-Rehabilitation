@@ -20,7 +20,7 @@ Create a platform that will provide them with means for communication and self e
 
 
 Please visit our [wiki](https://github.com/daviddr90/Hadasa-Rehabilitation/wiki) for furthur project info: 
-<!--### [User Manual](../../wiki/user-manual) (empty for now)-->
+### [User Manual](../../wiki/User-Manual)
 ### [Team Page](../../wiki/team)
 ### [Inception](../../wiki/inception)
 ### [SRS](../../wiki/srs)
@@ -29,7 +29,7 @@ Please visit our [wiki](https://github.com/daviddr90/Hadasa-Rehabilitation/wiki)
 ### [Iteration 1 - MVP](../../wiki/Iter1-MVP-Serve-Side)
 ### [Iteration 2 - Log In & UI](../../wiki/Iter2---Log-In-and-UI)
 ### [Iteration 3 - Edit Mode & Error Handler](../../wiki/Iter3---Edit-Mode)
-
+### [Iteration 4 - Deliver the App](../../wiki/Iter4---Deliver-the-App)
 ### To see our project board, follow this [link](https://github.com/DavidDr90/Lets-Talk/projects/1)
 
 ### [Live](https://lets-talk-b433e.firebaseapp.com/)
@@ -69,22 +69,6 @@ We're trying to use the best tools and practices in order to produce a quality e
 | Security | [![Known Vulnerabilities](https://snyk.io/test/github/jce-il/project-template/badge.svg)](https://snyk.io/test/github/jce-il/project-template) |
 | Documnetation | [![Inline docs](http://inch-ci.org/github/jce-il/project-template.svg?branch=master)](http://inch-ci.org/github/jce-il/project-template) |
 | Project Course Status | ... |
-
-
-
-
-
-<!--### Project Documents
-- [Project Idea](docs/idea.pdf) ([Presentation](docs/idea-slides.pdf))
-- [Project Inception](../../wiki/inception)
-- [Software Requirements Specification](../../wiki/srs)
-- [Software Design Specification](../../wiki/sds)
-### Iteration Pages
-- [Iteration 0 - ZFR](../../wiki/iter0-zfr)
-- [Iteration 1 - MVP]()
-- [Iteration 2 - Feature X]()
-- [Iteration 3 - Feature Y]()
-- [Iteration 4 - Feature Z]()
 -->
 
 
