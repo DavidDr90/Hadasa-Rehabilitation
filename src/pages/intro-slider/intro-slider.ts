@@ -7,6 +7,7 @@ import { AboutMeFormPage } from '../about-me-form/about-me-form';
 import { User } from '../../models/user';
 import { ErrorProvider } from '../../providers/error/error';
 import { OurAppPage } from '../our-app/our-app';
+import * as firebase from 'firebase/app';
 
 
 @Component({
@@ -21,16 +22,26 @@ export class IntroSliderPage {
 
   constructor(private modal: ModalController, public navCtrl: NavController,
     public navParams: NavParams, public authentication: AutenticationProvider, private errorProvider: ErrorProvider) {
+    this.authentication.checkConnection();
     this.loading_sign = false;
     this.authentication.initApp();
+
+
   }
 
   ionViewDidLoad() {
   }
 
 
-  public async logIn() {
 
+  public async logIn() {
+    let connection = await this.authentication.checkConnection()
+    debugger
+    if(connection["connected"] != true)
+    {
+      this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
+      return
+    }
     if (!this.authentication.checkEmailValidity(this.user.email)) {
       this.errorProvider.simpleTosat(this.authentication.EMAIL_NOT_VALID_MESSAGE)
       return
@@ -64,7 +75,15 @@ export class IntroSliderPage {
 
 
 
-  public register() {
+  public async register() {
+
+      let connection = await this.authentication.checkConnection()
+      debugger
+      if(connection["connected"] != true)
+      {
+        this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
+        return
+      }
 
       if (!this.authentication.checkEmailValidity(this.user.email)) {
           this.errorProvider.simpleTosat(this.authentication.EMAIL_NOT_VALID_MESSAGE)
@@ -108,7 +127,16 @@ export class IntroSliderPage {
   
 
 
-  public resetPassword() {
+  public async resetPassword() {
+
+    let connection = await this.authentication.checkConnection()
+    debugger
+    if(connection["connected"] != true)
+    {
+      this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
+      return
+    }
+
     if (this.authentication.checkEmailValidity(this.user.email)) {
       let promise = this.authentication.resetPassword(this.user.email);
       promise.then(

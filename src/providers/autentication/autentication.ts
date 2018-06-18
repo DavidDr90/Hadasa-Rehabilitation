@@ -19,6 +19,7 @@ export class AutenticationProvider {
   public EMAIL_DOESNT_EXISTS_MESSAGE = "כתובת המייל שהוזנה איננה קיימת במערכת"
   public RESET_PASSWORD_SUCCESS_MESSAGE = "מייל לאיפוס סיסמה נשלח בהצלחה לכתובת שהוזנה"
   public EMAIL_ALREADY_EXISTS_MESSAGE = "כתובת המייל שהוזנה כבר קיימת במערכת"
+  public NO_INTERNET_CONNECTION_MESSAGE = "אין חיבור זמין לאינטרנט"
 
   constructor(public afAuth: AngularFireAuth) {}
 //This page written by Or Cohen
@@ -168,4 +169,26 @@ async registerNewUser(email, password) : Promise<any>
     return false;
   }
 
+
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  /* This function checks if the device connected to firebase */
+
+  public checkConnection()
+  {
+    return new Promise((resolve,reject) =>
+    {
+      debugger
+      var connectedRef = firebase.database().ref(".info/connected");
+      connectedRef.on("value", function(snap) {
+        if (snap.val() === true) {
+          debugger
+          resolve({connected:true})
+          
+        } else {
+          resolve({connected:false})
+        }
+      });
+    })
+  }
 }

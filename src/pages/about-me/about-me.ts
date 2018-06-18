@@ -34,7 +34,7 @@ export class AboutMePage {
     public modalCtrl: ModalController,
     public errorProvider: ErrorProvider ) {
     //getCategoriesByName return promise object
-    categoryProvider.setIncludeAboutMe(true);
+    // categoryProvider.setIncludeAboutMe(true);
     categoryProvider.updateCategoriesArray();
     let promise = categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);
     promise.then((data) => {
