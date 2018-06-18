@@ -2,14 +2,11 @@ import { Injectable } from '@angular/core';
 import { Category } from '../../models/Category';
 import { FirebaseProvider } from '../firebase/firebase';
 import { ErrorProvider } from '../error/error';
-import { UnsubscriptionError } from 'rxjs';
 import { AutenticationProvider } from '../autentication/autentication';
 import { LoadingController, Spinner } from 'ionic-angular';
 import { PhrasesProvider } from '../phrases/phrases';
-import { Phrase } from '../../models/Phrase';
 import { FavoriteProvider } from '../favorite/favorite';
 import { HomePage } from '../../pages/home/home';
-import { elementAt } from 'rxjs/operator/elementAt';
 import * as Enums from '../../consts/enums';
 
 
@@ -217,6 +214,10 @@ export class CategoryServiceProvider {
         this.arrangeCategoriesByOrder();
       })
     })
+  }
+
+  public setIncludeAboutMe(include: boolean){
+       this.includeAboutMe = include;
   }
 
 

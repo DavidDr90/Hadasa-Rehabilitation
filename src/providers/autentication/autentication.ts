@@ -8,7 +8,7 @@ import { User } from '@firebase/auth-types';
 @Injectable()
 export class AutenticationProvider {
 
-  user : User;
+  user: User;
   loggedIn: boolean
 
   public SHOULD_VERIFY_MESSAGE = "אנא אמת את המייל שהזנת על ידי כניסה לקישור שנשלח למייל "
@@ -21,79 +21,67 @@ export class AutenticationProvider {
   public EMAIL_ALREADY_EXISTS_MESSAGE = "כתובת המייל שהוזנה כבר קיימת במערכת"
   public NO_INTERNET_CONNECTION_MESSAGE = "אין חיבור זמין לאינטרנט"
 
-  constructor(public afAuth: AngularFireAuth) {}
-//This page written by Or Cohen
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  constructor(public afAuth: AngularFireAuth) { }
+  //This page written by Or Cohen
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-/* This function connects firebase authentication
-*  with the email and password arguments and connects the user.
-*/
-async signIn(email, password): Promise<any>
-{
+  /* This function connects firebase authentication
+  *  with the email and password arguments and connects the user.
+  */
+  async signIn(email, password): Promise<any> {
     return new Promise(
-      async (resolve,reject) =>
-      {
+      async (resolve, reject) => {
         await this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
-          async success =>
-          {  
+          async success => {
             await this.getCurrentUser.reload()
             this.getCurrentUser.getToken(true)
             resolve(success)
           },
-          failed =>
-          {
+          failed => {
             reject(failed)
           }
         ).catch(
-          err =>
-          {
+          err => {
             reject(err)
           }
         )
       })
-}
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-/* This function registering a new user
-*  with the email and password arguments and connects the user.
-*/
-async registerNewUser(email, password) : Promise<any>
-{
-  return new Promise(
-    async (resolve,reject) =>
-    {
-      
-      await await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
-        success =>
-        {
-          resolve(success)
-        },
-        failed =>
-        {
-          reject(failed)
-        }
-      ).catch(
-        err =>
-        {
-          reject(err)
-        }
-      )
-    })    
   }
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+  /* This function registering a new user
+  *  with the email and password arguments and connects the user.
+  */
+  async registerNewUser(email, password): Promise<any> {
+    return new Promise(
+      async (resolve, reject) => {
+
+        await await this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
+          success => {
+            resolve(success)
+          },
+          failed => {
+            reject(failed)
+          }
+        ).catch(
+          err => {
+            reject(err)
+          }
+        )
+      })
+  }
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   // This function called when the user click logOut and disconnects the user.
-  async logOut()
-  {
+  async logOut() {
     firebase.auth().signOut();
   }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* this function called on init-app and checks the state of the user.
   *  if the user is connected and verified email then it sets the user variable.
   */
-  
-  public initApp() 
-  {
+
+  public initApp() {
     firebase.auth().onAuthStateChanged((user) => {
       // User is signed in.
       if (user && user.emailVerified) {
@@ -102,68 +90,65 @@ async registerNewUser(email, password) : Promise<any>
     });
   }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function returns if the user is logged-in or not.*/
 
   public isLoggedIn() {
-    if(this.getCurrentUser)
+    if (this.getCurrentUser)
       return true
     return false;
   }
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function sends a reset-password mail to the email input.*/
 
-  public resetPassword(email: string){
+  public resetPassword(email: string) {
     var auth = firebase.auth();
     return auth.sendPasswordResetEmail(email)
 
   }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function returns the displayName of the user.*/
 
-  public get getUserName(){
+  public get getUserName() {
     return this.afAuth.auth.currentUser.displayName;
   }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function returns the Email of the user.*/
 
-  public get getUserEmail(){
+  public get getUserEmail() {
     return this.afAuth.auth.currentUser.email;
   }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function returns the user object.*/
 
-  public get getCurrentUser(){
+  public get getCurrentUser() {
     return this.afAuth.auth.currentUser;
   }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function returns if this user (email) is verified.*/
-  public isVerified()
-  {
-    return(firebase.auth().currentUser.emailVerified)
+  public isVerified() {
+    return (firebase.auth().currentUser.emailVerified)
   }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function checks if the email is valid and returns true or false.*/
 
-  public checkEmailValidity(email)
-  {
-    let emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"; 
+  public checkEmailValidity(email) {
+    let emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
     var re = new RegExp(emailPattern);
-    return (re.test(email)) 
+    return (re.test(email))
   }
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function checks if the password is valid (atleast 6 digits) and returns true or false.*/
 
-  public checkPasswordValidity(password)
-  {
+  public checkPasswordValidity(password) {
     if (password && password.length >= 6)
       return true
     return false;
@@ -171,22 +156,18 @@ async registerNewUser(email, password) : Promise<any>
 
 
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  // ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
   /* This function checks if the device connected to firebase */
 
-  public checkConnection()
-  {
-    return new Promise((resolve,reject) =>
-    {
-      debugger
+  public checkConnection() {
+    return new Promise((resolve, reject) => {
       var connectedRef = firebase.database().ref(".info/connected");
-      connectedRef.on("value", function(snap) {
+      connectedRef.on("value", function (snap) {
         if (snap.val() === true) {
-          debugger
-          resolve({connected:true})
-          
+          resolve({ connected: true })
+
         } else {
-          resolve({connected:false})
+          resolve({ connected: false })
         }
       });
     })
