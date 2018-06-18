@@ -32,14 +32,14 @@ export class CategoriesPage {
 
     
 
-    // this.categoryService.setIncludeAboutMe(false); //we ignore aboutMe category on this page
+    this.categoryService.setIncludeAboutMe(false); //we ignore aboutMe category on this page
     this.categoryService.updateCategoriesArray();
     this.favProvider = new FavoriteProvider(HomePage.favClass);
 
   }
 
   ionViewWillEnter() { //we ignore aboutMe category on this page
-    // this.categoryService.setIncludeAboutMe(false);
+    this.categoryService.setIncludeAboutMe(false);
     this.categoryService.updateCategoriesArray();
   }
 
@@ -82,14 +82,14 @@ export class CategoriesPage {
       this.editFlag = false;
       this.editButtonName = "עריכה";
       //we ignore aboutMe category on this page
-      // this.categoryService.setIncludeAboutMe(false);
+      this.categoryService.setIncludeAboutMe(false);
       await this.categoryService.updateCategoriesArray(); //update DB
  
     } else {
       this.editFlag = true;
       this.editButtonName = "סיים";
       //we ignore aboutMe category on this page
-      // this.categoryService.setIncludeAboutMe(false);
+      this.categoryService.setIncludeAboutMe(false);
       await this.categoryService.updateCategoriesArray(); //update DB
     }
 
@@ -104,7 +104,7 @@ export class CategoriesPage {
     console.log("edit -reorder");
     console.log("from: " + index.from);
     console.log("to: " + index.to);
-    // this.categoryService.setIncludeAboutMe(false);
+    this.categoryService.setIncludeAboutMe(false);
     let temp = await this.categoryService.getCategories;
     //we ignore aboutMe category on this page
     let aboutMe = temp.find(cat => cat.name == Enums.ABOUT_ME_STRING);

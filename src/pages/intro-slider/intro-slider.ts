@@ -36,9 +36,7 @@ export class IntroSliderPage {
 
   public async logIn() {
     let connection = await this.authentication.checkConnection()
-    debugger
-    if(connection["connected"] != true)
-    {
+    if (connection["connected"] != true) {
       this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
       return
     }
@@ -65,74 +63,65 @@ export class IntroSliderPage {
       failed => {
         this.errorProvider.simpleTosat(this.authentication.EMAIL_OR_PASSWORD_WRONG_MESSAGE)
       }).catch(
-        error =>
-        {
+        error => {
           this.errorProvider.simpleTosat(this.authentication.EMAIL_OR_PASSWORD_WRONG_MESSAGE)
         }
       )
   }
-  
+
 
 
 
   public async register() {
 
-      let connection = await this.authentication.checkConnection()
-      debugger
-      if(connection["connected"] != true)
-      {
-        this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
-        return
-      }
-
-      if (!this.authentication.checkEmailValidity(this.user.email)) {
-          this.errorProvider.simpleTosat(this.authentication.EMAIL_NOT_VALID_MESSAGE)
-          return
-        }
-
-      if (!this.authentication.checkPasswordValidity(this.user.password)) {
-        this.errorProvider.simpleTosat(this.authentication.PASSWORD_NOT_VALID_MESSAGE)
-        return
-      }
-      let registered = this.authentication.registerNewUser(this.user.email, this.user.password);
-      registered.then(
-        success => {
-          this.authentication.afAuth.auth.currentUser.sendEmailVerification().then(
-            (send_mail_success) =>
-            {
-              // this.errorProvider.simpleTosat(this.authentication.SHOULD_VERIFY_MESSAGE)
-              let wait_promise = this.errorProvider.waitAlert("אימות אימייל", this.authentication.SHOULD_VERIFY_MESSAGE)
-              wait_promise.then(async () => {
-                await this.authentication.getCurrentUser.reload()
-                this.authentication.getCurrentUser.getToken(true)
-              })
-            },
-            (send_mail_failed) =>
-            {
-              this.errorProvider.simpleTosat(this.authentication.ERROR_SENDING_VERIFY_MESSAGE)
-            })         
-        },
-        failed => 
-        {
-          this.errorProvider.simpleTosat(this.authentication.EMAIL_ALREADY_EXISTS_MESSAGE)
-        }).catch(
-          error =>
-          {
-            this.errorProvider.simpleTosat(this.authentication.EMAIL_ALREADY_EXISTS_MESSAGE)
-          }
-        )
+    let connection = await this.authentication.checkConnection()
+    if (connection["connected"] != true) {
+      this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
+      return
     }
 
+    if (!this.authentication.checkEmailValidity(this.user.email)) {
+      this.errorProvider.simpleTosat(this.authentication.EMAIL_NOT_VALID_MESSAGE)
+      return
+    }
 
-  
+    if (!this.authentication.checkPasswordValidity(this.user.password)) {
+      this.errorProvider.simpleTosat(this.authentication.PASSWORD_NOT_VALID_MESSAGE)
+      return
+    }
+    let registered = this.authentication.registerNewUser(this.user.email, this.user.password);
+    registered.then(
+      success => {
+        this.authentication.afAuth.auth.currentUser.sendEmailVerification().then(
+          (send_mail_success) => {
+            // this.errorProvider.simpleTosat(this.authentication.SHOULD_VERIFY_MESSAGE)
+            let wait_promise = this.errorProvider.waitAlert("אימות אימייל", this.authentication.SHOULD_VERIFY_MESSAGE)
+            wait_promise.then(async () => {
+              await this.authentication.getCurrentUser.reload()
+              this.authentication.getCurrentUser.getToken(true)
+            })
+          },
+          (send_mail_failed) => {
+            this.errorProvider.simpleTosat(this.authentication.ERROR_SENDING_VERIFY_MESSAGE)
+          })
+      },
+      failed => {
+        this.errorProvider.simpleTosat(this.authentication.EMAIL_ALREADY_EXISTS_MESSAGE)
+      }).catch(
+        error => {
+          this.errorProvider.simpleTosat(this.authentication.EMAIL_ALREADY_EXISTS_MESSAGE)
+        }
+      )
+  }
+
+
+
 
 
   public async resetPassword() {
 
     let connection = await this.authentication.checkConnection()
-    debugger
-    if(connection["connected"] != true)
-    {
+    if (connection["connected"] != true) {
       this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
       return
     }
