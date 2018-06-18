@@ -21,7 +21,7 @@ export class AppBuilderProvider {
   public loading;
   public load_counter = 0;
 
-  constructor(public categoryProvider: CategoryServiceProvider, public phraseProvider: PhrasesProvider, public loadingCtrl:LoadingController) {
+  constructor(public categoryProvider: CategoryServiceProvider, public phraseProvider: PhrasesProvider, public loadingCtrl: LoadingController) {
     this.userEmail = HomePage.userEmail;
   }
 
@@ -37,28 +37,28 @@ export class AppBuilderProvider {
   add_new_cat_to_db(category: Category, phrases: Phrase[], subCat: Category[], subPhrases: Phrase[][], subFlag: number) {
     let catId: string;
     let promise;
-    this.categoryProvider.addCategory(category,true).then(()=>{
-      if (subFlag == 1) 
+    this.categoryProvider.addCategory(category, true).then(() => {
+      if (subFlag == 1)
         promise = this.categoryProvider.getSubCategoryByName(category.parentCategoryID, category.name);
       else
-        promise = this.categoryProvider.getCategoryByName(category.name);  
+        promise = this.categoryProvider.getCategoryByName(category.name);
       promise.then((data) => {
         catId = data.id;
         for (let i = 0; i < phrases.length; i++) {
           phrases[i].order = i;
           phrases[i].categoryID = catId;
-          this.phraseProvider.addPhrase(phrases[i],true);
+          this.phraseProvider.addPhrase(phrases[i], true);
         }
         for (let i = 0; i < subCat.length; i++) {
           subCat[i].order = i;
           subCat[i].parentCategoryID = catId;
           this.add_new_cat_to_db(subCat[i], subPhrases[i], [], [], 1)
         }
-        
+
       })
       this.load_counter++;
-      if(this.load_counter == NUM_OF_DEF_CAT){
-        this.load_counter=0;
+      if (this.load_counter == NUM_OF_DEF_CAT) {
+        this.load_counter = 0;
         this.loading.dismiss();
       }
     })
@@ -72,7 +72,7 @@ export class AppBuilderProvider {
     this.loading = this.loadingCtrl.create({
       content: 'אנא המתן'
     });
-   this.loading.present();
+    this.loading.present();
     let cat;
     let phrases
     let subCats;
@@ -99,7 +99,7 @@ export class AppBuilderProvider {
         new Phrase("", "שישי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%A9%D7%99%D7%A9%D7%99.mp3?alt=media&token=49eef202-a932-43f9-b47c-40e829a43a0a", false, 0, true),
         new Phrase("", "שבת", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%A9%D7%91%D7%AA.mp3?alt=media&token=36b85562-ba44-403d-b9ef-0e55c6d0d389", false, 0, true),
         new Phrase("", "אתמול", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2F%25E2%2580%258F%25E2%2580%258Fprev.PNG?alt=media&token=8bf07686-f0ec-41e3-ab08-6a6fca246ce2", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%90%D7%AA%D7%9E%D7%95%D7%9C.mp3?alt=media&token=93f4a3ae-b03d-494b-b406-263681fe7bd3", false, 0, true),
-        new Phrase("", "היום", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%94%D7%99%D7%95%D7%9D.mp3?alt=media&token=d381aa27-eed2-4d9c-a6ce-502720e8034c", false, 0, true);
+        new Phrase("", "היום", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%94%D7%99%D7%95%D7%9D.mp3?alt=media&token=d381aa27-eed2-4d9c-a6ce-502720e8034c", false, 0, true),
         new Phrase("", "מחר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fnext.PNG?alt=media&token=c5f2afab-f60f-4a45-adc8-681b490f5d59", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%9E%D7%97%D7%A8.mp3?alt=media&token=101f7451-b391-46a1-825b-dfae6823d28d", false, 0, true),
         new Phrase("", "שבוע שעבר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2F%25E2%2580%258F%25E2%2580%258Fprev.PNG?alt=media&token=8bf07686-f0ec-41e3-ab08-6a6fca246ce2", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%A9%D7%91%D7%95%D7%A2%20%D7%A9%D7%A2%D7%91%D7%A8.mp3?alt=media&token=8e6f32be-f234-4860-9e5f-c60691883296", false, 0, true),
         new Phrase("", "שבוע הבא", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fnext.PNG?alt=media&token=c5f2afab-f60f-4a45-adc8-681b490f5d59", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%A9%D7%91%D7%95%D7%A2%20%D7%94%D7%91%D7%90.mp3?alt=media&token=5a8a98a3-cc2e-4929-b50a-5d85d00378f6", false, 0, true),
@@ -124,7 +124,7 @@ export class AppBuilderProvider {
       ],
 
       [
-        
+
         new Phrase("", "ינואר - 1", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%99%D7%A0%D7%95%D7%90%D7%A8.mp3?alt=media&token=8d993b7e-10e6-42ce-a6f5-98ef1a0b3bd8", false, 0, true),
         new Phrase("", "פברואר - 2", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%A4%D7%91%D7%A8%D7%95%D7%90%D7%A8.mp3?alt=media&token=dd89d6d1-51c9-44cb-b56b-4d32de429ab6", false, 0, true),
         new Phrase("", "מרץ - 3", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%9E%D7%A8%D7%A5.mp3?alt=media&token=9c14eddd-44d6-45d7-89fc-2f54f282535b", false, 0, true),
@@ -386,57 +386,54 @@ export class AppBuilderProvider {
 
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
 
-       //FEELINGS CATEGORY
-       cat = new Category("רגשות", "", "", this.userEmail, "", 0, false, null, 3, true)
+    //FEELINGS CATEGORY
+    cat = new Category("רגשות", "", "", this.userEmail, "", 0, false, null, 3, true)
 
-       phrases = [
-         new Phrase("", "שמחה", "", "", 0, "", false, 0, true),
-         new Phrase("", "אהבה", "", "", 0, "", false, 0, true),
-         new Phrase("", "רוגע", "", "", 0, "", false, 0, true),
-         new Phrase("", "הפתעה", "", "", 0, "", false, 0, true),
-         new Phrase("", "גאווה", "", "", 0, "", false, 0, true),
-         new Phrase("", "אדישות", "", "", 0, "", false, 0, true),
-         new Phrase("", "עצב", "", "", 0, "", false, 0, true),
-         new Phrase("", "כעס", "", "", 0, "", false, 0, true),
-         new Phrase("", "בלבול", "", "", 0, "", false, 0, true),      new Phrase("", "שמחה", "", "", 0, "", false, 0, true),
-         new Phrase("", "קנאה", "", "", 0, "", false, 0, true),
-         new Phrase("", "עצבנות", "", "", 0, "", false, 0, true),
-         new Phrase("", "דאגה", "", "", 0, "", false, 0, true),
-         new Phrase("", "מבוכה", "", "", 0, "", false, 0, true),
-         new Phrase("", "אכזבה", "", "", 0, "", false, 0, true),
-         new Phrase("", "בהלה", "", "", 0, "", false, 0, true)
-       ];
-      this.add_new_cat_to_db(cat, phrases, [], [], 0)
-   
-   //NUMBERS CATEGORY
-   cat = new Category("מספרים", "", "", this.userEmail, "", 0, false, null, 3, true)
-   
-   phrases = [
-     new Phrase("", "אחד", "", "", 0, "", false, 0, true),
-     new Phrase("", "שתיים", "", "", 0, "", false, 0, true),
-     new Phrase("", "שלוש", "", "", 0, "", false, 0, true),
-     new Phrase("", "ארבע", "", "", 0, "", false, 0, true),
-     new Phrase("", "חמש", "", "", 0, "", false, 0, true),
-     new Phrase("", "שש", "", "", 0, "", false, 0, true),
-     new Phrase("", "שבע", "", "", 0, "", false, 0, true),
-     new Phrase("", "שמונה", "", "", 0, "", false, 0, true),
-     new Phrase("", "תשע", "", "", 0, "", false, 0, true),
-     new Phrase("", "עשר", "", "", 0, "", false, 0, true),
-     new Phrase("", "עשרים", "", "", 0, "", false, 0, true),
-     new Phrase("", "שלושים", "", "", 0, "", false, 0, true),
-     new Phrase("", "ארבעים", "", "", 0, "", false, 0, true),
-     new Phrase("", "חמישים", "", "", 0, "", false, 0, true),
-     new Phrase("", "שישים", "", "", 0, "", false, 0, true),
-     new Phrase("", "שבעים", "", "", 0, "", false, 0, true),
-     new Phrase("", "שמונים", "", "", 0, "", false, 0, true),
-     new Phrase("", "תשעים", "", "", 0, "", false, 0, true),
-     new Phrase("", "מאה", "", "", 0, "", false, 0, true),
-   ];
-   
-   this.add_new_cat_to_db(cat, phrases, [], [], 0)
-   
-   
-   
+    phrases = [
+      new Phrase("", "שמחה", "", "", 0, "", false, 0, true),
+      new Phrase("", "אהבה", "", "", 0, "", false, 0, true),
+      new Phrase("", "רוגע", "", "", 0, "", false, 0, true),
+      new Phrase("", "הפתעה", "", "", 0, "", false, 0, true),
+      new Phrase("", "גאווה", "", "", 0, "", false, 0, true),
+      new Phrase("", "אדישות", "", "", 0, "", false, 0, true),
+      new Phrase("", "עצב", "", "", 0, "", false, 0, true),
+      new Phrase("", "כעס", "", "", 0, "", false, 0, true),
+      new Phrase("", "בלבול", "", "", 0, "", false, 0, true), new Phrase("", "שמחה", "", "", 0, "", false, 0, true),
+      new Phrase("", "קנאה", "", "", 0, "", false, 0, true),
+      new Phrase("", "עצבנות", "", "", 0, "", false, 0, true),
+      new Phrase("", "דאגה", "", "", 0, "", false, 0, true),
+      new Phrase("", "מבוכה", "", "", 0, "", false, 0, true),
+      new Phrase("", "אכזבה", "", "", 0, "", false, 0, true),
+      new Phrase("", "בהלה", "", "", 0, "", false, 0, true)
+    ];
+    this.add_new_cat_to_db(cat, phrases, [], [], 0)
+
+    //NUMBERS CATEGORY
+    cat = new Category("מספרים", "", "", this.userEmail, "", 0, false, null, 3, true)
+
+    phrases = [
+      new Phrase("", "אחד", "", "", 0, "", false, 0, true),
+      new Phrase("", "שתיים", "", "", 0, "", false, 0, true),
+      new Phrase("", "שלוש", "", "", 0, "", false, 0, true),
+      new Phrase("", "ארבע", "", "", 0, "", false, 0, true),
+      new Phrase("", "חמש", "", "", 0, "", false, 0, true),
+      new Phrase("", "שש", "", "", 0, "", false, 0, true),
+      new Phrase("", "שבע", "", "", 0, "", false, 0, true),
+      new Phrase("", "שמונה", "", "", 0, "", false, 0, true),
+      new Phrase("", "תשע", "", "", 0, "", false, 0, true),
+      new Phrase("", "עשר", "", "", 0, "", false, 0, true),
+      new Phrase("", "עשרים", "", "", 0, "", false, 0, true),
+      new Phrase("", "שלושים", "", "", 0, "", false, 0, true),
+      new Phrase("", "ארבעים", "", "", 0, "", false, 0, true),
+      new Phrase("", "חמישים", "", "", 0, "", false, 0, true),
+      new Phrase("", "שישים", "", "", 0, "", false, 0, true),
+      new Phrase("", "שבעים", "", "", 0, "", false, 0, true),
+      new Phrase("", "שמונים", "", "", 0, "", false, 0, true),
+      new Phrase("", "תשעים", "", "", 0, "", false, 0, true),
+      new Phrase("", "מאה", "", "", 0, "", false, 0, true),
+    ];
+
+    this.add_new_cat_to_db(cat, phrases, [], [], 0)
 
     //PERSONAL STUFF CATEGORY
     cat = new Category("חפצים אישיים", "", "", this.userEmail, "", 0, false, null, 4, true)
@@ -485,7 +482,7 @@ export class AppBuilderProvider {
       ],
 
       [
-        new Phrase("", "כאב בטן","",  "", 0, "", false, 0, true),
+        new Phrase("", "כאב בטן", "", "", 0, "", false, 0, true),
         new Phrase("", "הקאות", "", "", 0, "", false, 0, true),
         new Phrase("", "שלשולים", "", "", 0, "", false, 0, true),
         new Phrase("", "כאבי מחזור", "", "", 0, "", false, 0, true)
@@ -534,6 +531,56 @@ export class AppBuilderProvider {
     ];
 
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
+
+
+    //Travel
+    cat = new Category("נסיעות", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fdestination.PNG?alt=media&token=1f05a094-877e-4a30-aeb4-0ea685cadc53", this.userEmail, "", 0, false, null, 5, true)
+
+    phrases = [
+      new Phrase("", "כיצד מגיעים ליעד?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fdestination.PNG?alt=media&token=1f05a094-877e-4a30-aeb4-0ea685cadc53", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2F%D7%9B%D7%99%D7%A6%D7%93%20%D7%9E%D7%92%D7%99%D7%A2%D7%99%D7%9D%20%D7%9C%D7%99%D7%A2%D7%93%20(1).mp3?alt=media&token=8d7ecba2-2ae6-4488-b8d4-682e39a67529", false, 0, true),
+      new Phrase("", "כמה עולה הנסיעה?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fcost.PNG?alt=media&token=b4642c22-c838-45f1-8409-4f66ada76da3", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2F%D7%9B%D7%9E%D7%94%20%D7%A2%D7%95%D7%9C%D7%94%20%D7%94%D7%A0%D7%A1%D7%99%D7%A2%D7%94.mp3?alt=media&token=ca91ee5d-d667-4760-a8d4-37e90044771e", false, 0, true),
+    ];
+
+    subCats = [
+      new Category("רכב פרטי", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("אוטובוס", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fbus.PNG?alt=media&token=1e184ef9-452f-4f5d-a322-761bfbebfdb6", this.userEmail, "", 0, false, null, 1, true),
+      new Category("רכבת", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Ftrain.PNG?alt=media&token=42334b08-0b56-4ca7-9f42-c49bce05f7a5", this.userEmail, "", 0, false, null, 2, true),
+      new Category("מונית", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Ftaxi.PNG?alt=media&token=86c816d9-24b2-49e2-a559-7a4b8c58215a", this.userEmail, "", 0, false, null, 3, true),
+    ]
+
+    subPhrases = [
+      [
+        new Phrase("", "היכן תחנת הדלק הקרובה?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Fcar%2F%D7%94%D7%99%D7%9B%D7%9F%20%D7%AA%D7%97%D7%A0%D7%AA%20%D7%94%D7%93%D7%9C%D7%A7%20%D7%94%D7%A7%D7%A8%D7%95%D7%91%D7%94.mp3?alt=media&token=b173e0e2-2014-4ba2-96c3-f1672c7b762b", false, 0, true),
+        new Phrase("", "צריך טרמפ?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Fcar%2F%D7%A6%D7%A8%D7%99%D7%9A%20%D7%98%D7%A8%D7%9E%D7%A4.mp3?alt=media&token=e986a3ad-ca87-4e91-a5cc-8ae51dcf5876", false, 0, true),
+        new Phrase("", "צריכה טרמפ?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Fcar%2F%D7%A6%D7%A8%D7%99%D7%9B%D7%94%20%D7%98%D7%A8%D7%9E%D7%A4.mp3?alt=media&token=56688c2a-dd95-49b5-89ea-f811462f1755", false, 0, true),
+        new Phrase("", "היכן המוסך הקרוב?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Fcar%2F%D7%94%D7%99%D7%9B%D7%9F%20%D7%94%D7%9E%D7%95%D7%A1%D7%9A%20%D7%94%D7%A7%D7%A8%D7%95%D7%91.mp3?alt=media&token=c16906e2-5202-4bac-9eca-22e014344d9d", false, 0, true)
+      ],
+
+      [
+        new Phrase("", "היכן תחנת האוטובוס?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fbus-station.PNG?alt=media&token=c26b6f69-a184-427b-8e04-a9d369796380", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Fbus%2F%D7%94%D7%99%D7%9B%D7%9F%20%D7%AA%D7%97%D7%A0%D7%AA%20%D7%94%D7%90%D7%95%D7%98%D7%95%D7%91%D7%95%D7%A1.mp3?alt=media&token=afc457cd-015e-4832-9d86-3906d882f43e", false, 0, true),
+        new Phrase("", "מתי האוטובוס הבא יגיע?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fclock.PNG?alt=media&token=2f3ed60a-5e35-4fd6-ae51-053e0568942b", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Fbus%2F%D7%9E%D7%AA%D7%99%20%D7%94%D7%90%D7%95%D7%98%D7%95%D7%91%D7%A1%20%D7%94%D7%91%D7%90%20%D7%99%D7%92%D7%99%D7%A2.mp3?alt=media&token=da3a99b3-2e58-4324-adb7-92b636d4e5df", false, 0, true),
+        new Phrase("", "באיזו תחנה לרדת?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fbus-station.PNG?alt=media&token=c26b6f69-a184-427b-8e04-a9d369796380", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Fbus%2F%D7%91%D7%90%D7%99%D7%96%D7%95%20%D7%AA%D7%97%D7%A0%D7%94%20%D7%9C%D7%A8%D7%93%D7%AA.mp3?alt=media&token=43b22d66-e214-4d87-848d-12496ebb48f9", false, 0, true),
+      ],
+
+      [
+        new Phrase("", "היכן תחנת הרכבת?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Ftrain.PNG?alt=media&token=42334b08-0b56-4ca7-9f42-c49bce05f7a5", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftrain%2F%D7%94%D7%99%D7%9B%D7%9F%20%D7%AA%D7%97%D7%A0%D7%AA%20%D7%94%D7%A8%D7%9B%D7%91%D7%AA.mp3?alt=media&token=ced9a44a-15e9-457c-aa7a-002fb58ecec1", false, 0, true),
+        new Phrase("", "מתי הרכבת הבאה תגיע?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fclock.PNG?alt=media&token=2f3ed60a-5e35-4fd6-ae51-053e0568942b", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftrain%2F%D7%9E%D7%AA%D7%99%20%D7%94%D7%A8%D7%9B%D7%91%D7%AA%20%D7%94%D7%91%D7%90%D7%94%20%D7%AA%D7%92%D7%99%D7%A2.mp3?alt=media&token=39a90661-2f75-4cea-93fe-bcd0420546db", false, 0, true),
+        new Phrase("", "באיזו תחנה לרדת?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Ftrain_station.PNG?alt=media&token=7283ec4e-a88a-4055-a4f6-9101104d66fd", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftrain%2F%D7%91%D7%90%D7%99%D7%96%D7%95%25%D7%AA%D7%97%D7%A0%D7%94%25%D7%9C%D7%A8%D7%93%D7%AA.mp3?alt=media&token=e10b67b2-5362-4dd4-8aed-0fe120255e88", false, 0, true)
+      ],
+
+      [
+        new Phrase("", "אני רוצה להזמין מונית", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Ftaxi.PNG?alt=media&token=86c816d9-24b2-49e2-a559-7a4b8c58215a", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftaxi%2F%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%94%D7%96%D7%9E%D7%99%D7%9F%20%D7%9E%D7%95%D7%A0%D7%99%D7%AA.mp3?alt=media&token=fb240efc-9a06-4836-ae2a-bd1b1081d462", false, 0, true),
+        new Phrase("", "אתה יכול להפעיל מונה?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fcost.PNG?alt=media&token=b4642c22-c838-45f1-8409-4f66ada76da3", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftaxi%2F%D7%90%D7%AA%D7%94%20%D7%99%D7%9B%D7%95%D7%9C%20%D7%9C%D7%94%D7%A4%D7%A2%D7%99%D7%9C%20%D7%9E%D7%95%D7%A0%D7%94.mp3?alt=media&token=9a4e6009-c811-446b-8b7b-9b1d008e074c", false, 0, true),
+        new Phrase("", "אצטרך עצירה נוספת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fdestination.PNG?alt=media&token=1f05a094-877e-4a30-aeb4-0ea685cadc53", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftaxi%2F%D7%90%D7%A6%D7%98%D7%A8%D7%9A%20%D7%A2%D7%A6%D7%99%D7%A8%D7%94%20%D7%A0%D7%95%D7%A1%D7%A4%D7%AA.mp3?alt=media&token=17dba32c-f268-46a2-a204-fd6cbc25e810", false, 0, true),
+        new Phrase("", "אני צריך להגיע ל....", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fdestination.PNG?alt=media&token=1f05a094-877e-4a30-aeb4-0ea685cadc53", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftaxi%2F%D7%90%D7%A0%D7%99%20%D7%A6%D7%A8%D7%99%D7%9A%20%D7%9C%D7%94%D7%92%D7%99%D7%A2%20%D7%9C.mp3?alt=media&token=93084297-0f76-4541-8217-81158647698a", false, 0, true), new Phrase("", "", "", "", 0, "", false, 0, true),
+        new Phrase("", "כמה אני צריך לשלם?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fcost.PNG?alt=media&token=b4642c22-c838-45f1-8409-4f66ada76da3", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftaxi%2F%D7%9B%D7%9E%D7%94%20%D7%90%D7%A0%D7%99%20%D7%A6%D7%A8%D7%99%D7%9A%20%D7%9C%D7%A9%D7%9C%D7%9D.mp3?alt=media&token=40fb1df9-cc9e-4bbd-9dd2-f7c9dd6a4910", false, 0, true),
+        new Phrase("", "אתה מקבל כרטיס אשראי?", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Fimages%2Fcost.PNG?alt=media&token=b4642c22-c838-45f1-8409-4f66ada76da3", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftravel%2Faudio%2Ftaxi%2F%D7%90%D7%AA%D7%94%20%D7%9E%D7%A7%D7%91%D7%9C%20%D7%9B%D7%A8%D7%98%D7%99%D7%A1%20%D7%90%D7%A9%D7%A8%D7%90%D7%99.mp3?alt=media&token=52e750f2-4146-4a32-8b3a-861a414e5aeb", false, 0, true),
+      ],
+    ];
+
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, 0);
+
+
   }
 
 
