@@ -33,9 +33,9 @@ export class AboutMePage {
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public errorProvider: ErrorProvider ) {
-    //getCategoriesByName return promise object
     categoryProvider.setIncludeAboutMe(true);
     categoryProvider.updateCategoriesArray();
+    //getCategoriesByName return promise object
     let promise = categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);
     promise.then((data) => {
       this.aboutMeCategory = data;
@@ -63,7 +63,7 @@ export class AboutMePage {
       this.phrases = data;
       this.phrasesProvider.phrases = data;
     })
-
+    this.categoryProvider.setIncludeAboutMe(true);
     let promise1 = this.categoryProvider.updateCategoriesArray();
     promise1.then((data) => {
       this.subCategories = data.filter(cat => cat.parentCategoryID == this.aboutMeCategory.id);

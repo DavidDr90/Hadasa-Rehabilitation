@@ -177,7 +177,7 @@ export class CategoryServiceProvider {
    * the method know to handle if the wanted remove category is sub-category.
    * @param category category to remove.
    */
-  removeCategory(category: Category) {
+  public removeCategory(category: Category) {
     let favoriteProvider = new FavoriteProvider(HomePage.favClass)
     let promise = this.phrasesProvider.getPhrases(category);
     promise.then((data) => {
@@ -216,11 +216,6 @@ export class CategoryServiceProvider {
     })
   }
 
-  public setIncludeAboutMe(include: boolean){
-       this.includeAboutMe = include;
-  }
-
-
   //SETTERS
   public setName(category: Category, newName: string) {
     category.name = newName;
@@ -242,6 +237,14 @@ export class CategoryServiceProvider {
   public increaseViews(category: Category) {
     category.views++;
     this.firebaseProvider.updateCategory(category)
+  }
+
+  public setIncludeAboutMe(include: boolean){
+    this.includeAboutMe = include;
+  }
+
+  public updateCategory(category: Category){
+    this.firebaseProvider.updateCategory(category);
   }
 
   public setOrder(category: Category, order: number) {

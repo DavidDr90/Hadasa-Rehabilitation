@@ -101,9 +101,7 @@ export class CategoriesPage {
    * @param index used to get element original and new positions from the HTML
    */
   async reorderItem(index) {
-    console.log("edit -reorder");
-    console.log("from: " + index.from);
-    console.log("to: " + index.to);
+    console.log("edit -reorder from: " + index.from + "to: " + index.to);
     this.categoryService.setIncludeAboutMe(false);
     let temp = await this.categoryService.getCategories;
     //we ignore aboutMe category on this page
@@ -115,14 +113,12 @@ export class CategoriesPage {
     }
     let catArray = temp as Category[];
     console.log("size: " + catArray.length);
-
-    catArray = reorderArray(catArray, index);
-    for(var i = 0; i < catArray.length; i++){
-      console.log("i: " + i);
+    catArray = reorderArray(catArray, index);//reordering array
+    //updating each category order field according to its array position
+    for(var i = 0; i < catArray.length; i++){ 
       await this.categoryService.setOrder(catArray[i], i + 1);   
-      console.log("done with i: " + i);   
-    }
-         
+      console.log("updated i: " + i);   
+    }       
   }
 
   editCategory(item) {
@@ -131,6 +127,20 @@ export class CategoriesPage {
      * then allow the user to change any filed
      * in the end save the changes and update all the arrays and DB
      */
+    let categoryToEdit = item as Category;
+    let addModal = this.modalCtrl.create(AddPhrasePage,
+      {
+        'fromWhere': Enums.ADD_OPTIONS.CATEGORY,
+        'categoryID': categoryToEdit.id,
+        'editCategory': true,
+        'categoryToEdit': item,
+      });
+    addModal.onDidDismiss(item => {
+      if (item) {//if there is an object that return from the form
+        this.categoryService.addCategory(item);//upload the new category to the DB
+      }
+    })
+    addModal.present();//present the addPhrasePage
     console.log("edit -contents");
     console.log(item);
   }

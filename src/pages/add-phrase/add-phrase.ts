@@ -49,6 +49,9 @@ export class AddPhrasePage {
 
   private pleaseWaitLoadingWindow: any;
   private isCategory: boolean = true;
+  private isEditCategory: boolean = false;
+  private isEditPhrase: boolean = false;
+  private categoryToEdit: Category;
 
   private _myForm: FormGroup;
   private _curserPosition;
@@ -84,7 +87,7 @@ export class AddPhrasePage {
     public navParams: NavParams,
     public authentication: AutenticationProvider,
     public errorProvider: ErrorProvider,
-    public categoryProvaider: CategoryServiceProvider,
+    public categoryProvider: CategoryServiceProvider,
     public loadingCtrl: LoadingController,
     public media: Media,
     public base64: Base64,
@@ -112,27 +115,41 @@ export class AddPhrasePage {
       "audioFile": [''],//the path to the phrase's audio file
     });
 
-    this.parentCategoryID = this.navParams.get('categoryID');//get the state from the previuse page
+    //check if we opened this page from edit category mode and supllied the right nav params
+    if(this.navParams.get('editCategory') && this.navParams.get('categoryToEdit')){
+      console.log("were in edit category");
+      console.log(this.navParams.get('categoryToEdit'));
+      this.isEditCategory = true;
+      this.categoryToEdit = this.navParams.get('categoryToEdit') as Category;
+      //modify the form object based on category to edit
+      this._myForm.patchValue({"text": [this.categoryToEdit.name], 
+        "categoryID": [this.navParams.get('categoryID')],
+        "imagePath": [this.categoryToEdit.imageURL],
+        "audioFile": [''], 
+      });
+    }
+   
+    this.parentCategoryID = this.navParams.get('categoryID');//get the state from the previous page
     if (this.parentCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
-      this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categorys
+      this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categories
   }
 
   private n: number = 0;
-  /** check the value of sentece or nuon from the radio button list
+  /** check the value of sentece or noun from the radio button list
    * patch the right value to the category ID
    * if this is a sentence the function retrive the sub category of the input category
    * if this is a noun patch the input category ID.
    * @default categoryID if the user choose 'sentence' the phrase will automaticly be in the 'sentece' sub category
    */
   private checkSentenceOrNoun(n) {
-    //to evoid endless recursion
+    //to avoid endless recursion
     if (n == 10) {
       this.errorProvider.simpleTosat("לא הצלחנו ליצור את קטגורית 'משפטים'");
       return;
     }
     if (this.sentenceOrNoun == "sentence") {
       let subCategory;
-      let promise = this.categoryProvaider.getSubCategoryByName(this.parentCategoryID, Enums.SENTENCES);//search for the 'משפטים' sub category
+      let promise = this.categoryProvider.getSubCategoryByName(this.parentCategoryID, Enums.SENTENCES);//search for the 'משפטים' sub category
       promise.then((data) => {
         subCategory = data.id;
         if (subCategory) {
@@ -140,13 +157,13 @@ export class AddPhrasePage {
           this.pleaseWaitLoadingWindow.dismiss();//close the loading window
         }
       }).catch(() => {
-        this.pleaseWaitLoadingWindow.present();//presnet the loading window
+        this.pleaseWaitLoadingWindow.present();//present the loading window
         //create new 'משפטים' sub category
         let newSentencesCategory = new Category(
           Enums.SENTENCES, "", "" /*TODO: add defualt image to 'משפטים' sub category*/,
           this.authentication.user.email, this.parentCategoryID, 0, false, Enums.DEFUALT_CATEGORY_COLOR, -1, true);
 
-        this.categoryProvaider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
+        this.categoryProvider.addCategory(newSentencesCategory);//add the new 'משפטים' sub category to the parent category
 
         setTimeout(() => {
           this.checkSentenceOrNoun(n++);//reactived this function, now the data should have the new sentences category
@@ -196,12 +213,18 @@ export class AddPhrasePage {
    * and then save the new phrase on the serve
    */
   onSubmit() {
-    // use the form object to create new phares object and add it to the server
+    // use the form object to create/edit elements and add it to the server
     if (!this._myForm.valid) { return; }
-
+    if (this.isEditCategory){ //we edited existing category
+      this.submitEditedCategory()
+      this._myForm.reset();//reset the form
+      this._viewCtrl.dismiss();
+      return; //were done here
+    }
+    
     let returnObject;//can be Category or Phrase
     if (this.isCategory) {
-      //get the input color that the user choose, if the user didn't choose it set to defualt
+      //get the input color that the user choose, if the user didn't choose it set to default
       if (this.categoryColor === undefined)
         this.categoryColor = Enums.DEFUALT_CATEGORY_COLOR;
       else {
@@ -218,6 +241,21 @@ export class AddPhrasePage {
     }
     this._myForm.reset();//reset the form
     this._viewCtrl.dismiss(returnObject);//return the new object
+  }
+
+  //called when we edited existing category
+  private async submitEditedCategory(){
+    //get the input color that the user choose, if the user didn't choose its left unchanged
+    if (this.categoryColor === undefined)
+    this.categoryColor = this.categoryToEdit.color;
+    else {
+      this.categoryColor = Enums.COLOR_LIST.find((item) => item.hexNumber == this.categoryColor);//look for the right object in the colors array
+      this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
+    }
+    this.categoryToEdit.name = this._myForm.controls['text'].value;
+    this.categoryToEdit.imageURL = this._myForm.controls['imagePath'].value;
+    this.categoryToEdit.color = this.categoryColor; 
+    await this.categoryProvider.updateCategory(this.categoryToEdit);//update category in DB
   }
 
   /**present Action Sheet when press the add button
@@ -467,7 +505,7 @@ export class AddPhrasePage {
 
   /********** Colors Select Function ********************/
   /** This functions create a select with colors 
-   *  please notic that this section is releted to the scss file
+   *  please notice that this section is related to the scss file
    *  any change in this section will cause a change in the scss file
    *  and in the variable.scss file
    */
