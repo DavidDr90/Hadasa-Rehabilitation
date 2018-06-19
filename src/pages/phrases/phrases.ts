@@ -90,8 +90,11 @@ export class PhrasesPage {
    *  we check if this is a sub category by checking the parentCategoryID field in the category object
    *  if there is a value there it means that this is a sub category 
    *  if not this is a normal category
+   *  if we are in edit mode IGNORE
    */
   addButtonPressed() {
+    if(this.editFlag)
+      return;//no action
     if (this.parentCategory.parentCategoryID == "")
       this.presentActionSheet();
     else

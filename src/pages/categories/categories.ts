@@ -43,10 +43,12 @@ export class CategoriesPage {
     this.categoryService.updateCategoriesArray();
   }
 
-  //popup the category's phrases's page.
+  //popup the category's phrases's page, if in edit mode -> ignore
   public openCategoryPhrases(category: Category) {
-    this.editFlag = false;
-    this.editButtonName = "עריכה";
+    if(this.editFlag)
+      return; //no action
+    //this.editFlag = false;
+    //this.editButtonName = "עריכה";
 
     this.navCtrl.push(PhrasesPage, {
       parentCategory: category

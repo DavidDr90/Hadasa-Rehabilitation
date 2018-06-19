@@ -17,6 +17,7 @@ import * as Enums from '../../consts/enums';
 export class PhraseComponent {
 
   @Input() phrase: Phrase;
+  @Input() editMode: boolean;
   favProvider: FavoriteProvider;
   constructor(
     public navCtrl: NavController,
@@ -29,7 +30,13 @@ export class PhraseComponent {
 
   /*open the phrase popup page and pass to it
    current phrase , image, audio*/
+   //ignore in editMode
   public openPopup(event) {
+    if(this.editMode){
+      console.log("phrase popup ignored in edit mode");
+      return;
+    }
+
     event.stopPropagation();
     /**on click method when the user click on a phrase
      * the method check if to add the phrase to the common phrases list.*/
@@ -51,8 +58,13 @@ export class PhraseComponent {
 
   /** update isFav when the user try to add/remove phrase from favoriets.
    * update the DB also.
+   * if in edit mode ignore
    */
   public updateIsFav(event) {
+    if(this.editMode){
+      console.log("phrase updateisfav ignored in edit mode");
+      return;
+    }
     event.stopPropagation();
     this.phrase as Phrase;
     if (this.phrase.isFav == false) {
