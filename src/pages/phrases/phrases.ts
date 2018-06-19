@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ActionSheetController, LoadingController, AlertController, reorderArray } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
@@ -16,15 +16,13 @@ import { AddPhrasePage } from '../add-phrase/add-phrase';
 })
 export class PhrasesPage {
 
-  //TODO: get the backgound color from the category object
   public backgroundColor: any;
-
   public parentCategory: Category;
-  public phrases;
-  public subCategories;
-  public hasSubCategories:boolean = false;
-  public showPhrases:boolean=false;
-  public hasPhrases:boolean=false;
+  //public phrases;
+  public subCategories: Category[];
+  public hasSubCategories: boolean = false;
+  public showPhrases: boolean = false;
+  //public hasPhrases: boolean = false;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -33,45 +31,34 @@ export class PhrasesPage {
     private _actionSheetCtrl: ActionSheetController,
     public categoryService: CategoryServiceProvider,
     public loadingCtrl: LoadingController,
+    public alertCtrl : AlertController,
   ) {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
-    this.backgroundColor = this.parentCategory.color.englishName;
-    this.AsyncPhrasesloader();
+    this.backgroundColor = this.parentCategory.color.englishName; //use parents color as background
+    this.updatePhrasesArray();
   }
 
-  //TODO:fix the background color
   ionViewDidLoad(){
     document.getElementById("content").style.backgroundColor = this.backgroundColor;//set the backgound color
   }
 
-  //initial phrases array for ngFor and sub-categories array for ngFor
-  //promise is an Promise object that gets the return value only when its ready (await)
-  // from phrase provider.
-  //temp is an promise object that help to get the phrases from promis's resolve attr.
-  public AsyncPhrasesloader() {
-    let promise = this.phrasesProvider.getPhrases(this.parentCategory);
-    promise.then((data) => {
-      this.phrases = data;
-      this.phrasesProvider.phrases = data;
-      if(this.phrases!=undefined)
-        if(this.phrases.length>0)
-          this.hasPhrases=true;
-    })
+  private updatePhrasesArray(){
+    this.phrasesProvider.AsyncPhrasesloader(this.parentCategory);
     let promise1 = this.categoryService.updateCategoriesArray();
-    promise1.then((data)=> {
+    promise1.then((data) => {
       this.subCategories = data.filter(cat => cat.parentCategoryID == this.parentCategory.id);
       //dispaly the sub categories section only if there is at least one sub category
       this.hasSubCategories = (this.subCategories.length > 0) ? true : false;//check if there is a sub category
-    })
+    });
   }
 
-  public removeSubCategory(category: Category){
-    this.categoryService.removeCategory(category);
-    this.AsyncPhrasesloader()
+  public async removeSubCategory(category: Category){
+    await this.categoryService.removeCategory(category);
+    this.updatePhrasesArray();
   }
 
-  //popup the category's phrases's page, using for sub-catergories
+  //popup the category's phrases's page, using for sub-categories
   public openCategoryPhrases(category: Category){
     this.navCtrl.push(PhrasesPage, {
       parentCategory: category
@@ -80,23 +67,23 @@ export class PhrasesPage {
   
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
-    setTimeout(() => {
-      this.phrasesProvider.addPhrase(phrase);
-      this.AsyncPhrasesloader()
+    setTimeout(async () => {
+      await this.phrasesProvider.addPhrase(phrase);
+      //this.updatePhrasesArray();
     }, 500)
   }
 
   //handler that remove phrase and update the display 
   public removePhrase(phrase: Phrase) {
-    setTimeout(() => {
+     setTimeout(() => {
       this.phrasesProvider.removePhrase(phrase);
-      this.AsyncPhrasesloader()
+      //this.updatePhrasesArray();
     }, 500)
   }
 
   /** When the add button pressed in a phrases page it can be in two different version
    *  if this is a normal category the user can add phrase or sub-category
-   *  if this is a sub category the user can add only a phrase
+   *  if this is a sub-category the user can add only a phrase
    * 
    *  we check if this is a sub category by checking the parentCategoryID field in the category object
    *  if there is a value there it means that this is a sub category 
@@ -148,7 +135,7 @@ export class PhrasesPage {
   }
 
 
-  /**display the addPhrasePage and get the retrun object from the form.
+  /**display the addPhrasePage and get the return object from the form.
   * Prompt the user to add a new phrase. This shows our AddPhrasePage in a
   * modal and then adds the new item to our data source if the user created one.
   */
@@ -163,9 +150,9 @@ export class PhrasesPage {
           this.addPhrase(item);//upload the new phase to the DB and refresh the screen
         } else if (fromWhere == Enums.ADD_OPTIONS.CATEGORY) {
           this.categoryService.addCategory(item);
-          //refreshing the sub-categories in phrases page.
-          this.AsyncPhrasesloader()
+          //refreshing the sub-categories in phrases page.         
         }
+        this.updatePhrasesArray();
       }
     })
     addModal.present();//present the addPhrasePage
@@ -179,89 +166,161 @@ export class PhrasesPage {
   editFlag: boolean = false;
   editButtonName: string = "עריכה";
 
-  edit() {
-    if( this.editFlag){
+  async edit() {
+    if(this.editFlag){
       this.editFlag = false;
       this.editButtonName = "עריכה";
-      /**TODO:
-       * after the user press the "סיים" button
-       * save the local array changes in the DB array
-       */
+      await this.updatePhrasesArray();
+      await this.categoryService.updateCategoriesArray(); //update DB
+
+      
     }else{
       this.editFlag = true;
       this.editButtonName = "סיים";
-
     }
     
   }
 
-  reorderItem(index){
-    let element = this.categoryService.getCategories[index.from];//save the draged category
-    /**TODO:
-     * change the array of ctegories as follow:
-     * categpriesArrya.splice(index.from, 1);
-     * categpriesArrya.splice(index.to, 1);
-     */
+   /**
+   * Using reorderArray to move element between positions in the array
+   * then update order of each sub-category using its new place in the array
+   * @param index used to get element original and new positions from the HTML
+   */
+  async reorderSubCategories(index){
+    console.log("edit -reorder from: " + index.from + "to: " + index.to);
+    let subCatArray = await this.categoryService.getSubCategoriesOfParent(this.parentCategory.id);
+    console.log("size: " + subCatArray.length);
+    subCatArray = reorderArray(subCatArray, index);//reordering array
+    //updating each category order field according to its array position
+    for(var i = 0; i < subCatArray.length; i++){ 
+      await this.categoryService.setOrder(subCatArray[i], i + 1);   
+      console.log("updated i: " + i);   
+    } 
+
   }
 
+  /**
+   * Using reorderArray to move element between positions in the array
+   * then update order of each sub-category using its new place in the array
+   * @param index used to get element original and new positions from the HTML
+   */
+  async reorderPhrases(index){
+    console.log("edit -reorder from: " + index.from + "to: " + index.to);
+    let phraseArray = await this.phrasesProvider.getPhrases(this.parentCategory);
+    console.log("size: " + phraseArray.length);
+    phraseArray = reorderArray(phraseArray, index);//reordering array
+    //updating each category order field according to its array position
+    for(var i = 0; i < phraseArray.length; i++){ 
+      await this.phrasesProvider.setOrder(phraseArray[i], i + 1);   
+      console.log("updated i: " + i);   
+    } 
+  }
+
+
   editSubCategory(item){
-    /**TODO:
-     * enter the add phrase page with the clicked item
-     * then allow the user to change any filed
-     * in the end save the changes and update all the arrays and DB
-     */
-    console.log("edit sub");
+    console.log("edit subCategory");
     console.log(item);
+    let categoryToEdit = item as Category;
+    let addModal = this.modalCtrl.create(AddPhrasePage,
+      {
+        'fromWhere': Enums.ADD_OPTIONS.CATEGORY,
+        'categoryID': this.parentCategory.id,
+        'editCategory': true,
+        'categoryToEdit': item,
+      });
+    addModal.present();//present the addPhrasePage
   }
 
   deleteSubCategory(item){
-    /**TODO:
-     * use dor's function and delete the category 
-     * and all the sub categories and phrases 
-     * update the view
-     */
-    console.log("delete sub");
+    console.log("edit delete sub category");
     console.log(item);
+    const alert = this.alertCtrl.create({
+      title: 'בטוח למחוק?',
+      message: 'המחיקה היא סופית וכוללת את כול התוכן של הקטגוריה כולל הביטויים שבה!',
+      buttons: [
+        {
+          text: 'בטל',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'מ ח ק',
+          handler: () => {
+            console.log('delete clicked');
+            this.removeSubCategory(item); //delete the category
+          }
+        }
+      ]
+    });
+    alert.present();  
   }
   
-  changeSubVisibility(item){
+  changeSubCatVisibility(item){
     /**TODO:
      * change the visibility status when clicked
      * the unvisibale categories should by in a different style then the visible on
      * the user can see the unvisibale categories only in 'edit mode'
      */
-    console.log("visibility sub");
+    console.log("edit visibility sub");
     console.log(item);
+    this.categoryService.changeVisibility(item);
   }
 
   editPhrase(item){
-    /**TODO:
-     * enter the add phrase page with the clicked item
-     * then allow the user to change any filed
-     * in the end save the changes and update all the arrays and DB
-     */
     console.log("edit phrase");
     console.log(item);
+    let phraseToEdit = item as Phrase;
+    let addModal = this.modalCtrl.create(AddPhrasePage,
+      {
+        'fromWhere': Enums.ADD_OPTIONS.PHRASE,
+        'categoryID': this.parentCategory.id,
+        'editPhrase': true,
+        'phraseToEdit': item,
+      });
+    addModal.present();//present the addPhrasePage
   }
 
+  /**
+   * Delete selected phrase
+   * @param item phrase to remove
+   */
   deletePhrase(item){
-    /**TODO:
-     * use dor's function and delete the category 
-     * and all the sub categories and phrases 
-     * update the view
-     */
-    console.log("delete phrase");
+    console.log("edit delete phrase");
     console.log(item);
+    const alert = this.alertCtrl.create({
+      title: 'בטוח למחוק?',
+      message: 'המחיקה היא סופית!',
+      buttons: [
+        {
+          text: 'בטל',
+          role: 'cancel',
+          handler: () => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'מ ח ק',
+          handler: () => {
+            console.log('delete clicked');
+            this.removePhrase(item); //delete the phrase
+          }
+        }
+      ]
+    });
+    alert.present();      
   }
   
-  changeVisibility(item){
+  changePhraseVisibility(item){
     /**TODO:
      * change the visibility status when clicked
-     * the unvisibale categories should by in a different style then the visible on
+     * the invisibale categories should by in a different style then the visible on
      * the user can see the unvisibale categories only in 'edit mode'
      */
-    console.log("visibility phrase");
+    console.log("edit visibility phrase");
     console.log(item);
+    this.phrasesProvider.changeVisibility(item);
   }
 
   /**
@@ -269,7 +328,7 @@ export class PhrasesPage {
    */
   public onClickShowPhrases(){
     console.log(this.showPhrases)
-    this.showPhrases=!this.showPhrases;
+    this.showPhrases =! this.showPhrases;
   }
 
   

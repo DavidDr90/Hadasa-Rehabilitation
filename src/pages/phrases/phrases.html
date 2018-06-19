@@ -27,7 +27,7 @@
             </ion-item>
 
             <!-- button for hide/show phrases -->
-            <ion-item color={{backgroundColor}} *ngIf="hasPhrases">
+            <ion-item color={{backgroundColor}} *ngIf="this.phrasesProvider.hasPhrases">
                 <button *ngIf="!showPhrases" ion-button large round icon-start block (click)="onClickShowPhrases()">הצג ביטויים&#160;&#160;
                     <ion-icon name="arrow-down"></ion-icon>
                 </button>
@@ -39,7 +39,7 @@
             <!-- the "press" event is just for debugging -->
             <!-- phrases list -->
             <ion-item color={{backgroundColor}} *ngIf="showPhrases">
-                <phrase [phrase]="item" *ngFor="let item of phrases" (press)="this.removePhrase(item)"></phrase>
+                <phrase [phrase]="item" *ngFor="let item of this.phrasesProvider.phrases" (press)="this.removePhrase(item)"></phrase>
             </ion-item>
         </ion-list>
     </div>
@@ -47,8 +47,8 @@
     <!-- for edit mode, enable reorder and swiping -->
     <div *ngIf="editFlag">
         <!-- sub categories -->
-        <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderItem($event)">
-            <ion-item-sliding *ngFor="let item of this.subCategories">
+        <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderSubCategories($event)">
+            <ion-item-sliding *ngFor="let item of subCategories">
                 <!-- display the sub categories only if there is at least one sub category -->
                 <ion-item *ngIf="hasSubCategories" color={{backgroundColor}}>
                     <my-category (click)="openCategoryPhrases(item)" (press)="removeSubCategory(item)" [category]="item">
@@ -65,11 +65,11 @@
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button *ngIf="!Svisible" (click)="changeSubVisibility(item)">
+                    <button ion-button *ngIf="!Svisible" (click)="changeSubCatVisibility(item)">
                         <ion-icon name="eye"></ion-icon>
                         הצג
                     </button>
-                    <button ion-button *ngIf="Svisible" (click)="changeSubVisibility(item)">
+                    <button ion-button *ngIf="Svisible" (click)="changeSubCatVisibility(item)">
                         <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
                         הסתר
                     </button>
@@ -78,8 +78,8 @@
         </ion-list>
 
         <!-- phrases -->
-        <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderItem($event)">
-            <ion-item-sliding *ngFor="let item of phrases">
+        <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderPhrases($event)">
+            <ion-item-sliding *ngFor="let item of this.phrasesProvider.phrases">
                 <!-- the "press" event is just for debugging -->
                 <ion-item color={{backgroundColor}}>
                     <phrase [phrase]="item" (press)="this.removePhrase(item)"></phrase>
@@ -95,11 +95,11 @@
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button *ngIf="!Pvisible" (click)="changeVisibility(item)">
+                    <button ion-button *ngIf="!Pvisible" (click)="changePhraseVisibility(item)">
                         <ion-icon name="eye"></ion-icon>
                         הצג
                     </button>
-                    <button ion-button *ngIf="Pvisible" (click)="changeVisibility(item)">
+                    <button ion-button *ngIf="Pvisible" (click)="changePhraseVisibility(item)">
                         <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
                         הסתר
                     </button>

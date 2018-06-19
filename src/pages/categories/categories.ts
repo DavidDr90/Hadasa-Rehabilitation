@@ -97,7 +97,7 @@ export class CategoriesPage {
 
   /**
    * Using reorderArray to move element between positions in the array
-   * then update order of each category using new place in the array
+   * then update order of each category using its new place in the array
    * @param index used to get element original and new positions from the HTML
    */
   async reorderItem(index) {
@@ -112,21 +112,23 @@ export class CategoriesPage {
         temp.splice(indexAM, 1);
     }
     let catArray = temp as Category[];
-    console.log("size: " + catArray.length);
-    catArray = reorderArray(catArray, index);//reordering array
+    console.log("edit reorder array size: " + temp.length);
+    temp = reorderArray(temp, index);//reordering array
     //updating each category order field according to its array position
-    for(var i = 0; i < catArray.length; i++){ 
-      await this.categoryService.setOrder(catArray[i], i + 1);   
+    for(var i = 0; i < temp.length; i++){ 
+      await this.categoryService.setOrder(temp[i], i + 1);   
       console.log("updated i: " + i);   
     }       
   }
 
+  /**
+   * Edit selected category using add-phrase page, 
+   * the existing category is updated based on user modifications
+   * @param item the category to edit
+   */
   editCategory(item) {
-    /**TODO:
-     * enter the add phrase page with the clicked item
-     * then allow the user to change any filed
-     * in the end save the changes and update all the arrays and DB
-     */
+    console.log("edit -contents");
+    console.log(item);
     let categoryToEdit = item as Category;
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
@@ -135,14 +137,7 @@ export class CategoriesPage {
         'editCategory': true,
         'categoryToEdit': item,
       });
-    addModal.onDidDismiss(item => {
-      if (item) {//if there is an object that return from the form
-        this.categoryService.addCategory(item);//upload the new category to the DB
-      }
-    })
     addModal.present();//present the addPhrasePage
-    console.log("edit -contents");
-    console.log(item);
   }
 
   /**

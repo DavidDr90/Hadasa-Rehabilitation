@@ -18,7 +18,7 @@ export class Phrase extends Item {
     public audio: string;//a url link to the audio file in the storage
     public isFav: boolean// TRUE if this phrase is one of the user selected favorite phrases. else, FALSE.
     public order: number//the # of the phrase in the category
-    public visibility: boolean;//TRUE if the category is visible to the user
+    public visibility: boolean;//TRUE if the phrase is visible to the user
 
     constructor(id: string, name: string, imageURL: string,
         categoryID: string, views: number, audio: string, isFav: boolean, order: number, visibility: boolean) {
@@ -39,7 +39,7 @@ export class Phrase extends Item {
     public getID() {
         return this.id;
     }
-    getName() {
+    public getName() {
         return this.name;
     }
     public getImageURL() {

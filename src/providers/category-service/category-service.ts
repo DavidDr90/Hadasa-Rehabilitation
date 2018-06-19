@@ -15,7 +15,7 @@ export class CategoryServiceProvider {
 
   private categories = [];
   private allUserPhrases = [];
-  //categories that have parent category, and shown only at there parentCategory's page (next the phrases)
+  //categories that have parent category, and shown only at theirs parentCategory's page (next the phrases)
   private subCategories = [];
   private includeAboutMe = true;
 
@@ -85,6 +85,19 @@ export class CategoryServiceProvider {
       if (temp1 == undefined)
         console.log("category is undefined");
       resolve(temp1);
+    })
+  }
+
+  /**
+   * get sub-categories array of specific category, the method return a Promise object.
+   * for catching error use "promise.then().catch(e){...handling error...}"
+   * @param parentCategory parent category id of the wanted sub-categories array
+   * @returns Promise object
+   */
+  public getSubCategoriesOfParent(parentCategoryID: string): Promise<Category[]> {
+    return new Promise((resolve, reject) => {
+      let temp = this.subCategories.filter(cat => cat.parentCategoryID == parentCategoryID);
+      resolve(temp);
     })
   }
 
@@ -159,7 +172,7 @@ export class CategoryServiceProvider {
     })
   }
 
-  public addCategory(category: Category,callFromAppBuilder = false):Promise<void> {
+  public addCategory(category: Category, callFromAppBuilder = false): Promise<void> {
     let promise = this.firebaseProvider.addCategory(category);
     if(callFromAppBuilder == false){
       this.updateCategoriesArray().then(res => {
@@ -175,6 +188,7 @@ export class CategoryServiceProvider {
    * 2. sub-categories.
    * 3. the category's phrases 
    * the method know to handle if the wanted remove category is sub-category.
+   * also update favorites
    * @param category category to remove.
    */
   public removeCategory(category: Category) {

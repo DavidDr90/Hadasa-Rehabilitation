@@ -7,20 +7,46 @@ import { FavoriteProvider } from '../favorite/favorite';
 import { HomePage } from '../../pages/home/home';
 
 
+
 @Injectable()
 export class PhrasesProvider {
 
-  phrases: any;
-  categoryName: any;
+  public phrases: Phrase[];
+  public parentCategory: Category;
+  //categoryName: any;
+  public hasPhrases: boolean = false;
 
   constructor(public firebaseProvider: FirebaseProvider, public error: ErrorProvider) {
   }
 
-  //first,calling import of all category's phrases.
-  //then, create a Promise object that active only when arrayOfPhrases filled up once.
-  //Promise return to an async function that handle with him.
-  //subscribe listen to the db while the app is alive.
-  //note that there is no relation between Promise object to  method. 
+  //initial phrases array for ngFor and sub-categories array for ngFor
+  //promise is an Promise object that gets the return value only when its ready (await)
+  // from phrase provider.
+  //temp is an promise object that help to get the phrases from promis's resolve attr.
+  public AsyncPhrasesloader(parentCategory: Category): Promise<Phrase[]> {
+    console.log("AsyncPhrasesloader start");
+    this.parentCategory = parentCategory;
+    let promise = this.getPhrases(this.parentCategory);
+    promise.then((data) => {
+      this.phrases = data;
+      if(this.phrases != undefined && this.phrases.length > 0)
+          this.hasPhrases = true;
+      else
+          this.hasPhrases = false;
+    })
+    console.log("AsyncPhrasesloader after end"); 
+    return promise;     
+  }
+
+
+  /**
+  * first,calling import of all category's phrases.
+  * then, create a Promise object that active only when arrayOfPhrases filled up once.
+  * Promise return to an async function that handle with him.
+  * subscribe listen to the db while the app is alive.
+  * note that there is no relation between Promise object to  method. 
+  * @param category the parent category to get phrases from
+  */
   public getPhrases(category: Category): Promise<Phrase[]> {
     this.firebaseProvider.importPhrases(category);
     return new Promise((resolve, reject) => {
@@ -78,22 +104,33 @@ export class PhrasesProvider {
     })
   }
 
-    /**
+  /**
    * add phrase, update DB and arrange by order.
    * if addPhrase called from App-Builder don't arrange by order.
    */
   public addPhrase(phrase: Phrase, callFromAppBuilder = false) {
     this.firebaseProvider.addPhrase(phrase);
     if(callFromAppBuilder == false)
+    this.AsyncPhrasesloader(this.parentCategory).then(res => {
       this.arrangePhrasesByOrder();
+    })
   }
 
-  removePhrase(phrase: Phrase) {
+  /**
+   * remove phrase from db and update favorites
+   * @param phrase phrase to remove
+   */
+  public async removePhrase(phrase: Phrase) {
+    console.log("phrase provider remove");
     this.firebaseProvider.removePhrase(phrase);
-    let favoriteProvider=new FavoriteProvider(HomePage.favClass);
+    console.log("phrase provider after remove");
+    let favoriteProvider = new FavoriteProvider(HomePage.favClass);
     favoriteProvider.remove_fav_phrases(phrase);
     favoriteProvider.remove_from_commom_phrases(phrase);
-    this.arrangePhrasesByOrder();
+    this.AsyncPhrasesloader(this.parentCategory).then(() => {
+      this.arrangePhrasesByOrder();
+    })
+    
   }
 
   //SETTERS
@@ -124,6 +161,14 @@ export class PhrasesProvider {
   }
   public setOrder(phrase: Phrase, order: number) {
     phrase.order = order;
+    console.log("phrase provider set order update fire");
+    this.firebaseProvider.updatePhrase(phrase);
+  }
+  public updatePhrase(phrase: Phrase) {
+    this.firebaseProvider.updatePhrase(phrase)
+  }
+  public changeVisibility(phrase: Phrase) {
+    phrase.visibility = !phrase.visibility;
     this.firebaseProvider.updatePhrase(phrase);
   }
 

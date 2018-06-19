@@ -16,6 +16,7 @@ import { Phrase } from '../../models/Phrase';
 import { ErrorProvider } from '../../providers/error/error';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
+import { PhrasesProvider } from '../../providers/phrases/phrases';
 
 
 /** This page is a form to create Phrase or Category objects
@@ -52,6 +53,7 @@ export class AddPhrasePage {
   private isEditCategory: boolean = false;
   private isEditPhrase: boolean = false;
   private categoryToEdit: Category;
+  private phraseToEdit: Phrase;
 
   private _myForm: FormGroup;
   private _curserPosition;
@@ -88,6 +90,7 @@ export class AddPhrasePage {
     public authentication: AutenticationProvider,
     public errorProvider: ErrorProvider,
     public categoryProvider: CategoryServiceProvider,
+    public phraseProvider: PhrasesProvider,
     public loadingCtrl: LoadingController,
     public media: Media,
     public base64: Base64,
@@ -104,15 +107,16 @@ export class AddPhrasePage {
 
     //if we gote here from some categroy page and we want to add new phrase
     if (this.navParams.get('fromWhere') == Enums.ADD_OPTIONS.PHRASE) {
+      console.log("set is category to false");
       this.isCategory = false;
     }
 
     //create the form object depend from where you arrived
     this._myForm = this._formBuilder.group({
       "text": ['', [Validators.required, Validators.minLength(1)]],//the text must be more the one char
-      "categoryID": [''],//the associated category
-      "imagePath": [''],//the path to the pharse's image
-      "audioFile": [''],//the path to the phrase's audio file
+      "categoryID": '',//the associated category
+      "imagePath": '',//the path to the pharse's image
+      "audioFile": '',//the path to the phrase's audio file
     });
 
     //check if we opened this page from edit category mode and supllied the right nav params
@@ -122,10 +126,24 @@ export class AddPhrasePage {
       this.isEditCategory = true;
       this.categoryToEdit = this.navParams.get('categoryToEdit') as Category;
       //modify the form object based on category to edit
-      this._myForm.patchValue({"text": [this.categoryToEdit.name], 
-        "categoryID": [this.navParams.get('categoryID')],
-        "imagePath": [this.categoryToEdit.imageURL],
-        "audioFile": [''], 
+      this._myForm.patchValue({"text": this.categoryToEdit.name, 
+        "categoryID": this.navParams.get('categoryID'),
+        "imagePath": this.categoryToEdit.imageURL,
+        "audioFile": '', 
+      });
+    }
+
+    //check if we opened this page from edit phrase mode and supllied the right nav params
+    if(this.navParams.get('editPhrase') && this.navParams.get('phraseToEdit')){
+      console.log("were in edit phrase");
+      console.log(this.navParams.get('phraseToEdit'));
+      this.isEditPhrase = true;
+      this.phraseToEdit = this.navParams.get('phraseToEdit') as Phrase;
+      //modify the form object based on category to edit
+      this._myForm.patchValue({"text": this.phraseToEdit.name, 
+        "categoryID": this.phraseToEdit.getCategoryID,
+        "imagePath": this.phraseToEdit.imageURL,
+        "audioFile": this.phraseToEdit.audio, 
       });
     }
    
@@ -215,8 +233,16 @@ export class AddPhrasePage {
   onSubmit() {
     // use the form object to create/edit elements and add it to the server
     if (!this._myForm.valid) { return; }
+    
     if (this.isEditCategory){ //we edited existing category
       this.submitEditedCategory()
+      this._myForm.reset();//reset the form
+      this._viewCtrl.dismiss();
+      return; //were done here
+    }
+
+    if (this.isEditPhrase){ //we edited existing phrase
+      this.submitEditedPhrase()
       this._myForm.reset();//reset the form
       this._viewCtrl.dismiss();
       return; //were done here
@@ -247,15 +273,47 @@ export class AddPhrasePage {
   private async submitEditedCategory(){
     //get the input color that the user choose, if the user didn't choose its left unchanged
     if (this.categoryColor === undefined)
-    this.categoryColor = this.categoryToEdit.color;
+      this.categoryColor = this.categoryToEdit.color;
     else {
       this.categoryColor = Enums.COLOR_LIST.find((item) => item.hexNumber == this.categoryColor);//look for the right object in the colors array
       this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
     }
     this.categoryToEdit.name = this._myForm.controls['text'].value;
-    this.categoryToEdit.imageURL = this._myForm.controls['imagePath'].value;
+    
+    if(this._myForm.controls['imagePath'].value != undefined ){
+      console.log("we think that image is defined!");
+      console.log(this._myForm.controls['imagePath'].value);
+      this.categoryToEdit.imageURL = this._myForm.controls['imagePath'].value;
+    }    
+    else  
+      this.categoryToEdit.imageURL = '';
+
     this.categoryToEdit.color = this.categoryColor; 
     await this.categoryProvider.updateCategory(this.categoryToEdit);//update category in DB
+  }
+
+  //called when we edited existing Phrase
+  private async submitEditedPhrase(){
+    this.phraseToEdit.name = this._myForm.controls['text'].value;
+    if(this._myForm.controls['imagePath'].value != undefined){
+      console.log("we think that image is defined!");
+      console.log(this._myForm.controls['imagePath'].value);
+      this.phraseToEdit.imageURL = this._myForm.controls['imagePath'].value;
+    }    
+    else  
+      this.phraseToEdit.imageURL = '';
+    
+    if(this._myForm.controls['audioFile'].value != undefined){
+      console.log("we think that audio is defined!");
+      console.log(this._myForm.controls['audioFile'].value);
+      this.phraseToEdit.audio = this._myForm.controls['audioFile'].value;
+    }    
+    else  
+      this.phraseToEdit.audio = '';
+
+    console.log("can you see phrase?");
+    console.log(this.phraseToEdit);
+    await this.phraseProvider.updatePhrase(this.phraseToEdit);//update phrase in DB
   }
 
   /**present Action Sheet when press the add button

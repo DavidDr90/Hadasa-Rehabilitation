@@ -149,6 +149,9 @@ export class FirebaseProvider {
    * @param phrase, the updated local phrase, to update the db
    */
   updatePhrase(phrase: Phrase){
+    console.log("firebase provider update phrase");
+    console.log(phrase);
+    console.log(phrase.id);
     this.afs.doc('phrases/' + phrase.id).update(phrase);
   }
 
@@ -157,6 +160,9 @@ export class FirebaseProvider {
    * @param category, the updated local category, to update the db
    */
   updateCategory(category: Category){
+    console.log("firebase provider update cat");
+    console.log(category);
+    console.log(category.id);
     this.afs.doc('categories/' + category.id).update(category);
   }
 
