@@ -457,76 +457,156 @@ export class AppBuilderProvider {
     cat = new Category("רפואה", "", "", this.userEmail, "", 0, false, null, 5, true)
 
     phrases = [
-      new Phrase("", "סקלת כאב", "", "", 0, "", false, 0, true),
-      new Phrase("", "אני רוצה להזמין תור לרופא", "", "", 0, "", false, 0, true),
-      new Phrase("", "אני רוצה לקבל הפנייה למיון", "", "", 0, "", false, 0, true)
+      // new Phrase("", "סקלת כאב", "", "", 0, "", false, 0, true),
+      // new Phrase("", "אני רוצה להזמין תור לרופא", "", "", 0, "", false, 0, true),
+      // new Phrase("", "אני רוצה לקבל הפנייה למיון", "", "", 0, "", false, 0, true)
     ];
 
     subCats = [
+      new Category("משפטים", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("סקלת כאב", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("אברי גוף", "", "", this.userEmail, "", 0, false, null, 0, true),
       new Category("ראש", "", "", this.userEmail, "", 0, false, null, 0, true),
-      new Category("בטן", "", "", this.userEmail, "", 0, false, null, 1, true),
-      new Category("אף אוזן גרון", "", "", this.userEmail, "", 0, false, null, 2, true),
-      new Category("חזה", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("מצב נפשי", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("רופאים ואנשי מקצוע", "", " ", this.userEmail, "", 0, false, null, 3, true),
-      new Category("בדיקות רפואיות", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("סוגי כאב", "", "", this.userEmail, "", 0, false, null, 3, true)
+      new Category("בטן", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("אף אוזן גרון", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("חזה", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("מצב נפשי", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("רופאים", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("אנשי מקצוע", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("בדיקות רפואיות", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("סוגי כאב", "", "", this.userEmail, "", 0, false, null, 0, true),
+
+
+
+
     ]
 
     subPhrases = [
       [
+        new Phrase("", "אני לא מרגיש טוב", "", "", 0, "", false, 0, true),
+        new Phrase("", "כואב לי...", "", "", 0, "", false, 0, true),
+        new Phrase("", "אני רוצה לראות אחות", "", "", 0, "", false, 0, true),
+        new Phrase("", "אני רוצה להזמין תור לרופא", "", "", 0, "", false, 0, true),
+        new Phrase("", "אני רוצה לקבל הפניה למיון", "", "", 0, "", false, 0, true),
+        new Phrase("", "אני צריך למדוד לחץ דם", "", "", 0, "", false, 0, true),
+        new Phrase("", "אני צריך בדיקת דם", "", "", 0, "", false, 0, true),
+        new Phrase("", "אני צריך לקבל/לחדש מרשם", "", "", 0, "", false, 0, true)
+    
+      ],
+
+      [
+          // סקלת כאב
+          new Phrase("", "אצבעות", "", "", 0, "", false, 0, true)
+
+      ],
+
+      [ // אברי גוף
+        new Phrase("", "אצבעות", "", "", 0, "", false, 0, true),
+        new Phrase("", "יד", "", "", 0, "", false, 0, true),
+        new Phrase("", "רגל", "", "", 0, "", false, 0, true),
+        new Phrase("", "ראש", "", "", 0, "", false, 0, true),
+        new Phrase("", "עיניים", "", "", 0, "", false, 0, true),
+        new Phrase("", "אוזן", "", "", 0, "", false, 0, true),
+        new Phrase("", "אף", "", "", 0, "", false, 0, true),
+        new Phrase("", "שיניים", "", "", 0, "", false, 0, true),
+        new Phrase("", "פה", "", "", 0, "", false, 0, true),
+        new Phrase("", "בטן", "", "", 0, "", false, 0, true),
+        new Phrase("", "גב", "", "", 0, "", false, 0, true),
+        new Phrase("", "לב", "", "", 0, "", false, 0, true),
+        new Phrase("", "חזה", "", "", 0, "", false, 0, true),
+        new Phrase("", "איבר מין", "", "", 0, "", false, 0, true),
+        new Phrase("", "ישבן", "", "", 0, "", false, 0, true)
+      ],
+
+      [// ראש
         new Phrase("", "כאב ראש", "", "", 0, "", false, 0, true),
         new Phrase("", "סחרחורת", "", "", 0, "", false, 0, true),
         new Phrase("", "עייפות", "", "", 0, "", false, 0, true),
-        new Phrase("", "חום גבוהה", "", "", 0, "", false, 0, true)
+        new Phrase("", "חום", "", "", 0, "", false, 0, true),
+        new Phrase("", "ראיה", "", "", 0, "", false, 0, true),
+        new Phrase("", "שמיעה", "", "", 0, "", false, 0, true),
+        new Phrase("", "עילפון", "", "", 0, "", false, 0, true),
+        new Phrase("", "שיווי משקל", "", "", 0, "", false, 0, true)
       ],
 
-      [
+      [ // בטן
         new Phrase("", "כאב בטן", "", "", 0, "", false, 0, true),
         new Phrase("", "הקאות", "", "", 0, "", false, 0, true),
+        new Phrase("", "עצירות", "", "", 0, "", false, 0, true),
         new Phrase("", "שלשולים", "", "", 0, "", false, 0, true),
-        new Phrase("", "כאבי מחזור", "", "", 0, "", false, 0, true)
+        new Phrase("", "כאבי מחזור", "", "", 0, "", false, 0, true),
+        new Phrase("", "שתן", "", "", 0, "", false, 0, true),
+        new Phrase("", "טחורים", "", "", 0, "", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "", false, 0, true)
+
       ],
 
-      [
-        new Phrase("", "צינון", "", "", 0, "", false, 0, true),
+      [ // אף אוזן גרון
+        new Phrase("", "כאב אוזניים", "", "", 0, "", false, 0, true),
         new Phrase("", "כאב גרון", "", "", 0, "", false, 0, true),
-        new Phrase("", "כאב אוזניים", "", "", 0, "", false, 0, true)
+        new Phrase("", "צינון", "", "", 0, "", false, 0, true),
+        new Phrase("", "שיעול", "", "", 0, "", false, 0, true),
+        new Phrase("", "צרידות", "", "", 0, "", false, 0, true),
+        new Phrase("", "קושי בבליעה", "", "", 0, "", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "", false, 0, true)
       ],
 
-      [
+      [ // חזה
+        new Phrase("", "בחילות", "", "", 0, "", false, 0, true),
+        new Phrase("", "צרבת", "", "", 0, "", false, 0, true),
         new Phrase("", "כאב בחזה", "", "", 0, "", false, 0, true),
-        new Phrase("", "צרבת", "", "", 0, "", false, 0, true)
+        new Phrase("", "אחר", "", "", 0, "", false, 0, true)
       ],
 
-      [
+      [ // מצב נפשי
         new Phrase("", "דיכאון", "", "", 0, "", false, 0, true),
-        new Phrase("", "בדידות", "", "", 0, "", false, 0, true),
         new Phrase("", "חרדה", "", "", 0, "", false, 0, true),
-        new Phrase("", "קשיים בהרדמות", "", "", 0, "", false, 0, true),
-        new Phrase("", "מחשבות אובדניות", "", "", 0, "", false, 0, true)
+        new Phrase("", "בדידות", "", "", 0, "", false, 0, true),
+        new Phrase("", "קשיים בזוגיות", "", "", 0, "", false, 0, true),
+        new Phrase("", "קושי בהירדמות", "", "", 0, "", false, 0, true),
+        new Phrase("", "מחשבות אובדניות", "", "", 0, "", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "", false, 0, true)
       ],
 
-      [
-        new Phrase("", "נוירולוג", "", "", 0, "", false, 0, true),
-        new Phrase("", "קלינאית תקשורת", "", "", 0, "", false, 0, true),
+      [ // רופאים
         new Phrase("", "רופא משפחה", "", "", 0, "", false, 0, true),
-        new Phrase("", "כירוג", "", "", 0, "", false, 0, true),
+        new Phrase("", "נוירולוג", "", "", 0, "", false, 0, true),
+        new Phrase("", "קרדיולוג", "", "", 0, "", false, 0, true),
+        new Phrase("", "אף אוזן גרון", "", "", 0, "", false, 0, true),
+        new Phrase("", "אורתופד", "", "", 0, "", false, 0, true),
+        new Phrase("", "רופא עיניים", "", "", 0, "", false, 0, true),
+        new Phrase("", "רופא עור", "", "", 0, "", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "", false, 0, true)
+
+      ],
+
+      [ // אנשי מקצוע
+        new Phrase("", "קלינאי/ת תקשורת", "", "", 0, "", false, 0, true),
+        new Phrase("", "פיזיותרפיה", "", "", 0, "", false, 0, true),
+        new Phrase("", "ריפוי בעיסוק", "", "", 0, "", false, 0, true),
         new Phrase("", "עובדת סוציאלית", "", "", 0, "", false, 0, true),
-        new Phrase("", "פיזיותרפיסט", "", "", 0, "", false, 0, true)
+        new Phrase("", "פסיכולוג", "", "", 0, "", false, 0, true),
+        new Phrase("", "דיאטנית", "", "", 0, "", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "", false, 0, true)
       ],
 
-      [
-        new Phrase("", "בדיקות דם", "", "", 0, "", false, 0, true),
+      [ // בדיקות רפואיות
         new Phrase("", "מרשם לתרופות", "", "", 0, "", false, 0, true),
+        new Phrase("", "בדיקות דם", "", "", 0, "", false, 0, true),
         new Phrase("", "חיסון", "", "", 0, "", false, 0, true),
-        new Phrase("", "צילום", "", "", 0, "", false, 0, true)
+        new Phrase("", "צילום", "", "", 0, "", false, 0, true),
+        new Phrase("", "הפניה למומחה", "", "", 0, "", false, 0, true),
+        new Phrase("", "התחייבות", "", "", 0, "", false, 0, true),
+        new Phrase("", "הפניה למיון", "", "", 0, "", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "", false, 0, true)
       ],
 
-      [
+      [ // סוגי כאב
         new Phrase("", "מגרד", "", "", 0, "", false, 0, true),
         new Phrase("", "שורף", "", "", 0, "", false, 0, true),
-        new Phrase("", "דוקר", "", "", 0, "", false, 0, true)
+        new Phrase("", "פועם", "", "", 0, "", false, 0, true),
+        new Phrase("", "דוקר", "", "", 0, "", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "", false, 0, true)
       ]
     ];
 
