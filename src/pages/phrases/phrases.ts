@@ -54,8 +54,10 @@ export class PhrasesPage {
   }
 
   public async removeSubCategory(category: Category){
-    await this.categoryService.removeCategory(category);
-    this.updatePhrasesArray();
+    setTimeout(async () => {
+      await this.categoryService.removeCategory(category);
+      //this.updatePhrasesArray();
+    }, 500)
   }
 
   //popup the category's phrases's page, using for sub-categories
@@ -176,6 +178,7 @@ export class PhrasesPage {
       
     }else{
       this.editFlag = true;
+      await this.updatePhrasesArray();
       this.editButtonName = "סיים";
     }
     
@@ -188,12 +191,12 @@ export class PhrasesPage {
    */
   async reorderSubCategories(index){
     console.log("edit -reorder from: " + index.from + "to: " + index.to);
-    let subCatArray = await this.categoryService.getSubCategoriesOfParent(this.parentCategory.id);
-    console.log("size: " + subCatArray.length);
-    subCatArray = reorderArray(subCatArray, index);//reordering array
+    this.subCategories = await this.categoryService.getSubCategoriesOfParent(this.parentCategory.id);
+    console.log("size: " + this.subCategories.length);
+    this.subCategories = reorderArray(this.subCategories, index);//reordering array
     //updating each category order field according to its array position
-    for(var i = 0; i < subCatArray.length; i++){ 
-      await this.categoryService.setOrder(subCatArray[i], i + 1);   
+    for(var i = 0; i < this.subCategories.length; i++){ 
+      await this.categoryService.setOrder(this.subCategories[i], i + 1);   
       console.log("updated i: " + i);   
     } 
 
@@ -205,8 +208,8 @@ export class PhrasesPage {
    * @param index used to get element original and new positions from the HTML
    */
   async reorderPhrases(index){
-    console.log("edit -reorder from: " + index.from + "to: " + index.to);
-    let phraseArray = await this.phrasesProvider.getPhrases(this.parentCategory);
+    console.log("edit -reorder from: " + index.from + "to: " + index.to);    
+    let phraseArray = await this.phrasesProvider.getPhrases(this.parentCategory);    
     console.log("size: " + phraseArray.length);
     phraseArray = reorderArray(phraseArray, index);//reordering array
     //updating each category order field according to its array position

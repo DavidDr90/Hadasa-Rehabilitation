@@ -79,7 +79,7 @@
 
         <!-- phrases -->
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderPhrases($event)">
-            <ion-item-sliding *ngFor="let item of this.phrasesProvider.phrases">
+            <ion-item-sliding *ngFor="let item of phrasesProvider.phrases">
                 <!-- the "press" event is just for debugging -->
                 <ion-item color={{backgroundColor}}>
                     <phrase [phrase]="item" (press)="this.removePhrase(item)"></phrase>

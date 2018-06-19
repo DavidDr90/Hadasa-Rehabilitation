@@ -55,6 +55,7 @@ export class PhrasesProvider {
     this.firebaseProvider.importPhrases(category);
     return new Promise((resolve, reject) => {
       this.firebaseProvider.getPhrasesObservable.subscribe(arrayOfPhrases => {
+        this.phrases = arrayOfPhrases;
         resolve(arrayOfPhrases);
       })
     })
