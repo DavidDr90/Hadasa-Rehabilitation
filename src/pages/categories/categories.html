@@ -2,25 +2,26 @@
     <ion-navbar>
         <ion-title>קטגוריות</ion-title>
         <ion-buttons end>
+            <!-- edit button in the end of the nav-bar -->
             <button ion-button clear (click)="edit()">
                 {{editButtonName}} &nbsp;
                 <ion-icon name="construct"></ion-icon>
             </button>
             <!-- add button in the end of the nav-bar -->
-            <button ion-button icon-only (click)="openAddPage()">
+            <button *ngIf="!editFlag" ion-button icon-only (click)="openAddPage()">
                 <ion-icon name="add"></ion-icon>
             </button>
         </ion-buttons>
     </ion-navbar>
 </ion-header>
 
-<!-- the "press" event is just for debugging -->
+
 <ion-content class="categories">
     <!-- for normal mode -->
     <div *ngIf="!editFlag">
         <ion-list no-lines>
             <ion-item *ngFor="let item of categoryService.getCategories">
-                <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)"></my-category>
+                <my-category *ngIf="item.name != 'aboutMe'" [category]="item" [editMode]="editFlag" (click)="openCategoryPhrases(item);"></my-category>
             </ion-item>
         </ion-list>
     </div>
@@ -32,7 +33,7 @@
                 <ion-item>
                     <!-- TODO: to be check -->
                     <!--  [ngClass] = "item.visibility ? visible : unVisible" -->
-                    <my-category *ngIf="item.name != 'aboutMe'" [category]="item" (click)="openCategoryPhrases(item);" (press)="categoryService.removeCategory(item)">
+                    <my-category *ngIf="item.name != 'aboutMe'" [category]="item" [editMode]="editFlag" (click)="openCategoryPhrases(item);" >
                     </my-category>
                 </ion-item>
                 <ion-item-options side="right">
