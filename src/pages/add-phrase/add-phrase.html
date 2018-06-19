@@ -91,7 +91,7 @@
     </ion-item>
 
 
-    <div id="radioButtonForPhrase" *ngIf="!isCategory">
+    <div id="radioButtonForPhrase" *ngIf="!isCategory && !isEditPhrase">
       <ion-list radio-group [(ngModel)]="sentenceOrNoun" [ngModelOptions]="{standalone: true}" (ionChange)="checkSentenceOrNoun()">
         <ion-item>
           <ion-label>

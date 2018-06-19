@@ -28,7 +28,7 @@
             </ion-item>
 
             <!-- button for hide/show phrases -->
-            <ion-item color={{backgroundColor}} *ngIf="this.phrasesProvider.hasPhrases">
+            <ion-item color={{backgroundColor}} *ngIf="this.hasPhrases">
                 <button *ngIf="!showPhrases" ion-button large round icon-start block (click)="onClickShowPhrases()">הצג ביטויים&#160;&#160;
                     <ion-icon name="arrow-down"></ion-icon>
                 </button>
@@ -39,7 +39,7 @@
           
             <!-- phrases list -->
             <ion-item color={{backgroundColor}} *ngIf="showPhrases">
-                <phrase [editMode]="editFlag" [phrase]="item" *ngFor="let item of this.phrasesProvider.phrases"></phrase>
+                <phrase [editMode]="editFlag" [phrase]="item" *ngFor="let item of this.phrases"></phrase>
             </ion-item>
         </ion-list>
     </div>
@@ -79,7 +79,7 @@
 
         <!-- phrases -->
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderPhrases($event)">
-            <ion-item-sliding *ngFor="let item of phrasesProvider.phrases">
+            <ion-item-sliding *ngFor="let item of this.phrases">
                 <ion-item color={{backgroundColor}}>
                     <phrase [editMode]="editFlag" [phrase]="item" ></phrase>
                 </ion-item>
