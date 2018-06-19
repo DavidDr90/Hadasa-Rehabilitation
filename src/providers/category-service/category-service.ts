@@ -46,14 +46,14 @@ export class CategoryServiceProvider {
     return new Promise((resolve, reject) => {
       this.firebaseProvider.getCategoriesObservable.subscribe(a => {
         this.categories = a;
-        if(!this.includeAboutMe){ //should we ignore aboutMe category
+        /*if(!this.includeAboutMe){ //should we ignore aboutMe category
           let temp = this.categories.find(cat => cat.name == Enums.ABOUT_ME_STRING);
           if(temp != undefined){    
             var index = this.categories.indexOf(temp);
             if(index > -1)
               this.categories.splice(index, 1);
           }
-        }
+        }*/
           
         this.categories.forEach(element1 => {//initilize all user's phrases local array
           let promise = this.phrasesProvider.getPhrases(element1);
@@ -101,7 +101,6 @@ export class CategoryServiceProvider {
     })
   }
 
-
   /**
    * Rearrange all categories, and sub-categories by new order.
    * usually used after adding or removing of category. 
@@ -115,7 +114,6 @@ export class CategoryServiceProvider {
       this.setOrder(this.subCategories[i], i);
     }
   }
-
 
   //GETTERS
   public get getCategories() {

@@ -65,9 +65,12 @@ export class PhrasesPage {
     })
   }
 
+  //remove category and update DB
   public removeSubCategory(category: Category) {
     this.categoryService.removeCategory(category);
-    this.AsyncPhrasesloader()
+    setTimeout(() => {
+       this.AsyncPhrasesloader()  
+    }, 1500)   
   }
 
   //popup the category's phrases's page, using for sub-catergories
@@ -82,19 +85,21 @@ export class PhrasesPage {
     console.log("in add phrase")
     setTimeout(() => {
       this.phrasesProvider.addPhrase(phrase);
-      this.AsyncPhrasesloader()
+      this.AsyncPhrasesloader()      
     }, 500)
     this.phrasesProvider.arrangePhrasesByOrder();
-    console.log("add phrase finished")
+    
   }
 
   //handler that remove phrase and update the display 
   public removePhrase(phrase: Phrase) {
-    setTimeout(() => {
-      this.phrasesProvider.removePhrase(phrase);
-      this.AsyncPhrasesloader()
+    console.log("in add phrase")
+    setTimeout(async () => {
+      await this.phrasesProvider.removePhrase(phrase);
+      this.AsyncPhrasesloader()      
     }, 500)
     this.phrasesProvider.arrangePhrasesByOrder();
+    
   }
 
   /** When the add button pressed in a phrases page it can be in two different version
@@ -191,12 +196,11 @@ export class PhrasesPage {
     if (this.editFlag) {
       this.editFlag = false;
       this.editButtonName = "עריכה";
-      await this.AsyncPhrasesloader()
-      await this.categoryService.updateCategoriesArray(); //update DB
+      //await this.AsyncPhrasesloader()
+      //await this.categoryService.updateCategoriesArray(); //update DB
     } else {
       this.editFlag = true;
       this.editButtonName = "סיים";
-      await this.AsyncPhrasesloader()
     }
   }
 

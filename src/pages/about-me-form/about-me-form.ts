@@ -15,7 +15,6 @@ import { AddPhrasePage } from '../add-phrase/add-phrase';
 /**
  * the user will see this page if he haven't filled his aboutMe section
  */
-
 @Component({
   selector: 'page-about-me-form',
   templateUrl: 'about-me-form.html',
@@ -34,41 +33,28 @@ export class AboutMeFormPage {
     public auth: AutenticationProvider,
     private errorProvider: ErrorProvider) {
 
-    //TODO: display loading window
-
-  
-
-
-    //TODO: close the loading window before leaving the page
-
-
-
-    //we stay on this page, so we need to create an aboutMe category
-    //create new category aboutMe and add it to DB
-    //TODO: broken, throw cnanot read 'email' of undefine
-     this.aboutMeCategory =
-       new Category(Enums.ABOUT_ME_STRING, "", "", this.authentication.user.email, "",
-        0, false, Enums.DEFUALT_CATEGORY_COLOR, 1,true);
+      
+      let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
+      promise.then((data) => {
+        console.log("about me Exists");
+        return;
+      },
+      (data) => {
+        this.aboutMeCategory =
+        new Category(Enums.ABOUT_ME_STRING, "", "", this.authentication.user.email, "",
+                    0, false, Enums.DEFUALT_CATEGORY_COLOR, 1,true);
          this.categoryProvider.updateCategoriesArray();
-    this.categoryProvider.addCategory(this.aboutMeCategory);
-    console.log("about me cat was created")
-    this.errorProvider.simpleTosat(("aboutMe cat was created"))
+        this.categoryProvider.addCategory(this.aboutMeCategory);
+        console.log("about me cat was created")
+        this.errorProvider.simpleTosat(("aboutMe cat was created"))
+      })   
+
+    
   }
 
   //clicked the button, open add phrase form
   private clicked() {
-    this.categoryProvider.setIncludeAboutMe(true);
-    this.categoryProvider.updateCategoriesArray();
-    let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
-    promise.then((data) => {
-      this.aboutMeCategory = data;
-      this.aboutMeCategory as Category;
-      console.log("in click id is:" + this.aboutMeCategory.id + "okey?");
-      this.phrasesProvider.getPhrases(this.aboutMeCategory);
-    }).then(() => {
-      console.log("im in second .zen")
-      this.openAddPage(Enums.ADD_OPTIONS.PHRASE)
-    })
+
 
     //fill phrases and add them to about-me category
 
@@ -76,7 +62,6 @@ export class AboutMeFormPage {
 
   //finish filling aboutMe forms and go to main page
   private finish() {
-
     //Checks if the email is verified.
     if (this.auth.isVerified())
       this.navCtrl.push(TabsPage);
@@ -93,11 +78,6 @@ export class AboutMeFormPage {
    * @param formWhere which page call the add page
    */
   openAddPage(fromWhere) {
-    //need to make sure that the aboutMeCategory.id is the new about me category id from th DB
-    //getCategoriesByName return promise object
-    //this.verifyAboutMeCategory(false);//should be false here
-
-
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': fromWhere,
