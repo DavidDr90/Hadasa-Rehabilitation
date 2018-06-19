@@ -454,79 +454,159 @@ export class AppBuilderProvider {
     this.add_new_cat_to_db(cat, phrases, [], [], 0);
 
     //MEDICINE CATEGORY
-    cat = new Category("רפואה", "", "", this.userEmail, "", 0, false, null, 5, true)
+    cat = new Category("רפואה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fdoctors%2Fimages%2Fdoctors.PNG?alt=media&token=d5615126-71fd-41e7-8b28-2ad1bc7da7de", this.userEmail, "", 0, false, null, 5, true)
 
     phrases = [
-      new Phrase("", "סקלת כאב", "", "", 0, "", false, 0, true),
-      new Phrase("", "אני רוצה להזמין תור לרופא", "", "", 0, "", false, 0, true),
-      new Phrase("", "אני רוצה לקבל הפנייה למיון", "", "", 0, "", false, 0, true)
+      // new Phrase("", "סקלת כאב", "", "", 0, "", false, 0, true),
+      // new Phrase("", "אני רוצה להזמין תור לרופא", "", "", 0, "", false, 0, true),
+      // new Phrase("", "אני רוצה לקבל הפנייה למיון", "", "", 0, "", false, 0, true)
     ];
 
     subCats = [
+      new Category("משפטים", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("סקלת כאב", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("אברי גוף", "", "", this.userEmail, "", 0, false, null, 0, true),
       new Category("ראש", "", "", this.userEmail, "", 0, false, null, 0, true),
-      new Category("בטן", "", "", this.userEmail, "", 0, false, null, 1, true),
-      new Category("אף אוזן גרון", "", "", this.userEmail, "", 0, false, null, 2, true),
-      new Category("חזה", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("מצב נפשי", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("רופאים ואנשי מקצוע", "", " ", this.userEmail, "", 0, false, null, 3, true),
-      new Category("בדיקות רפואיות", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("סוגי כאב", "", "", this.userEmail, "", 0, false, null, 3, true)
+      new Category("בטן", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("אף אוזן גרון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2FOtolaryngology%2Fimages%2Fotolaryngology.PNG?alt=media&token=fc783d4f-bfa3-400f-81bf-5cf6f8b7ada5", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("חזה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fchest%2Fimages%2Fchest.PNG?alt=media&token=c3570d3f-524e-415b-a87b-5f555b7ec91f", this.userEmail, "", 0, false, null, 0, true),
+      new Category("מצב נפשי", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("רופאים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fdoctors%2Fimages%2Fdoctors.PNG?alt=media&token=d5615126-71fd-41e7-8b28-2ad1bc7da7de", this.userEmail, "", 0, false, null, 0, true),
+      new Category("אנשי מקצוע", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("בדיקות רפואיות", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("סוגי כאב", "", "", this.userEmail, "", 0, false, null, 0, true),
+
+
+
+
     ]
 
     subPhrases = [
-      [
-        new Phrase("", "כאב ראש", "", "", 0, "", false, 0, true),
-        new Phrase("", "סחרחורת", "", "", 0, "", false, 0, true),
-        new Phrase("", "עייפות", "", "", 0, "", false, 0, true),
-        new Phrase("", "חום גבוהה", "", "", 0, "", false, 0, true)
+      [ // משפטים
+        new Phrase("", "אני לא מרגיש טוב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A9%D7%A4%D7%98%D7%99%D7%9D%2F%D7%90%D7%A0%D7%99%20%D7%9C%D7%90%20%D7%9E%D7%A8%D7%92%D7%99%D7%A9%20%D7%98%D7%95%D7%91.mp3?alt=media&token=c53ab6d5-3caa-4e1e-b91b-61ab889aa838", false, 0, true),
+        new Phrase("", "כואב לי...", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A9%D7%A4%D7%98%D7%99%D7%9D%2F%D7%9B%D7%95%D7%90%D7%91%20%D7%9C%D7%99.mp3?alt=media&token=855ac031-e389-4e36-9a60-11f8785fdbbb", false, 0, true),
+        new Phrase("", "אני רוצה לראות אחות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A9%D7%A4%D7%98%D7%99%D7%9D%2F%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A8%D7%90%D7%95%D7%AA%20%D7%90%D7%97%D7%95%D7%AA.mp3?alt=media&token=e5739732-e23c-4b5a-8e77-04b185e2ca71", false, 0, true),
+        new Phrase("", "אני רוצה להזמין תור לרופא", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A9%D7%A4%D7%98%D7%99%D7%9D%2F%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%94%D7%96%D7%9E%D7%99%D7%9F%20%D7%AA%D7%95%D7%A8%20%D7%9C%D7%A8%D7%95%D7%A4%D7%90.mp3?alt=media&token=100a0f3b-d780-4bae-a11b-8ccefbe567bf", false, 0, true),
+        new Phrase("", "אני רוצה לקבל הפניה למיון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A9%D7%A4%D7%98%D7%99%D7%9D%2F%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%94%D7%A4%D7%A0%D7%99%D7%94%20%D7%9C%D7%9E%D7%99%D7%95%D7%9F.mp3?alt=media&token=e62420e5-9f87-4045-9585-dc6423da5719", false, 0, true),
+        new Phrase("", "אני צריך למדוד לחץ דם", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A9%D7%A4%D7%98%D7%99%D7%9D%2F%D7%90%D7%A0%D7%99%20%D7%A6%D7%A8%D7%99%D7%9A%20%D7%9C%D7%9E%D7%93%D7%95%D7%93%20%D7%9C%D7%97%D7%A5%20%D7%93%D7%9D.mp3?alt=media&token=3286218a-9126-4c11-bc1a-9a5a99d761a4", false, 0, true),
+        new Phrase("", "אני צריך בדיקת דם", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A9%D7%A4%D7%98%D7%99%D7%9D%2F%D7%90%D7%A0%D7%99%20%D7%A6%D7%A8%D7%99%D7%9A%20%D7%91%D7%93%D7%99%D7%A7%D7%AA%20%D7%93%D7%9D.mp3?alt=media&token=8b40668d-7006-45c7-baf1-74674158a34f", false, 0, true),
+        new Phrase("", "אני צריך לקבל/לחדש מרשם", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A9%D7%A4%D7%98%D7%99%D7%9D%2F%D7%90%D7%A0%D7%99%20%D7%A6%D7%A8%D7%99%D7%9A%20%D7%9C%D7%A7%D7%91%D7%9C%20%D7%90%D7%95%20%D7%9C%D7%97%D7%93%D7%A9%20%D7%9E%D7%A8%D7%A9%D7%9D.mp3?alt=media&token=9e06f6e7-6596-4a2f-9bc4-a13c0f4c3bf8", false, 0, true)
+    
       ],
 
       [
-        new Phrase("", "כאב בטן", "", "", 0, "", false, 0, true),
-        new Phrase("", "הקאות", "", "", 0, "", false, 0, true),
-        new Phrase("", "שלשולים", "", "", 0, "", false, 0, true),
-        new Phrase("", "כאבי מחזור", "", "", 0, "", false, 0, true)
+          // סקלת כאב
+          new Phrase("", "אצבעות", "", "", 0, "", false, 0, true)
+
       ],
 
-      [
-        new Phrase("", "צינון", "", "", 0, "", false, 0, true),
-        new Phrase("", "כאב גרון", "", "", 0, "", false, 0, true),
-        new Phrase("", "כאב אוזניים", "", "", 0, "", false, 0, true)
+      [ // אברי גוף
+        new Phrase("", "אצבעות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%90%D7%A6%D7%91%D7%A2%D7%95%D7%AA.mp3?alt=media&token=9855dd26-3f35-406f-bb17-acc87a324846", false, 0, true),
+        new Phrase("", "יד", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%99%D7%93.mp3?alt=media&token=f5089854-f9b9-4825-879b-5ad431f72cb9", false, 0, true),
+        new Phrase("", "רגל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%A8%D7%92%D7%9C.mp3?alt=media&token=70041eb4-fb65-456c-ab19-8d2472625387", false, 0, true),
+        new Phrase("", "ראש", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%A8%D7%90%D7%A9.mp3?alt=media&token=4b9a23bb-1d01-4605-aca2-f3066ad18c43", false, 0, true),
+        new Phrase("", "עיניים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%A2%D7%99%D7%A0%D7%99%D7%99%D7%9D%20.mp3?alt=media&token=bbbc64ba-817b-4dff-b2c7-3d5bf9014d43", false, 0, true),
+        new Phrase("", "אוזן", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%90%D7%95%D7%96%D7%9F.mp3?alt=media&token=9fc4d5ec-df8d-43c9-9281-7e700486db08", false, 0, true),
+        new Phrase("", "אף", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%90%D7%A3.mp3?alt=media&token=85731fe3-eafc-4b39-b316-36bdcf2c114d", false, 0, true),
+        new Phrase("", "שיניים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%A9%D7%99%D7%A0%D7%99%D7%99%D7%9D.mp3?alt=media&token=ac0e5c14-c1da-4256-b420-85d6ae45c35c", false, 0, true),
+        new Phrase("", "פה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%A4%D7%94.mp3?alt=media&token=ff0cf821-6aa6-4685-bbdb-1cd5d748159e", false, 0, true),
+        new Phrase("", "בטן", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%91%D7%98%D7%9F.mp3?alt=media&token=bf72ac04-21db-4e99-98b2-5b78f4bcc14e", false, 0, true),
+        new Phrase("", "גב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%92%D7%91.mp3?alt=media&token=4e4152f3-2ada-4954-ab71-65d139f44590", false, 0, true),
+        new Phrase("", "לב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%9C%D7%91.mp3?alt=media&token=ab558135-3572-4dc6-9bc3-b67a679119fe", false, 0, true),
+        new Phrase("", "חזה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%97%D7%96%D7%94.mp3?alt=media&token=f14d1553-7630-4bb7-9a4e-78c1073382fb", false, 0, true),
+        new Phrase("", "איבר מין", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%90%D7%99%D7%91%D7%A8%20%D7%9E%D7%99%D7%9F.mp3?alt=media&token=6f1c19b7-28bb-4fa5-a2a5-dde66f336b54", false, 0, true),
+        new Phrase("", "ישבן", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%99%D7%91%D7%A8%D7%99%20%D7%92%D7%95%D7%A3%2F%D7%99%D7%A9%D7%91%D7%9F.mp3?alt=media&token=3362ff09-e621-4eac-bfa7-98c15981fe01", false, 0, true)
       ],
 
-      [
-        new Phrase("", "כאב בחזה", "", "", 0, "", false, 0, true),
-        new Phrase("", "צרבת", "", "", 0, "", false, 0, true)
+      [// ראש
+        new Phrase("", "כאב ראש", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fhead%2Fimages%2Fheadache.PNG?alt=media&token=d588a013-cc13-4e62-a792-ed5c32b53aff", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%90%D7%A9%2F%D7%9B%D7%90%D7%91%20%D7%A8%D7%90%D7%A9.mp3?alt=media&token=b4c9d1be-8829-4028-8d8b-232f3c0b4ffa", false, 0, true),
+        new Phrase("", "סחרחורת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fhead%2Fimages%2Fdizziness.PNG?alt=media&token=0605400e-030c-40bd-8a8b-a05c0c07267c", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%90%D7%A9%2F%D7%A1%D7%97%D7%A8%D7%97%D7%95%D7%A8%D7%AA.mp3?alt=media&token=eb590725-a8ac-4ec5-8452-1e7d06da3890", false, 0, true),
+        new Phrase("", "עייפות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fhead%2Fimages%2F%25E2%2580%258F%25E2%2580%258Fsleepy.PNG?alt=media&token=2efec807-3efa-4013-9a6d-26fea7025bee", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%90%D7%A9%2F%D7%A2%D7%99%D7%99%D7%A4%D7%95%D7%AA.mp3?alt=media&token=6ea45d5b-aad6-4c55-96c7-95f060ccac46", false, 0, true),
+        new Phrase("", "חום", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fhead%2Fimages%2F%25E2%2580%258F%25E2%2580%258Fmedical_thermometer.PNG?alt=media&token=09ae617d-48b1-4a97-bdb8-43f30c8635b5", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%90%D7%A9%2F%D7%97%D7%95%D7%9D%20.mp3?alt=media&token=772f8b98-726a-4fb4-b2af-dd95f6d8678e", false, 0, true),
+        new Phrase("", "ראיה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%90%D7%A9%2F%D7%A8%D7%90%D7%99%D7%94.mp3?alt=media&token=c2243516-aebc-4405-a54c-0fe23ecddb6b", false, 0, true),
+        new Phrase("", "שמיעה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%90%D7%A9%2F%D7%A9%D7%9E%D7%99%D7%A2%D7%94.mp3?alt=media&token=e0ba8e91-0c1a-4def-8d8a-890f7f61db77", false, 0, true),
+        new Phrase("", "עילפון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%90%D7%A9%2F%D7%A2%D7%99%D7%9C%D7%A4%D7%95%D7%9F.mp3?alt=media&token=60f307f3-ce6c-4d72-88ed-5c0f5fda4778", false, 0, true),
+        new Phrase("", "שיווי משקל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%90%D7%A9%2F%D7%A9%D7%99%D7%95%D7%95%D7%99%20%D7%9E%D7%A9%D7%A7%D7%9C.mp3?alt=media&token=6a99ae29-0ca5-4da4-89a4-aeb33a58ce6a", false, 0, true)
       ],
 
-      [
-        new Phrase("", "דיכאון", "", "", 0, "", false, 0, true),
-        new Phrase("", "בדידות", "", "", 0, "", false, 0, true),
-        new Phrase("", "חרדה", "", "", 0, "", false, 0, true),
-        new Phrase("", "קשיים בהרדמות", "", "", 0, "", false, 0, true),
-        new Phrase("", "מחשבות אובדניות", "", "", 0, "", false, 0, true)
+      [ // בטן
+        new Phrase("", "כאב בטן", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fstomach%2Fimages%2Fstomach.PNG?alt=media&token=6ce2014d-f8af-4ec2-9ee4-b28bd7aeac3b", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%98%D7%9F%2F%D7%9B%D7%90%D7%91%20%D7%91%D7%98%D7%9F.mp3?alt=media&token=4f88310d-a3fd-46e3-9905-f8a0a7d893ae", false, 0, true),
+        new Phrase("", "הקאות", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fstomach%2Fimages%2Fvomit.PNG?alt=media&token=dbc535a1-9c84-4645-b508-a97b3a269ea6", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%98%D7%9F%2F%D7%94%D7%A7%D7%90%D7%95%D7%AA.mp3?alt=media&token=5e4cd002-c61a-4976-a955-973da3cd9cc9", false, 0, true),
+        new Phrase("", "עצירות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%98%D7%9F%2F%D7%A2%D7%A6%D7%99%D7%A8%D7%95%D7%AA.mp3?alt=media&token=5b20c1c0-eece-4778-b6ef-ec58b6297491", false, 0, true),
+        new Phrase("", "שלשולים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%98%D7%9F%2F%D7%A9%D7%9C%D7%A9%D7%95%D7%9C%D7%99%D7%9D.mp3?alt=media&token=f40099af-2274-4e0f-9ab5-8df872424b59", false, 0, true),
+        new Phrase("", "כאבי מחזור", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%98%D7%9F%2F%D7%9B%D7%90%D7%91%D7%99%20%D7%9E%D7%97%D7%96%D7%95%D7%A8.mp3?alt=media&token=ce34e4ce-74e3-4010-91bf-9f12dbb46149", false, 0, true),
+        new Phrase("", "שתן", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%98%D7%9F%2F%D7%A9%D7%AA%D7%9F.mp3?alt=media&token=293d884a-f45b-4636-928a-0231573d1669", false, 0, true),
+        new Phrase("", "טחורים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%98%D7%9F%2F%D7%98%D7%97%D7%95%D7%A8%D7%99%D7%9D.mp3?alt=media&token=99e33fd6-3468-45fa-9d70-13355e4895d0", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%98%D7%9F%2F%D7%90%D7%97%D7%A8.mp3?alt=media&token=fe8af62e-bd94-40cb-a651-ad92c20cb73f", false, 0, true)
+
       ],
 
-      [
-        new Phrase("", "נוירולוג", "", "", 0, "", false, 0, true),
-        new Phrase("", "קלינאית תקשורת", "", "", 0, "", false, 0, true),
-        new Phrase("", "רופא משפחה", "", "", 0, "", false, 0, true),
-        new Phrase("", "כירוג", "", "", 0, "", false, 0, true),
-        new Phrase("", "עובדת סוציאלית", "", "", 0, "", false, 0, true),
-        new Phrase("", "פיזיותרפיסט", "", "", 0, "", false, 0, true)
+      [ // אף אוזן גרון
+        new Phrase("", "כאב אוזניים", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2FOtolaryngology%2Fimages%2Fear_pain.PNG?alt=media&token=0c60224b-ac73-4978-af14-c07aa080124c", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A3%20%D7%90%D7%95%D7%96%D7%9F%20%D7%92%D7%A8%D7%95%D7%9F%2F%D7%9B%D7%90%D7%91%20%D7%90%D7%95%D7%96%D7%A0%D7%99%D7%99%D7%9D.mp3?alt=media&token=08c4c68e-8377-4a5a-87ee-7d766589b3aa", false, 0, true),
+        new Phrase("", "כאב גרון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2FOtolaryngology%2Fimages%2Fsore_throat.PNG?alt=media&token=a7a94613-53bd-4a53-b4ae-4e9bd8fb16a2", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A3%20%D7%90%D7%95%D7%96%D7%9F%20%D7%92%D7%A8%D7%95%D7%9F%2F%D7%9B%D7%90%D7%91%20%D7%92%D7%A8%D7%95%D7%9F.mp3?alt=media&token=bc987bdf-f03d-48e9-8b34-779d64252f14", false, 0, true),
+        new Phrase("", "צינון", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2FOtolaryngology%2Fimages%2Fnose%20pain.PNG?alt=media&token=e5b44151-2e62-47b9-a06e-e894a5803e0b", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A3%20%D7%90%D7%95%D7%96%D7%9F%20%D7%92%D7%A8%D7%95%D7%9F%2F%D7%A6%D7%99%D7%A0%D7%95%D7%9F.mp3?alt=media&token=8b4b6757-8df5-4acd-a135-7b31e0897520", false, 0, true),
+        new Phrase("", "שיעול", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A3%20%D7%90%D7%95%D7%96%D7%9F%20%D7%92%D7%A8%D7%95%D7%9F%2F%D7%A9%D7%99%D7%A2%D7%95%D7%9C.mp3?alt=media&token=a23734c2-a9bc-4c41-a4cd-8f10c8d563e0", false, 0, true),
+        new Phrase("", "צרידות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A3%20%D7%90%D7%95%D7%96%D7%9F%20%D7%92%D7%A8%D7%95%D7%9F%2F%D7%A6%D7%A8%D7%99%D7%93%D7%95%D7%AA.mp3?alt=media&token=9bd316f6-3ef3-4e21-bdf1-299e3042237c", false, 0, true),
+        new Phrase("", "קושי בבליעה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2FOtolaryngology%2Fimages%2Fsore_throat.PNG?alt=media&token=a7a94613-53bd-4a53-b4ae-4e9bd8fb16a2", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A3%20%D7%90%D7%95%D7%96%D7%9F%20%D7%92%D7%A8%D7%95%D7%9F%2F%D7%A7%D7%95%D7%A9%D7%99%20%D7%91%D7%91%D7%9C%D7%99%D7%A2%D7%94.mp3?alt=media&token=7b71dcf0-cff6-418c-a063-744495ae36cd", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A3%20%D7%90%D7%95%D7%96%D7%9F%20%D7%92%D7%A8%D7%95%D7%9F%2F%D7%90%D7%97%D7%A8.mp3?alt=media&token=e85e3dd4-47e4-4bb5-966a-8bb480fa11c8", false, 0, true)
       ],
 
-      [
-        new Phrase("", "בדיקות דם", "", "", 0, "", false, 0, true),
-        new Phrase("", "מרשם לתרופות", "", "", 0, "", false, 0, true),
-        new Phrase("", "חיסון", "", "", 0, "", false, 0, true),
-        new Phrase("", "צילום", "", "", 0, "", false, 0, true)
+      [ // חזה
+        new Phrase("", "בחילות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%97%D7%96%D7%94%2F%D7%91%D7%97%D7%99%D7%9C%D7%95%D7%AA.mp3?alt=media&token=e0c698f2-0149-4904-9aaf-56ba366ae2f5", false, 0, true),
+        new Phrase("", "צרבת", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fchest%2Fimages%2Fheartburn.PNG?alt=media&token=ad70adf3-2fa4-4cbb-b07d-453bbed8d0c2", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%97%D7%96%D7%94%2F%D7%A6%D7%A8%D7%91%D7%AA.mp3?alt=media&token=6832021c-418b-4118-8b25-0dcdf9b097db", false, 0, true),
+        new Phrase("", "כאב בחזה", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fchest%2Fimages%2Fchest.PNG?alt=media&token=c3570d3f-524e-415b-a87b-5f555b7ec91f", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%97%D7%96%D7%94%2F%D7%9B%D7%90%D7%91%20%D7%91%D7%97%D7%96%D7%94.mp3?alt=media&token=49471db0-cbf2-4451-a62f-9101da651e1c", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%97%D7%96%D7%94%2F%D7%90%D7%97%D7%A8.mp3?alt=media&token=c9a1f6b5-49ac-41be-8925-39d81652a3a4", false, 0, true)
       ],
 
-      [
-        new Phrase("", "מגרד", "", "", 0, "", false, 0, true),
-        new Phrase("", "שורף", "", "", 0, "", false, 0, true),
-        new Phrase("", "דוקר", "", "", 0, "", false, 0, true)
+      [ // מצב נפשי
+        new Phrase("", "דיכאון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A6%D7%91%20%D7%A0%D7%A4%D7%A9%D7%99%2F%D7%93%D7%99%D7%9B%D7%90%D7%95%D7%9F.mp3?alt=media&token=57268e01-5f2e-4c49-b15a-e22e182aa68f", false, 0, true),
+        new Phrase("", "חרדה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A6%D7%91%20%D7%A0%D7%A4%D7%A9%D7%99%2F%D7%97%D7%A8%D7%93%D7%94.mp3?alt=media&token=f8a2ea7e-c8de-4eba-bca1-5bdfedd79ebc", false, 0, true),
+        new Phrase("", "בדידות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A6%D7%91%20%D7%A0%D7%A4%D7%A9%D7%99%2F%D7%91%D7%93%D7%99%D7%93%D7%95%D7%AA.mp3?alt=media&token=ade344bf-85fc-4707-a7b0-fcc5b3e675cb", false, 0, true),
+        new Phrase("", "קשיים בזוגיות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A6%D7%91%20%D7%A0%D7%A4%D7%A9%D7%99%2F%D7%A7%D7%A9%D7%99%D7%99%D7%9D%20%D7%91%D7%96%D7%95%D7%92%D7%99%D7%95%D7%AA.mp3?alt=media&token=b227bb09-6895-4c23-94a5-65ecbb43af33", false, 0, true),
+        new Phrase("", "קושי בהירדמות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A6%D7%91%20%D7%A0%D7%A4%D7%A9%D7%99%2F%D7%A7%D7%95%D7%A9%D7%99%20%D7%91%D7%94%D7%99%D7%A8%D7%93%D7%9E%D7%95%D7%AA.mp3?alt=media&token=01cf7e2a-a78a-4fe9-8d49-d301504cc17a", false, 0, true),
+        new Phrase("", "מחשבות אובדניות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A6%D7%91%20%D7%A0%D7%A4%D7%A9%D7%99%2F%D7%9E%D7%97%D7%A9%D7%91%D7%95%D7%AA%20%D7%90%D7%95%D7%91%D7%93%D7%A0%D7%99%D7%95%D7%AA.mp3?alt=media&token=c3a60e30-0f71-4dda-984a-c16d0a82b931", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%9E%D7%A6%D7%91%20%D7%A0%D7%A4%D7%A9%D7%99%2F%D7%90%D7%97%D7%A8.mp3?alt=media&token=a45c2cb6-38d0-420c-af37-d87a59e741a4", false, 0, true)
+      ],
+
+      [ // רופאים
+        new Phrase("", "רופא משפחה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%95%D7%A4%D7%90%D7%99%D7%9D%2F%D7%A8%D7%95%D7%A4%D7%90%20%D7%9E%D7%A9%D7%A4%D7%97%D7%94.mp3?alt=media&token=b874921f-cb12-47a5-aada-543f51e2ec13", false, 0, true),
+        new Phrase("", "נוירולוג", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%95%D7%A4%D7%90%D7%99%D7%9D%2F%D7%A0%D7%95%D7%99%D7%A8%D7%95%D7%9C%D7%95%D7%92.mp3?alt=media&token=c5589221-c7cf-4a3f-a1d1-20a0b25b6d60", false, 0, true),
+        new Phrase("", "קרדיולוג", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%95%D7%A4%D7%90%D7%99%D7%9D%2F%D7%A7%D7%A8%D7%93%D7%99%D7%95%D7%9C%D7%95%D7%92.mp3?alt=media&token=4850d5ce-5120-4fe3-8476-2b128df1fea9", false, 0, true),
+        new Phrase("", "אף אוזן גרון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%95%D7%A4%D7%90%D7%99%D7%9D%2F%D7%90%D7%A3%20%D7%90%D7%95%D7%96%D7%9F%20%D7%92%D7%A8%D7%95%D7%9F.mp3?alt=media&token=d36ee650-ab4e-4df3-8469-e94e9e4616c7", false, 0, true),
+        new Phrase("", "אורתופד", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%95%D7%A4%D7%90%D7%99%D7%9D%2F%D7%90%D7%95%D7%A8%D7%AA%D7%95%D7%A4%D7%93.mp3?alt=media&token=6105c52f-1d1d-49e1-b247-cca562296576", false, 0, true),
+        new Phrase("", "רופא עיניים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%95%D7%A4%D7%90%D7%99%D7%9D%2F%D7%A8%D7%95%D7%A4%D7%90%20%D7%A2%D7%99%D7%A0%D7%99%D7%99%D7%9D.mp3?alt=media&token=d682c09a-2ead-47da-84a8-a7717936bbaa", false, 0, true),
+        new Phrase("", "רופא עור", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%95%D7%A4%D7%90%D7%99%D7%9D%2F%D7%A8%D7%95%D7%A4%D7%90%20%D7%A2%D7%95%D7%A8.mp3?alt=media&token=683f1e48-48e2-4989-8a5b-98abe83be167", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A8%D7%95%D7%A4%D7%90%D7%99%D7%9D%2F%D7%90%D7%97%D7%A8.mp3?alt=media&token=c4302018-3dc4-46ad-930b-89cfe6912f76", false, 0, true)
+
+      ],
+
+      [ // אנשי מקצוע
+        new Phrase("", "קלינאי/ת תקשורת", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A0%D7%A9%D7%99%20%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%2F%D7%A7%D7%9C%D7%99%D7%A0%D7%90%D7%99%D7%AA%20%D7%AA%D7%A7%D7%A9%D7%95%D7%A8%D7%AA.mp3?alt=media&token=0f8ad72a-8df1-40a9-9350-7bb89c426b52", false, 0, true),
+        new Phrase("", "פיזיותרפיה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A0%D7%A9%D7%99%20%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%2F%D7%A4%D7%99%D7%96%D7%99%D7%95%D7%AA%D7%A8%D7%A4%D7%99%D7%94.mp3?alt=media&token=fa34bb46-8848-4c07-bbd2-0d2887eeb303", false, 0, true),
+        new Phrase("", "ריפוי בעיסוק", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A0%D7%A9%D7%99%20%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%2F%D7%A8%D7%99%D7%A4%D7%95%D7%99%20%D7%91%D7%A2%D7%99%D7%A1%D7%95%D7%A7.mp3?alt=media&token=7e7bc9d0-aea7-452a-9642-52c45318851d", false, 0, true),
+        new Phrase("", "עובדת סוציאלית", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A0%D7%A9%D7%99%20%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%2F%D7%A2%D7%95%D7%91%D7%93%D7%AA%20%D7%A1%D7%95%D7%A6%D7%99%D7%90%D7%9C%D7%99%D7%AA.mp3?alt=media&token=74300909-9373-4fd9-a136-8e7b74385c66", false, 0, true),
+        new Phrase("", "פסיכולוג", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A0%D7%A9%D7%99%20%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%2F%D7%A4%D7%99%D7%A1%D7%9B%D7%95%D7%9C%D7%95%D7%92.mp3?alt=media&token=a7f9c6ec-ee4d-447b-ad06-15c17bc52391", false, 0, true),
+        new Phrase("", "דיאטנית", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A0%D7%A9%D7%99%20%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%2F%D7%93%D7%99%D7%90%D7%98%D7%A0%D7%99%D7%AA.mp3?alt=media&token=6292bc78-ffe9-41fb-86b8-3ee561684c9a", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%90%D7%A0%D7%A9%D7%99%20%D7%9E%D7%A7%D7%A6%D7%95%D7%A2%2F%D7%90%D7%97%D7%A8.mp3?alt=media&token=cf621fac-9dad-46f7-895c-109e33b1c009", false, 0, true)
+      ],
+
+      [ // בדיקות רפואיות
+        new Phrase("", "מרשם לתרופות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%95%D7%AA%2F%D7%9E%D7%A8%D7%A9%D7%9D%20%D7%9C%D7%AA%D7%A8%D7%95%D7%A4%D7%95%D7%AA%20.mp3?alt=media&token=a1aaaf53-d7e7-4121-ac6a-56abf5bf4efa", false, 0, true),
+        new Phrase("", "בדיקות דם", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%95%D7%AA%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%93%D7%9D.mp3?alt=media&token=10de1b00-4bd6-4823-af4c-d4a4b8072536", false, 0, true),
+        new Phrase("", "חיסון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%95%D7%AA%2F%D7%97%D7%99%D7%A1%D7%95%D7%9F.mp3?alt=media&token=8983d119-1044-4694-beb4-344c8edfec07", false, 0, true),
+        new Phrase("", "צילום", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%95%D7%AA%2F%D7%A6%D7%99%D7%9C%D7%95%D7%9D.mp3?alt=media&token=e155a1b4-fcc4-465d-b57a-f6b06e5f5645", false, 0, true),
+        new Phrase("", "הפניה למומחה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%95%D7%AA%2F%D7%94%D7%A4%D7%A0%D7%99%D7%94%20%D7%9C%D7%9E%D7%95%D7%9E%D7%97%D7%94.mp3?alt=media&token=fe43a498-c465-4a46-bc31-509248628a26", false, 0, true),
+        new Phrase("", "התחייבות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%95%D7%AA%2F%D7%94%D7%AA%D7%97%D7%99%D7%99%D7%91%D7%95%D7%AA.mp3?alt=media&token=e4573521-e13f-4f7f-8f2e-436944b316ec", false, 0, true),
+        new Phrase("", "הפניה למיון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%95%D7%AA%2F%D7%94%D7%A4%D7%A0%D7%99%D7%94%20%D7%9C%D7%9E%D7%99%D7%95%D7%9F.mp3?alt=media&token=4f5c7bd2-37dc-4469-8424-f2d3f31e1952", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%91%D7%93%D7%99%D7%A7%D7%95%D7%AA%20%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%95%D7%AA%2F%D7%90%D7%97%D7%A8.mp3?alt=media&token=a68c76f9-5d95-4bff-82f7-f34a5174f8b7", false, 0, true)
+      ],
+
+      [ // סוגי כאב
+        new Phrase("", "מגרד", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fpain%2Fimages%2Fitchy.PNG?alt=media&token=6a522255-9f38-4f59-a607-8e2a78ffd5b3", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A1%D7%95%D7%92%D7%99%20%D7%9B%D7%90%D7%91%2F%D7%9E%D7%92%D7%A8%D7%93.mp3?alt=media&token=cc4ac533-48ad-4b6b-bbb1-311fa7bbb274", false, 0, true),
+        new Phrase("", "שורף", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fpain%2Fimages%2Fburning_pain.PNG?alt=media&token=83f94433-3d41-466c-8601-29c9dc39c34b", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A1%D7%95%D7%92%D7%99%20%D7%9B%D7%90%D7%91%2F%D7%A9%D7%95%D7%A8%D7%A3.mp3?alt=media&token=fbbfba13-daba-4013-9867-bcb47c4e1489", false, 0, true),
+        new Phrase("", "פועם", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A1%D7%95%D7%92%D7%99%20%D7%9B%D7%90%D7%91%2F%D7%A4%D7%95%D7%A2%D7%9D.mp3?alt=media&token=4e1c4737-e163-40aa-aac4-4a707e6afc14", false, 0, true),
+        new Phrase("", "דוקר", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fpain%2Fimages%2Fstabbing_pain.PNG?alt=media&token=f1d5777e-d031-4d3b-ae99-5d364139eab9", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A1%D7%95%D7%92%D7%99%20%D7%9B%D7%90%D7%91%2F%D7%93%D7%95%D7%A7%D7%A8.mp3?alt=media&token=ead5a7de-b5e5-4ffa-807d-091ee3a8b748", false, 0, true),
+        new Phrase("", "אחר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Faudio%2F%D7%A1%D7%95%D7%92%D7%99%20%D7%9B%D7%90%D7%91%2F%D7%90%D7%97%D7%A8.mp3?alt=media&token=2de44444-e03b-4c3d-ac18-e3ccfca9d615", false, 0, true)
       ]
     ];
 

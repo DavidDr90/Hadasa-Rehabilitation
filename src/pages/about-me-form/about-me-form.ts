@@ -15,7 +15,6 @@ import { AddPhrasePage } from '../add-phrase/add-phrase';
 /**
  * the user will see this page if he haven't filled his aboutMe section
  */
-
 @Component({
   selector: 'page-about-me-form',
   templateUrl: 'about-me-form.html',
@@ -29,57 +28,33 @@ export class AboutMeFormPage {
     public alertCtrl: AlertController,
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
+    public authentication: AutenticationProvider,
     public modalCtrl: ModalController,
     public auth: AutenticationProvider,
     private errorProvider: ErrorProvider) {
 
-    //TODO: display loading window
+      
+      let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
+      promise.then((data) => {
+        console.log("about me Exists");
+        return;
+      },
+      (data) => {
+        this.aboutMeCategory =
+        new Category(Enums.ABOUT_ME_STRING, "", "", this.authentication.user.email, "",
+                    0, false, Enums.DEFUALT_CATEGORY_COLOR, 1,true);
+         this.categoryProvider.updateCategoriesArray();
+        this.categoryProvider.addCategory(this.aboutMeCategory);
+        console.log("about me cat was created")
+        this.errorProvider.simpleTosat(("aboutMe cat was created"))
+      })   
 
-    //TODO: dor will create a function that chack if a user is exsist
-    //for now this page move the user to the home page allways
-    //if true go to home page (using promis.then)
-    //if not go to the about me form (using promis.catch)
-    /*let promise = this.categoryProvider.getCategoryByName(ABOUT_ME_STRING);//try to get the about me category from the DB
-    promise.then((data) =>{
-      this.aboutMeCategory = data;
-      this.aboutMeCategory as Category
-      //if the aboutMe category is filled skip this page and go to main page
-      //else continue on this form page 
-      //TODO: close the loading window before leaving the page
-        navCtrl.push(TabsPage);
-    })*/
-
-    //look for aboutMe category and if its found go to HomepPage 
-    //this.navCtrl.push(TabsPage);
-    //this.verifyAboutMeCategory(true);//should be true here 
-
-    //TODO: close the loading window before leaving the page
-
-
-
-    //we stay on this page, so we need to create an aboutMe category
-    //create new category aboutMe and add it to DB
-    //TODO: broken, throw cnanot read 'email' of undefine
-    // this.aboutMeCategory =
-    //   new Category(Enums.ABOUT_ME_STRING, "", "", this.auth.currentUser.email, "",
-    //    0, false, Enums.DEFUALT_CATEGORY_COLOR, 1);
-    //     this.categoryProvider.updateCategoriesArray();
-    // this.categoryProvider.addCategory(this.aboutMeCategory);
-    console.log("constructor ends")
+    
   }
 
   //clicked the button, open add phrase form
   private clicked() {
-    let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
-    promise.then((data) => {
-      this.aboutMeCategory = data;
-      this.aboutMeCategory as Category;
-      console.log("in click id is:" + this.aboutMeCategory.id + "okey?");
-      this.phrasesProvider.getPhrases(this.aboutMeCategory);
-    }).then(() => {
-      console.log("im in second .zen")
-      this.openAddPage(Enums.ADD_OPTIONS.PHRASE)
-    })
+
 
     //fill phrases and add them to about-me category
 
@@ -87,13 +62,12 @@ export class AboutMeFormPage {
 
   //finish filling aboutMe forms and go to main page
   private finish() {
-
     //Checks if the email is verified.
     if (this.auth.isVerified())
       this.navCtrl.push(TabsPage);
     else {
       this.errorProvider.simpleTosat("You must verify your email to continue.")
-      this.navCtrl.setRoot(AboutMeFormPage)
+      this.navCtrl.setRoot(AboutMeFormPage) 
     }
 
   }
@@ -104,11 +78,6 @@ export class AboutMeFormPage {
    * @param formWhere which page call the add page
    */
   openAddPage(fromWhere) {
-    //need to make sure that the aboutMeCategory.id is the new about me category id from th DB
-    //getCategoriesByName return promise object
-    //this.verifyAboutMeCategory(false);//should be false here
-
-
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': fromWhere,
@@ -124,29 +93,5 @@ export class AboutMeFormPage {
   }
 
 
-  /**
-   *  
-   *  Uses categoryProvider and promises to look for aboutMe category
-  and connects it to local aboutMeCategory variable.
-  If navigate is set to true AND aboutMe category was found in DB 
-  will navigate to homepage
-  * @param navigateHome should we go toHomePage if aboutMe category exists
-   */
-  async verifyAboutMeCategory(navigateHome: boolean) {
-    try {
-      let aboutMeCategory = await this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
-      console.log("after await");
-      if (aboutMeCategory != undefined) {
-        this.aboutMeCategory as Category;
-        console.log(this.aboutMeCategory.getID().toString())
-        if (navigateHome)
-          this.navCtrl.push(TabsPage);
-      }
-      console.log("data undefined");
-    } catch (err) {
-      console.log("aboutMe was not found:" + err)
-    }
-
-
-  }
+  
 }

@@ -15,6 +15,7 @@ import * as Enums from '../../consts/enums';
 export class MyCategoryComponent {
 
   @Input() category: Category;
+  @Input() editMode: boolean;
   favProvider:FavoriteProvider
 
   constructor(public categoryProvider:CategoryServiceProvider, public error:ErrorProvider) {
@@ -23,8 +24,13 @@ export class MyCategoryComponent {
   
   /** this function works when the user try to add/remove category to favoriets.
    * update the "isFav" field in the DB of the category
+   * ignore in edit mode
    */
   public updateIsFav(event){
+    if(this.editMode){
+      console.log("category updateisfav ignored in edit mode");
+      return;
+    }
     event.stopPropagation();
     this.category as Category;
     if(this.category.isFav==false){
@@ -47,8 +53,13 @@ export class MyCategoryComponent {
   /**on click method when the user click on a category
    * the method check if to add the category to the common categories list.
    * @param cat the category that clicked
+   * ignore in edit mode
   */
  public catOnClick(event){
+  if(this.editMode){
+    console.log("category catonclik ignored in edit mode");
+    return;
+  }
   this.categoryProvider.increaseViews(this.category)// update the category views field in the DB
   this.favProvider.addCommonFavCat(this.category); //check if the category is common category
 }
