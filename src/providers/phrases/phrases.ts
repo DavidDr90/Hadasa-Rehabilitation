@@ -8,6 +8,11 @@ import { HomePage } from '../../pages/home/home';
 
 
 
+/**
+ * phrases provider behaves like categories provider, 
+ * local phrases array is created, stored, modified and updated here, 
+ * based on parent category
+ */
 @Injectable()
 export class PhrasesProvider {
 
@@ -19,10 +24,10 @@ export class PhrasesProvider {
   constructor(public firebaseProvider: FirebaseProvider, public error: ErrorProvider) {
   }
 
-  //initial phrases array for ngFor and sub-categories array for ngFor
-  //promise is an Promise object that gets the return value only when its ready (await)
-  // from phrase provider.
-  //temp is an promise object that help to get the phrases from promis's resolve attr.
+
+/**
+ * same like updateCategoriesArray, just for phrases
+ */
   public AsyncPhrasesloader(parentCategory: Category): Promise<Phrase[]> {
     console.log("AsyncPhrasesloader start");
     this.parentCategory = parentCategory;
@@ -34,7 +39,6 @@ export class PhrasesProvider {
       else
           this.hasPhrases = false;
     })
-    console.log("AsyncPhrasesloader after end"); 
     return promise;     
   }
 
