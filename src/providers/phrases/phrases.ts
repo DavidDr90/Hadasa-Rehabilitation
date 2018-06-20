@@ -83,16 +83,20 @@ export class PhrasesProvider {
    * add phrase, update DB and arrange by order.
    * if addPhrase called from App-Builder don't arrange by order.
    */
-  public addPhrase(phrase: Phrase, callFromAppBuilder = false) {
-    this.firebaseProvider.addPhrase(phrase);
+  public addPhrase(phrase: Phrase, callFromAppBuilder = false) : Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.firebaseProvider.addPhrase(phrase).then(() => {
+        resolve(phrase);
+      });
+    })
     //if (callFromAppBuilder == false)
-      //this.arrangePhrasesByOrder();
+    //this.arrangePhrasesByOrder();
   }
 
-    /**
-   * remove phrase, update DB and arrange by order.
-   * 
-   */
+  /**
+ * remove phrase, update DB and arrange by order.
+ * 
+ */
   public removePhrase(phrase: Phrase) {
     this.firebaseProvider.removePhrase(phrase);
     let favoriteProvider = new FavoriteProvider(HomePage.favClass);
@@ -139,6 +143,6 @@ export class PhrasesProvider {
     phrase.visibility = !phrase.visibility;
     this.firebaseProvider.updatePhrase(phrase);
   }
-  
+
 
 }
