@@ -20,21 +20,20 @@
     <!-- for normal mode -->
     <div *ngIf="!editFlag">
         <ion-list no-lines>
-            <ion-item *ngFor="let item of categoryService.getCategories">
-                <my-category *ngIf="item.name != 'aboutMe'" [category]="item" [editMode]="editFlag" (click)="openCategoryPhrases(item);"></my-category>
-            </ion-item>
+            <span *ngFor="let item of categories">
+                <ion-item *ngIf="item.visibility">
+                    <my-category [category]="item" [editMode]="editFlag" (click)="openCategoryPhrases(item);"></my-category>
+                </ion-item>
+            </span>
         </ion-list>
     </div>
 
     <!-- for edit mode, enable reorder and swiping -->
     <div *ngIf="editFlag">
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderItem($event)">
-            <ion-item-sliding *ngFor="let item of categoryService.getCategories">
-                <ion-item>
-                    <!-- TODO: to be check -->
-                    <!--  [ngClass] = "item.visibility ? visible : unVisible" -->
-                    <my-category *ngIf="item.name != 'aboutMe'" [category]="item" [editMode]="editFlag" >
-                    </my-category>
+            <ion-item-sliding *ngFor="let item of categories">
+                <ion-item [class.unVisible]="!item.visibility">
+                    <my-category [category]="item" [editMode]="editFlag"></my-category>
                 </ion-item>
                 <ion-item-options side="right">
                     <button ion-button (click)="editCategory(item)">
@@ -47,12 +46,12 @@
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button *ngIf="!visible" (click)="changeVisibility(item)">
+                    <button ion-button *ngIf="!item.visibility" (click)="changeVisibility(item)">
                         <ion-icon name="eye"></ion-icon>
                         הצג
                     </button>
-                    <button ion-button *ngIf="visible" (click)="changeVisibility(item)">
-                        <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
+                    <button ion-button *ngIf="item.visibility" (click)="changeVisibility(item)">
+                        <ion-icon name="eye-off"></ion-icon>
                         הסתר
                     </button>
                 </ion-item-options>

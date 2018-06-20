@@ -13,11 +13,10 @@ import * as Enums from '../../consts/enums';
 @Injectable()
 export class CategoryServiceProvider {
 
-  private categories = [];
+  public categories = [];
   private allUserPhrases = [];
   //categories that have parent category, and shown only at theirs parentCategory's page (next the phrases)
   private subCategories = [];
-  private includeAboutMe = true;
 
   //import categories collection from db and initialize categories attr.
   constructor(
@@ -40,21 +39,10 @@ export class CategoryServiceProvider {
    * @returns Promise object
    */
   public updateCategoriesArray(): Promise<Category[]> {
-    let loading = this.loadingCtrl.create({});
-    //loading.present();
     this.firebaseProvider.importCategories();
     return new Promise((resolve, reject) => {
       this.firebaseProvider.getCategoriesObservable.subscribe(a => {
         this.categories = a;
-        /*if(!this.includeAboutMe){ //should we ignore aboutMe category
-          let temp = this.categories.find(cat => cat.name == Enums.ABOUT_ME_STRING);
-          if(temp != undefined){    
-            var index = this.categories.indexOf(temp);
-            if(index > -1)
-              this.categories.splice(index, 1);
-          }
-        }*/
-          
         this.categories.forEach(element1 => {//initilize all user's phrases local array
           let promise = this.phrasesProvider.getPhrases(element1);
           promise.then((data) => {
@@ -66,7 +54,6 @@ export class CategoryServiceProvider {
         })
         this.categories = a.filter(cat => cat.parentCategoryID == "");
         resolve(this.subCategories = a.filter(cat => cat.parentCategoryID != ""))
-        //loading.dismiss();
       })
     })
   }
@@ -172,9 +159,9 @@ export class CategoryServiceProvider {
 
   public addCategory(category: Category, callFromAppBuilder = false): Promise<void> {
     let promise = this.firebaseProvider.addCategory(category);
-    if(callFromAppBuilder == false){
+    if (callFromAppBuilder == false) {
       this.updateCategoriesArray().then(res => {
-        this.arrangeCategoriesByOrder();
+        // this.arrangeCategoriesByOrder();
       })
     }
     return promise;
@@ -189,52 +176,45 @@ export class CategoryServiceProvider {
    * also update favorites
    * @param category category to remove.
    */
-  public removeCategory(category: Category) {
-    let loading = this.loadingCtrl.create({
-      content: 'אנא המתן, אנחנו מוחקים'
-    });
-    loading.present();
+  public removeCategory(category: Category): Promise<any> {
+    return new Promise((resolve, reject) => {
+      let favoriteProvider = new FavoriteProvider(HomePage.favClass)
+      let promise = this.phrasesProvider.getPhrases(category);
+      promise.then((data) => {
+        let phrases = data;
+        if (category.parentCategoryID == "") {//if the wanted remove category isn't a sub-category.
+          let subCategories = this.subCategories.filter(cat => cat.parentCategoryID == category.id);
+          subCategories.forEach(element => {
+            favoriteProvider.remove_fav_cat(element);
+            favoriteProvider.remove_from_commom_cat(element);
+            let promise2 = this.phrasesProvider.getPhrases(element);//remove the sub-categories's phrases
+            promise2.then((data) => {
+              let phrases2 = data;
+              phrases2.forEach(element => {
+                this.firebaseProvider.removePhrase(element);
+                favoriteProvider.remove_fav_phrases(element)
+                favoriteProvider.remove_from_commom_phrases(element)
+              })
+            });
+            this.firebaseProvider.removeCategory(element);
+          })
+        }
+        favoriteProvider.remove_fav_cat(category);
+        favoriteProvider.remove_from_commom_cat(category);
 
-    let favoriteProvider = new FavoriteProvider(HomePage.favClass)
-    let promise = this.phrasesProvider.getPhrases(category);
-    promise.then((data) => {
-      let phrases = data;
-      if (category.parentCategoryID == "") {//if the wanted remove category isn't a sub-category.
-        let subCategories = this.subCategories.filter(cat => cat.parentCategoryID == category.id);
-        subCategories.forEach(element => {
-          favoriteProvider.remove_fav_cat(element);
-          favoriteProvider.remove_from_commom_cat(element);
-          let promise2 = this.phrasesProvider.getPhrases(element);//remove the sub-categories's phrases
-          promise2.then((data) => {
-            let phrases2 = data;
-            phrases2.forEach(element => {
-              this.firebaseProvider.removePhrase(element);
-              favoriteProvider.remove_fav_phrases(element)
-              favoriteProvider.remove_from_commom_phrases(element)
-            })
-          });
-          this.firebaseProvider.removeCategory(element);
+        phrases.forEach(element => {
+          this.firebaseProvider.removePhrase(element);
+          favoriteProvider.remove_fav_phrases(element)
+          favoriteProvider.remove_from_commom_phrases(element)
+        });
+
+        this.firebaseProvider.removeCategory(category);
+        let promise = this.updateCategoriesArray();
+        promise.then(() => {
+          // this.arrangeCategoriesByOrder();//TODO: Check if needed here, it update all the items in the DB
+          resolve(true);
         })
-      }
-      favoriteProvider.remove_fav_cat(category);
-      favoriteProvider.remove_from_commom_cat(category);
-
-      phrases.forEach(element => {
-        this.firebaseProvider.removePhrase(element);
-        favoriteProvider.remove_fav_phrases(element)
-        favoriteProvider.remove_from_commom_phrases(element)
-      });
-
-      this.firebaseProvider.removeCategory(category);
-      let promise = this.updateCategoriesArray();
-      promise.then(() => {
-        this.arrangeCategoriesByOrder();//TODO: Check if needed here, it update all the items in the DB
-        setTimeout( () =>{
-          loading.dismiss();
-        }, 10000);
       })
-
-      
     })
   }
 
@@ -261,11 +241,7 @@ export class CategoryServiceProvider {
     this.firebaseProvider.updateCategory(category)
   }
 
-  public setIncludeAboutMe(include: boolean){
-    this.includeAboutMe = include;
-  }
-
-  public updateCategory(category: Category){
+  public updateCategory(category: Category) {
     this.firebaseProvider.updateCategory(category);
   }
 

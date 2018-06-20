@@ -53,7 +53,6 @@ export class MyApp {
             content: 'אנחנו מכינים הכל בשבילך...'
           });
           loading.present();
-          this.categoryServiceProvider.setIncludeAboutMe(true);
           let update_promise = await this.categoryServiceProvider.updateCategoriesArray()
           let promise = this.categoryServiceProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
           promise.then((data) => {

@@ -3,7 +3,7 @@
         <ion-title>
             {{parentCategory.name}}
         </ion-title>
-        <ion-buttons end >
+        <ion-buttons end>
             <!-- edit button in the end of the nav-bar -->
             <button ion-button clear (click)="edit()">
                 {{editButtonName}} &nbsp;
@@ -22,10 +22,14 @@
     <div *ngIf="!editFlag">
         <ion-list no-lines>
             <!-- display the sub categories only if there is at least one sub category -->
-            <ion-item *ngIf="hasSubCategories" color={{backgroundColor}}>
-                <my-category (click)="openCategoryPhrases(item)" [category]="item"  [editMode]="editFlag" *ngFor="let item of this.subCategories">
-                </my-category>
-            </ion-item>
+            <span *ngIf="hasSubCategories">
+                <span *ngFor="let item of this.subCategories">
+                    <ion-item *ngIf="item.visibility" color={{backgroundColor}}>
+                        <my-category (click)="openCategoryPhrases(item)" [category]="item" [editMode]="editFlag">
+                        </my-category>
+                    </ion-item>
+                </span>
+            </span>
 
             <!-- button for hide/show phrases -->
             <ion-item color={{backgroundColor}} *ngIf="this.hasPhrases">
@@ -36,11 +40,13 @@
                     <ion-icon name="arrow-up"></ion-icon>
                 </button>
             </ion-item>
-          
+
             <!-- phrases list -->
-            <ion-item color={{backgroundColor}} *ngIf="showPhrases">
-                <phrase [editMode]="editFlag" [phrase]="item" *ngFor="let item of this.phrases"></phrase>
-            </ion-item>
+            <span *ngFor="let item of this.phrases">
+                <ion-item  *ngIf="showPhrases && item.visibility" color={{backgroundColor}}>
+                    <phrase [editMode]="editFlag" [phrase]="item"></phrase>
+                </ion-item>
+            </span>
         </ion-list>
     </div>
 
@@ -50,7 +56,7 @@
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderSubCategories($event)">
             <ion-item-sliding *ngFor="let item of subCategories">
                 <!-- display the sub categories only if there is at least one sub category -->
-                <ion-item *ngIf="hasSubCategories" color={{backgroundColor}}>
+                <ion-item [class.unVisible]="!item.visibility" *ngIf="hasSubCategories" color={{backgroundColor}}>
                     <my-category (click)="openCategoryPhrases(item)" [category]="item" [editMode]="editFlag">
                     </my-category>
                 </ion-item>
@@ -80,8 +86,8 @@
         <!-- phrases -->
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderPhrases($event)">
             <ion-item-sliding *ngFor="let item of this.phrases">
-                <ion-item color={{backgroundColor}}>
-                    <phrase [editMode]="editFlag" [phrase]="item" ></phrase>
+                <ion-item [class.unVisible]="!item.visibility" color={{backgroundColor}}>
+                    <phrase [editMode]="editFlag" [phrase]="item"></phrase>
                 </ion-item>
                 <ion-item-options side="right">
                     <button ion-button (click)="editPhrase(item)">
@@ -94,12 +100,12 @@
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button *ngIf="!Pvisible" (click)="changePhraseVisibility(item)">
+                    <button ion-button *ngIf="!item.visibility" (click)="changePhraseVisibility(item)">
                         <ion-icon name="eye"></ion-icon>
                         הצג
                     </button>
-                    <button ion-button *ngIf="Pvisible" (click)="changePhraseVisibility(item)">
-                        <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
+                    <button ion-button *ngIf="item.visibility" (click)="changePhraseVisibility(item)">
+                        <ion-icon name="eye-off"></ion-icon>
                         הסתר
                     </button>
                 </ion-item-options>
