@@ -32,9 +32,6 @@ Please visit our [wiki](https://github.com/daviddr90/Hadasa-Rehabilitation/wiki)
 ### [Iteration 4 - Deliver the App](../../wiki/Iter4---Deliver-the-App)
 ### To see our project board, follow this [link](https://github.com/DavidDr90/Lets-Talk/projects/1)
 
-### [Live](https://lets-talk-b433e.firebaseapp.com/)
-
-
 ## Disclaimer
 This project is developed as part of the requirements for a [software engineering course](https://github.com/jce-il/se-class/wiki) at the software engineering department - [Azrieli College of Engineering](http://www.jce.ac.il/), Jerusalem, Israel.
 
