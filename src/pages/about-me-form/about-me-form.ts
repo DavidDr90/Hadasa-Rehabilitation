@@ -9,6 +9,7 @@ import * as Enums from '../../consts/enums';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { ErrorProvider } from '../../providers/error/error';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
+import { HomePage } from '../home/home';
 
 
 
@@ -64,7 +65,7 @@ export class AboutMeFormPage {
   private finish() {
     //Checks if the email is verified.
     if (this.auth.isVerified())
-      this.navCtrl.push(TabsPage);
+      this.navCtrl.setRoot(TabsPage);
     else {
       this.errorProvider.simpleTosat("You must verify your email to continue.")
       this.navCtrl.setRoot(AboutMeFormPage) 

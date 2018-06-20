@@ -21,7 +21,7 @@
     <div *ngIf="!editFlag">
         <ion-list no-lines>
             <ion-item *ngFor="let item of categoryService.getCategories">
-                <my-category *ngIf="item.name != Enums.ABOUT_ME_STRING" [category]="item" [editMode]="editFlag" (click)="openCategoryPhrases(item);"></my-category>
+                <my-category *ngIf="item.name != 'aboutMe'" [category]="item" [editMode]="editFlag" (click)="openCategoryPhrases(item);"></my-category>
             </ion-item>
         </ion-list>
     </div>
@@ -33,7 +33,7 @@
                 <ion-item>
                     <!-- TODO: to be check -->
                     <!--  [ngClass] = "item.visibility ? visible : unVisible" -->
-                    <my-category *ngIf="item.name != Enums.ABOUT_ME_STRING" [category]="item" [editMode]="editFlag" >
+                    <my-category *ngIf="item.name != 'aboutMe'" [category]="item" [editMode]="editFlag" >
                     </my-category>
                 </ion-item>
                 <ion-item-options side="right">
