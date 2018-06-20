@@ -33,8 +33,6 @@ import { FavoritesComponent } from '../components/favorites/favorites';
 //import services
 import { PhrasesProvider } from '../providers/phrases/phrases';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
-import { HTTP } from '@ionic-native/http';
-import { HttpProvider } from '../providers/http/http';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
@@ -44,7 +42,6 @@ import { AutenticationProvider } from '../providers/autentication/autentication'
 import { AngularFireStorageModule } from 'angularfire2/storage';
 
 
-import { AudioRecordProvider } from '../providers/audio-record/audio-record';
 import { GetImageProvider } from '../providers/get-image/get-image';
 import { StorageProvider } from '../providers/storage/storage';
 import { AppBuilderProvider } from '../providers/app-builder/app-builder';
@@ -113,15 +110,12 @@ const ERROR_HANDLER = ((<any>window)['IonicDevServer'] == undefined) ? CustomErr
     { provide: ErrorHandler, useClass: ERROR_HANDLER },
     NativeAudio,
     PhrasesProvider,
-    HTTP,
     Media,
     File,
     Transfer,
     Camera,
     FilePath,
-    AudioRecordProvider,
     GetImageProvider,
-    HttpProvider,
     PhrasesProvider,
     FirebaseProvider,
     AutenticationProvider,

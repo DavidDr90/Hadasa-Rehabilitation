@@ -21,24 +21,6 @@ export class StorageProvider {
 
   }
 
-  //TODO: should be deleted???
-  /* This function called from file browser with an event of calling
-   * And uploads the selected file to the storage.
-   *
-   * any other file -> file not supported
-   * Gets: Event of select file.
-   * Returns: 
-   *      On success: Path to uploaded file (web-path). 
-   *            * any image file to <User_mail>/<images>/<file_name>
-   *            * any audio file to <User_mail>/<audios>/<file_name>
-   * 
-   *      On error: an empty string. ("").
-   * 
-   *
-   * 
-   * TODO: Should add error-dialog and percentage bar to the user.
-  */
-
   /** This function called from the add-phrase form (you can use it from different pages also).
    * How does it work?
    * This function checks if the type is image, if it is then it uploads it to

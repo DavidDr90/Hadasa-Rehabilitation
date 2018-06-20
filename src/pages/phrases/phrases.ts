@@ -6,8 +6,6 @@ import { Phrase } from '../../models/Phrase';
 
 import * as Enums from '../../consts/enums';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-import { CategoriesPage } from '../categories/categories';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 
 @Component({

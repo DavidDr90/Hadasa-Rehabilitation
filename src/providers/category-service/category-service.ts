@@ -190,6 +190,11 @@ export class CategoryServiceProvider {
    * @param category category to remove.
    */
   public removeCategory(category: Category) {
+    let loading = this.loadingCtrl.create({
+      content: 'אנא המתן, אנחנו מוחקים'
+    });
+    loading.present();
+
     let favoriteProvider = new FavoriteProvider(HomePage.favClass)
     let promise = this.phrasesProvider.getPhrases(category);
     promise.then((data) => {
@@ -223,8 +228,13 @@ export class CategoryServiceProvider {
       this.firebaseProvider.removeCategory(category);
       let promise = this.updateCategoriesArray();
       promise.then(() => {
-        this.arrangeCategoriesByOrder();
+        this.arrangeCategoriesByOrder();//TODO: Check if needed here, it update all the items in the DB
+        setTimeout( () =>{
+          loading.dismiss();
+        }, 10000);
       })
+
+      
     })
   }
 

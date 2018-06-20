@@ -58,6 +58,7 @@ export class MyCategoryComponent {
  public catOnClick(event){
   if(this.editMode){
     console.log("category catonclik ignored in edit mode");
+    this.error.simpleTosat("לא ניתן להיכנס לקטגוריה במצב עריכה");
     return;
   }
   this.categoryProvider.increaseViews(this.category)// update the category views field in the DB

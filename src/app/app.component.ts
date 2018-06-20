@@ -50,7 +50,7 @@ export class MyApp {
       async user => {
         if (user && user.emailVerified) {
           let loading = this.loadingCtrl.create({
-            content: 'אנא המתן'
+            content: 'אנחנו מכינים הכל בשבילך...'
           });
           loading.present();
           this.categoryServiceProvider.setIncludeAboutMe(true);

@@ -57,7 +57,7 @@
 
     <ion-item id="recordDiv" *ngIf="!isCategory">
       <ion-grid>
-        <ion-row  justify-content-center>
+        <ion-row justify-content-center>
           <button ion-button (click)="startRecord()" *ngIf="!recording">
             <ion-icon name="mic"></ion-icon>
             &nbsp; התחל הקלטה
@@ -66,13 +66,6 @@
             <ion-icon name="mic-off"></ion-icon>
             &nbsp; עצור הקלטה
           </button>
-
-          <!-- <ion-col>
-            <!-- TODO: ask eran about how to reactived the component --
-            <div [hidden]="!recording">
-              <timer #myTimer></timer>
-            </div>
-           </ion-col> -->
         </ion-row>
       </ion-grid>
 
@@ -119,11 +112,9 @@
       </ion-item>
     </ion-row>
 
-    <!-- show the object that create from the inputs -->
-    <!-- <p>{{ _myForm.value | json }}</p> -->
-
     <p></p>
-
+    <p></p>
+    
     <button ion-button large full type="submit" [disabled]="!_myForm.valid" (click)="onSubmit()">
       אישור
     </button>

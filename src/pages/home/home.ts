@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, LoadingController, ModalController } from 'ionic-angular';
-import { IntroSliderPage } from '../../pages/intro-slider/intro-slider'
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 
-import { FavoritesComponent } from '../../components/favorites/favorites';
 import { Favorite } from '../../models/Favorite';
 
 import { FavoriteProvider } from '../../providers/favorite/favorite';
@@ -51,7 +49,6 @@ export class HomePage {
     HomePage.favClass = new Favorite(catArray, categoryProvider.getAllUserPhrases, loadingCtrl);
 
     this.favoriteProvider = new FavoriteProvider(HomePage.favClass);
-
 
 
     this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider, loadingCtrl);

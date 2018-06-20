@@ -109,7 +109,7 @@ export class FirebaseProvider {
       console.log("Document successfully added");
     }).catch(function(e){
       console.error("Error adding document: ", e);
-      this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
+      this.error.simpleTosat("הוספה נכשלה");
     })
   }
 
@@ -118,7 +118,7 @@ export class FirebaseProvider {
       console.log("Document successfully deleted!");
   }).catch(function(e) {
       console.error("Error removing document: ", e);
-      this.error.simpleTosat("מחיקה נכשלה, בעיית התחברות");
+      this.error.simpleTosat("מחיקה נכשלה");
   });
   }
 
@@ -131,7 +131,7 @@ export class FirebaseProvider {
       console.log("Document successfully added");
     }).catch(function(e){
       console.error("Error adding document: ", e);
-      this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
+      this.error.simpleTosat("הוספה נכשלה");
     })
   }
 
@@ -140,7 +140,7 @@ export class FirebaseProvider {
       console.log("Document successfully deleted!");
   }).catch(function(e) {
       console.error("Error removing document: ", e);
-      this.error.simpleTosat("מחיקה נכשלה, בעיית התחברות");
+      this.error.simpleTosat("מחיקה נכשלה");
   });
   }
 

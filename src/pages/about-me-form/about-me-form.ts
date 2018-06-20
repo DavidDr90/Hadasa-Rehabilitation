@@ -66,6 +66,7 @@ export class AboutMeFormPage {
     //Checks if the email is verified.
     if (this.auth.isVerified())
       this.navCtrl.setRoot(TabsPage);
+      
     else {
       this.errorProvider.simpleTosat("You must verify your email to continue.")
       this.navCtrl.setRoot(AboutMeFormPage) 
