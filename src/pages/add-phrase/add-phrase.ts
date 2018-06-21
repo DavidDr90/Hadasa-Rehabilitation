@@ -461,11 +461,11 @@ export class AddPhrasePage {
 
           let audio_type;
           //if the platform is iOS use m4a format
-          // if (this.platform.is('ios')) {
-          //   audio_type = 'data:audio/m4a;base64,'
-          // } else {
+          if (this.platform.is('ios')) {
+            audio_type = 'data:audio/m4a;base64,'
+          } else {
             audio_type = 'data:audio/mp3;base64,'
-          // }
+          }
 
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
           let res = new Promise((resolve, reject) => {

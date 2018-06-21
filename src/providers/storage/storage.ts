@@ -68,6 +68,9 @@ export class StorageProvider {
         this.audioUploadPercentage = 0
         const audioFolder = "/audio/";
 
+        console.log("======== in storgage: path " + path);
+        console.log("======== in storgage: type " + type);
+
         let storage_path = user + audioFolder + this.createFileName() + ".mp3";//create the path on the storage
         const task = firebase.storage().ref(storage_path).putString(type + path, "data_url")
 
@@ -79,6 +82,7 @@ export class StorageProvider {
         );
 
         task.then(async url => {
+          console.log("======== in storgage: url " + url);
           this.audioDownloadURL = url.downloadURL;
           resolve(this.audioDownloadURL)
         });
