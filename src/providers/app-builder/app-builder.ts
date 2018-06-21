@@ -315,81 +315,139 @@ export class AppBuilderProvider {
 
 
     //FOOD CATEGORY
-    cat = new Category("אוכל", "", "", this.userEmail, "", 0, false, null, 2, true)
+    cat = new Category("אוכל", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Fimages%2Ffood.PNG?alt=media&token=783e6cf9-688f-4a9c-afc4-4b5daec31023", this.userEmail, "", 0, false, null, 2, true)
 
     phrases = [
-      new Phrase("", "אני רוצה לאכול", "", "", 0, "", false, 0, true),
-      new Phrase("", "להכין לך אוכל?", "", "", 0, "", false, 0, true),
-      new Phrase("", "סיימתי לאכול", "", "", 0, "", false, 0, true)
+      new Phrase("", "אני רוצה לאכול", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%90%D7%A0%D7%99%20%D7%A8%D7%95%D7%A6%D7%94%20%D7%9C%D7%90%D7%9B%D7%95%D7%9C.mp3?alt=media&token=e3ed315a-4b88-4ba2-a061-b000b969f56c", false, 0, true),
+      new Phrase("", "אני לא רעב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%90%D7%A0%D7%99%20%D7%9C%D7%90%20%D7%A8%D7%A2%D7%91.mp3?alt=media&token=784c2d03-6e64-4003-bc6f-4f1042826db5", false, 0, true),
+      new Phrase("", "להכין לך אוכל?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9C%D7%94%D7%9B%D7%99%D7%9F%20%D7%9C%D7%9A%20%D7%90%D7%95%D7%9B%D7%9C.mp3?alt=media&token=73208b35-6602-4b0e-97fd-dfc1d793db55", false, 0, true),
+      new Phrase("", "סיימתי לאכול", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A1%D7%99%D7%99%D7%9E%D7%AA%D7%99%20%D7%9C%D7%90%D7%9B%D7%95%D7%9C.mp3?alt=media&token=125872fd-4c32-4a4c-846c-b3aec684764a", false, 0, true),
+      new Phrase("", "אולי נצא לאכול בחוץ?", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%90%D7%95%D7%9C%D7%99%20%D7%A0%D7%A6%D7%90%20%D7%9C%D7%90%D7%9B%D7%95%D7%9C%20%D7%91%D7%97%D7%95%D7%A5.mp3?alt=media&token=da836ee8-dabc-41e2-b6d4-18102052f81b", false, 0, true),
     ];
 
     subCats = [
-      new Category("מוצרי חלב", "", "", this.userEmail, "", 0, false, null, 0, true),
-      new Category("מוצרי בשר", "", "", this.userEmail, "", 0, false, null, 1, true),
-      new Category("מאכלים כללים", "", "", this.userEmail, "", 0, false, null, 2, true),
-      new Category("קינוחים", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("משקאות", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("ירקות", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("פירות", "", "", this.userEmail, "", 0, false, null, 3, true),
-      new Category("רטבים ממרחים ותבלינים", "", "", this.userEmail, "", 0, false, null, 3, true)
+      new Category("ארוחות", "", "", this.userEmail, "", 0, false, null, 0, true),
+      new Category("מוצרי חלב", "", "", this.userEmail, "", 0, false, null, 1, true),
+      new Category("מוצרי בשר", "", "", this.userEmail, "", 0, false, null, 2, true),
+      new Category("מאכלים כללים", "", "", this.userEmail, "", 0, false, null, 3, true),
+      new Category("מאפים", "", "", this.userEmail, "", 0, false, null, 4, true),
+      new Category("קינוחים", "", "", this.userEmail, "", 0, false, null, 5, true),
+      new Category("משקאות", "", "", this.userEmail, "", 0, false, null, 6, true),
+      new Category("ירקות", "", "", this.userEmail, "", 0, false, null, 7, true),
+      new Category("פירות", "", "", this.userEmail, "", 0, false, null, 8, true),
+      new Category("רטבים, ממרחים ותבלינים", "", "", this.userEmail, "", 0, false, null, 9, true),
     ]
 
     subPhrases = [
-      [
-        new Phrase("", "גבינה צהובה", "", "", 0, "", false, 0, true),
-        new Phrase("", "גבינה בולגרית", "", "", 0, "", false, 0, true),
-        new Phrase("", "טוסט גבינה", "", "", 0, "", false, 0, true),
-        new Phrase("", "פסטה ברוטב שמנת", "", "", 0, "", false, 0, true)
+      [//ארוחות
+        new Phrase("", "ארוחת בוקר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%90%D7%A8%D7%95%D7%97%D7%95%D7%AA%2F%D7%90%D7%A8%D7%95%D7%97%D7%AA%20%D7%91%D7%95%D7%A7%D7%A8.mp3?alt=media&token=8eba1263-9a1e-4d13-9bf1-8bf6511159d8", false, 0, true),
+        new Phrase("", "ארוחת צהרים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%90%D7%A8%D7%95%D7%97%D7%95%D7%AA%2F%D7%90%D7%A8%D7%95%D7%97%D7%AA%20%D7%A6%D7%94%D7%A8%D7%99%D7%9D.mp3?alt=media&token=2f3c9c52-b61b-4220-b5e7-f89fa7a6a2b8", false, 0, true),
+        new Phrase("", "ארוחת ערב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%90%D7%A8%D7%95%D7%97%D7%95%D7%AA%2F%D7%90%D7%A8%D7%95%D7%97%D7%AA%20%D7%A2%D7%A8%D7%91.mp3?alt=media&token=6eeafab1-a68e-4481-85d9-77ba59c58e51", false, 0, true),
+        new Phrase("", "שתיה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%90%D7%A8%D7%95%D7%97%D7%95%D7%AA%2F%D7%A9%D7%AA%D7%99%D7%94.mp3?alt=media&token=0f9bd78c-a2ca-40d7-b17e-c1be127344db", false, 0, true),
+        new Phrase("", "נשנוש", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%90%D7%A8%D7%95%D7%97%D7%95%D7%AA%2F%D7%A0%D7%A9%D7%A0%D7%95%D7%A9.mp3?alt=media&token=a74a7d2e-3291-4ee8-b905-36a83776efa7", false, 0, true),
       ],
 
-      [
-        new Phrase("", "צלי בשר", "", "", 0, "", false, 0, true),
-        new Phrase("", "סטייק אנטריקוט", "", "", 0, "", false, 0, true),
-        new Phrase("", "צלעות כבש", "", "", 0, "", false, 0, true),
-        new Phrase("", "כבד אווז", "", "", 0, "", false, 0, true)
+      [//מוצרי חלב
+        new Phrase("", "חלב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%97%D7%9C%D7%91.mp3?alt=media&token=02cbe1ca-503b-402f-9a31-f3156f8985f2", false, 0, true),
+        new Phrase("", "גבינה לבנה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%92%D7%91%D7%99%D7%A0%D7%94%20%D7%9C%D7%91%D7%A0%D7%94.mp3?alt=media&token=efc5e008-0ba3-4379-b8e7-f31749ccd03d", false, 0, true),
+        new Phrase("", "יוגורט", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%99%D7%95%D7%92%D7%95%D7%A8%D7%98.mp3?alt=media&token=b99d6f8a-6f51-4199-a4dc-ba316e8c7fa9", false, 0, true),
+        new Phrase("", "גבינה צהובה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%92%D7%91%D7%99%D7%A0%D7%94%20%D7%A6%D7%94%D7%95%D7%91%D7%94.mp3?alt=media&token=df1f7ef5-a09c-450d-bd64-9f2d4d75cee7", false, 0, true),
+        new Phrase("", "גבינה בולגרית", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%92%D7%91%D7%99%D7%A0%D7%94%20%D7%91%D7%95%D7%9C%D7%92%D7%A8%D7%99%D7%AA.mp3?alt=media&token=b46347b1-f9c6-4a87-b094-9eb5d6c11cb5", false, 0, true),
+        new Phrase("", "קוטג'", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%A7%D7%95%D7%98%D7%92'.mp3?alt=media&token=c1dbbe70-ccf5-4a40-9b19-f36424132708", false, 0, true),
+        new Phrase("", "ביצים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%91%D7%99%D7%A6%D7%99%D7%9D.mp3?alt=media&token=d3c967c4-e573-48ea-894d-9278a550bc6a", false, 0, true),
+        new Phrase("", "חמאה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%97%D7%9E%D7%90%D7%94.mp3?alt=media&token=ecde95f3-d486-43fd-badc-95979ae252cc", false, 0, true),
+        new Phrase("", "מעדן", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%97%D7%9C%D7%91%2F%D7%9E%D7%A2%D7%93%D7%9F.mp3?alt=media&token=c10b0cc0-fe24-4044-91d4-9b96804dfbcb", false, 0, true),
       ],
 
-      [
-        new Phrase("", "אורז", "", "", 0, "", false, 0, true),
-        new Phrase("", "פסטה", "", "", 0, "", false, 0, true),
-        new Phrase("", "מרק", "", "", 0, "", false, 0, true),
-        new Phrase("", "פתיתים", "", "", 0, "", false, 0, true)
+      [//מוצרי בשר
+        new Phrase("", "בשר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%91%D7%A9%D7%A8.mp3?alt=media&token=d83b5880-aba7-47e6-8c4c-5e3b0e9f40f5", false, 0, true),
+        new Phrase("", "סטייק אנטריקוט", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%A1%D7%98%D7%99%D7%99%D7%A7%20%D7%90%D7%A0%D7%98%D7%A8%D7%99%D7%A7%D7%95%D7%98.mp3?alt=media&token=0bab3f5c-9b1b-4769-9578-3f4ac8e7ba21", false, 0, true),
+        new Phrase("", "קציצות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%A7%D7%A6%D7%99%D7%A6%D7%95%D7%AA.mp3?alt=media&token=914e4f1d-af43-4fd7-a3e2-2f55f222c6f5", false, 0, true),
+        new Phrase("", "עוף", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%A2%D7%95%D7%A3.mp3?alt=media&token=bcb8e1cd-05f6-4e19-8661-0fd3b9420900", false, 0, true),
+        new Phrase("", "שניצל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%A9%D7%A0%D7%99%D7%A6%D7%9C.mp3?alt=media&token=8279874d-67eb-47bf-9ada-329ebb9b59f7", false, 0, true),
+        new Phrase("", "כדורי בשר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%9B%D7%93%D7%95%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8.mp3?alt=media&token=cc609f6c-03ca-40b3-ab8c-96ec1f29820d", false, 0, true),
+        new Phrase("", "חזה עוף", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%97%D7%96%D7%94%20%D7%A2%D7%95%D7%A3.mp3?alt=media&token=5b2f202f-6bb9-4269-945f-42f199f9c6bf", false, 0, true),
+        new Phrase("", "שווארמה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%A9%D7%95%D7%95%D7%90%D7%A8%D7%9E%D7%94.mp3?alt=media&token=f3920959-c112-413b-b860-7ed78ea2942f", false, 0, true),
+        new Phrase("", "דג", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%93%D7%92.mp3?alt=media&token=01ad8363-e9a0-4d53-85bc-7493486df809", false, 0, true),
+        new Phrase("", "טונה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%95%D7%A6%D7%A8%D7%99%20%D7%91%D7%A9%D7%A8%2F%D7%98%D7%95%D7%A0%D7%94.mp3?alt=media&token=4d87b233-6f14-4a57-8ae0-8d7371800a94", false, 0, true),
       ],
 
-      [
-        new Phrase("", "עוגת שוקולד", "", "", 0, "", false, 0, true),
-        new Phrase("", "עוגת ביסקוויטים", "", "", 0, "", false, 0, true),
-        new Phrase("", "עוגת לוטוס", "", "", 0, "", false, 0, true),
-        new Phrase("", "עוגיות שוקולד צ'יפס", "", "", 0, "", false, 0, true)
+      [//מאכלים כללים
+        new Phrase("", "אורז", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%90%D7%95%D7%A8%D7%96.mp3?alt=media&token=c61a5057-fe6a-4d6c-b8a1-1bc4034acde1", false, 0, true),
+        new Phrase("", "פסטה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A4%D7%A1%D7%98%D7%94.mp3?alt=media&token=c537efc6-8142-45f3-91cc-30bac420f7bb", false, 0, true),
+        new Phrase("", "מרק", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%9E%D7%A8%D7%A7.mp3?alt=media&token=c7fb70c3-6fce-4922-8fff-35e03555bd02", false, 0, true),
+        new Phrase("", "חביתה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%97%D7%91%D7%99%D7%AA%D7%94.mp3?alt=media&token=6a4df95f-0736-4acd-9946-f76c1a39a120", false, 0, true),
+        new Phrase("", "ירקות מבושלים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%99%D7%A8%D7%A7%D7%95%D7%AA%20%D7%9E%D7%91%D7%95%D7%A9%D7%9C%D7%99%D7%9D.mp3?alt=media&token=d63121d4-c0e1-40fd-92ed-18f6bf4e2f48", false, 0, true),
+        new Phrase("", "סלט", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A1%D7%9C%D7%98.mp3?alt=media&token=a46c5785-74b8-409d-842d-5d120fe80250", false, 0, true),
+        new Phrase("", "פתיתים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A4%D7%AA%D7%99%D7%AA%D7%99%D7%9D.mp3?alt=media&token=deba197b-5647-45d4-9357-2071bc03270b", false, 0, true),
+        new Phrase("", "פירה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A4%D7%99%D7%A8%D7%94.mp3?alt=media&token=4df04dab-2a28-40a9-b196-17085402fa4b", false, 0, true),
+        new Phrase("", "צ'יפס", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A6'%D7%99%D7%A4%D7%A1.mp3?alt=media&token=1483984c-546d-4cca-9a76-024c4b1088b4", false, 0, true),
+        new Phrase("", "פיצה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A4%D7%99%D7%A6%D7%94.mp3?alt=media&token=3eba3612-4ea4-4534-baf2-ed1feedaf566", false, 0, true),
+        new Phrase("", "פלאפל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A4%D7%9C%D7%90%D7%A4%D7%9C.mp3?alt=media&token=c9092657-0fc0-429e-8c8e-2ed82c350349", false, 0, true),
+        new Phrase("", "שקשוקה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A9%D7%A7%D7%A9%D7%95%D7%A7%D7%94.mp3?alt=media&token=26a39f07-b96e-4e1a-b9dc-2208df6c275d", false, 0, true),
+        new Phrase("", "סושי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A1%D7%95%D7%A9%D7%99.mp3?alt=media&token=1b02105c-f339-4f23-bb92-23af43cdb2dc", false, 0, true),
+        new Phrase("", "קוגל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%9B%D7%9C%D7%99%D7%9D%20%D7%9B%D7%9C%D7%9C%D7%99%D7%9D%2F%D7%A7%D7%95%D7%92%D7%9C.mp3?alt=media&token=8a4040a1-d1e8-45b8-bb13-9f95a4a78df9", false, 0, true),
       ],
 
-      [
-        new Phrase("", "קולה", "", "", 0, "", false, 0, true),
-        new Phrase("", "מים", "", "", 0, "", false, 0, true),
-        new Phrase("", "פיוז טי", "", "", 0, "", false, 0, true),
-        new Phrase("", "ספרייט", "", "", 0, "", false, 0, true)
+      [//מאפים
+        new Phrase("", "לחם", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%A4%D7%99%D7%9D%2F%D7%9C%D7%97%D7%9D.mp3?alt=media&token=b4f2c668-3876-442f-9c29-2498b86c769d", false, 0, true),
+        new Phrase("", "לחמניה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%A4%D7%99%D7%9D%2F%D7%9C%D7%97%D7%9E%D7%A0%D7%99%D7%94.mp3?alt=media&token=b3cfe48d-0e0b-4c58-9e40-65a8592e5988", false, 0, true),
+        new Phrase("", "פיתה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%A4%D7%99%D7%9D%2F%D7%A4%D7%99%D7%AA%D7%94.mp3?alt=media&token=e283db0f-00ef-46c4-8c12-57f44b3ea521", false, 0, true),
+        new Phrase("", "טוסט", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%A4%D7%99%D7%9D%2F%D7%98%D7%95%D7%A1%D7%98.mp3?alt=media&token=5afa3ffb-c956-4132-84bc-dfefc938b977", false, 0, true),
+        new Phrase("", "בורקס", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%A4%D7%99%D7%9D%2F%D7%98%D7%95%D7%A1%D7%98.mp3?alt=media&token=5afa3ffb-c956-4132-84bc-dfefc938b977", false, 0, true),
+        new Phrase("", "קרואסון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%90%D7%A4%D7%99%D7%9D%2F%D7%A7%D7%A8%D7%95%D7%90%D7%A1%D7%95%D7%9F.mp3?alt=media&token=131abb76-cf6a-47bf-9523-0cbc97fdd5cb", false, 0, true),
       ],
 
-      [
-        new Phrase("", "מלפפון", "", "", 0, "", false, 0, true),
-        new Phrase("", "עגבניה", "", "", 0, "", false, 0, true),
-        new Phrase("", "גזר", "", "", 0, "", false, 0, true),
-        new Phrase("", "גמבה", "", "", 0, "", false, 0, true)
+      [//קינוחים
+        new Phrase("", "עוגה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A7%D7%99%D7%A0%D7%95%D7%97%D7%99%D7%9D%2F%D7%A2%D7%95%D7%92%D7%94.mp3?alt=media&token=9d020fbc-6b49-4172-a365-c5c4208405c1", false, 0, true),
+        new Phrase("", "עוגיות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A7%D7%99%D7%A0%D7%95%D7%97%D7%99%D7%9D%2F%D7%A2%D7%95%D7%92%D7%99%D7%95%D7%AA.mp3?alt=media&token=c5a1f1f2-30b2-4ac4-ae4d-28f3e4bd7558", false, 0, true),
+        new Phrase("", "גלידה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A7%D7%99%D7%A0%D7%95%D7%97%D7%99%D7%9D%2F%D7%92%D7%9C%D7%99%D7%93%D7%94.mp3?alt=media&token=f536cd95-04db-45e0-a2a9-02b2650530cb", false, 0, true),
       ],
 
-      [
-        new Phrase("", "תפוח", "", "", 0, "", false, 0, true),
-        new Phrase("", "אבטיח", "", "", 0, "", false, 0, true),
-        new Phrase("", "מלון", "", "", 0, "", false, 0, true),
-        new Phrase("", "בננה", "", "", 0, "", false, 0, true)
+      [//משקאות
+        new Phrase("", "מים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA%2F%D7%9E%D7%99%D7%9D.mp3?alt=media&token=cddbf894-5db8-46de-802f-e202c3ef98e8", false, 0, true),
+        new Phrase("", "מיץ", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA%2F%D7%9E%D7%99%D7%A5.mp3?alt=media&token=7d1a6ba2-3fe4-41e5-aef9-7525eedb5b89", false, 0, true),
+        new Phrase("", "סודה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA%2F%D7%A1%D7%95%D7%93%D7%94.mp3?alt=media&token=d2bfc6ef-7886-4f22-97d8-ff2ef666d0b1", false, 0, true),
+        new Phrase("", "קולה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA%2F%D7%A7%D7%95%D7%9C%D7%94.mp3?alt=media&token=7198b732-6e0c-4ae4-934a-cb3308e96ae8", false, 0, true),
+        new Phrase("", "קפה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA%2F%D7%A7%D7%A4%D7%94.mp3?alt=media&token=830fe69c-5450-4ad4-83fb-39d26531c943", false, 0, true),
+        new Phrase("", "תה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA%2F%D7%AA%D7%94.mp3?alt=media&token=b998f5b7-78fb-42dc-bdbc-f4c1068a23ec", false, 0, true),
+        new Phrase("", "יין", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA%2F%D7%99%D7%99%D7%9F.mp3?alt=media&token=a17485c6-190b-4fcc-ab54-575746791cd9", false, 0, true),
+        new Phrase("", "בירה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%9E%D7%A9%D7%A7%D7%90%D7%95%D7%AA%2F%D7%91%D7%99%D7%A8%D7%94.mp3?alt=media&token=e1acbcb1-5794-4d15-b5b3-7892a7628b6d", false, 0, true),
       ],
 
-      [
-        new Phrase("", "קטשופ", "", "", 0, "", false, 0, true),
-        new Phrase("", "צ'ילי מתוק", "", "", 0, "", false, 0, true),
-        new Phrase("", "ממרח שוקולד", "", "", 0, "", false, 0, true),
-        new Phrase("", "מלח ופלפל שחור", "", "", 0, "", false, 0, true)
-      ]
+      [//ירקות
+        new Phrase("", "מלפפון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%99%D7%A8%D7%A7%D7%95%D7%AA%2F%D7%9E%D7%9C%D7%A4%D7%A4%D7%95%D7%9F.mp3?alt=media&token=abcdf8ac-3459-49aa-a7a6-90e2808ccdb6", false, 0, true),
+        new Phrase("", "עגבניה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%99%D7%A8%D7%A7%D7%95%D7%AA%2F%D7%A2%D7%92%D7%91%D7%A0%D7%99%D7%94.mp3?alt=media&token=bee3602b-c484-40d6-9155-e193144fb336", false, 0, true),
+        new Phrase("", "גמבה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%99%D7%A8%D7%A7%D7%95%D7%AA%2F%D7%92%D7%9E%D7%91%D7%94.mp3?alt=media&token=c311d4e1-8688-43e1-874a-1f3895c609a9", false, 0, true),
+        new Phrase("", "פלפל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%99%D7%A8%D7%A7%D7%95%D7%AA%2F%D7%A4%D7%9C%D7%A4%D7%9C.mp3?alt=media&token=5b19d091-1bd8-4097-ae39-b0f4fb130442", false, 0, true),
+        new Phrase("", "בצל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%99%D7%A8%D7%A7%D7%95%D7%AA%2F%D7%91%D7%A6%D7%9C.mp3?alt=media&token=ed894f8d-66b1-4ae4-a205-6312c1084cb7", false, 0, true),
+        new Phrase("", "חסה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%99%D7%A8%D7%A7%D7%95%D7%AA%2F%D7%97%D7%A1%D7%94.mp3?alt=media&token=8656e314-cc61-4350-979f-0f102868da8f", false, 0, true),
+        new Phrase("", "גזר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%99%D7%A8%D7%A7%D7%95%D7%AA%2F%D7%92%D7%96%D7%A8.mp3?alt=media&token=da8b8201-3191-4bf3-a905-226775490614", false, 0, true),
+      ],
+
+      [//פירות
+        new Phrase("", "תפוח", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%AA%D7%A4%D7%95%D7%97.mp3?alt=media&token=621a5491-f3c1-4872-9712-27b1f2f6ef29", false, 0, true),
+        new Phrase("", "אגס", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%90%D7%92%D7%A1.mp3?alt=media&token=77a4a10b-8c65-45b4-9a80-a11f0fa3b2e3", false, 0, true),
+        new Phrase("", "תפוז", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%AA%D7%A4%D7%95%D7%96.mp3?alt=media&token=0f69d6d9-4172-47e7-9897-78f5980c97fc", false, 0, true),
+        new Phrase("", "ענבים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%A2%D7%A0%D7%91%D7%99%D7%9D.mp3?alt=media&token=ad263839-8c2a-49e2-977a-15b0f8dbf91a", false, 0, true),
+        new Phrase("", "אבטיח", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%90%D7%91%D7%98%D7%99%D7%97.mp3?alt=media&token=f21de5a8-de87-4a74-adf0-e4f83a07170c", false, 0, true),
+        new Phrase("", "מלון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%9E%D7%9C%D7%95%D7%9F.mp3?alt=media&token=09a6b91b-bd46-4e0f-9038-66074c41056c", false, 0, true),
+        new Phrase("", "בננה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%91%D7%A0%D7%A0%D7%94.mp3?alt=media&token=77d1c70f-58ba-4a2c-a645-cd2dd25f5d1c", false, 0, true),
+      ], 
+      
+      [//רטבים, ממרחים ותבלינים
+        new Phrase("", "קטשופ", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%A7%D7%98%D7%A9%D7%95%D7%A4.mp3?alt=media&token=bca80cd2-176f-48be-a893-57306e52fb7b", false, 0, true),
+        new Phrase("", "חרדל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%97%D7%A8%D7%93%D7%9C.mp3?alt=media&token=d7ae8899-84df-471e-8790-50faff0247ea", false, 0, true),
+        new Phrase("", "מיונז", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%9E%D7%99%D7%95%D7%A0%D7%96.mp3?alt=media&token=092e54d9-b31f-4d46-9303-d32dc0ed6ecd", false, 0, true),
+        new Phrase("", "טחינה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%98%D7%97%D7%99%D7%A0%D7%94.mp3?alt=media&token=1f91a354-ddb6-4ec4-9fc6-158bedbd4105", false, 0, true),
+        new Phrase("", "חומוס", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%97%D7%95%D7%9E%D7%95%D7%A1.mp3?alt=media&token=f85a7210-dcdd-45fc-8a1a-4b0de4beffd8", false, 0, true),
+        new Phrase("", "צ'ילי מתוק", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%A6'%D7%99%D7%9C%D7%99%20%D7%9E%D7%AA%D7%95%D7%A7.mp3?alt=media&token=2d3759f8-e601-42d0-8eeb-217aca83d074", false, 0, true),
+        new Phrase("", "ממרח שוקולד", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%9E%D7%9E%D7%A8%D7%97%20%D7%A9%D7%95%D7%A7%D7%95%D7%9C%D7%93.mp3?alt=media&token=b8371f98-5efe-4014-bdb4-ee48686de65c", false, 0, true),
+        new Phrase("", "מלח", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%9E%D7%9C%D7%97.mp3?alt=media&token=41f7b647-a758-4d25-8d70-ee737991c65b", false, 0, true),
+        new Phrase("", "פלפל שחור", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%A4%D7%9C%D7%A4%D7%9C%20%D7%A9%D7%97%D7%95%D7%A8.mp3?alt=media&token=75d1221d-31c9-4f7b-94b1-5c6cdb26320c", false, 0, true),
+        new Phrase("", "פפריקה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%A4%D7%A4%D7%A8%D7%99%D7%A7%D7%94.mp3?alt=media&token=f30086cc-9892-47d8-8ab4-0d24cb806899", false, 0, true),
+      ],
+    
     ];
 
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, false);
@@ -406,7 +464,7 @@ export class AppBuilderProvider {
       new Phrase("", "אדישות", "", "", 0, "", false, 0, true),
       new Phrase("", "עצב", "", "", 0, "", false, 0, true),
       new Phrase("", "כעס", "", "", 0, "", false, 0, true),
-      new Phrase("", "בלבול", "", "", 0, "", false, 0, true), new Phrase("", "שמחה", "", "", 0, "", false, 0, true),
+      new Phrase("", "בלבול", "", "", 0, "", false, 0, true),
       new Phrase("", "קנאה", "", "", 0, "", false, 0, true),
       new Phrase("", "עצבנות", "", "", 0, "", false, 0, true),
       new Phrase("", "דאגה", "", "", 0, "", false, 0, true),
@@ -464,11 +522,7 @@ export class AppBuilderProvider {
     //MEDICINE CATEGORY
     cat = new Category("רפואה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fdoctors%2Fimages%2Fdoctors.PNG?alt=media&token=d5615126-71fd-41e7-8b28-2ad1bc7da7de", this.userEmail, "", 0, false, null, 5, true)
 
-    phrases = [
-      // new Phrase("", "סקלת כאב", "", "", 0, "", false, 0, true),
-      // new Phrase("", "אני רוצה להזמין תור לרופא", "", "", 0, "", false, 0, true),
-      // new Phrase("", "אני רוצה לקבל הפנייה למיון", "", "", 0, "", false, 0, true)
-    ];
+    phrases = [ ];
 
     subCats = [
       new Category("משפטים", "", "", this.userEmail, "", 0, false, null, 0, true),
