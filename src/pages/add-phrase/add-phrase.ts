@@ -446,6 +446,7 @@ export class AddPhrasePage {
 
   //stop the record and save the audio file on local variable
   stopRecord() {
+    console.log("########### in stopRecord");
     if (this.recording) {
       this.micText = START_REC;
       this.recording = !this.recording;
@@ -453,6 +454,7 @@ export class AddPhrasePage {
       // save the new audio file to the storage
       try {
         this.audio.stopRecord();
+        console.log("########### in stopRecord");
 
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then(async (base64File: string) => {
@@ -466,14 +468,19 @@ export class AddPhrasePage {
           } else {
             audio_type = 'data:audio/mp3;base64,'
           }
+          console.log("########### in stopRecord, type = " + audio_type);
 
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
           let res = new Promise((resolve, reject) => {
+            console.log("########### in stopRecord, promise");
+
             resolve(promise);
           });
 
           res.then((data) => {
             this.audioFileURL = data.toString();
+            console.log("########### in stopRecord, audioFileURL = " + this.audioFileURL);
+
             this._myForm.patchValue({ 'audioFile': this.audioFileURL });//insert the recorded audio file path to the form 
           });
 
