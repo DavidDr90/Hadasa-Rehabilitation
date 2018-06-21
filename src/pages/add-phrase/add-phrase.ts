@@ -454,7 +454,7 @@ export class AddPhrasePage {
       // save the new audio file to the storage
       try {
         this.audio.stopRecord();
-        console.log("########### in stopRecord");
+        console.log("########### in stopRecord, after stop");
 
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then(async (base64File: string) => {
@@ -485,10 +485,10 @@ export class AddPhrasePage {
           });
 
         }, (err) => {
-          console.log(err);
+          console.log("!!!!!!!!!"+ err);
         });
       } catch (err) {
-        console.log(err);
+        console.log("$$$$$$$$$$$$" + err);
       }
     }
   }
