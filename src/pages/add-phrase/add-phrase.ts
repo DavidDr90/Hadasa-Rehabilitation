@@ -446,7 +446,6 @@ export class AddPhrasePage {
 
   //stop the record and save the audio file on local variable
   stopRecord() {
-    console.log("########### in stopRecord");
     if (this.recording) {
       this.micText = START_REC;
       this.recording = !this.recording;
@@ -454,7 +453,6 @@ export class AddPhrasePage {
       // save the new audio file to the storage
       try {
         this.audio.stopRecord();
-        console.log("########### in stopRecord, after stop");
 
         // encode the media object file to base64 file
         this.base64.encodeFile(this.audioFilePath).then(async (base64File: string) => {
@@ -462,33 +460,24 @@ export class AddPhrasePage {
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
 
           let audio_type;
-          //if the platform is iOS use m4a format
-          if (this.platform.is('ios')) {
-            audio_type = 'data:audio/m4a;base64,'
-          } else {
-            audio_type = 'data:audio/mp3;base64,'
-          }
-          console.log("########### in stopRecord, type = " + audio_type);
+          audio_type = 'data:audio/mp3;base64,'
+          
 
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
           let res = new Promise((resolve, reject) => {
-            console.log("########### in stopRecord, promise");
-
             resolve(promise);
           });
 
           res.then((data) => {
             this.audioFileURL = data.toString();
-            console.log("########### in stopRecord, audioFileURL = " + this.audioFileURL);
-
             this._myForm.patchValue({ 'audioFile': this.audioFileURL });//insert the recorded audio file path to the form 
           });
 
         }, (err) => {
-          console.log("!!!!!!!!!"+ err);
+          console.log(err);
         });
       } catch (err) {
-        console.log("$$$$$$$$$$$$" + err);
+        console.log(err);
       }
     }
   }
