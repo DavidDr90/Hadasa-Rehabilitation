@@ -442,10 +442,6 @@ export class AddPhrasePage {
     catch (error) {
       console.log(error);
     }
-
-    /*
-    this.timer.startTimer();
-    }*/
   }
 
   //stop the record and save the audio file on local variable
