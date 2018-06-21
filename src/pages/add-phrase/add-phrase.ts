@@ -120,33 +120,45 @@ export class AddPhrasePage {
     });
 
     //check if we opened this page from edit category mode and supllied the right nav params
-    if(this.navParams.get('editCategory') && this.navParams.get('categoryToEdit')){
+    if (this.navParams.get('editCategory') && this.navParams.get('categoryToEdit')) {
       console.log("were in edit category");
       console.log(this.navParams.get('categoryToEdit'));
       this.isEditCategory = true;
       this.categoryToEdit = this.navParams.get('categoryToEdit') as Category;
       //modify the form object based on category to edit
-      this._myForm.patchValue({"text": this.categoryToEdit.name, 
+      this._myForm.patchValue({
+        "text": this.categoryToEdit.name,
         "categoryID": this.navParams.get('categoryID'),
         "imagePath": this.categoryToEdit.imageURL,
-        "audioFile": '', 
+        "audioFile": '',
       });
+      //display the old image in the form
+      if (this.categoryToEdit.imageURL != '')
+        this.imageURL = this.categoryToEdit.imageURL;
     }
 
     //check if we opened this page from edit phrase mode and supllied the right nav params
-    if(this.navParams.get('editPhrase') && this.navParams.get('phraseToEdit')){
+    if (this.navParams.get('editPhrase') && this.navParams.get('phraseToEdit')) {
       console.log("were in edit phrase");
       console.log(this.navParams.get('phraseToEdit'));
       this.isEditPhrase = true;
       this.phraseToEdit = this.navParams.get('phraseToEdit') as Phrase;
       //modify the form object based on category to edit
-      this._myForm.patchValue({"text": this.phraseToEdit.name, 
+      this._myForm.patchValue({
+        "text": this.phraseToEdit.name,
         "categoryID": this.phraseToEdit.getCategoryID,
         "imagePath": this.phraseToEdit.imageURL,
-        "audioFile": this.phraseToEdit.audio, 
+        "audioFile": this.phraseToEdit.audio,
       });
+      //display the old image and audio file in the form
+      if (this.phraseToEdit.imageURL != '')
+        this.imageURL = this.phraseToEdit.imageURL;
+      if (this.phraseToEdit.audio != ''){
+        this.audioFileURL = this.phraseToEdit.audio;
+        this.fileName = "קובץ קול ישן";
+      }
     }
-   
+
     this.parentCategoryID = this.navParams.get('categoryID');//get the state from the previous page
     if (this.parentCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
       this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categories
@@ -233,21 +245,21 @@ export class AddPhrasePage {
   onSubmit() {
     // use the form object to create/edit elements and add it to the server
     if (!this._myForm.valid) { return; }
-    
-    if (this.isEditCategory){ //we edited existing category
+
+    if (this.isEditCategory) { //we edited existing category
       this.submitEditedCategory()
       this._myForm.reset();//reset the form
       this._viewCtrl.dismiss();
       return; //were done here
     }
 
-    if (this.isEditPhrase){ //we edited existing phrase
+    if (this.isEditPhrase) { //we edited existing phrase
       this.submitEditedPhrase()
       this._myForm.reset();//reset the form
       this._viewCtrl.dismiss();
       return; //were done here
     }
-    
+
     let returnObject;//can be Category or Phrase
     if (this.isCategory) {
       //get the input color that the user choose, if the user didn't choose it set to default
@@ -272,7 +284,7 @@ export class AddPhrasePage {
   }
 
   //called when we edited existing category
-  private async submitEditedCategory(){
+  private async submitEditedCategory() {
     //get the input color that the user choose, if the user didn't choose its left unchanged
     if (this.categoryColor === undefined)
       this.categoryColor = this.categoryToEdit.color;
@@ -281,36 +293,36 @@ export class AddPhrasePage {
       this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
     }
     this.categoryToEdit.name = this._myForm.controls['text'].value;
-    
-    if(this._myForm.controls['imagePath'].value != undefined ){
+
+    if (this._myForm.controls['imagePath'].value != undefined) {
       console.log("we think that image is defined!");
       console.log(this._myForm.controls['imagePath'].value);
       this.categoryToEdit.imageURL = this._myForm.controls['imagePath'].value;
-    }    
-    else  
+    }
+    else
       this.categoryToEdit.imageURL = '';
 
-    this.categoryToEdit.color = this.categoryColor; 
+    this.categoryToEdit.color = this.categoryColor;
     await this.categoryProvider.updateCategory(this.categoryToEdit);//update category in DB
   }
 
   //called when we edited existing Phrase
-  private async submitEditedPhrase(){
+  private async submitEditedPhrase() {
     this.phraseToEdit.name = this._myForm.controls['text'].value;
-    if(this._myForm.controls['imagePath'].value != undefined){
+    if (this._myForm.controls['imagePath'].value != undefined) {
       console.log("we think that image is defined!");
       console.log(this._myForm.controls['imagePath'].value);
       this.phraseToEdit.imageURL = this._myForm.controls['imagePath'].value;
-    }    
-    else  
+    }
+    else
       this.phraseToEdit.imageURL = '';
-    
-    if(this._myForm.controls['audioFile'].value != undefined){
+
+    if (this._myForm.controls['audioFile'].value != undefined) {
       console.log("we think that audio is defined!");
       console.log(this._myForm.controls['audioFile'].value);
       this.phraseToEdit.audio = this._myForm.controls['audioFile'].value;
-    }    
-    else  
+    }
+    else
       this.phraseToEdit.audio = '';
 
     console.log("can you see phrase?");
@@ -461,7 +473,7 @@ export class AddPhrasePage {
 
           let audio_type;
           audio_type = 'data:audio/mp3;base64,'
-          
+
 
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
           let res = new Promise((resolve, reject) => {
@@ -548,10 +560,10 @@ export class AddPhrasePage {
       temp.push(item.hexNumber.toLowerCase());//the hex color number is always lower case;
     });
     //filter duplicate valus from colors array
-    temp.forEach( (item) => {
-        if(this.colors.indexOf(item) < 0) {
-          this.colors.push(item);
-        }
+    temp.forEach((item) => {
+      if (this.colors.indexOf(item) < 0) {
+        this.colors.push(item);
+      }
     });
     this.color = this.colors[0];
   }
