@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, reorderArray, AlertController, ActionSheetController, ItemSliding } from 'ionic-angular';
+import { NavController, NavParams, ModalController, reorderArray, AlertController, ActionSheetController, ItemSliding } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
@@ -18,8 +18,8 @@ import { AddPhrasePage } from '../add-phrase/add-phrase';
 })
 export class AboutMePage {
 
+  public backgroundColor;
   public aboutMeCategory: Category
-  public backgroundColor: any;
   public phrases: Phrase[];
   public subCategories: Category[];
 
@@ -43,18 +43,12 @@ export class AboutMePage {
     promise.then((data) => {
       this.aboutMeCategory = data;
       this.aboutMeCategory as Category
-      debugger
+      this.backgroundColor = this.aboutMeCategory.color.englishName;
       this.AsyncPhrasesloader();
     }).catch((e => {
       console.log("error import aboutme Category at aboutMe.ts");
       this.errorProvider.simpleTosat("error import aboutme Category");
     }))
-  }
-
-  //fire each time this page is entered.
-  //
-  ionViewDidEnter() {
-    //this.AsyncPhrasesloader()
   }
 
   //initial phrases array for ngFor and sub-categories array for ngFor

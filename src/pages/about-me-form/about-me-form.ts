@@ -1,29 +1,52 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, NavPush, ModalController, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Category } from '../../models/Category';
 import { TabsPage } from '../tabs/tabs';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
-import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { ErrorProvider } from '../../providers/error/error';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
-import { HomePage } from '../home/home';
+import { AppBuilderProvider } from '../../providers/app-builder/app-builder';
 
+
+/*-------------------------------------------------------------------
+              _                 _           _           _ 
+             | |               (_)         | |         | |
+           __| | ___ _ __  _ __ _  ___ __ _| |_ ___  __| |
+          / _` |/ _ \ '_ \| '__| |/ __/ _` | __/ _ \/ _` |
+         | (_| |  __/ |_) | |  | | (_| (_| | ||  __/ (_| |
+          \__,_|\___| .__/|_|  |_|\___\__,_|\__\___|\__,_|
+                    | |                                   
+                    |_|          
+ ---------------------------------------------------------------------*/
 
 
 /**
  * the user will see this page if he haven't filled his aboutMe section
  */
+
 @Component({
   selector: 'page-about-me-form',
   templateUrl: 'about-me-form.html',
 })
 export class AboutMeFormPage {
 
+  public appBuilderProvider: AppBuilderProvider
+
+
+  constructor(public categoryProvider: CategoryServiceProvider,
+    public phrasesProvider: PhrasesProvider,
+    public loadingCtrl: LoadingController, public navCtrl: NavController ) {
+    this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider, loadingCtrl);
+    this.appBuilderProvider.fillDB();
+    navCtrl.setRoot(TabsPage, {'firstTime' : true});
+  }
+
   aboutMeCategory: Category
 
+  /*
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public alertCtrl: AlertController,
@@ -34,34 +57,25 @@ export class AboutMeFormPage {
     public auth: AutenticationProvider,
     private errorProvider: ErrorProvider) {
 
-     /*-------------------------------------------------------------------
-                   _                 _           _           _ 
-                  | |               (_)         | |         | |
-                __| | ___ _ __  _ __ _  ___ __ _| |_ ___  __| |
-               / _` |/ _ \ '_ \| '__| |/ __/ _` | __/ _ \/ _` |
-              | (_| |  __/ |_) | |  | | (_| (_| | ||  __/ (_| |
-               \__,_|\___| .__/|_|  |_|\___\__,_|\__\___|\__,_|
-                         | |                                   
-                         |_|          
-      ---------------------------------------------------------------------*/
-      this.categoryProvider.updateCategoriesArray();          
-      let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
-      promise.then((data) => {
-        console.log("about me Exists");
-        return;
-      },
+
+    this.categoryProvider.updateCategoriesArray();
+    let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
+    promise.then((data) => {
+      console.log("about me Exists");
+      return;
+    },
       (data) => {
         this.aboutMeCategory =
-        new Category(Enums.ABOUT_ME_STRING, "", "", this.authentication.user.email, "",
-                    0, false, Enums.DEFUALT_CATEGORY_COLOR, 1,true);
-        
+          new Category(Enums.ABOUT_ME_STRING, "", "", this.authentication.user.email, "",
+            0, false, Enums.DEFUALT_CATEGORY_COLOR, 1, true);
+
         this.categoryProvider.addCategory(this.aboutMeCategory);
         console.log("about me cat was created")
-        this.errorProvider.simpleTosat(("aboutMe cat was created"))
-      })   
+        this.errorProvider.simpleTosat("aboutMe cat was created")
+      })
 
-    
-  }
+
+    }*/
 
   //clicked the button, open add phrase form
   private clicked() {
@@ -75,12 +89,12 @@ export class AboutMeFormPage {
   private finish() {
     //Checks if the email is verified.
     /*if (this.auth.isVerified())*/
-      this.navCtrl.setRoot(TabsPage);
-      
-   /* else {
-      this.errorProvider.simpleTosat("You must verify your email to continue.")
-      this.navCtrl.setRoot(AboutMeFormPage) 
-    }*/
+    this.navCtrl.setRoot(TabsPage);
+
+    /* else {
+       this.errorProvider.simpleTosat("You must verify your email to continue.")
+       this.navCtrl.setRoot(AboutMeFormPage) 
+     }*/
 
   }
 
@@ -90,6 +104,7 @@ export class AboutMeFormPage {
    * @param formWhere which page call the add page
    */
   openAddPage(fromWhere) {
+    /*
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': fromWhere,
@@ -101,9 +116,10 @@ export class AboutMeFormPage {
         this.phrasesProvider.addPhrase(item);//item is of type phrase
       }
     })
-    addModal.present();//present the addPhrasePage*
+    addModal.present();//present the addPhrasePage
+    */
   }
 
 
-  
+
 }

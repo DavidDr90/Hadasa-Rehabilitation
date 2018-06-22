@@ -76,7 +76,6 @@ export class AppBuilderProvider {
   */
   fillDB() {
     this.loading = this.loadingCtrl.create({
-      spinner: 'bubbles',
       content: 'רק רגע, אנחנו מייצרים עבורך את המאגר'
     });
     this.loading.present();

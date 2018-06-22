@@ -7,7 +7,6 @@ import { LoadingController, Spinner } from 'ionic-angular';
 import { PhrasesProvider } from '../phrases/phrases';
 import { FavoriteProvider } from '../favorite/favorite';
 import { HomePage } from '../../pages/home/home';
-import * as Enums from '../../consts/enums';
 
 
 @Injectable()

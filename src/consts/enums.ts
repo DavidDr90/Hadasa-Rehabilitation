@@ -105,6 +105,8 @@ export const NIKUD: Nikud[] = [
     }
 ];
 
+export const ABOUT_ME_STRING = 'על עצמי';
+
 // please notic! if you add new color to this array make sure to updage the color section in cariables.scss
 export const COLOR_LIST: Color[] = [
     /*{
@@ -148,7 +150,7 @@ export const COLOR_LIST: Color[] = [
         "hexNumber": "#ffffff"
     },
     {
-        "hebrewName": "על עצמי",
+        "hebrewName": ABOUT_ME_STRING,
         "englishName": "aboutMe",
         "hexNumber": "#0080c0"
     },
@@ -270,7 +272,6 @@ export const NUM_FAVORITES_PHRASES = 10
 export const SENTENCES = "משפטים";
 export const NOUN = "שם עצם";
 
-export const ABOUT_ME_STRING = 'aboutMe';//TODO: before relese need to change to hebrew form
 
 export const DEFUALT_CATEGORY_COLOR: Color = {
     "hebrewName": "לבן",
