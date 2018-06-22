@@ -34,7 +34,17 @@ export class AboutMeFormPage {
     public auth: AutenticationProvider,
     private errorProvider: ErrorProvider) {
 
-      
+     /*-------------------------------------------------------------------
+                   _                 _           _           _ 
+                  | |               (_)         | |         | |
+                __| | ___ _ __  _ __ _  ___ __ _| |_ ___  __| |
+               / _` |/ _ \ '_ \| '__| |/ __/ _` | __/ _ \/ _` |
+              | (_| |  __/ |_) | |  | | (_| (_| | ||  __/ (_| |
+               \__,_|\___| .__/|_|  |_|\___\__,_|\__\___|\__,_|
+                         | |                                   
+                         |_|          
+      ---------------------------------------------------------------------*/
+      this.categoryProvider.updateCategoriesArray();          
       let promise = this.categoryProvider.getCategoryByName(Enums.ABOUT_ME_STRING);//try to get the about me category from the DB
       promise.then((data) => {
         console.log("about me Exists");
@@ -44,7 +54,7 @@ export class AboutMeFormPage {
         this.aboutMeCategory =
         new Category(Enums.ABOUT_ME_STRING, "", "", this.authentication.user.email, "",
                     0, false, Enums.DEFUALT_CATEGORY_COLOR, 1,true);
-         this.categoryProvider.updateCategoriesArray();
+        
         this.categoryProvider.addCategory(this.aboutMeCategory);
         console.log("about me cat was created")
         this.errorProvider.simpleTosat(("aboutMe cat was created"))
@@ -64,13 +74,13 @@ export class AboutMeFormPage {
   //finish filling aboutMe forms and go to main page
   private finish() {
     //Checks if the email is verified.
-    if (this.auth.isVerified())
+    /*if (this.auth.isVerified())*/
       this.navCtrl.setRoot(TabsPage);
       
-    else {
+   /* else {
       this.errorProvider.simpleTosat("You must verify your email to continue.")
       this.navCtrl.setRoot(AboutMeFormPage) 
-    }
+    }*/
 
   }
 

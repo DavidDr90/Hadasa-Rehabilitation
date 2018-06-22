@@ -31,7 +31,7 @@
     <!-- for edit mode, enable reorder and swiping -->
     <div *ngIf="editFlag">
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderItem($event)">
-            <ion-item-sliding *ngFor="let item of categories">
+            <ion-item-sliding *ngFor="let item of categories" #slidingItem>
                 <ion-item [class.unVisible]="!item.visibility">
                     <my-category [category]="item" [editMode]="editFlag"></my-category>
                 </ion-item>
@@ -46,11 +46,11 @@
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button *ngIf="!item.visibility" (click)="changeVisibility(item)">
+                    <button ion-button *ngIf="!item.visibility" (click)="changeVisibility(item, slidingItem)">
                         <ion-icon name="eye"></ion-icon>
                         הצג
                     </button>
-                    <button ion-button *ngIf="item.visibility" (click)="changeVisibility(item)">
+                    <button ion-button *ngIf="item.visibility" (click)="changeVisibility(item, slidingItem)">
                         <ion-icon name="eye-off"></ion-icon>
                         הסתר
                     </button>

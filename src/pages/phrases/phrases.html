@@ -54,7 +54,7 @@
     <div *ngIf="editFlag">
         <!-- sub categories -->
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderSubCategories($event)">
-            <ion-item-sliding *ngFor="let item of subCategories">
+            <ion-item-sliding *ngFor="let item of subCategories" #slidingItem>
                 <!-- display the sub categories only if there is at least one sub category -->
                 <ion-item [class.unVisible]="!item.visibility" *ngIf="hasSubCategories" color={{backgroundColor}}>
                     <my-category (click)="openCategoryPhrases(item)" [category]="item" [editMode]="editFlag">
@@ -71,12 +71,12 @@
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button *ngIf="!Svisible" (click)="changeSubCatVisibility(item)">
+                    <button ion-button *ngIf="!item.visibility" (click)="changeSubCatVisibility(item, slidingItem)">
                         <ion-icon name="eye"></ion-icon>
                         הצג
                     </button>
-                    <button ion-button *ngIf="Svisible" (click)="changeSubCatVisibility(item)">
-                        <ion-icon name="eye-off" *ngIf="visible"></ion-icon>
+                    <button ion-button *ngIf="item.visibility" (click)="changeSubCatVisibility(item, slidingItem)">
+                        <ion-icon name="eye-off" ></ion-icon>
                         הסתר
                     </button>
                 </ion-item-options>
@@ -85,7 +85,7 @@
 
         <!-- phrases -->
         <ion-list no-lines reorder="{{editFlag}}" (ionItemReorder)="reorderPhrases($event)">
-            <ion-item-sliding *ngFor="let item of this.phrases">
+            <ion-item-sliding *ngFor="let item of this.phrases" #slidingItem>
                 <ion-item [class.unVisible]="!item.visibility" color={{backgroundColor}}>
                     <phrase [editMode]="editFlag" [phrase]="item"></phrase>
                 </ion-item>
@@ -100,11 +100,11 @@
                     </button>
                 </ion-item-options>
                 <ion-item-options side="left">
-                    <button ion-button *ngIf="!item.visibility" (click)="changePhraseVisibility(item)">
+                    <button ion-button *ngIf="!item.visibility" (click)="changePhraseVisibility(item, slidingItem)">
                         <ion-icon name="eye"></ion-icon>
                         הצג
                     </button>
-                    <button ion-button *ngIf="item.visibility" (click)="changePhraseVisibility(item)">
+                    <button ion-button *ngIf="item.visibility" (click)="changePhraseVisibility(item, slidingItem)">
                         <ion-icon name="eye-off"></ion-icon>
                         הסתר
                     </button>

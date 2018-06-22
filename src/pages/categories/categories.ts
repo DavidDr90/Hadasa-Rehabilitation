@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, reorderArray, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, reorderArray, LoadingController, ItemSliding } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 
 import { Category } from '../../models/Category';
@@ -184,12 +184,13 @@ export class CategoriesPage {
     alert.present();
   }
 
-  /**change the visibility status when clicked
+  /**change the visibility status when clicked, close slider
   * the unvisibale categories should by in a different style then the visible on
   * the user can see the unvisibale categories only in 'edit mode'
   */
-  changeVisibility(item) {
+  changeVisibility(item, slidingItem: ItemSliding) {
     this.categoryService.changeVisibility(item);
+    slidingItem.close();
   }
 
 

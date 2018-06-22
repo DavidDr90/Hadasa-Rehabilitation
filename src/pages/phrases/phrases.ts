@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, ActionSheetController, LoadingController, reorderArray, AlertController } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ActionSheetController, LoadingController, reorderArray, AlertController, ItemSliding } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
@@ -275,12 +275,13 @@ export class PhrasesPage {
     alert.present();
   }
 
-  /** change the visibility status when clicked
+  /** change the visibility status when clicked, and close the slider
   * the unvisibale categories should by in a different style then the visible on
   * the user can see the unvisibale categories only in 'edit mode'
   */
-  changeSubCatVisibility(item) {
+  changeSubCatVisibility(item, slidingItem: ItemSliding) {
     this.categoryService.changeVisibility(item);
+    slidingItem.close();
   }
 
   /**
@@ -328,12 +329,13 @@ export class PhrasesPage {
     alert.present();
   }
 
-  /** change the visibility status when clicked
+  /** change the visibility status when clicked, and close the slider
   * the unvisibale categories should by in a different style then the visible on
   * the user can see the unvisibale categories only in 'edit mode'
   */
-  changePhraseVisibility(item) {
+  changePhraseVisibility(item, slidingItem: ItemSliding) {
     this.phrasesProvider.changeVisibility(item);
+    slidingItem.close();
   }
 
   /**
