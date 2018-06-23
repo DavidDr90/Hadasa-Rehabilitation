@@ -40,9 +40,9 @@ export class HomePage {
     public loadingCtrl: LoadingController,
     public navParams: NavParams,
   ) {
-  
-    this.isToggled = (navParams.get('firstTime')) ? false : true;
-
+    let x = navParams.get('firstTime');
+    this.isToggled = (x) ? false : true;
+    debugger
 
     this.percentage = 0;
     HomePage.userEmail = authentication.user.email;//fill the user email. being used in app-builder constructor.

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Phrase } from '../../models/Phrase'
 import { Category } from '../../models/Category'
-import { HomePage } from '../../pages/home/home';
 import { PhrasesProvider } from '../phrases/phrases';
 import { CategoryServiceProvider } from '../category-service/category-service';
 import { LoadingController } from 'ionic-angular';
 import * as Enums from '../../consts/enums';
+import { AutenticationProvider } from '../autentication/autentication';
 
 /**
  * this provider create the defult categorys and phrases when the app is first load
  */
 
-const DEFAULT_NUMBER = 305;
+const DEFAULT_NUMBER = 372;
 
 @Injectable()
 export class AppBuilderProvider {
@@ -20,8 +20,12 @@ export class AppBuilderProvider {
   public load_counter = 0;
   phraseCounter = 0;
 
-  constructor(public categoryProvider: CategoryServiceProvider, public phraseProvider: PhrasesProvider, public loadingCtrl: LoadingController) {
-    this.userEmail = HomePage.userEmail;
+  constructor(public categoryProvider: CategoryServiceProvider,
+    public phraseProvider: PhrasesProvider,
+    public loadingCtrl: LoadingController,
+    public authentication: AutenticationProvider,
+  ) {
+    this.userEmail = authentication.user.email;
   }
 
   //===================================
@@ -48,14 +52,14 @@ export class AppBuilderProvider {
           phrases[i].categoryID = catId;
 
           let pro = this.phraseProvider.addPhrase(phrases[i], true);
-          pro.then((data)=>{
+          pro.then((data) => {
             this.phraseCounter++;
             console.log("counter in then = " + this.phraseCounter);
             //TODO: update the DEFAULT_NUMBER before release to client
             //close the loading window after all the phrases was added
-            if(this.phraseCounter == DEFAULT_NUMBER){
-              this.phraseCounter = 0;
-              setTimeout( ()=>{
+            if (this.phraseCounter == DEFAULT_NUMBER) {
+              // this.phraseCounter = 0;
+              setTimeout(() => {
                 this.loading.dismiss();
               }, 3000);
             }
@@ -84,15 +88,53 @@ export class AppBuilderProvider {
     let subCats;
     let subPhrases;
 
+    //AboutMe, this category has its own tab
+    cat = new Category(Enums.ABOUT_ME_STRING, "", "", this.userEmail, "", 0, false, null, 0, true)
+
+    phrases = [
+      new Phrase("", "קוראים לי", "", "", 0, "", false, 0, true),
+      new Phrase("", "טלפון", "", "", 0, "", false, 0, true),
+      new Phrase("", "תאריך לידה", "", "", 0, "", false, 0, true),
+      new Phrase("", "מצב משפחתי", "", "", 0, "", false, 0, true),
+      new Phrase("", "מצב רפואי", "", "", 0, "", false, 0, true),
+      new Phrase("", "שפות שאני מדבר", "", "", 0, "", false, 0, true),
+      new Phrase("", "מקום הולדתי", "", "", 0, "", false, 0, true),
+      new Phrase("", "מקצוע", "", "", 0, "", false, 0, true),
+      new Phrase("", "השכלה", "", "", 0, "", false, 0, true),
+      new Phrase("", "תחביבים", "", "", 0, "", false, 0, true),
+      new Phrase("", "שירות צבאי", "", "", 0, "", false, 0, true),
+      new Phrase("", "שנת עליה לישראל", "", "", 0, "", false, 0, true),
+    ];
+
+    subCats = [
+      new Category("אנשים שאני מכיר", "", "", this.userEmail, "", 0, false, null, 0, true),
+    ]
+
+    subPhrases = [
+      [
+        new Phrase("", "משפחה", "", "", 0, "", false, 0, true),
+        new Phrase("", "אישתי", "", "", 0, "", false, 0, true),
+        new Phrase("", "ילדים", "", "", 0, "", false, 0, true),
+        new Phrase("", "ההורים שלי", "", "", 0, "", false, 0, true),
+        new Phrase("", "אחים ואחיות", "", "", 0, "", false, 0, true),
+        new Phrase("", "קרובי משפחה נוספים", "", "", 0, "", false, 0, true),
+        new Phrase("", "חברים", "", "", 0, "", false, 0, true),
+      ],
+
+    ];
+
+    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, false);
+
     //TIMES CATEGORY
     cat = new Category("זמן", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", this.userEmail, "", 0, false, null, 1, true)
     phrases = [];
     subCats = [
       new Category("ימות השבוע", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fday.png?alt=media&token=92e0ecd2-1435-438f-8528-d6c14fcb1b08", this.userEmail, "", 0, false, null, 0, true),
-      new Category("חודשים עבריים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", this.userEmail, "", 0, false, null, 1, true),
-      new Category("חודשים לועזיים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", this.userEmail, "", 0, false, null, 2, true),
-      new Category("חגים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", this.userEmail, "", 0, false, null, 3, true),
-      new Category("אירועים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", this.userEmail, "", 0, false, null, 4, true)
+      new Category("מספרים", "", "", this.userEmail, "", 0, false, null, 1, true),
+      new Category("חודשים עבריים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", this.userEmail, "", 0, false, null, 2, true),
+      new Category("חודשים לועזיים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Fmonth.png?alt=media&token=678700df-b2ee-4dc4-a08b-6c492cf8d50e", this.userEmail, "", 0, false, null, 3, true),
+      new Category("חגים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", this.userEmail, "", 0, false, null, 4, true),
+      new Category("אירועים", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Fimages%2Ftimes.png?alt=media&token=c24ad512-4d51-4dd1-a47c-c3e3f215a844", this.userEmail, "", 0, false, null, 5, true)
     ]
 
     subPhrases = [
@@ -114,6 +156,28 @@ export class AppBuilderProvider {
         new Phrase("", "ערב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fdays%2Faudio%2F%D7%A2%D7%A8%D7%91.mp3?alt=media&token=f539edba-324b-4dfb-a6a7-2e1005f2ee6c", false, 0, true),
       ],
 
+      [//NUMBERS
+        new Phrase("", "1-אחד", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%90%D7%97%D7%93.mp3?alt=media&token=b84b9d66-0a6c-4d41-a43d-e6fdc91c19aa", false, 0, true),
+        new Phrase("", "2-שתיים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%AA%D7%99%D7%99%D7%9D.mp3?alt=media&token=fc05f7c5-e475-4cf7-b627-fb608a494c84", false, 0, true),
+        new Phrase("", "3-שלוש", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%9C%D7%95%D7%A9.mp3?alt=media&token=7278486b-cb7d-4723-a8ab-2d61f31abf1b", false, 0, true),
+        new Phrase("", "4-ארבע", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%90%D7%A8%D7%91%D7%A2.mp3?alt=media&token=5b92f457-ac22-4dc4-b4e4-46c7e77e2457", false, 0, true),
+        new Phrase("", "5-חמש", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%97%D7%9E%D7%A9.mp3?alt=media&token=64254bb5-24cf-4584-ab1f-c9ea5dc7701c", false, 0, true),
+        new Phrase("", "6-שש", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%A9.mp3?alt=media&token=aab257a4-a38f-4718-8b27-ca9a9728e0b5", false, 0, true),
+        new Phrase("", "7-שבע", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%91%D7%A2.mp3?alt=media&token=6cffd7da-1ac9-4209-a901-81133626755d", false, 0, true),
+        new Phrase("", "8-שמונה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%9E%D7%95%D7%A0%D7%94.mp3?alt=media&token=24f6ae3d-3b0a-4268-b9a0-17ffbfd4d852", false, 0, true),
+        new Phrase("", "9-תשע", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%AA%D7%A9%D7%A2.mp3?alt=media&token=f7c4c7ee-8f87-4868-8ab9-7c92d31d59fc", false, 0, true),
+        new Phrase("", "10-עשר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A2%D7%A9%D7%A8.mp3?alt=media&token=3a6cb692-7994-489e-9ba2-5346594fdfea", false, 0, true),
+        new Phrase("", "20-עשרים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A2%D7%A9%D7%A8%D7%99%D7%9D.mp3?alt=media&token=4e219dd9-b64a-4554-8243-c84604046da4", false, 0, true),
+        new Phrase("", "30-שלושים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%9C%D7%95%D7%A9%D7%99%D7%9D.mp3?alt=media&token=1663ea59-1567-4ff9-8855-43e7a5c964aa", false, 0, true),
+        new Phrase("", "40-ארבעים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%90%D7%A8%D7%91%D7%A2%D7%99%D7%9D.mp3?alt=media&token=fb1f0408-898f-47a5-8e2f-8bbe4ca7b517", false, 0, true),
+        new Phrase("", "50-חמישים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%97%D7%9E%D7%99%D7%A9%D7%99%D7%9D.mp3?alt=media&token=3860ebbe-f157-44c8-85c7-00b8b813f4d3", false, 0, true),
+        new Phrase("", "60-שישים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%99%D7%A9%D7%99%D7%9D.mp3?alt=media&token=32333fbc-3020-469c-adc9-0fc5cfa899b2", false, 0, true),
+        new Phrase("", "70-שבעים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%91%D7%A2%D7%99%D7%9D.mp3?alt=media&token=e640d3ee-97f3-4048-bbb0-bb5dfd53b6ed", false, 0, true),
+        new Phrase("", "80-שמונים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%9E%D7%95%D7%A0%D7%99%D7%9D.mp3?alt=media&token=2ebb6c0d-bd27-4772-afcd-9ca2cf22ada5", false, 0, true),
+        new Phrase("", "90-תשעים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%AA%D7%A9%D7%A2%D7%99%D7%9D.mp3?alt=media&token=05b6a8a1-c316-496d-8c4b-0216bad1de4c", false, 0, true),
+        new Phrase("", "100-מאה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%9E%D7%90%D7%94.mp3?alt=media&token=20c02e54-f20c-492f-ae1a-d2e1b8ea64b7", false, 0, true),
+      ],
+
       [
         new Phrase("", "תשרי", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%AA%D7%A9%D7%A8%D7%99.mp3?alt=media&token=66e94ee7-ee50-495b-a28a-af706075bc04", false, 0, true),
         new Phrase("", "חשוון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fhebrew%20months%2Faudio%2F%D7%97%D7%A9%D7%95%D7%95%D7%9F.mp3?alt=media&token=48d0db20-40af-44e7-a02e-818051da4aaf", false, 0, true),
@@ -130,7 +194,6 @@ export class AppBuilderProvider {
       ],
 
       [
-
         new Phrase("", "ינואר - 1", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%99%D7%A0%D7%95%D7%90%D7%A8.mp3?alt=media&token=8d993b7e-10e6-42ce-a6f5-98ef1a0b3bd8", false, 0, true),
         new Phrase("", "פברואר - 2", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%A4%D7%91%D7%A8%D7%95%D7%90%D7%A8.mp3?alt=media&token=dd89d6d1-51c9-44cb-b56b-4d32de429ab6", false, 0, true),
         new Phrase("", "מרץ - 3", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fmonths%2Faudio%2F%D7%9E%D7%A8%D7%A5.mp3?alt=media&token=9c14eddd-44d6-45d7-89fc-2f54f282535b", false, 0, true),
@@ -161,7 +224,6 @@ export class AppBuilderProvider {
         new Phrase("", "שבועות", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2F%D7%97%D7%92%D7%99%D7%9D%2Faudio%2F%D7%A9%D7%91%D7%95%D7%A2%D7%95%D7%AA.mp3?alt=media&token=6088a921-46d2-42b9-9084-42d95b71ff3c", false, 0, true),
         new Phrase("", "תשעה באב", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2F%D7%97%D7%92%D7%99%D7%9D%2Faudio%2F%D7%AA%D7%A9%D7%A2%D7%94%20%D7%91%D7%90%D7%91.mp3?alt=media&token=55f6732d-4af1-43f5-b081-c63039875ed8", false, 0, true)
       ],
-
 
       [
         new Phrase("", "יום הולדת", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ftime%2Fevents%2Faudio%2F%D7%99%D7%95%D7%9D%20%D7%94%D7%95%D7%9C%D7%93%D7%AA.mp3?alt=media&token=053becc3-06a4-413c-b70d-71056c794d89", false, 0, true),
@@ -435,8 +497,8 @@ export class AppBuilderProvider {
         new Phrase("", "אבטיח", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%90%D7%91%D7%98%D7%99%D7%97.mp3?alt=media&token=f21de5a8-de87-4a74-adf0-e4f83a07170c", false, 0, true),
         new Phrase("", "מלון", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%9E%D7%9C%D7%95%D7%9F.mp3?alt=media&token=09a6b91b-bd46-4e0f-9038-66074c41056c", false, 0, true),
         new Phrase("", "בננה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A4%D7%99%D7%A8%D7%95%D7%AA%2F%D7%91%D7%A0%D7%A0%D7%94.mp3?alt=media&token=77d1c70f-58ba-4a2c-a645-cd2dd25f5d1c", false, 0, true),
-      ], 
-      
+      ],
+
       [//רטבים, ממרחים ותבלינים
         new Phrase("", "קטשופ", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%A7%D7%98%D7%A9%D7%95%D7%A4.mp3?alt=media&token=bca80cd2-176f-48be-a893-57306e52fb7b", false, 0, true),
         new Phrase("", "חרדל", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%97%D7%A8%D7%93%D7%9C.mp3?alt=media&token=d7ae8899-84df-471e-8790-50faff0247ea", false, 0, true),
@@ -449,7 +511,7 @@ export class AppBuilderProvider {
         new Phrase("", "פלפל שחור", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%A4%D7%9C%D7%A4%D7%9C%20%D7%A9%D7%97%D7%95%D7%A8.mp3?alt=media&token=75d1221d-31c9-4f7b-94b1-5c6cdb26320c", false, 0, true),
         new Phrase("", "פפריקה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Ffood%2Faudio%2F%D7%A8%D7%98%D7%91%D7%99%D7%9D%2C%20%D7%9E%D7%9E%D7%A8%D7%97%D7%99%D7%9D%20%D7%95%D7%AA%D7%91%D7%9C%D7%99%D7%A0%D7%99%D7%9D%2F%D7%A4%D7%A4%D7%A8%D7%99%D7%A7%D7%94.mp3?alt=media&token=f30086cc-9892-47d8-8ab4-0d24cb806899", false, 0, true),
       ],
-    
+
     ];
 
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, false);
@@ -476,33 +538,6 @@ export class AppBuilderProvider {
     ];
     this.add_new_cat_to_db(cat, phrases, [], [], false)
 
-    //NUMBERS CATEGORY
-    cat = new Category("מספרים", "", "", this.userEmail, "", 0, false, null, 3, true)
-
-    phrases = [
-      new Phrase("", "1-אחד", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%90%D7%97%D7%93.mp3?alt=media&token=b84b9d66-0a6c-4d41-a43d-e6fdc91c19aa", false, 0, true),
-      new Phrase("", "2-שתיים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%AA%D7%99%D7%99%D7%9D.mp3?alt=media&token=fc05f7c5-e475-4cf7-b627-fb608a494c84", false, 0, true),
-      new Phrase("", "3-שלוש", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%9C%D7%95%D7%A9.mp3?alt=media&token=7278486b-cb7d-4723-a8ab-2d61f31abf1b", false, 0, true),
-      new Phrase("", "4-ארבע", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%90%D7%A8%D7%91%D7%A2.mp3?alt=media&token=5b92f457-ac22-4dc4-b4e4-46c7e77e2457", false, 0, true),
-      new Phrase("", "5-חמש", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%97%D7%9E%D7%A9.mp3?alt=media&token=64254bb5-24cf-4584-ab1f-c9ea5dc7701c", false, 0, true),
-      new Phrase("", "6-שש", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%A9.mp3?alt=media&token=aab257a4-a38f-4718-8b27-ca9a9728e0b5", false, 0, true),
-      new Phrase("", "7-שבע", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%91%D7%A2.mp3?alt=media&token=6cffd7da-1ac9-4209-a901-81133626755d", false, 0, true),
-      new Phrase("", "8-שמונה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%9E%D7%95%D7%A0%D7%94.mp3?alt=media&token=24f6ae3d-3b0a-4268-b9a0-17ffbfd4d852", false, 0, true),
-      new Phrase("", "9-תשע", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%AA%D7%A9%D7%A2.mp3?alt=media&token=f7c4c7ee-8f87-4868-8ab9-7c92d31d59fc", false, 0, true),
-      new Phrase("", "10-עשר", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A2%D7%A9%D7%A8.mp3?alt=media&token=3a6cb692-7994-489e-9ba2-5346594fdfea", false, 0, true),
-      new Phrase("", "20-עשרים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A2%D7%A9%D7%A8%D7%99%D7%9D.mp3?alt=media&token=4e219dd9-b64a-4554-8243-c84604046da4", false, 0, true),
-      new Phrase("", "30-שלושים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%9C%D7%95%D7%A9%D7%99%D7%9D.mp3?alt=media&token=1663ea59-1567-4ff9-8855-43e7a5c964aa", false, 0, true),
-      new Phrase("", "40-ארבעים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%90%D7%A8%D7%91%D7%A2%D7%99%D7%9D.mp3?alt=media&token=fb1f0408-898f-47a5-8e2f-8bbe4ca7b517", false, 0, true),
-      new Phrase("", "50-חמישים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%97%D7%9E%D7%99%D7%A9%D7%99%D7%9D.mp3?alt=media&token=3860ebbe-f157-44c8-85c7-00b8b813f4d3", false, 0, true),
-      new Phrase("", "60-שישים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%99%D7%A9%D7%99%D7%9D.mp3?alt=media&token=32333fbc-3020-469c-adc9-0fc5cfa899b2", false, 0, true),
-      new Phrase("", "70-שבעים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%91%D7%A2%D7%99%D7%9D.mp3?alt=media&token=e640d3ee-97f3-4048-bbb0-bb5dfd53b6ed", false, 0, true),
-      new Phrase("", "80-שמונים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%A9%D7%9E%D7%95%D7%A0%D7%99%D7%9D.mp3?alt=media&token=2ebb6c0d-bd27-4772-afcd-9ca2cf22ada5", false, 0, true),
-      new Phrase("", "90-תשעים", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%AA%D7%A9%D7%A2%D7%99%D7%9D.mp3?alt=media&token=05b6a8a1-c316-496d-8c4b-0216bad1de4c", false, 0, true),
-      new Phrase("", "100-מאה", "", "", 0, "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fnumbers%2Faudio%2F%D7%9E%D7%90%D7%94.mp3?alt=media&token=20c02e54-f20c-492f-ae1a-d2e1b8ea64b7", false, 0, true),
-    ];
-
-    this.add_new_cat_to_db(cat, phrases, [], [], false)
-
     //PERSONAL STUFF CATEGORY
     cat = new Category("חפצים אישיים", "", "", this.userEmail, "", 0, false, null, 4, true)
 
@@ -524,7 +559,7 @@ export class AppBuilderProvider {
     //MEDICINE CATEGORY
     cat = new Category("רפואה", "", "https://firebasestorage.googleapis.com/v0/b/lets-talk-b433e.appspot.com/o/app-builder%2Fmadical%2Fdoctors%2Fimages%2Fdoctors.PNG?alt=media&token=d5615126-71fd-41e7-8b28-2ad1bc7da7de", this.userEmail, "", 0, false, null, 5, true)
 
-    phrases = [ ];
+    phrases = [];
 
     subCats = [
       new Category("משפטים", "", "", this.userEmail, "", 0, false, null, 0, true),
@@ -676,43 +711,7 @@ export class AppBuilderProvider {
 
     this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, false);
 
-    //AboutMe, this category has its own tab
-    cat = new Category(Enums.ABOUT_ME_STRING, "", "", this.userEmail, "", 0, false, null, 0, true)
-
-    phrases = [
-      new Phrase("", "קוראים לי", "", "", 0, "", false, 0, true),
-      new Phrase("", "טלפון", "", "", 0, "", false, 0, true),
-      new Phrase("", "תאריך לידה", "", "", 0, "", false, 0, true),
-      new Phrase("", "מצב משפחתי", "", "", 0, "", false, 0, true),
-      new Phrase("", "מצב רפואי", "", "", 0, "", false, 0, true),
-      new Phrase("", "שפות שאני מדבר", "", "", 0, "", false, 0, true),
-      new Phrase("", "מקום הולדתי", "", "", 0, "", false, 0, true),
-      new Phrase("", "מקצוע", "", "", 0, "", false, 0, true),
-      new Phrase("", "השכלה", "", "", 0, "", false, 0, true),
-      new Phrase("", "תחביבים", "", "", 0, "", false, 0, true),
-      new Phrase("", "שירות צבאי", "", "", 0, "", false, 0, true),
-      new Phrase("", "שנת עליה לישראל", "", "", 0, "", false, 0, true),
-    ];
-
-    subCats = [
-      new Category("אנשים שאני מכיר", "", "", this.userEmail, "", 0, false, null, 0, true),
-    ]
-
-    subPhrases = [
-      [
-        new Phrase("", "משפחה", "", "", 0, "", false, 0, true),
-        new Phrase("", "אישתי", "", "", 0, "", false, 0, true),
-        new Phrase("", "ילדים", "", "", 0, "", false, 0, true),
-        new Phrase("", "ההורים שלי", "", "", 0, "", false, 0, true),
-        new Phrase("", "אחים ואחיות", "", "", 0, "", false, 0, true),
-        new Phrase("", "קרובי משפחה נוספים", "", "", 0, "", false, 0, true),
-        new Phrase("", "חברים", "", "", 0, "", false, 0, true),
-      ],
-
-    ];
-
-    this.add_new_cat_to_db(cat, phrases, subCats, subPhrases, false);  
-  } 
+  }
 
 
 }

@@ -38,8 +38,11 @@ export class AboutMeFormPage {
 
   constructor(public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
-    public loadingCtrl: LoadingController, public navCtrl: NavController ) {
-    this.appBuilderProvider = new AppBuilderProvider(this.categoryProvider, this.phrasesProvider, loadingCtrl);
+    public loadingCtrl: LoadingController, public navCtrl: NavController,
+    public authentication: AutenticationProvider ) {
+
+    this.appBuilderProvider = 
+    new AppBuilderProvider(this.categoryProvider, this.phrasesProvider, loadingCtrl, authentication);
     this.appBuilderProvider.fillDB();
     navCtrl.setRoot(TabsPage, {'firstTime' : true});
   }

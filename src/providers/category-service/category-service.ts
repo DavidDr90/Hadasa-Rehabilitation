@@ -157,10 +157,17 @@ export class CategoryServiceProvider {
   }
 
   public addCategory(category: Category, callFromAppBuilder = false): Promise<void> {
+    console.log("category in add");
+    console.log(category);
     let promise = this.firebaseProvider.addCategory(category);
     if (callFromAppBuilder == false) {
+      console.log("in if, in add");
       this.updateCategoriesArray().then(res => {
+        console.log("in add, in then");
         // this.arrangeCategoriesByOrder();
+      }).catch((err) =>{
+        console.log("in catch in addd");
+        console.log(err);
       })
     }
     return promise;

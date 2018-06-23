@@ -34,7 +34,7 @@ export class AutenticationProvider {
         await this.afAuth.auth.signInWithEmailAndPassword(email, password).then(
           async success => {
             await this.getCurrentUser.reload()
-            this.getCurrentUser.getToken(true)
+            this.getCurrentUser.getIdToken(true)
             resolve(success)
           },
           failed => {
