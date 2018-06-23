@@ -174,7 +174,7 @@ export class AddPhrasePage {
   private checkSentenceOrNoun(n) {
     //to avoid endless recursion
     if (n == 10) {
-      this.errorProvider.simpleTosat("לא הצלחנו ליצור את קטגורית 'משפטים'");
+      this.errorProvider.simpleToast("לא הצלחנו ליצור את קטגורית 'משפטים'");
       return;
     }
     if (this.sentenceOrNoun == "sentence") {
@@ -360,7 +360,7 @@ export class AddPhrasePage {
           text: 'ביטול',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            this.errorProvider.shortToast("לחצת ביטול");
           }
         }
       ]
@@ -494,7 +494,7 @@ export class AddPhrasePage {
 
     //if we have no audio, whait few sec and pop
     if (url == null || url == "") {
-      this.errorProvider.simpleTosat("אין קובץ קול");
+      this.errorProvider.simpleToast("אין קובץ קול");
     }
     try {
       if (this.firstTime) {
@@ -504,7 +504,6 @@ export class AddPhrasePage {
 
       this.audio.onStatusUpdate.subscribe(status => {
         if (status.toString() == "4") { // player end running
-          console.log("player stopped");
           this.audio.release();//free audio resources after playback (android)
           this.playing = !this.playing;
           this.firstTime = !this.firstTime;
@@ -514,7 +513,7 @@ export class AddPhrasePage {
       this.audio.play()
     }
     catch (ex) {
-      this.errorProvider.simpleTosat(ex);
+      this.errorProvider.simpleToast(ex);
       this.audio.release();//free audio resources after playback (android)
     }
   }
@@ -525,7 +524,7 @@ export class AddPhrasePage {
     try {
       this.audio.pause();
     } catch (err) {
-      this.errorProvider.simpleTosat(err);
+      this.errorProvider.simpleToast(err);
     }
   }
 

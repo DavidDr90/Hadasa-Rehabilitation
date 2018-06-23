@@ -42,8 +42,7 @@ export class PhrasesProvider {
         resolve(temp)
       }
       catch (e) {
-        console.log(e)
-        this.error.simpleTosat("The wanted category doesn't exist")
+        this.error.simpleToast("The wanted category doesn't exist")
       }
     })
   }
@@ -73,8 +72,7 @@ export class PhrasesProvider {
         resolve(temp)
       }
       catch (e) {
-        console.log(e)
-        this.error.simpleTosat("The wanted category doesn't exist")
+        this.error.simpleToast("The wanted category doesn't exist")
       }
     })
   }
@@ -133,7 +131,6 @@ export class PhrasesProvider {
   }
   public setOrder(phrase: Phrase, order: number) {
     phrase.order = order;
-    console.log("phrase provider set order update fire");
     this.firebaseProvider.updatePhrase(phrase);
   }
   public updatePhrase(phrase: Phrase) {

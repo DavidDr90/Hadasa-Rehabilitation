@@ -87,7 +87,6 @@ export class StorageProvider {
       }
 
       else {
-        console.log("ERROR UPLOADING - UNKNOWN TYPE OF FILE");
         reject("null")
       }
     })

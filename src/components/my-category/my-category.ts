@@ -27,8 +27,8 @@ export class MyCategoryComponent {
    * ignore in edit mode
    */
   public updateIsFav(event){
+    // category updateisfav ignored in edit mode
     if(this.editMode){
-      console.log("category updateisfav ignored in edit mode");
       return;
     }
     event.stopPropagation();
@@ -37,7 +37,7 @@ export class MyCategoryComponent {
       let flag=this.favProvider.add_fav_cat(this.category) //add favorite category
       //not able to add the category to favoriets.
       if(flag==-1){
-        this.error.simpleTosat(("you cant choose more then "+Enums.NUM_FAVORITES_CAT+"favorite categories"))
+        this.error.simpleToast(("you cant choose more then "+Enums.NUM_FAVORITES_CAT+"favorite categories"))
         return;
       }
         
@@ -56,9 +56,9 @@ export class MyCategoryComponent {
    * ignore in edit mode
   */
  public catOnClick(event){
+  // category catonclik ignored in edit mode
   if(this.editMode){
-    console.log("category catonclik ignored in edit mode");
-    this.error.simpleTosat("לא ניתן להיכנס לקטגוריה במצב עריכה");
+    this.error.simpleToast("לא ניתן להיכנס לקטגוריה במצב עריכה");
     return;
   }
   this.categoryProvider.increaseViews(this.category)// update the category views field in the DB

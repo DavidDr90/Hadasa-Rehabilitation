@@ -17,18 +17,29 @@ export class ErrorProvider {
   constructor(
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
-  ) {
-
-  }
+  ) { }
 
   /** display a simple toast to the screen
    * the toast will be in the bottom of the screen and display for TOAST_DURATION
    * @param message the error message display to the user
    */
-  public simpleTosat(message) {
+  public simpleToast(message) {
     let toast = this.toastCtrl.create({
       message: message,
       duration: TOAST_DURATION,
+      position: 'bottom',
+    });
+    toast.present();
+  }
+
+  /** display a short toast to the screen
+   * the toast will be in the bottom of the screen and display for TOAST_DURATION/2
+   * @param message the error message display to the user
+   */
+  public shortToast(message) {
+    let toast = this.toastCtrl.create({
+      message: message,
+      duration: (TOAST_DURATION/2),
       position: 'bottom',
     });
     toast.present();
@@ -51,11 +62,6 @@ export class ErrorProvider {
       showCloseButton: true,
       closeButtonText: buttonText
     });
-
-    toast.onDidDismiss(() => {
-      console.log('Dismissed toast');
-    });
-
     toast.present();
   }
 

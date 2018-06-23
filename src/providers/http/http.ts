@@ -41,7 +41,7 @@ export class HttpProvider {
    * @returns on secuss return data.date on failure return error message
    */
   async textToSpeech(text, voice) {
-    let api = API_KEYS.TTS_ofek_API_KEY;//the TTS api of the user
+    let api = "API_KEYS.TTS_ofek_API_KEY";//the TTS api of the user
 
     //  validate that the voice and text are not undefined or empty.
     if (voice != VOICE_OPTIONS.SIVAN || voice != VOICE_OPTIONS.GILAD) {

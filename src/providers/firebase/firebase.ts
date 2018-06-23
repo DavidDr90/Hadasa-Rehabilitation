@@ -36,8 +36,7 @@ export class FirebaseProvider {
       });
     }
     catch(e){
-      console.log(e.message)
-      this.error.simpleTosat("Connection error");
+      this.error.simpleToast("Connection error");
     }
   }
 
@@ -60,8 +59,7 @@ export class FirebaseProvider {
       });
     }
     catch(e){
-      console.log(e.message)
-      this.error.simpleTosat("Connection error");
+      this.error.simpleToast("Connection error");
     }
   }
 
@@ -86,8 +84,7 @@ export class FirebaseProvider {
       });
     }
       catch(e){
-        console.log(e.message)
-        this.error.simpleTosat("Connection error");
+        this.error.simpleToast("Connection error");
       }
   }
 
@@ -106,19 +103,15 @@ export class FirebaseProvider {
 
   addCategory(category: Category) {    
     return this.categoriesCollection.add(Category.toObject(category)).then(function(){
-      console.log("Document successfully added, name = " + category.name);
     }).catch(function(e){
-      console.error("Error adding document: ", e);
-      this.error.simpleTosat("הוספה נכשלה");
+      this.error.simpleToast("הוספה נכשלה");
     })
   }
 
   removeCategory(category: Category){
     this.categoriesCollection.doc(category.id ).delete().then(function() {
-      console.log("Document successfully deleted!");
   }).catch(function(e) {
-      console.error("Error removing document: ", e);
-      this.error.simpleTosat("מחיקה נכשלה");
+      this.error.simpleToast("מחיקה נכשלה");
   });
   }
 
@@ -128,19 +121,15 @@ export class FirebaseProvider {
 
   addPhrase(phrase: Phrase) {
     return this.phrasesCollection.add(Phrase.toObject(phrase)).then(function(){
-      console.log("Document successfully added, name = " + phrase.name);
     }).catch(function(e){
-      console.error("Error adding document: ", e);
-      this.error.simpleTosat("הוספה נכשלה");
+      this.error.simpleToast("הוספה נכשלה");
     })
   }
 
   removePhrase(phrase: Phrase){
     this.phrasesCollection.doc(phrase.id).delete().then(function() {
-      console.log("Document successfully deleted!");
   }).catch(function(e) {
-      console.error("Error removing document: ", e);
-      this.error.simpleTosat("מחיקה נכשלה");
+      this.error.simpleToast("מחיקה נכשלה");
   });
   }
 
@@ -149,9 +138,6 @@ export class FirebaseProvider {
    * @param phrase, the updated local phrase, to update the db
    */
   updatePhrase(phrase: Phrase){
-    console.log("firebase provider update phrase");
-    console.log(phrase);
-    console.log(phrase.id);
     this.afs.doc('phrases/' + phrase.id).update(phrase);
   }
 
@@ -160,9 +146,6 @@ export class FirebaseProvider {
    * @param category, the updated local category, to update the db
    */
   updateCategory(category: Category){
-    console.log("firebase provider update cat");
-    console.log(category);
-    console.log(category.id);
     this.afs.doc('categories/' + category.id).update(category);
   }
 

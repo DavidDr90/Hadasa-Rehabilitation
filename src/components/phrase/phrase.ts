@@ -32,9 +32,9 @@ export class PhraseComponent {
    current phrase , image, audio*/
    //ignore in editMode
   public openPopup(event) {
+    // phrase popup ignored in edit mode
     if(this.editMode){
-      console.log("phrase popup ignored in edit mode");
-      this.errorProvider.simpleTosat("לא ניתן ללחוץ על ביטוי במצב עריכה");
+      this.errorProvider.simpleToast("לא ניתן ללחוץ על ביטוי במצב עריכה");
       return;
     }
 
@@ -51,8 +51,7 @@ export class PhraseComponent {
       });
     }
     catch (error) {
-      this.errorProvider.simpleTosat("לא הצלחנו לפתוח את החלון");
-      console.log(error);
+      this.errorProvider.simpleToast("לא הצלחנו לפתוח את החלון");
     }
 
   }
@@ -62,8 +61,8 @@ export class PhraseComponent {
    * if in edit mode ignore
    */
   public updateIsFav(event) {
+    // phrase updateisfav ignored in edit mode
     if(this.editMode){
-      console.log("phrase updateisfav ignored in edit mode");
       return;
     }
     event.stopPropagation();
@@ -72,7 +71,7 @@ export class PhraseComponent {
       let flag = this.favProvider.add_fav_phrase(this.phrase)//add phrase from favorite
       //the list is full. cannot add.
       if (flag == -1){
-        this.error.simpleTosat("you cant choose more then "+Enums.NUM_FAVORITES_PHRASES+"favorite phrases")
+        this.error.simpleToast("you cant choose more then "+Enums.NUM_FAVORITES_PHRASES+"favorite phrases")
         return;
       }
       this.phrase.isFav = true;

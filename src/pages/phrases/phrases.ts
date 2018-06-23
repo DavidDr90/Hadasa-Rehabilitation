@@ -7,6 +7,7 @@ import { Phrase } from '../../models/Phrase';
 import * as Enums from '../../consts/enums';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
+import { ErrorProvider } from '../../providers/error/error';
 
 @Component({
   selector: 'page-phrases',
@@ -27,6 +28,7 @@ export class PhrasesPage {
     public navParams: NavParams,
     public phrasesProvider: PhrasesProvider,
     public modalCtrl: ModalController,
+    public errorProvider: ErrorProvider,
     private _actionSheetCtrl: ActionSheetController,
     public categoryService: CategoryServiceProvider,
     public loadingCtrl: LoadingController,
@@ -47,7 +49,7 @@ export class PhrasesPage {
   // from phrase provider.
   //temp is an promise object that help to get the phrases from promis's resolve attr.
   public AsyncPhrasesloader() {
-    console.log("in async file load");
+
     let promise = this.phrasesProvider.getPhrases(this.parentCategory);
     promise.then((data) => {
       this.phrases = data;
@@ -81,7 +83,6 @@ export class PhrasesPage {
 
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
-    console.log("in add phrase")
     setTimeout(() => {
       this.phrasesProvider.addPhrase(phrase);
       this.AsyncPhrasesloader()
@@ -90,7 +91,6 @@ export class PhrasesPage {
 
   //handler that remove phrase and update the display 
   public removePhrase(phrase: Phrase) {
-    console.log("in add phrase")
     setTimeout(async () => {
       await this.phrasesProvider.removePhrase(phrase);
       this.AsyncPhrasesloader()
@@ -146,7 +146,7 @@ export class PhrasesPage {
           text: 'ביטול',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            this.errorProvider.shortToast("לחצת ביטול");
           }
         }
       ]
@@ -204,7 +204,6 @@ export class PhrasesPage {
    * @param index used to get element original and new positions from the HTML
    */
   async reorderSubCategories(index) {
-    console.log("edit -reorder from: " + index.from + "to: " + index.to);
     this.subCategories = reorderArray(this.subCategories, index);//reordering array
     //updating each category order field according to its array position
     let i = (index.from > index.to) ? index.to : index.from;
@@ -251,7 +250,7 @@ export class PhrasesPage {
    * delete category
    * @param item category to delete
    */
-  deleteSubCategory(item) {
+  deleteSubCategory(item, slidingItem:ItemSliding) {
     const alert = this.alertCtrl.create({
       title: 'בטוח למחוק?',
       message: 'המחיקה היא סופית וכוללת את כול התוכן של הקטגוריה כולל הביטויים שבה!',
@@ -260,13 +259,13 @@ export class PhrasesPage {
           text: 'בטל',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            this.errorProvider.shortToast("לחצת ביטול");
+            slidingItem.close();
           }
         },
         {
           text: 'מ ח ק',
           handler: () => {
-            console.log('delete clicked');
             this.removeSubCategory(item); //delete the category
           }
         }
@@ -306,9 +305,7 @@ export class PhrasesPage {
    * Delete selected phrase
    * @param item phrase to remove
    */
-  deletePhrase(item) {
-    console.log("edit delete phrase");
-    console.log(item);
+  deletePhrase(item, slidingItem:ItemSliding) {
     const alert = this.alertCtrl.create({
       title: 'בטוח למחוק?',
       message: 'המחיקה היא סופית!',
@@ -317,13 +314,13 @@ export class PhrasesPage {
           text: 'בטל',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            this.errorProvider.shortToast("לחצת ביטול");
+            slidingItem.close();
           }
         },
         {
           text: 'מ ח ק',
           handler: () => {
-            console.log('delete clicked');
             this.removePhrase(item); //delete the phrase
           }
         }

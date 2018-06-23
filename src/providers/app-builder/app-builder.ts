@@ -54,11 +54,9 @@ export class AppBuilderProvider {
           let pro = this.phraseProvider.addPhrase(phrases[i], true);
           pro.then((data) => {
             this.phraseCounter++;
-            console.log("counter in then = " + this.phraseCounter);
-            //TODO: update the DEFAULT_NUMBER before release to client
             //close the loading window after all the phrases was added
             if (this.phraseCounter == DEFAULT_NUMBER) {
-              // this.phraseCounter = 0;
+              this.phraseCounter = 0;
               setTimeout(() => {
                 this.loading.dismiss();
               }, 3000);

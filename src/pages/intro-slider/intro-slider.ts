@@ -30,15 +30,15 @@ export class IntroSliderPage {
   public async logIn() {
     let connection = await this.authentication.checkConnection()
     if (connection["connected"] != true) {
-      this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
+      this.errorProvider.simpleToast(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
       return
     }
     if (!this.authentication.checkEmailValidity(this.user.email)) {
-      this.errorProvider.simpleTosat(this.authentication.EMAIL_NOT_VALID_MESSAGE)
+      this.errorProvider.simpleToast(this.authentication.EMAIL_NOT_VALID_MESSAGE)
       return
     }
     if (!this.authentication.checkPasswordValidity(this.user.password)) {
-      this.errorProvider.simpleTosat(this.authentication.PASSWORD_NOT_VALID_MESSAGE)
+      this.errorProvider.simpleToast(this.authentication.PASSWORD_NOT_VALID_MESSAGE)
       return
     }
 
@@ -47,17 +47,17 @@ export class IntroSliderPage {
         if (this.authentication.afAuth.auth.currentUser) {
           //Checks if the user email verified. If it is not verified stay the user in this page.
           if (!this.authentication.afAuth.auth.currentUser.emailVerified) {
-            this.errorProvider.simpleTosat(this.authentication.SHOULD_VERIFY_MESSAGE);
+            this.errorProvider.simpleToast(this.authentication.SHOULD_VERIFY_MESSAGE);
             // this.navCtrl.setRoot(IntroSliderPage);
             this.authentication.logOut();
           }
         }
       },
       failed => {
-        this.errorProvider.simpleTosat(this.authentication.EMAIL_OR_PASSWORD_WRONG_MESSAGE)
+        this.errorProvider.simpleToast(this.authentication.EMAIL_OR_PASSWORD_WRONG_MESSAGE)
       }).catch(
         error => {
-          this.errorProvider.simpleTosat(this.authentication.EMAIL_OR_PASSWORD_WRONG_MESSAGE)
+          this.errorProvider.simpleToast(this.authentication.EMAIL_OR_PASSWORD_WRONG_MESSAGE)
         }
       )
   }
@@ -69,17 +69,17 @@ export class IntroSliderPage {
 
     let connection = await this.authentication.checkConnection()
     if (connection["connected"] != true) {
-      this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
+      this.errorProvider.simpleToast(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
       return
     }
 
     if (!this.authentication.checkEmailValidity(this.user.email)) {
-      this.errorProvider.simpleTosat(this.authentication.EMAIL_NOT_VALID_MESSAGE)
+      this.errorProvider.simpleToast(this.authentication.EMAIL_NOT_VALID_MESSAGE)
       return
     }
 
     if (!this.authentication.checkPasswordValidity(this.user.password)) {
-      this.errorProvider.simpleTosat(this.authentication.PASSWORD_NOT_VALID_MESSAGE)
+      this.errorProvider.simpleToast(this.authentication.PASSWORD_NOT_VALID_MESSAGE)
       return
     }
     let registered = this.authentication.registerNewUser(this.user.email, this.user.password);
@@ -87,7 +87,7 @@ export class IntroSliderPage {
       success => {
         this.authentication.afAuth.auth.currentUser.sendEmailVerification().then(
           (send_mail_success) => {
-            // this.errorProvider.simpleTosat(this.authentication.SHOULD_VERIFY_MESSAGE)
+            // this.errorProvider.simpleToast(this.authentication.SHOULD_VERIFY_MESSAGE)
             let wait_promise = this.errorProvider.waitAlert("אימות אימייל", this.authentication.SHOULD_VERIFY_MESSAGE)
             wait_promise.then(async () => {
               await this.authentication.getCurrentUser.reload()
@@ -95,14 +95,14 @@ export class IntroSliderPage {
             })
           },
           (send_mail_failed) => {
-            this.errorProvider.simpleTosat(this.authentication.ERROR_SENDING_VERIFY_MESSAGE)
+            this.errorProvider.simpleToast(this.authentication.ERROR_SENDING_VERIFY_MESSAGE)
           })
       },
       failed => {
-        this.errorProvider.simpleTosat(this.authentication.EMAIL_ALREADY_EXISTS_MESSAGE)
+        this.errorProvider.simpleToast(this.authentication.EMAIL_ALREADY_EXISTS_MESSAGE)
       }).catch(
         error => {
-          this.errorProvider.simpleTosat(this.authentication.EMAIL_ALREADY_EXISTS_MESSAGE)
+          this.errorProvider.simpleToast(this.authentication.EMAIL_ALREADY_EXISTS_MESSAGE)
         }
       )
   }
@@ -115,7 +115,7 @@ export class IntroSliderPage {
 
     let connection = await this.authentication.checkConnection()
     if (connection["connected"] != true) {
-      this.errorProvider.simpleTosat(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
+      this.errorProvider.simpleToast(this.authentication.NO_INTERNET_CONNECTION_MESSAGE)
       return
     }
 
@@ -123,15 +123,15 @@ export class IntroSliderPage {
       let promise = this.authentication.resetPassword(this.user.email);
       promise.then(
         success => {
-          this.errorProvider.simpleTosat(this.authentication.RESET_PASSWORD_SUCCESS_MESSAGE)
+          this.errorProvider.simpleToast(this.authentication.RESET_PASSWORD_SUCCESS_MESSAGE)
         },
         failed => {
-          this.errorProvider.simpleTosat(this.authentication.EMAIL_DOESNT_EXISTS_MESSAGE)
+          this.errorProvider.simpleToast(this.authentication.EMAIL_DOESNT_EXISTS_MESSAGE)
 
         })
     }
     else {
-      this.errorProvider.simpleTosat(this.authentication.EMAIL_NOT_VALID_MESSAGE)
+      this.errorProvider.simpleToast(this.authentication.EMAIL_NOT_VALID_MESSAGE)
     }
   }
 

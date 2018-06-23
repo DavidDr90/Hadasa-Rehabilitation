@@ -68,11 +68,7 @@ export class PhrasePopupPage {
       this.audio = this.media.create(url);
 
       this.audio.onStatusUpdate.subscribe(status => {
-        if (status.toString() == "1") { //player start
-          console.log("start playing");
-        }
         if (status.toString() == "4") { // player end running
-          console.log("player stopped");
           if (!this.windowClosed) {
             if (this.platform.is('android'))
               this.audio.release();//free audio resources after playback (android)
@@ -81,14 +77,14 @@ export class PhrasePopupPage {
         }
       });
     } catch (err) {
-      this.errorProvider.simpleTosat(err);
+      this.errorProvider.simpleToast(err);
     }
 
     try {
       this.audio.play()
     }
     catch (ex) {
-      this.errorProvider.simpleTosat(ex);
+      this.errorProvider.simpleToast(ex);
       if (this.platform.is('android'))
         this.audio.release();//free audio resources after playback (android)
       this.navCtrl.pop();

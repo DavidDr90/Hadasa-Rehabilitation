@@ -69,7 +69,7 @@ export class CategoryServiceProvider {
       let temp = this.subCategories.filter(cat => cat.parentCategoryID == parentCategoryID);
       let temp1 = temp.find(cat => cat.name == name);
       if (temp1 == undefined)
-        console.log("category is undefined");
+        reject(undefined)
       resolve(temp1);
     })
   }
@@ -131,8 +131,7 @@ export class CategoryServiceProvider {
           resolve(temp);
       }
       catch (e) {
-        console.log(e)
-        this.error.simpleTosat("The wanted category doesn't exist")
+        this.error.simpleToast("The wanted category doesn't exist")
       }
     })
   }
@@ -150,23 +149,17 @@ export class CategoryServiceProvider {
         resolve(temp)
       }
       catch (e) {
-        console.log(e)
-        this.error.simpleTosat("The wanted category doesn't exist")
+        this.error.simpleToast("The wanted category doesn't exist")
       }
     })
   }
 
   public addCategory(category: Category, callFromAppBuilder = false): Promise<void> {
-    console.log("category in add");
-    console.log(category);
     let promise = this.firebaseProvider.addCategory(category);
     if (callFromAppBuilder == false) {
-      console.log("in if, in add");
       this.updateCategoriesArray().then(res => {
-        console.log("in add, in then");
         // this.arrangeCategoriesByOrder();
       }).catch((err) =>{
-        console.log("in catch in addd");
         console.log(err);
       })
     }

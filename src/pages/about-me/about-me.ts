@@ -46,8 +46,7 @@ export class AboutMePage {
       this.backgroundColor = this.aboutMeCategory.color.englishName;
       this.AsyncPhrasesloader();
     }).catch((e => {
-      console.log("error import aboutme Category at aboutMe.ts");
-      this.errorProvider.simpleTosat("error import aboutme Category");
+      this.errorProvider.simpleToast("error import aboutme Category");
     }))
   }
 
@@ -56,7 +55,6 @@ export class AboutMePage {
   // from phrase provider.
   //temp is an promise object that help to get the phrases from promis's resolve attr.
   public AsyncPhrasesloader() {
-    console.log("in async file load");
     let promise = this.phrasesProvider.getPhrases(this.aboutMeCategory);
     promise.then((data) => {
       this.phrases = data;
@@ -90,7 +88,6 @@ export class AboutMePage {
 
   //handler that add phrase and update the display 
   public addPhrase(phrase: Phrase) {
-    console.log("in add phrase")
     setTimeout(() => {
       this.phrasesProvider.addPhrase(phrase);
       this.AsyncPhrasesloader()
@@ -99,7 +96,6 @@ export class AboutMePage {
 
   //handler that remove phrase and update the display 
   public removePhrase(phrase: Phrase) {
-    console.log("in add phrase")
     setTimeout(async () => {
       await this.phrasesProvider.removePhrase(phrase);
       this.AsyncPhrasesloader()
@@ -155,7 +151,7 @@ export class AboutMePage {
           text: 'ביטול',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            this.errorProvider.shortToast("לחצת ביטול");
           }
         }
       ]
@@ -213,7 +209,6 @@ export class AboutMePage {
    * @param index used to get element original and new positions from the HTML
    */
   async reorderSubCategories(index) {
-    console.log("edit -reorder from: " + index.from + "to: " + index.to);
     this.subCategories = reorderArray(this.subCategories, index);//reordering array
     //updating each category order field according to its array position
     let i = (index.from > index.to) ? index.to : index.from;
@@ -229,7 +224,6 @@ export class AboutMePage {
   * @param index used to get element original and new positions from the HTML
   */
   async reorderPhrases(index) {
-    console.log("edit -reorder from: " + index.from + "to: " + index.to);
     this.phrases = reorderArray(this.phrases, index);//reordering array
     //updating each category order field according to its array position
     let i = (index.from > index.to) ? index.to : index.from;
@@ -261,7 +255,7 @@ export class AboutMePage {
    * delete category
    * @param item category to delete
    */
-  deleteSubCategory(item) {
+  deleteSubCategory(item, slidingItem: ItemSliding) {
     const alert = this.alertCtrl.create({
       title: 'בטוח למחוק?',
       message: 'המחיקה היא סופית וכוללת את כול התוכן של הקטגוריה כולל הביטויים שבה!',
@@ -270,13 +264,13 @@ export class AboutMePage {
           text: 'בטל',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            this.errorProvider.shortToast('לחצת ביטול');
+            slidingItem.close();
           }
         },
         {
           text: 'מ ח ק',
           handler: () => {
-            console.log('delete clicked');
             this.removeSubCategory(item); //delete the category
           }
         }
@@ -316,9 +310,7 @@ export class AboutMePage {
    * Delete selected phrase
    * @param item phrase to remove
    */
-  deletePhrase(item) {
-    console.log("edit delete phrase");
-    console.log(item);
+  deletePhrase(item, slidingItem: ItemSliding) {
     const alert = this.alertCtrl.create({
       title: 'בטוח למחוק?',
       message: 'המחיקה היא סופית!',
@@ -327,13 +319,13 @@ export class AboutMePage {
           text: 'בטל',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            this.errorProvider.shortToast('לחצת ביטול');
+            slidingItem.close();
           }
         },
         {
           text: 'מ ח ק',
           handler: () => {
-            console.log('delete clicked');
             this.removePhrase(item); //delete the phrase
           }
         }
@@ -355,7 +347,6 @@ export class AboutMePage {
   * on click for the "show/hide phrases" button
   */
   public onClickShowPhrases() {
-    console.log(this.showPhrases)
     this.showPhrases = !this.showPhrases;
   }
 

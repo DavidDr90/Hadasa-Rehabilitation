@@ -71,7 +71,7 @@ export class AboutMeFormPage {
 
         this.categoryProvider.addCategory(this.aboutMeCategory);
         console.log("about me cat was created")
-        this.errorProvider.simpleTosat("aboutMe cat was created")
+        this.errorProvider.simpleToast("aboutMe cat was created")
       })
 
 
@@ -92,7 +92,7 @@ export class AboutMeFormPage {
     this.navCtrl.setRoot(TabsPage);
 
     /* else {
-       this.errorProvider.simpleTosat("You must verify your email to continue.")
+       this.errorProvider.simpleToast("You must verify your email to continue.")
        this.navCtrl.setRoot(AboutMeFormPage) 
      }*/
 

@@ -10,6 +10,7 @@ import { StorageProvider } from '../../providers/storage/storage';
 import { HomePage } from '../home/home';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
+import { ErrorProvider } from '../../providers/error/error';
 
 
 @Component({
@@ -26,6 +27,7 @@ export class CategoriesPage {
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
+    public errorProvider :ErrorProvider,
     public storage: StorageProvider,
     public alertCtrl: AlertController,
     public loadingCtrl: LoadingController) {
@@ -113,18 +115,15 @@ export class CategoriesPage {
    * @param index used to get element original and new positions from the HTML
    */
   async reorderItem(index) {
-    console.log("edit -reorder from: " + index.from + "to: " + index.to);
-    let temp = await this.categoryService.getCategories;
-
-    console.log("edit reorder array size: " + temp.length);
+    let temp = await this.categories;
     temp = reorderArray(temp, index);//reordering array
     //updating each category order field according to its array position
     let i = (index.from > index.to) ? index.to : index.from;
     let finish = (index.from > index.to) ? index.from : index.to;
     for (; i <= finish; i++) {
       await this.categoryService.setOrder(temp[i], i);
-      console.log("updated i: " + i);
     }
+    await this.categoryService.updateCategoriesArray(); //update DB
     this.updateLocalCategoriesArray();
 
   }
@@ -153,7 +152,7 @@ export class CategoriesPage {
    * Delete selected category after the user accepts the alert
    * @param item category to delete
    */
-  async deleteCategory(item) {
+  async deleteCategory(item, slidingItem) {
     let loading = this.loadingCtrl.create({
       content: 'אנא המתן, אנחנו מוחקים'
     });
@@ -165,7 +164,8 @@ export class CategoriesPage {
           text: 'בטל',
           role: 'cancel',
           handler: () => {
-            console.log('Cancel clicked');
+            this.errorProvider.shortToast('לחצת ביטול');
+            slidingItem.close();
           }
         },
         {
