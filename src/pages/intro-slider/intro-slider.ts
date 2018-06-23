@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 import { TabsPage } from '../tabs/tabs'
 import { AutenticationProvider } from '../../providers/autentication/autentication';
 import { MyApp } from '../../app/app.component';
-import { AboutMeFormPage } from '../about-me-form/about-me-form';
 import { User } from '../../models/user';
 import { ErrorProvider } from '../../providers/error/error';
 import { OurAppPage } from '../our-app/our-app';
-import * as firebase from 'firebase/app';
 
 
 @Component({
@@ -28,11 +26,6 @@ export class IntroSliderPage {
 
 
   }
-
-  ionViewDidLoad() {
-  }
-
-
 
   public async logIn() {
     let connection = await this.authentication.checkConnection()
@@ -147,70 +140,6 @@ export class IntroSliderPage {
 
     myModal.present();
   }
-
-
-  // This function called by clicking login-button.
-  // public async logIn() {
-
-  //   if (this.authentication.checkEmailValidity(this.user.email)) {
-  //   // this.loading_sign = true;
-  //   // The function toggleSignIn will connect the user with redirect-auth.
-  //   // let promise = this.authentication.toggleSignIn(this.user);
-  //   let logged_in = await this.authentication.signIn(this.user.email, this.user.password);
-  //   if (this.authentication.afAuth.auth.currentUser) {
-  //     //Checks if the user email verified. If it is not verified stay the user in this page.
-  //     if (!this.authentication.afAuth.auth.currentUser.emailVerified) {
-  //       this.errorProvider.simpleTosat("You must verify your email before log-in.");
-  //       this.navCtrl.setRoot(IntroSliderPage);
-  //       this.authentication.logOut();
-  //     }
-  //   }
-  //   else {
-  //     this.errorProvider.simpleTosat(logged_in)
-  //   }
-  // }
-  // else{
-  //   this.errorProvider.simpleTosat("כתובת המייל שהוזנה איננה תקפה")
-  // }
-  // }
-
-
-  // public register() {
-
-  //   if (this.authentication.checkEmailValidity(this.user.email)) 
-  //   {
-  //   let registered = this.authentication.registerNewUser(this.user.email, this.user.password);
-  //   let res = new Promise((resolve, reject) => {
-  //     resolve(registered);
-  //   });
-
-  //   res.then((data) => {
-  //     if (this.authentication.afAuth.auth.currentUser) {
-  //       //Sends verification email when user register at first time.
-  //       this.authentication.afAuth.auth.currentUser.sendEmailVerification();
-  //     }
-  //     //Toasts the register state. (success or fail).
-  //     this.errorProvider.simpleTosat(data)
-
-  //     let wait_promise = this.errorProvider.waitAlert("Verify Email","Please enter the link in your mail. Continue after you verified.")
-  //     wait_promise.then(async ()=>
-  //   {
-  //     await this.authentication.getCurrentUser.reload()
-  //     this.authentication.getCurrentUser.getToken(true)
-  //   })
-
-  //   });
-  // }
-  // else{
-  //   this.errorProvider.simpleTosat("Email is not valid.")
-  // }
-
-  // }
-
-  /** display to the user a page with information about the app
-   *  this can be accsses without registertion
-   */
-
 
 }
 

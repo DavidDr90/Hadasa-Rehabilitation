@@ -1,13 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, AlertController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 import { Category } from '../../models/Category';
 import { TabsPage } from '../tabs/tabs';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
-import * as Enums from '../../consts/enums';
 import { AutenticationProvider } from '../../providers/autentication/autentication';
-import { ErrorProvider } from '../../providers/error/error';
-import { AddPhrasePage } from '../add-phrase/add-phrase';
 import { AppBuilderProvider } from '../../providers/app-builder/app-builder';
 
 
@@ -44,7 +41,7 @@ export class AboutMeFormPage {
     this.appBuilderProvider = 
     new AppBuilderProvider(this.categoryProvider, this.phrasesProvider, loadingCtrl, authentication);
     this.appBuilderProvider.fillDB();
-    navCtrl.setRoot(TabsPage, {'firstTime' : true});
+    navCtrl.setRoot(TabsPage);
   }
 
   aboutMeCategory: Category

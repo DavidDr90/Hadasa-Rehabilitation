@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { Phrase } from "../../models/Phrase"
 import { PhrasePopupPage } from '../../pages/phrase-popup/phrase-popup';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController } from 'ionic-angular';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { HomePage } from '../../pages/home/home';
 import { PhrasesProvider } from '../../providers/phrases/phrases';

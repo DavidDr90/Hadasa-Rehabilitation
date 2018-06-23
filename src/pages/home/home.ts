@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, LoadingController, ModalController, NavParams } from 'ionic-angular';
+import { NavController, LoadingController, ModalController } from 'ionic-angular';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 
 import { Favorite } from '../../models/Favorite';
 
 import { FavoriteProvider } from '../../providers/favorite/favorite';
-import { AppBuilderProvider } from '../../providers/app-builder/app-builder';
 import { StorageProvider } from '../../providers/storage/storage';
 import { FirebaseProvider } from '../../providers/firebase/firebase'
 import { AutenticationProvider } from '../../providers/autentication/autentication';
@@ -38,11 +37,8 @@ export class HomePage {
     public categoryProvider: CategoryServiceProvider,
     public phrasesProvider: PhrasesProvider,
     public loadingCtrl: LoadingController,
-    public navParams: NavParams,
   ) {
-    let x = navParams.get('firstTime');
-    this.isToggled = (x) ? false : true;
-    debugger
+    this.isToggled = true;
 
     this.percentage = 0;
     HomePage.userEmail = authentication.user.email;//fill the user email. being used in app-builder constructor.

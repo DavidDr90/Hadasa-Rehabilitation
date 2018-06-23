@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { NavController, NavParams, Platform } from 'ionic-angular';
 //for the recorder functions
 import { Media, MediaObject } from '@ionic-native/media';
 import { ErrorProvider } from '../../providers/error/error';

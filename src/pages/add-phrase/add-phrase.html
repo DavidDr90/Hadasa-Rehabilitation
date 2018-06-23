@@ -58,11 +58,11 @@
     <ion-item id="recordDiv" *ngIf="!isCategory">
       <ion-grid>
         <ion-row justify-content-center>
-          <button ion-button (click)="startRecord()" *ngIf="!recording">
+          <button ion-button color="red" round (click)="startRecord()" *ngIf="!recording">
             <ion-icon name="mic"></ion-icon>
             &nbsp; התחל הקלטה
           </button>
-          <button ion-button (click)="stopRecord()" *ngIf="recording">
+          <button ion-button round (click)="stopRecord()" *ngIf="recording">
             <ion-icon name="mic-off"></ion-icon>
             &nbsp; עצור הקלטה
           </button>
