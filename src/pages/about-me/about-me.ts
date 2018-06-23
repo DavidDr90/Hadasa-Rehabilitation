@@ -243,7 +243,7 @@ export class AboutMePage {
    * edit sub category usin add phrase page
    * @param item sub cat to edit
    */
-  editSubCategory(item) {
+  editSubCategory(item, slidingItem: ItemSliding) {
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.CATEGORY,
@@ -251,6 +251,9 @@ export class AboutMePage {
         'editCategory': true,
         'categoryToEdit': item,
       });
+    addModal.onDidDismiss(it => {
+      slidingItem.close();
+    })
     addModal.present();//present the addPhrasePage
   }
 
@@ -295,7 +298,7 @@ export class AboutMePage {
    * edit phrase using add phrase page
    * @param item prase to edit
    */
-  editPhrase(item) {
+  editPhrase(item, slidingItem: ItemSliding) {
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.PHRASE,
@@ -303,6 +306,9 @@ export class AboutMePage {
         'editPhrase': true,
         'phraseToEdit': item,
       });
+    addModal.onDidDismiss(it => {
+      slidingItem.close();
+    })
     addModal.present();//present the addPhrasePage
   }
 

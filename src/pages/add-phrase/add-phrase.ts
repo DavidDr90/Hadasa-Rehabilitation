@@ -153,7 +153,7 @@ export class AddPhrasePage {
       //display the old image and audio file in the form
       if (this.phraseToEdit.imageURL != '')
         this.imageURL = this.phraseToEdit.imageURL;
-      if (this.phraseToEdit.audio != ''){
+      if (this.phraseToEdit.audio != '') {
         this.audioFileURL = this.phraseToEdit.audio;
         this.fileName = "קובץ קול ישן";
       }
@@ -353,14 +353,6 @@ export class AddPhrasePage {
           icon: 'images',
           handler: () => {
             this.takePicture(this.camera.PictureSourceType.PHOTOLIBRARY);
-          }
-        },
-        {
-          text: '\xa0 חיפוש ברשת',
-          icon: 'logo-google',
-          handler: () => {
-            console.log('search on line');
-            //  connect to alex's google custom image search with the input text
           }
         },
 

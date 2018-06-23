@@ -37,7 +37,7 @@ export class CategoriesPage {
 
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.updateLocalCategoriesArray();
   }
 
@@ -134,9 +134,7 @@ export class CategoriesPage {
    * the existing category is updated based on user modifications
    * @param item the category to edit
    */
-  editCategory(item) {
-    console.log("edit -contents");
-    console.log(item);
+  editCategory(item, slidingItem: ItemSliding) {
     let categoryToEdit = item as Category;
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
@@ -145,6 +143,9 @@ export class CategoriesPage {
         'editCategory': true,
         'categoryToEdit': item,
       });
+    addModal.onDidDismiss(it => {
+      slidingItem.close();
+    })
     addModal.present();//present the addPhrasePage
   }
 

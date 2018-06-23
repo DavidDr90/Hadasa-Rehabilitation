@@ -192,8 +192,6 @@ export class PhrasesPage {
     if (this.editFlag) {
       this.editFlag = false;
       this.editButtonName = "עריכה";
-      //await this.AsyncPhrasesloader()
-      //await this.categoryService.updateCategoriesArray(); //update DB
     } else {
       this.editFlag = true;
       this.editButtonName = "סיים";
@@ -222,7 +220,6 @@ export class PhrasesPage {
  * @param index used to get element original and new positions from the HTML
  */
   async reorderPhrases(index) {
-    console.log("edit -reorder from: " + index.from + "to: " + index.to);
     this.phrases = reorderArray(this.phrases, index);//reordering array
     //updating each category order field according to its array position
     let i = (index.from > index.to) ? index.to : index.from;
@@ -236,7 +233,7 @@ export class PhrasesPage {
    * edit sub category usin add phrase page
    * @param item sub cat to edit
    */
-  editSubCategory(item) {
+  editSubCategory(item, slidingItem: ItemSliding) {
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.CATEGORY,
@@ -244,6 +241,9 @@ export class PhrasesPage {
         'editCategory': true,
         'categoryToEdit': item,
       });
+    addModal.onDidDismiss(it => {
+      slidingItem.close();
+    })
     addModal.present();//present the addPhrasePage
   }
 
@@ -288,7 +288,7 @@ export class PhrasesPage {
    * edit phrase using add phrase page
    * @param item prase to edit
    */
-  editPhrase(item) {
+  editPhrase(item, slidingItem: ItemSliding) {
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.PHRASE,
@@ -296,6 +296,9 @@ export class PhrasesPage {
         'editPhrase': true,
         'phraseToEdit': item,
       });
+    addModal.onDidDismiss(it => {
+      slidingItem.close();
+    })
     addModal.present();//present the addPhrasePage
   }
 
@@ -342,7 +345,6 @@ export class PhrasesPage {
   * on click for the "show/hide phrases" button
   */
   public onClickShowPhrases() {
-    console.log(this.showPhrases)
     this.showPhrases = !this.showPhrases;
   }
 

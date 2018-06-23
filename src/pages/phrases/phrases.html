@@ -61,7 +61,7 @@
                     </my-category>
                 </ion-item>
                 <ion-item-options side="right">
-                    <button ion-button (click)="editSubCategory(item)">
+                    <button ion-button (click)="editSubCategory(item, slidingItem)">
                         <ion-icon name="create"></ion-icon>
                         ערוך
                     </button>
@@ -90,7 +90,7 @@
                     <phrase [editMode]="editFlag" [phrase]="item"></phrase>
                 </ion-item>
                 <ion-item-options side="right">
-                    <button ion-button (click)="editPhrase(item)">
+                    <button ion-button (click)="editPhrase(item, slidingItem)">
                         <ion-icon name="create"></ion-icon>
                         ערוך
                     </button>
