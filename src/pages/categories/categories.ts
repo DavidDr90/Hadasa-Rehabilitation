@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, AlertController, reorderArray } from 'ionic-angular';
+import { NavController, NavParams, ModalController, AlertController, reorderArray, LoadingController, ItemSliding } from 'ionic-angular';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
 
 import { Category } from '../../models/Category';
@@ -7,7 +7,6 @@ import { PhrasesPage } from '../phrases/phrases';
 
 import * as Enums from '../../consts/enums';
 import { StorageProvider } from '../../providers/storage/storage';
-import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { FavoriteProvider } from '../../providers/favorite/favorite';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
@@ -21,31 +20,41 @@ export class CategoriesPage {
 
   public phrasesPage: PhrasesPage;
   favProvider: FavoriteProvider;
-  private tempCategory;
+  private categories: Category[];
 
   constructor(public categoryService: CategoryServiceProvider,
     public navParams: NavParams,
     public modalCtrl: ModalController,
     public navCtrl: NavController,
     public storage: StorageProvider,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController) {
 
-    
-
-    this.categoryService.setIncludeAboutMe(false); //we ignore aboutMe category on this page
     this.categoryService.updateCategoriesArray();
+    this.updateLocalCategoriesArray();
+
     this.favProvider = new FavoriteProvider(HomePage.favClass);
 
   }
 
-  ionViewWillEnter() { //we ignore aboutMe category on this page
-    this.categoryService.setIncludeAboutMe(false);
-    this.categoryService.updateCategoriesArray();
+  ionViewDidEnter(){
+    this.updateLocalCategoriesArray();
+  }
+
+  private updateLocalCategoriesArray() {
+    this.categories = this.categoryService.categories;
+    //we ignore aboutMe category on this page
+    let aboutMe = this.categories.find(cat => cat.name == Enums.ABOUT_ME_STRING);
+    if (aboutMe != undefined) {
+      var indexAM = this.categories.indexOf(aboutMe);
+      if (indexAM > -1)
+        this.categories.splice(indexAM, 1);
+    }
   }
 
   //popup the category's phrases's page, if in edit mode -> ignore
   public openCategoryPhrases(category: Category) {
-    if(this.editFlag)
+    if (this.editFlag)
       return; //no action
     //this.editFlag = false;
     //this.editButtonName = "עריכה";
@@ -67,7 +76,10 @@ export class CategoriesPage {
       });
     addModal.onDidDismiss(item => {
       if (item) {//if there is an object that return from the form
-        this.categoryService.addCategory(item);//upload the new category to the DB
+        let pro = this.categoryService.addCategory(item);//upload the new category to the DB
+        pro.then(() => {
+          this.updateLocalCategoriesArray()
+        });
       }
     })
     addModal.present();//present the addPhrasePage
@@ -83,16 +95,14 @@ export class CategoriesPage {
     if (this.editFlag) {
       this.editFlag = false;
       this.editButtonName = "עריכה";
-      //we ignore aboutMe category on this page
-      this.categoryService.setIncludeAboutMe(false);
       await this.categoryService.updateCategoriesArray(); //update DB
- 
+      this.updateLocalCategoriesArray();
+
     } else {
       this.editFlag = true;
       this.editButtonName = "סיים";
-      //we ignore aboutMe category on this page
-      this.categoryService.setIncludeAboutMe(false);
       await this.categoryService.updateCategoriesArray(); //update DB
+      this.updateLocalCategoriesArray();
     }
 
   }
@@ -104,23 +114,19 @@ export class CategoriesPage {
    */
   async reorderItem(index) {
     console.log("edit -reorder from: " + index.from + "to: " + index.to);
-    this.categoryService.setIncludeAboutMe(false);
     let temp = await this.categoryService.getCategories;
-    //we ignore aboutMe category on this page
-    let aboutMe = temp.find(cat => cat.name == Enums.ABOUT_ME_STRING);
-    if(aboutMe != undefined){    
-      var indexAM = temp.indexOf(aboutMe);
-      if(index > -1)
-        temp.splice(indexAM, 1);
-    }
-    let catArray = temp as Category[];
+
     console.log("edit reorder array size: " + temp.length);
     temp = reorderArray(temp, index);//reordering array
     //updating each category order field according to its array position
-    for(var i = 0; i < temp.length; i++){ 
-      await this.categoryService.setOrder(temp[i], i + 1);   
-      console.log("updated i: " + i);   
-    }       
+    let i = (index.from > index.to) ? index.to : index.from;
+    let finish = (index.from > index.to) ? index.from : index.to;
+    for (; i <= finish; i++) {
+      await this.categoryService.setOrder(temp[i], i);
+      console.log("updated i: " + i);
+    }
+    this.updateLocalCategoriesArray();
+
   }
 
   /**
@@ -146,9 +152,10 @@ export class CategoriesPage {
    * Delete selected category after the user accepts the alert
    * @param item category to delete
    */
-  deleteCategory(item) {
-    console.log("edit -delete");
-    console.log(item);
+  async deleteCategory(item) {
+    let loading = this.loadingCtrl.create({
+      content: 'אנא המתן, אנחנו מוחקים'
+    });
     const alert = this.alertCtrl.create({
       title: 'בטוח למחוק?',
       message: 'המחיקה היא סופית וכוללת את כול התוכן של הקטגוריה כולל הביטויים שבה!',
@@ -163,26 +170,27 @@ export class CategoriesPage {
         {
           text: 'מ ח ק',
           handler: () => {
-            console.log('delete clicked');
-            this.categoryService.removeCategory(item); //delete the category
+            loading.present();
+            let pro = this.categoryService.removeCategory(item);
+            pro.then(() => {
+              this.updateLocalCategoriesArray();
+              loading.dismiss();
+
+            })
           }
         }
       ]
     });
-    alert.present();    
+    alert.present();
   }
 
-  changeVisibility(item) {
-    /**TODO:
-     * change the visibility status when clicked
-     * the unvisibale categories should by in a different style then the visible on
-     * the user can see the unvisibale categories only in 'edit mode'
-     */
-    
-    console.log("edit -visibility");
-    console.log(item);
+  /**change the visibility status when clicked, close slider
+  * the unvisibale categories should by in a different style then the visible on
+  * the user can see the unvisibale categories only in 'edit mode'
+  */
+  changeVisibility(item, slidingItem: ItemSliding) {
     this.categoryService.changeVisibility(item);
-    
+    slidingItem.close();
   }
 
 

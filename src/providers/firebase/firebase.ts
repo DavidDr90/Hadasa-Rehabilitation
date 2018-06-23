@@ -106,10 +106,10 @@ export class FirebaseProvider {
 
   addCategory(category: Category) {    
     return this.categoriesCollection.add(Category.toObject(category)).then(function(){
-      console.log("Document successfully added");
+      console.log("Document successfully added, name = " + category.name);
     }).catch(function(e){
       console.error("Error adding document: ", e);
-      this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
+      this.error.simpleTosat("הוספה נכשלה");
     })
   }
 
@@ -118,7 +118,7 @@ export class FirebaseProvider {
       console.log("Document successfully deleted!");
   }).catch(function(e) {
       console.error("Error removing document: ", e);
-      this.error.simpleTosat("מחיקה נכשלה, בעיית התחברות");
+      this.error.simpleTosat("מחיקה נכשלה");
   });
   }
 
@@ -128,10 +128,10 @@ export class FirebaseProvider {
 
   addPhrase(phrase: Phrase) {
     return this.phrasesCollection.add(Phrase.toObject(phrase)).then(function(){
-      console.log("Document successfully added");
+      console.log("Document successfully added, name = " + phrase.name);
     }).catch(function(e){
       console.error("Error adding document: ", e);
-      this.error.simpleTosat("הוספה נכשלה, בעיית התחברות");
+      this.error.simpleTosat("הוספה נכשלה");
     })
   }
 
@@ -140,7 +140,7 @@ export class FirebaseProvider {
       console.log("Document successfully deleted!");
   }).catch(function(e) {
       console.error("Error removing document: ", e);
-      this.error.simpleTosat("מחיקה נכשלה, בעיית התחברות");
+      this.error.simpleTosat("מחיקה נכשלה");
   });
   }
 

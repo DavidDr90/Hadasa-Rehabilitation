@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, ModalController, ActionSheetController, LoadingController, reorderArray, AlertController  } from 'ionic-angular';
+import { NavController, NavParams, ModalController, ActionSheetController, LoadingController, reorderArray, AlertController, ItemSliding } from 'ionic-angular';
 import { PhrasesProvider } from '../../providers/phrases/phrases';
 import { Category } from '../../models/Category';
 import { Phrase } from '../../models/Phrase';
 
 import * as Enums from '../../consts/enums';
 import { CategoryServiceProvider } from '../../providers/category-service/category-service';
-import { CategoriesPage } from '../categories/categories';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { AddPhrasePage } from '../add-phrase/add-phrase';
 
 @Component({
@@ -20,6 +18,7 @@ export class PhrasesPage {
   public parentCategory: Category;
   public phrases: Phrase[];
   public subCategories: Category[];
+
   public hasSubCategories: boolean = false;
   public showPhrases: boolean = false;
   public hasPhrases: boolean = false;
@@ -31,7 +30,7 @@ export class PhrasesPage {
     private _actionSheetCtrl: ActionSheetController,
     public categoryService: CategoryServiceProvider,
     public loadingCtrl: LoadingController,
-    public alertCtrl : AlertController,
+    public alertCtrl: AlertController,
   ) {
     //get the parent category object from the clickable category.
     this.parentCategory = navParams.get('parentCategory');
@@ -69,8 +68,8 @@ export class PhrasesPage {
   public removeSubCategory(category: Category) {
     this.categoryService.removeCategory(category);
     setTimeout(() => {
-       this.AsyncPhrasesloader()  
-    }, 1500)   
+      this.AsyncPhrasesloader()
+    }, 1500)
   }
 
   //popup the category's phrases's page, using for sub-catergories
@@ -85,10 +84,8 @@ export class PhrasesPage {
     console.log("in add phrase")
     setTimeout(() => {
       this.phrasesProvider.addPhrase(phrase);
-      this.AsyncPhrasesloader()      
+      this.AsyncPhrasesloader()
     }, 500)
-    this.phrasesProvider.arrangePhrasesByOrder();
-    
   }
 
   //handler that remove phrase and update the display 
@@ -96,10 +93,10 @@ export class PhrasesPage {
     console.log("in add phrase")
     setTimeout(async () => {
       await this.phrasesProvider.removePhrase(phrase);
-      this.AsyncPhrasesloader()      
+      this.AsyncPhrasesloader()
     }, 500)
     this.phrasesProvider.arrangePhrasesByOrder();
-    
+
   }
 
   /** When the add button pressed in a phrases page it can be in two different version
@@ -112,7 +109,7 @@ export class PhrasesPage {
   *   if we are in edit mode IGNORE
   */
   addButtonPressed() {
-    if(this.editFlag)
+    if (this.editFlag)
       return;//no action
     if (this.parentCategory.parentCategoryID == "")
       this.presentActionSheet();
@@ -163,7 +160,7 @@ export class PhrasesPage {
   * Prompt the user to add a new phrase. This shows our AddPhrasePage in a
   * modal and then adds the new item to our data source if the user created one.
   */
-  openAddPage(fromWhere) {   
+  openAddPage(fromWhere) {
     let addModal = this.modalCtrl.create(AddPhrasePage,
       { 'fromWhere': fromWhere, 'categoryID': this.parentCategory.id });
     addModal.onDidDismiss(item => {
@@ -184,8 +181,7 @@ export class PhrasesPage {
 
   /*******************  Edit Mode section ****************/
 
-  Pvisible: boolean = true;
-  Svisible: boolean = true;
+
   editFlag: boolean = false;
   editButtonName: string = "עריכה";
 
@@ -204,34 +200,36 @@ export class PhrasesPage {
     }
   }
 
-     /**
+  /**
    * Using reorderArray to move element between positions in the array
    * then update order of each sub-category using its new place in the array
    * @param index used to get element original and new positions from the HTML
    */
   async reorderSubCategories(index) {
     console.log("edit -reorder from: " + index.from + "to: " + index.to);
-    this.subCategories = await this.categoryService.getSubCategoriesOfParent(this.parentCategory.id);
     this.subCategories = reorderArray(this.subCategories, index);//reordering array
     //updating each category order field according to its array position
-    for(var i = 0; i < this.subCategories.length; i++){ 
-      await this.categoryService.setOrder(this.subCategories[i], i + 1);         
-    } 
+    let i = (index.from > index.to) ? index.to : index.from;
+    let finish = (index.from > index.to) ? index.from : index.to;
+    for (; i <= finish; i++) {
+      await this.categoryService.setOrder(this.subCategories[i], i);
+    }
   }
 
-    /**
-   * Using reorderArray to move element between positions in the array
-   * then update order of each sub-category using its new place in the array
-   * @param index used to get element original and new positions from the HTML
-   */
-  async reorderPhrases(index){
-    console.log("edit -reorder from: " + index.from + "to: " + index.to);    
-    //let phraseArray = await this.phrasesProvider.getPhrases(this.parentCategory);    
+  /**
+ * Using reorderArray to move element between positions in the array
+ * then update order of each sub-category using its new place in the array
+ * @param index used to get element original and new positions from the HTML
+ */
+  async reorderPhrases(index) {
+    console.log("edit -reorder from: " + index.from + "to: " + index.to);
     this.phrases = reorderArray(this.phrases, index);//reordering array
     //updating each category order field according to its array position
-    for(var i = 0; i < this.phrases.length; i++){ 
-      await this.phrasesProvider.setOrder(this.phrases[i], i + 1);   
-    } 
+    let i = (index.from > index.to) ? index.to : index.from;
+    let finish = (index.from > index.to) ? index.from : index.to;
+    for (; i <= finish; i++) {
+      await this.phrasesProvider.setOrder(this.phrases[i], i);
+    }
   }
 
   /**
@@ -239,9 +237,6 @@ export class PhrasesPage {
    * @param item sub cat to edit
    */
   editSubCategory(item) {
-    console.log("edit subCategory");
-    console.log(item);
-    let categoryToEdit = item as Category;
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.CATEGORY,
@@ -257,8 +252,6 @@ export class PhrasesPage {
    * @param item category to delete
    */
   deleteSubCategory(item) {
-    console.log("edit delete sub category");
-    console.log(item);
     const alert = this.alertCtrl.create({
       title: 'בטוח למחוק?',
       message: 'המחיקה היא סופית וכוללת את כול התוכן של הקטגוריה כולל הביטויים שבה!',
@@ -279,18 +272,16 @@ export class PhrasesPage {
         }
       ]
     });
-    alert.present();  
+    alert.present();
   }
 
-  changeSubCatVisibility(item) {
-    /**TODO:
-     * change the visibility status when clicked
-     * the unvisibale categories should by in a different style then the visible on
-     * the user can see the unvisibale categories only in 'edit mode'
-     */
-    console.log("edit visibility sub");
-    console.log(item);
+  /** change the visibility status when clicked, and close the slider
+  * the unvisibale categories should by in a different style then the visible on
+  * the user can see the unvisibale categories only in 'edit mode'
+  */
+  changeSubCatVisibility(item, slidingItem: ItemSliding) {
     this.categoryService.changeVisibility(item);
+    slidingItem.close();
   }
 
   /**
@@ -298,9 +289,6 @@ export class PhrasesPage {
    * @param item prase to edit
    */
   editPhrase(item) {
-    console.log("edit phrase");
-    console.log(item);
-    let phraseToEdit = item as Phrase;
     let addModal = this.modalCtrl.create(AddPhrasePage,
       {
         'fromWhere': Enums.ADD_OPTIONS.PHRASE,
@@ -310,7 +298,7 @@ export class PhrasesPage {
       });
     addModal.present();//present the addPhrasePage
   }
-  
+
   /**
    * Delete selected phrase
    * @param item phrase to remove
@@ -338,18 +326,16 @@ export class PhrasesPage {
         }
       ]
     });
-    alert.present(); 
+    alert.present();
   }
 
-  changephraseVisibility(item) {
-    /**TODO:
-     * change the visibility status when clicked
-     * the unvisibale categories should by in a different style then the visible on
-     * the user can see the unvisibale categories only in 'edit mode'
-     */
-    console.log("edit visibility phrase");
-    console.log(item);
+  /** change the visibility status when clicked, and close the slider
+  * the unvisibale categories should by in a different style then the visible on
+  * the user can see the unvisibale categories only in 'edit mode'
+  */
+  changePhraseVisibility(item, slidingItem: ItemSliding) {
     this.phrasesProvider.changeVisibility(item);
+    slidingItem.close();
   }
 
   /**

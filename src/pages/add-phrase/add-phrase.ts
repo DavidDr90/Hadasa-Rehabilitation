@@ -100,7 +100,7 @@ export class AddPhrasePage {
 
     //create a loading window
     this.pleaseWaitLoadingWindow = this.loadingCtrl.create({
-      content: 'אנא המתן...',
+      content: 'אנחנו מייצרים את תת-קטגוריה "משפטים"',
       dismissOnPageChange: true//close the loading window when close the page
     });
 
@@ -120,33 +120,45 @@ export class AddPhrasePage {
     });
 
     //check if we opened this page from edit category mode and supllied the right nav params
-    if(this.navParams.get('editCategory') && this.navParams.get('categoryToEdit')){
+    if (this.navParams.get('editCategory') && this.navParams.get('categoryToEdit')) {
       console.log("were in edit category");
       console.log(this.navParams.get('categoryToEdit'));
       this.isEditCategory = true;
       this.categoryToEdit = this.navParams.get('categoryToEdit') as Category;
       //modify the form object based on category to edit
-      this._myForm.patchValue({"text": this.categoryToEdit.name, 
+      this._myForm.patchValue({
+        "text": this.categoryToEdit.name,
         "categoryID": this.navParams.get('categoryID'),
         "imagePath": this.categoryToEdit.imageURL,
-        "audioFile": '', 
+        "audioFile": '',
       });
+      //display the old image in the form
+      if (this.categoryToEdit.imageURL != '')
+        this.imageURL = this.categoryToEdit.imageURL;
     }
 
     //check if we opened this page from edit phrase mode and supllied the right nav params
-    if(this.navParams.get('editPhrase') && this.navParams.get('phraseToEdit')){
+    if (this.navParams.get('editPhrase') && this.navParams.get('phraseToEdit')) {
       console.log("were in edit phrase");
       console.log(this.navParams.get('phraseToEdit'));
       this.isEditPhrase = true;
       this.phraseToEdit = this.navParams.get('phraseToEdit') as Phrase;
       //modify the form object based on category to edit
-      this._myForm.patchValue({"text": this.phraseToEdit.name, 
+      this._myForm.patchValue({
+        "text": this.phraseToEdit.name,
         "categoryID": this.phraseToEdit.getCategoryID,
         "imagePath": this.phraseToEdit.imageURL,
-        "audioFile": this.phraseToEdit.audio, 
+        "audioFile": this.phraseToEdit.audio,
       });
+      //display the old image and audio file in the form
+      if (this.phraseToEdit.imageURL != '')
+        this.imageURL = this.phraseToEdit.imageURL;
+      if (this.phraseToEdit.audio != ''){
+        this.audioFileURL = this.phraseToEdit.audio;
+        this.fileName = "קובץ קול ישן";
+      }
     }
-   
+
     this.parentCategoryID = this.navParams.get('categoryID');//get the state from the previous page
     if (this.parentCategoryID != Enums.ADD_OPTIONS.NO_CATEGORY)
       this._myForm.patchValue({ 'categoryID': this.parentCategoryID });//add the input category to the form object for sub-categories
@@ -233,21 +245,21 @@ export class AddPhrasePage {
   onSubmit() {
     // use the form object to create/edit elements and add it to the server
     if (!this._myForm.valid) { return; }
-    
-    if (this.isEditCategory){ //we edited existing category
+
+    if (this.isEditCategory) { //we edited existing category
       this.submitEditedCategory()
       this._myForm.reset();//reset the form
       this._viewCtrl.dismiss();
       return; //were done here
     }
 
-    if (this.isEditPhrase){ //we edited existing phrase
+    if (this.isEditPhrase) { //we edited existing phrase
       this.submitEditedPhrase()
       this._myForm.reset();//reset the form
       this._viewCtrl.dismiss();
       return; //were done here
     }
-    
+
     let returnObject;//can be Category or Phrase
     if (this.isCategory) {
       //get the input color that the user choose, if the user didn't choose it set to default
@@ -259,18 +271,20 @@ export class AddPhrasePage {
       }
       returnObject = new Category(this._myForm.controls['text'].value, "",
         this._myForm.controls['imagePath'].value, this.authentication.user.email,
-        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor, -1, true);
+        this._myForm.controls['categoryID'].value, 0, false, this.categoryColor,
+        this.categoryProvider.categories.length + 1, true);
     } else {
       returnObject = new Phrase("", this._myForm.controls['text'].value,
         this._myForm.controls['imagePath'].value, this._myForm.controls['categoryID'].value,
-        0, this._myForm.controls['audioFile'].value, false, -1, true);
+        0, this._myForm.controls['audioFile'].value, false,
+        this.phraseProvider.phrases.length + 1, true);
     }
     this._myForm.reset();//reset the form
     this._viewCtrl.dismiss(returnObject);//return the new object
   }
 
   //called when we edited existing category
-  private async submitEditedCategory(){
+  private async submitEditedCategory() {
     //get the input color that the user choose, if the user didn't choose its left unchanged
     if (this.categoryColor === undefined)
       this.categoryColor = this.categoryToEdit.color;
@@ -279,36 +293,36 @@ export class AddPhrasePage {
       this.categoryColor = (this.categoryColor == undefined) ? Enums.DEFUALT_CATEGORY_COLOR : this.categoryColor;
     }
     this.categoryToEdit.name = this._myForm.controls['text'].value;
-    
-    if(this._myForm.controls['imagePath'].value != undefined ){
+
+    if (this._myForm.controls['imagePath'].value != undefined) {
       console.log("we think that image is defined!");
       console.log(this._myForm.controls['imagePath'].value);
       this.categoryToEdit.imageURL = this._myForm.controls['imagePath'].value;
-    }    
-    else  
+    }
+    else
       this.categoryToEdit.imageURL = '';
 
-    this.categoryToEdit.color = this.categoryColor; 
+    this.categoryToEdit.color = this.categoryColor;
     await this.categoryProvider.updateCategory(this.categoryToEdit);//update category in DB
   }
 
   //called when we edited existing Phrase
-  private async submitEditedPhrase(){
+  private async submitEditedPhrase() {
     this.phraseToEdit.name = this._myForm.controls['text'].value;
-    if(this._myForm.controls['imagePath'].value != undefined){
+    if (this._myForm.controls['imagePath'].value != undefined) {
       console.log("we think that image is defined!");
       console.log(this._myForm.controls['imagePath'].value);
       this.phraseToEdit.imageURL = this._myForm.controls['imagePath'].value;
-    }    
-    else  
+    }
+    else
       this.phraseToEdit.imageURL = '';
-    
-    if(this._myForm.controls['audioFile'].value != undefined){
+
+    if (this._myForm.controls['audioFile'].value != undefined) {
       console.log("we think that audio is defined!");
       console.log(this._myForm.controls['audioFile'].value);
       this.phraseToEdit.audio = this._myForm.controls['audioFile'].value;
-    }    
-    else  
+    }
+    else
       this.phraseToEdit.audio = '';
 
     console.log("can you see phrase?");
@@ -440,10 +454,6 @@ export class AddPhrasePage {
     catch (error) {
       console.log(error);
     }
-
-    /*
-    this.timer.startTimer();
-    }*/
   }
 
   //stop the record and save the audio file on local variable
@@ -462,12 +472,8 @@ export class AddPhrasePage {
           const audio_path = base64File.slice(base64File.indexOf(',') + 1, base64File.length);
 
           let audio_type;
-          //if the platform is iOS use m4a format
-          if (this.platform.is('ios')) {
-            audio_type = 'data:audio/m4a;base64,'
-          } else {
-            audio_type = 'data:audio/mp3;base64,'
-          }
+          audio_type = 'data:audio/mp3;base64,'
+
 
           let promise = await this.storageProvider.uploadFileByPath(audio_path, audio_type);
           let res = new Promise((resolve, reject) => {
@@ -531,36 +537,6 @@ export class AddPhrasePage {
     }
   }
 
-  //use the http provider to get the audio file from the TTS server
-  getAudioFromTTS() {
-    this.errorProvider.toastWithButton("האופציה הזאת לא עובדת בגרסה הנוכחית", "");
-    return;
-
-    // // Deprecaed for this versoin
-    // if (this._myForm.controls['text'].value == "" || (this._myForm.controls['text'].value == undefined)) {
-    //   this.showAlert("לא הוכנס משפט", null);
-    // } else {
-    //    /* let tts_promise = new Promise((resolve, reject) => {
-    //     resolve(this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN)); // Yay! Everything went well!
-    //   });*/
-
-
-    //    /*tts_promise is the promise that make sure that we using the real recieved data from the TTS server
-    //     and not the promise object that the "get" HTTP request returns until the real data arive from the server.*/
-    //   let tts_promise=this.httpProvider.textToSpeech(this._myForm.controls['text'].value, Enums.VOICE_OPTIONS.SIVAN);
-    //  //let "data" be the real data recieved from the TTS server- the audio file.
-    //   tts_promise.then((data) => {
-    //     /*TODO: "data" is the recieved audio file from the TTS server
-    //       after waiting to the tts_promise to be solved.
-    //     */
-    //     console.log("in add phrase page:\n" + data);
-    //     this._myForm.patchValue({ 'audioFile': data });//insert the capture audio file to the form 
-    //   })
-
-    // }
-  }
-
-
   /********** Colors Select Function ********************/
   /** This functions create a select with colors 
    *  please notice that this section is related to the scss file
@@ -584,10 +560,10 @@ export class AddPhrasePage {
       temp.push(item.hexNumber.toLowerCase());//the hex color number is always lower case;
     });
     //filter duplicate valus from colors array
-    temp.forEach( (item) => {
-        if(this.colors.indexOf(item) < 0) {
-          this.colors.push(item);
-        }
+    temp.forEach((item) => {
+      if (this.colors.indexOf(item) < 0) {
+        this.colors.push(item);
+      }
     });
     this.color = this.colors[0];
   }

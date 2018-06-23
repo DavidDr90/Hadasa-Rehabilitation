@@ -17,21 +17,17 @@
 
 
 <ion-content>
-    <button ion-button (click)="this.appBuilderProvider.fillDB()">
-        click here to fill DB
-    </button>
+
     <ion-item>
         <ion-label>הצגת מועדפים</ion-label>
         <ion-toggle [(ngModel)]="isToggled"></ion-toggle>
     </ion-item>
-
 
     <!-- TODO: change the logo path -->
     <div *ngIf="!isToggled" class="center">
         <h1>ברוכים הבאים</h1>
         <img src="assets/imgs/logo.png" id="img" />
     </div>
-
 
     <favorites *ngIf="isToggled"></favorites>
 </ion-content>

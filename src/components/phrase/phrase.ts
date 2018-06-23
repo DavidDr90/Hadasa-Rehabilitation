@@ -34,6 +34,7 @@ export class PhraseComponent {
   public openPopup(event) {
     if(this.editMode){
       console.log("phrase popup ignored in edit mode");
+      this.errorProvider.simpleTosat("לא ניתן ללחוץ על ביטוי במצב עריכה");
       return;
     }
 

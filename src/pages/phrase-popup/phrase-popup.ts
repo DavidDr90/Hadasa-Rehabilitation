@@ -61,7 +61,7 @@ export class PhrasePopupPage {
       this.audioUrlIsEmpty = true;
       setTimeout( () => {
         this.navCtrl.pop()
-      }, 1500)//display for a decent time, 1.5 seconds for now
+      }, 2500)//display for a decent time, 2.5 seconds for now
     }
 
     try {

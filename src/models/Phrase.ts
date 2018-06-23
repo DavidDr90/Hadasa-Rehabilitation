@@ -6,10 +6,6 @@ export class Item {
 
 export class Phrase extends Item {
 
-    //TODO:
-    //for some resone we cann't access the getter & setter function
-    //so for now some of the propertis is public!
-
     public id: string; //the ID of the phrase in the DB
     public name: string; //the hebrew name of the phrase
     public categoryID: string; //the ID of the category of the phrase in the DB
